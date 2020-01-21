@@ -4,12 +4,38 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Valkyrie.App.View.MenuPage">
+             x:Class="Valkyrie.App.View.MenuPage"
+             NavigationPage.HasNavigationBar="False">
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid
+                x:Name="Buttons"
+                Padding="15"
+                Margin="0, 0, 0, 0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="125" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Text="New Game"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Clicked="NewgameClicked" />
+
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
+
 </ContentPage>

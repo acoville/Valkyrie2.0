@@ -9,19 +9,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valkyrie.App.Android", "Val
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valkyrie.App.iOS", "Valkyrie.App.iOS\Valkyrie.App.iOS.csproj", "{8BE7688D-40EB-4B48-81E7-25508C7BD62F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valkyrie.App", "Valkyrie.App\Valkyrie.App.csproj", "{3FA95AB6-EBA7-40AC-961C-DD956FB010CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.App", "Valkyrie.App\Valkyrie.App.csproj", "{3FA95AB6-EBA7-40AC-961C-DD956FB010CD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7D1A102C-EC0B-4257-9AA5-1444791EBA20}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{7D1A102C-EC0B-4257-9AA5-1444791EBA20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{3D28B301-A7D0-43B1-A8EB-C7F06FFFFFC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valkryie.GL", "..\Valkryie.GL\Valkryie.GL.csproj", "{E6E306CF-4FF0-409F-8AD9-DA5EE563DCCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkryie.GL", "..\Valkryie.GL\Valkryie.GL.csproj", "{E6E306CF-4FF0-409F-8AD9-DA5EE563DCCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valkyrie.Graphics", "..\Valkyrie.Graphics\Valkyrie.Graphics.csproj", "{E266EDD7-4F4B-4F2A-9661-3456F682EB90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.Graphics", "..\Valkyrie.Graphics\Valkyrie.Graphics.csproj", "{E266EDD7-4F4B-4F2A-9661-3456F682EB90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{70186BE9-2719-4A32-9E29-36A8A0F947DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valkyrie.GL.Test", "..\Valkyrie.GL.Test\Valkyrie.GL.Test.csproj", "{51F7F038-0594-4FCC-9F67-A08F744D93E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.GL.Test", "..\Valkyrie.GL.Test\Valkyrie.GL.Test.csproj", "{51F7F038-0594-4FCC-9F67-A08F744D93E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
