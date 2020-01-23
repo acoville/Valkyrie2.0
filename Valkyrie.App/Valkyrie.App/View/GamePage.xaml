@@ -462,7 +462,7 @@
                     VerticalOptions="Center"
                     Opacity="{Binding controlOpacity}"
                     BackgroundColor="DarkGray"
-                    Clicked="Button_Clicked_2"/>
+                    Clicked="PauseButtonClicked"/>
 
                 <!-- B Button-->
 

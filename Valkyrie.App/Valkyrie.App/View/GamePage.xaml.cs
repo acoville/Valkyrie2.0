@@ -31,5 +31,34 @@ namespace Valkyrie.App.View
             gpvm_ = new GamePageViewModel();
             BindingContext = gpvm_;
         }
+
+        //===================================================================
+
+        /*----------------------------------
+         * 
+         * Event Handler for a click on the 
+         * paused button
+         * 
+         * --------------------------------*/
+
+        private void PauseButtonClicked(object sender, EventArgs e)
+        {
+            if(gpvm_.Paused)
+            {
+                gpvm_.Paused = false;
+                return;
+            }
+
+            if(!gpvm_.Paused)
+            {
+                gpvm_.Paused = true;
+                return;
+            }
+
+        }
+
+        //===============================================================
+
+
     }
 }

@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*================================================================
+ * 
+ * 
+ * 
+ * 
+ * 
+ * =============================================================*/
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Valkyrie.Graphics;
@@ -42,10 +50,6 @@ namespace Valkyrie.App.ViewModel
             {
                 return displayNavigationBar_;
             }
-            set
-            {
-                displayNavigationBar_ = value;
-            }
         }
 
         //===========================================================
@@ -58,6 +62,29 @@ namespace Valkyrie.App.ViewModel
         public GamePageViewModel()
         {
             deviceScreen_ = new Screen();
+        }
+
+        //=============================================================
+
+        /*----------------------------------
+         * 
+         * Pause logic
+         * 
+         * --------------------------------*/
+
+        internal bool paused_ = true;
+        public bool Paused
+        {
+            get
+            {
+                return paused_;
+            }
+            set
+            {
+                paused_ = value;
+                displayNavigationBar_ = value;
+
+            }
         }
     }
 }

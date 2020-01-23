@@ -50,7 +50,8 @@ namespace Valkyrie.App.View
 
         private void NewgameClicked(object sender, EventArgs e)
         {
-            
+            currentGamePage_ = new GamePage();
+            Navigation.PushAsync(currentGamePage_);
         }
     }
 }
