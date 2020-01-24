@@ -12,7 +12,7 @@
              mc:Ignorable="d"
              x:Class="Valkyrie.App.View.GamePage"
              BackgroundImageSource="{Binding BackgroundImage}"
-             NavigationPage.HasNavigationBar="{Binding DisplayNavigationBar}">
+             NavigationPage.HasNavigationBar="{Binding Paused}">
     
     <!-- Resources -->
 
@@ -81,8 +81,7 @@
                         TextColor="WhiteSmoke"
                         HorizontalTextAlignment="Center"
                         Text="PAUSED" />
-                    
-                    
+
                 </StackLayout>
             </ContentView>
 

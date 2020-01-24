@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Valkyrie.App.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Valkyrie.Graphics;
-using Valkyrie.App.ViewModel;
 
 namespace Valkyrie.App.View
 {
@@ -34,12 +28,12 @@ namespace Valkyrie.App.View
 
         //===================================================================
 
-        /*----------------------------------
+        /*-------------------------------------
          * 
          * Event Handler for a click on the 
          * paused button
          * 
-         * --------------------------------*/
+         * -----------------------------------*/
 
         private void PauseButtonClicked(object sender, EventArgs e)
         {
@@ -56,9 +50,5 @@ namespace Valkyrie.App.View
             }
 
         }
-
-        //===============================================================
-
-
     }
 }

@@ -8,10 +8,21 @@ namespace Valkyrie.App
 {
     public partial class App : Application
     {
+        public MenuPage MainMenu;
+
+        //======================================================
+
+        /*--------------------------------
+         * 
+         * Constructor
+         * also seems to be the entry 
+         * point of the application
+         * 
+         * ------------------------------*/
+
         public App()
         {
             InitializeComponent();
-
             MainPage = new NavigationPage(new SplashPage());
         }
 
@@ -19,7 +30,8 @@ namespace Valkyrie.App
         protected async override void OnStart()
         {
             await Task.Delay(TimeSpan.FromSeconds(4));
-            MainPage = new NavigationPage(new MenuPage());
+            MainMenu = new MenuPage();
+            MainPage = new NavigationPage(MainMenu);
         }
 
         //=====================================================

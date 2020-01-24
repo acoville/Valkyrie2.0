@@ -18,7 +18,6 @@ namespace Valkyrie.App.ViewModel
 {
     public partial class GamePageViewModel : INotifyPropertyChanged
     {
-
         public delegate void InputChangedHandler(Character c, string e);
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -6,8 +6,6 @@ namespace Valkyrie.App.ViewModel
 {
     public class MenuPageViewModel
     {
-        //============================================================================
-
         /*---------------------------------
          * 
          * Constructor
@@ -128,5 +126,7 @@ namespace Valkyrie.App.ViewModel
                 buttonHeight = value;
             }
         }
+
+
     }
 }
