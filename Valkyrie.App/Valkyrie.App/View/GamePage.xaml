@@ -65,7 +65,7 @@
                 WidthRequest="150"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
-                IsVisible="False"
+                IsVisible="{Binding Paused}"
                 Opacity="{Binding controlOpacity}">
 
                 <StackLayout

@@ -11,11 +11,17 @@ using System.Collections.Generic;
 using System.Text;
 using Valkyrie.Graphics;
 using Valkyrie.GL;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Valkyrie.App.ViewModel
 {
-    public partial class GamePageViewModel
+    public partial class GamePageViewModel : INotifyPropertyChanged
     {
+
+        public delegate void InputChangedHandler(Character c, string e);
+        public event PropertyChangedEventHandler PropertyChanged;
+
         //============================================================
 
         /*--------------------------------------
@@ -83,7 +89,23 @@ namespace Valkyrie.App.ViewModel
             {
                 paused_ = value;
                 displayNavigationBar_ = value;
+                RaisePropertyChanged();
+            }
+        }
 
+        //=================================================================
+
+        /*------------------------------------------
+         * 
+         * Event Handler to raise propertyChanged
+         * 
+         * ---------------------------------------*/
+
+        protected void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(caller));
             }
         }
     }
