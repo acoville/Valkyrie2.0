@@ -13,10 +13,7 @@ namespace Valkyrie.App.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OptionsPage : ContentPage
     {
-        MenuPageViewModel menuPageViewModel;
-
-        OptionsPage _options;
-
+        internal OptionsPageViewModel opvm_;
         internal GamePage currentGame;
 
         //==================================================================
@@ -31,9 +28,9 @@ namespace Valkyrie.App.View
         {
             InitializeComponent();
 
-            menuPageViewModel = new MenuPageViewModel();
-            BindingContext = menuPageViewModel;
-            BackgroundImageSource = menuPageViewModel.GetImageSource();
+            opvm_ = new OptionsPageViewModel();
+            BindingContext = opvm_;
+
         }
 
         //================================================================
@@ -48,9 +45,22 @@ namespace Valkyrie.App.View
 
         protected override void OnSizeAllocated(double width, double height)
         {
-            menuPageViewModel.DeviceScreen.GetScreenDetails();
-
+            opvm_.DeviceScreen.GetScreenDetails();
             base.OnSizeAllocated(width, height);
+        }
+
+        //===========================================================================
+
+        /*-----------------------------------
+         * 
+         * Event Handler for Opacity Slider
+         * 
+         * --------------------------------*/
+
+        private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            opvm_.controlOpacity = opacityController.Value;
+            //currentGame.gpvm_.controlOpacity = opacityController.Value;
         }
     }
 }

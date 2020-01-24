@@ -29,10 +29,44 @@
                 </Grid.ColumnDefinitions>
 
                 <Button
+                    x:Name="NewGame_Btn"
                     Text="New Game"
                     Grid.Row="1"
                     Grid.Column="1"
+                    IsEnabled="True"
                     Clicked="NewgameClicked" />
+
+                <Button
+                    x:Name="Save_Btn"
+                    Text="Save Game"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    IsEnabled="False"
+                    Clicked="Save_Btn_Clicked" />
+
+                <Button
+                    x:Name="Load_Btn"
+                    Text="Load Game"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsEnabled="False"
+                    Clicked="Load_Btn_Clicked"/>
+
+                <Button
+                    x:Name="Resume_Btn"
+                    Text="Resume Game"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    IsEnabled="False"
+                    Clicked="Resume_Btn_Clicked"/>
+
+                <Button
+                    x:Name="Options_Btn"
+                    Text="Options"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    IsEnabled="True"
+                    Clicked="Options_Btn_Clicked"/>
 
             </Grid>
         </StackLayout>

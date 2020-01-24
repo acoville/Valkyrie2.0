@@ -13,6 +13,7 @@ using Valkyrie.Graphics;
 using Valkyrie.GL;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Xamarin.Essentials;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -20,6 +21,18 @@ namespace Valkyrie.App.ViewModel
     {
         public delegate void InputChangedHandler(Character c, string e);
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+        //----------- control buttons opacity
+
+        internal double controlOpacity_ = Preferences.Get("controlOpacity", 0.85);
+        public double controlOpacity
+        {
+            get
+            {
+                return controlOpacity_;
+            }
+        }
 
         //============================================================
 
