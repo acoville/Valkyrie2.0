@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Valkyrie.Graphics;
 
 namespace Valkyrie.App.ViewModel
 {
-    public class MenuPageViewModel
+    public class MenuPageViewModel : INotifyPropertyChanged
     {
         /*---------------------------------
          * 
@@ -115,6 +117,27 @@ namespace Valkyrie.App.ViewModel
         //==============================================================================
 
         internal int buttonHeight;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //==============================================================================
+
+        /*------------------------------------------
+         * 
+         * Event Handler to raise propertyChanged
+         * 
+         * ---------------------------------------*/
+
+        protected void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(caller));
+            }
+        }
+
+        //==============================================================================
+
         public int ButtonHeight
         {
             get
@@ -126,7 +149,5 @@ namespace Valkyrie.App.ViewModel
                 buttonHeight = value;
             }
         }
-
-
     }
 }

@@ -61,8 +61,8 @@
             <ContentView
                 x:Name="PauseMenu"
                 BackgroundColor="Black"
-                HeightRequest="100"
-                WidthRequest="150"
+                HeightRequest="75"
+                WidthRequest="175"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 IsVisible="{Binding Paused}"

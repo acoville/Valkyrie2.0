@@ -10,8 +10,16 @@ namespace Valkyrie.App.View
     {
         internal GamePageViewModel gpvm_;
 
+        internal String runtimePlatform_;
+        public String RuntimePlatform 
+        {
+            get
+            {
+                return runtimePlatform_;
+            }
+        }
 
-        //================================================================
+        //===================================================================
 
         /*-------------------------------------
          * 
@@ -22,6 +30,13 @@ namespace Valkyrie.App.View
         public GamePage()
         {
             InitializeComponent();
+            
+            runtimePlatform_ = Device.RuntimePlatform;
+            if(runtimePlatform_ == Device.UWP)
+            {
+
+            }
+
             gpvm_ = new GamePageViewModel();
             BindingContext = gpvm_;
         }

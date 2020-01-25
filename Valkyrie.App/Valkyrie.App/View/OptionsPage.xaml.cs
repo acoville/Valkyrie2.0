@@ -46,6 +46,7 @@ namespace Valkyrie.App.View
         protected override void OnSizeAllocated(double width, double height)
         {
             opvm_.DeviceScreen.GetScreenDetails();
+            BackgroundImageSource = opvm_.GetImageSource();
             base.OnSizeAllocated(width, height);
         }
 
