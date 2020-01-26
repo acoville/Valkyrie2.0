@@ -10,9 +10,9 @@ namespace Valkyrie.App.View
     public partial class MenuPage : ContentPage
     {
         internal MenuPageViewModel menuPageViewModel_;
-        
         internal OptionsPage optionsPage_;
         internal GamePage currentGame_;
+        internal LevelLoader loader_;
 
         //==============================================================
 
@@ -30,6 +30,10 @@ namespace Valkyrie.App.View
             BindingContext = menuPageViewModel_;
             BackgroundImageSource = menuPageViewModel_.GetImageSource();
             optionsPage_ = new OptionsPage();
+            
+            // loader_ should read the map manifest during construction
+            
+            loader_ = new LevelLoader();
         }
 
         //=============================================================
@@ -61,6 +65,8 @@ namespace Valkyrie.App.View
         private void NewgameClicked(object sender, EventArgs e)
         {
             currentGame_ = new GamePage();
+            currentGame_.gpvm_.CurrentLevel = loader_.LoadFirstLevel();
+
             Navigation.PushAsync(currentGame_);
 
             // enables other buttons

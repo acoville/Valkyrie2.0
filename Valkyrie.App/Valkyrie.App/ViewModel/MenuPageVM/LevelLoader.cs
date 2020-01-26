@@ -22,13 +22,16 @@ using System.Text;
 using System.Xml;
 using Valkyrie.GL;
 using System.Reflection;
+using Valkryie.GL;
 
 namespace Valkyrie.App.ViewModel
 {
     public class LevelLoader
     {
-        internal XmlDocument manifest_;
         internal List<String> levelNames_;
+        public List<String> LevelNames => levelNames_;
+
+
         internal String currentLevel_;
 
         //========================================================================
@@ -44,6 +47,15 @@ namespace Valkyrie.App.ViewModel
         public LevelLoader()
         {
             // attempt to open manifest
+
+            levelNames_ = new List<String>();
+
+            LoadManifest();
+
+            if(levelNames_.Count > 0)
+            {
+                currentLevel_ = levelNames_[0];
+            }
         }
 
         //=========================================================================
@@ -56,6 +68,7 @@ namespace Valkyrie.App.ViewModel
          * --------------------------------*/
         internal void LoadManifest()
         {
+            XmlDocument manifest = new XmlDocument();
             string content;
 
             var assembly = Assembly.GetExecutingAssembly();
@@ -69,7 +82,65 @@ namespace Valkyrie.App.ViewModel
                 }
             }
 
-            manifest_.LoadXml(content);
+            manifest.LoadXml(content);
+
+            //------------ we should now be able to populate the level list
+
+            XmlNode root = manifest.DocumentElement;
+
+            XmlNodeList levels = root.SelectNodes("Level"); 
+            foreach (XmlNode level in levels)
+            {
+                levelNames_.Add(level.Attributes[0].Value.ToString());
+            }
+        }
+
+        //======================================================================
+
+        /*---------------------------------------
+         * 
+         * Loads a level into memory, 
+         * the index references levelList_[index]
+         * 
+         * -------------------------------------*/
+
+        internal Level LoadLevel(int index)
+        {
+            // determine which of the level names from the manifest
+            // we are fetching
+
+            string mapname = levelNames_[index];
+
+            XmlDocument map = new XmlDocument();
+            string content;
+
+            // open the map 
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var fileName = "Valkyrie.App.Model.Maps." + mapname;
+
+            using (Stream stream = assembly.GetManifestResourceStream(fileName))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    content = reader.ReadToEnd();
+                }
+            }
+
+            // read map's content
+
+            map.LoadXml(content);
+
+            // XML document is now loaded, pass it to the Level constructor
+
+            return new Level(map);
+        }
+
+        //======================================================================
+
+        public Level LoadFirstLevel()
+        {
+            return LoadLevel(0);
         }
 
         //======================================================================

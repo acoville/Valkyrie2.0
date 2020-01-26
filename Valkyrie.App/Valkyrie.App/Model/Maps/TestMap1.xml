@@ -9,6 +9,9 @@
     <!-- Cutscenes -->
   
     <!-- Background Image -->
+
+    <Background
+        ImageSource ="test_background.png" />
   
     <!-- Events / Triggers -->
       <!-- OnStart -->

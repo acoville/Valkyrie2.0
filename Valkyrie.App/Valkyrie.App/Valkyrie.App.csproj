@@ -11,11 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Backgrounds\test_background.png" />
     <None Remove="Model\Maps\LevelManifest.xml" />
     <None Remove="Model\Maps\TestMap1.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Images\Backgrounds\test_background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model\Maps\LevelManifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -53,5 +57,9 @@
     <EmbeddedResource Update="View\SplashPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\Characters\" />
   </ItemGroup>
 </Project>

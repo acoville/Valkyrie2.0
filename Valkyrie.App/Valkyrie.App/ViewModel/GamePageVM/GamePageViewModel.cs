@@ -22,6 +22,25 @@ namespace Valkyrie.App.ViewModel
 
         //===============================================================
 
+        /*--------------------------------
+         * 
+         * Background Image
+         * 
+         * ------------------------------*/
+
+        internal string backgroundImage_;
+        public string BackgroundImage
+        {
+            get => backgroundImage_;
+            set
+            {
+                backgroundImage_ = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        //===============================================================
+
         //----------- control buttons opacity
 
         internal double controlOpacity_ = Preferences.Get("controlOpacity", 0.85);
@@ -70,6 +89,7 @@ namespace Valkyrie.App.ViewModel
         public GamePageViewModel()
         {
             deviceScreen_ = new Screen();
+            GameSpeed = 50;
         }
 
         //=============================================================
@@ -80,7 +100,7 @@ namespace Valkyrie.App.ViewModel
          * 
          * --------------------------------*/
 
-        internal bool paused_ = true;
+        internal bool paused_ = false;
         public bool Paused
         {
             get => paused_;
@@ -94,18 +114,23 @@ namespace Valkyrie.App.ViewModel
 
         //=================================================================
 
-        /*----------------------------------
+        /*-------------------------------------
          * 
          *  Current Level
          * 
-         * -------------------------------*/
+         * Changing this results in loading a 
+         * new map
+         * 
+         * -----------------------------------*/
 
         internal Level currentLevel_;
         public Level CurrentLevel
         {
-            get
+            get => currentLevel_;
+            set
             {
-                return currentLevel_;
+                currentLevel_ = value;
+                LoadLevel(currentLevel_);
             }
         }
 
@@ -122,6 +147,55 @@ namespace Valkyrie.App.ViewModel
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(caller));
+            }
+        }
+
+        //==================================================================
+
+        //-- interface control variables
+
+        /*----------------------------------------------
+
+         * The Skia image is redrawn at a rate of
+         *
+         * 1,000 ms / 30 frames per second = 30.30
+         * 1,000 ms / 20 frames per second = 50 
+       
+        --------------------------------------------*/
+
+        internal double gameSpeed_;
+        public double GameSpeed
+        {
+            get
+            {
+                return gameSpeed_;
+            }
+            set
+            {
+                //-- if within range
+
+                if (!(value > 1000) && !(value < 15))
+                {
+                    gameSpeed_ = value;
+                }
+
+                //-- slowest speed: 1 frame / second
+
+                else if (value > 1000)
+                {
+                    value = 1000;
+                    gameSpeed_ = value;
+                }
+
+                //-- fastest speed: 66 frames / second
+
+                else if (value < 15)
+                {
+                    value = 15;
+                    gameSpeed_ = value;
+                }
+
+                RaisePropertyChanged();
             }
         }
     }

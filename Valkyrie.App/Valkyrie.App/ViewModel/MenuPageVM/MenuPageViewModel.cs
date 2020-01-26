@@ -10,10 +10,6 @@ namespace Valkyrie.App.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //=========================================================================
-
-        internal LevelLoader loader_;
-
         //==========================================================================
 
         internal int buttonHeight;

@@ -19,7 +19,6 @@ namespace Valkyrie.GL.Test
         [SetUp]
         public void Setup()
         {
-
         }
 
         //==============================================================
