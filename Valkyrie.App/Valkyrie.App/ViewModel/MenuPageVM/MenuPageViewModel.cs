@@ -8,6 +8,26 @@ namespace Valkyrie.App.ViewModel
 {
     public class MenuPageViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //=========================================================================
+
+        internal LevelLoader loader_;
+
+        //==========================================================================
+
+        internal int buttonHeight;
+        public int ButtonHeight
+        {
+            get => buttonHeight;
+            set
+            {
+                buttonHeight = value;
+            }
+        }
+
+        //========================================={===================================
+
         /*---------------------------------
          * 
          * Constructor
@@ -17,30 +37,8 @@ namespace Valkyrie.App.ViewModel
         public MenuPageViewModel()
         {
             deviceScreen_ = new Screen();
+            mapLoader = new LevelLoader();
             ButtonHeight = (int)deviceScreen_.Height / 4;
-        }
-
-        //===========================================================================
-
-        /*------------------------------------
-         * 
-         * Function indicating weather there 
-         * is a saved state in memory
-         * 
-         * ---------------------------------*/
-
-        internal bool savedStateExists_ = false;
-        public bool SaveStateExists
-        {
-            get
-            {
-                string FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "save.xml");
-                return File.Exists(FileName);
-            }
-            set
-            {
-                savedStateExists_ = value;
-            }
         }
 
         //===========================================================================
@@ -57,10 +55,7 @@ namespace Valkyrie.App.ViewModel
         internal Screen deviceScreen_;
         public Screen DeviceScreen
         {
-            get
-            {
-                return deviceScreen_;
-            }
+            get => deviceScreen_;
         }
 
         //---------------------------------
@@ -68,11 +63,18 @@ namespace Valkyrie.App.ViewModel
         internal Screen.Orientation orientation_; 
         public Screen.Orientation Orientation
         {
-            get
-            {
-                return orientation_;
-            }
+            get => orientation_;
         }
+
+        //=======================================================================
+
+        /*--------------------------------
+         * 
+         * Level Loader 
+         * 
+         * -------------------------------*/
+
+        internal LevelLoader mapLoader;
 
         //=======================================================================
 
@@ -116,12 +118,6 @@ namespace Valkyrie.App.ViewModel
 
         //==============================================================================
 
-        internal int buttonHeight;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        //==============================================================================
-
         /*------------------------------------------
          * 
          * Event Handler to raise propertyChanged
@@ -138,16 +134,6 @@ namespace Valkyrie.App.ViewModel
 
         //==============================================================================
 
-        public int ButtonHeight
-        {
-            get
-            {
-                return buttonHeight;
-            }
-            set
-            {
-                buttonHeight = value;
-            }
-        }
+
     }
 }

@@ -11,7 +11,6 @@
 
 using NUnit.Framework;
 using Valkryie.GL;
-using Valkyrie.GL;
 
 namespace Valkyrie.GL.Test
 {

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Level>
+    <!-- Player -->
+    
+    <!-- Static Obstacles -->
+  
+    <!-- Monsters -->
+  
+    <!-- Cutscenes -->
+  
+    <!-- Background Image -->
+  
+    <!-- Events / Triggers -->
+      <!-- OnStart -->
+      <!-- Player HP reaches 0 -->
+      <!-- Victory Condition -->
+      <!-- reached a save point -->
+      <!-- timer reaches countdown -->
+</Level>

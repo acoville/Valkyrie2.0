@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- Chapter -->
+
+<Chapter
+  Name="TestChapter"
+  Maps="1">
+
+  <!-- Levels within the chapter -->
+  
+  <Level Name="TestMap1.xml" />
+  
+</Chapter>

@@ -1,19 +1,17 @@
 ﻿/*================================================================
  * 
- * 
- * 
+ * Valkyrie
+ * Game Page View Model class
  * 
  * 
  * =============================================================*/
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Valkyrie.Graphics;
 using Valkyrie.GL;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Essentials;
+using Valkryie.GL;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -22,16 +20,14 @@ namespace Valkyrie.App.ViewModel
         public delegate void InputChangedHandler(Character c, string e);
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //===============================================================
 
         //----------- control buttons opacity
 
         internal double controlOpacity_ = Preferences.Get("controlOpacity", 0.85);
         public double controlOpacity
         {
-            get
-            {
-                return controlOpacity_;
-            }
+            get => controlOpacity_;
         }
 
         //============================================================
@@ -46,10 +42,7 @@ namespace Valkyrie.App.ViewModel
         internal Screen deviceScreen_;
         public Screen DeviceScreen
         {
-            get
-            {
-                return deviceScreen_;
-            }
+            get => deviceScreen_;
         }
 
         //============================================================
@@ -64,10 +57,7 @@ namespace Valkyrie.App.ViewModel
         internal bool displayNavigationBar_ = false;
         public bool DisplayNavigationBar
         {
-            get
-            {
-                return displayNavigationBar_;
-            }
+            get => displayNavigationBar_;
         }
 
         //===========================================================
@@ -93,15 +83,29 @@ namespace Valkyrie.App.ViewModel
         internal bool paused_ = true;
         public bool Paused
         {
-            get
-            {
-                return paused_;
-            }
+            get => paused_;
             set
             {
                 paused_ = value;
                 displayNavigationBar_ = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        //=================================================================
+
+        /*----------------------------------
+         * 
+         *  Current Level
+         * 
+         * -------------------------------*/
+
+        internal Level currentLevel_;
+        public Level CurrentLevel
+        {
+            get
+            {
+                return currentLevel_;
             }
         }
 

@@ -87,7 +87,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Valkyrie.App\Valkyrie.App.csproj">
       <Project>{269E9236-8AB0-4442-81B7-46E1EEC0BE94}</Project>
