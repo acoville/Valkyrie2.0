@@ -45,16 +45,16 @@ namespace Valkyrie.App.View
 
         //===================================================================
 
-        /*--------------------------------
+        /*--------------------------------------
          * 
          * Function to call SkiaSharp 
          * View's invalidate surface command
          * 
-         * -----------------------------*/
+         * -----------------------------------*/
 
         public void OnRedraw()
         {
-            //SKView.InvalidateSurface();
+            SKView.InvalidateSurface();
         }
 
         //===================================================================
@@ -101,12 +101,12 @@ namespace Valkyrie.App.View
 
         //===================================================================
 
-            /*-------------------------------------
-             * 
-             * Event Handler for a click on the 
-             * paused button
-             * 
-             * -----------------------------------*/
+        /*-------------------------------------
+        * 
+        * Event Handler for a click on the 
+        * paused button
+        * 
+        * -----------------------------------*/
 
         private void PauseButtonClicked(object sender, EventArgs e)
         {

@@ -29,7 +29,8 @@
     <ContentPage.Content>
         <Grid
             HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand">
+            VerticalOptions="FillAndExpand"
+            BackgroundColor="Transparent">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -39,13 +40,13 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
-            <!-- Background Canvas -->
+            <!-- SK Canvas View -->
 
             <skia:SKCanvasView
-                x:Name="deviceScreen"
+                x:Name="SKView"
                 Grid.Row="0"
                 Grid.Column="0"
-                skia:BindingContext="{Binding BackgroundCanvas}"
+                skia:BindingContext="{Binding deviceScreen}"
                 IsVisible="True">
 
                 <skia:SKCanvasView.Behaviors>
@@ -54,8 +55,38 @@
                 </skia:SKCanvasView.Behaviors>
             </skia:SKCanvasView>
             
-            <!-- Pause menu-->
+            <!-- Ad that displays while paused -->
 
+            <ContentView
+                x:Name="PauseAd"
+                BackgroundColor="White"
+                HeightRequest="400"
+                WidthRequest="400"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                IsVisible="{Binding Paused}">
+
+                <StackLayout
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="400"
+                    HeightRequest="400"
+                    Padding="20">
+
+                    <Label
+                        FontAttributes="Bold"
+                        BackgroundColor="Black"
+                        FontSize="Medium"
+                        TextColor="WhiteSmoke"
+                        HorizontalTextAlignment="Center"
+                        Text="Your Ad Here" />
+
+                </StackLayout>
+                
+            </ContentView>
+            
+            <!-- Pause menu-->
+            
             <ContentView
                 x:Name="PauseMenu"
                 BackgroundColor="Black"
@@ -72,10 +103,10 @@
                     WidthRequest="100"
                     HeightRequest="50"
                     Padding="20">
-
+       
                     <Label
                         FontAttributes="Bold"
-                        FontSize="Large"
+                        FontSize="Medium"
                         TextColor="WhiteSmoke"
                         HorizontalTextAlignment="Center"
                         Text="PAUSED" />

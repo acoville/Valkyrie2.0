@@ -1,6 +1,16 @@
-﻿using System;
+﻿/*===========================================================
+ * 
+ * Valkyrie
+ * Menu Page View Model
+ * 
+ * Responsible for loading appropriate map information 
+ * to the GamePage, and the main player UI page for 
+ * saving, loading, altering game settings.
+ * 
+ * ========================================================*/
+
+using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using Valkyrie.Graphics;
 using Xamarin.Forms;
