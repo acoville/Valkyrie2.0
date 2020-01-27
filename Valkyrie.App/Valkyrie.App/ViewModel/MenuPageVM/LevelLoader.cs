@@ -151,13 +151,29 @@ namespace Valkyrie.App.ViewModel
         {
 
         }
+         */
 
         //=======================================================================
 
-        public Level LoadSavedState(string SaveStateName)
-        {
+        /*------------------------------------------
+         * 
+         * Load a Saved State
+         * (selected by the LoadPage)
+         * 
+         * --------------------------------------*/
 
+        public Level LoadSavedState(string levelName)
+        {
+            XmlDocument _level = new XmlDocument();
+
+            //--- if this is resuming the saved game, load that
+
+            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), levelName);
+            string fileContents = File.ReadAllText(fileName);
+
+            _level.LoadXml(fileContents);
+
+            return new Level(_level);
         }
-         */
     }
 }
