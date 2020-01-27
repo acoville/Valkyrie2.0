@@ -3,12 +3,46 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Valkyrie.Graphics;
+using Xamarin.Forms;
 
 namespace Valkyrie.App.ViewModel
 {
     public class MenuPageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        //==========================================================================
+
+        /*--------------------------------
+         * 
+         * Active and Inactive colors
+         * for the menu buttons
+         * 
+         * -----------------------------*/
+
+        internal Color activeColor_ = Color.LightBlue;
+        public Color ActiveColor
+        {
+            get => activeColor_;
+            set
+            {
+                activeColor_ = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        //--------------------------------------------
+
+        internal Color inactiveColor_ = Color.Gray;
+        public Color InactiveColor
+        {
+            get => inactiveColor_;
+            set
+            {
+                inactiveColor_ = value;
+                RaisePropertyChanged();
+            }
+        }
 
         //==========================================================================
 
@@ -52,14 +86,6 @@ namespace Valkyrie.App.ViewModel
         public Screen DeviceScreen
         {
             get => deviceScreen_;
-        }
-
-        //---------------------------------
-
-        internal Screen.Orientation orientation_; 
-        public Screen.Orientation Orientation
-        {
-            get => orientation_;
         }
 
         //=======================================================================
@@ -122,10 +148,7 @@ namespace Valkyrie.App.ViewModel
 
         protected void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(caller));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
 
         //==============================================================================

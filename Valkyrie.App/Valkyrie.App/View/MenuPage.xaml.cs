@@ -72,9 +72,15 @@ namespace Valkyrie.App.View
             // enables other buttons
 
             Save_Btn.IsEnabled = true;
+            Save_Btn.BackgroundColor = menuPageViewModel_.ActiveColor;
+            
             Resume_Btn.IsEnabled = true;
-            Options_Btn.IsEnabled = true;
+            Resume_Btn.BackgroundColor = menuPageViewModel_.ActiveColor;
         }
+
+        //============================================================
+
+
 
         //============================================================
 

@@ -8,7 +8,7 @@ namespace Valkyrie.App.Model
 {
     public class Actor
     {
-        Character character_;
-        Sprite sprite_;
+        //Character character_;
+        //Sprite sprite_;
     }
 }

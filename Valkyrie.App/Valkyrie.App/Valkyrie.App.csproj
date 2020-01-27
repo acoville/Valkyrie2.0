@@ -11,13 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\Backgrounds\test_background.png" />
+    <None Remove="Images\Backgrounds\testBackground.png" />
     <None Remove="Model\Maps\LevelManifest.xml" />
     <None Remove="Model\Maps\TestMap1.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\Backgrounds\test_background.png">
+    <EmbeddedResource Include="Images\Backgrounds\testBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Model\Maps\LevelManifest.xml">
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991477" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991537" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
 

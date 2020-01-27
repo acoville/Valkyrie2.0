@@ -54,7 +54,7 @@ namespace Valkyrie.App.View
 
         public void OnRedraw()
         {
-            SKView.InvalidateSurface();
+            //SKView.InvalidateSurface();
         }
 
         //===================================================================

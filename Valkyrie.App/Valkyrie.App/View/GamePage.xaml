@@ -11,7 +11,6 @@
              
              mc:Ignorable="d"
              x:Class="Valkyrie.App.View.GamePage"
-             BackgroundImageSource="{Binding BackgroundImage}"
              NavigationPage.HasNavigationBar="{Binding Paused}">
     
     <!-- Resources -->
@@ -40,20 +39,19 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
-            <!-- Canvas -->
+            <!-- Background Canvas -->
 
             <skia:SKCanvasView
-                x:Name="SKView"
+                x:Name="deviceScreen"
                 Grid.Row="0"
                 Grid.Column="0"
-                BindingContext="{Binding DeviceScreen}"
+                skia:BindingContext="{Binding BackgroundCanvas}"
                 IsVisible="True">
 
                 <skia:SKCanvasView.Behaviors>
                     <behaviors:PaintSurfaceCommandBehavior
                         Command="{Binding PaintCommand}" />
                 </skia:SKCanvasView.Behaviors>
-
             </skia:SKCanvasView>
             
             <!-- Pause menu-->
@@ -66,7 +64,7 @@
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 IsVisible="{Binding Paused}"
-                Opacity="{Binding controlOpacity}">
+                Opacity="{Binding ControlOpacity}">
 
                 <StackLayout
                     HorizontalOptions="Center"
@@ -136,7 +134,7 @@
                         Grid.Column="1"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
-                        Opacity="{Binding controlOpacity}"
+                        Opacity="{Binding ControlOpacity}"
                         Source="dpad.png"/>
 
                 <Grid
@@ -459,7 +457,7 @@
                     Grid.Column="3"
                     Text="PAUSE" 
                     VerticalOptions="Center"
-                    Opacity="{Binding controlOpacity}"
+                    Opacity="{Binding ControlOpacity}"
                     BackgroundColor="DarkGray"
                     Clicked="PauseButtonClicked"/>
 
@@ -471,7 +469,7 @@
                     Grid.Column="5"
                     Source="bButton.png" 
                     Aspect="AspectFit"
-                    Opacity="{Binding controlOpacity}"
+                    Opacity="{Binding ControlOpacity}"
                     VerticalOptions="Center"
                     CornerRadius="50"
                     BorderColor="Transparent"
@@ -514,7 +512,7 @@
                     Grid.Column="6"
                     Source="aButton.png"
                     Aspect="AspectFit"
-                    Opacity="{Binding controlOpacity}"
+                    Opacity="{Binding ControlOpacity}"
                     CornerRadius="50"
                     VerticalOptions="Center"
                     BorderColor="Transparent"

@@ -11,7 +11,7 @@
     <!-- Background Image -->
 
     <Background
-        ImageSource ="test_background.png" />
+        ImageSource ="testBackground.png" />
   
     <!-- Events / Triggers -->
       <!-- OnStart -->

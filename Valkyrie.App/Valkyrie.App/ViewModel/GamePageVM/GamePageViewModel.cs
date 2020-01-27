@@ -10,8 +10,9 @@ using Valkyrie.Graphics;
 using Valkyrie.GL;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Essentials;
 using Valkryie.GL;
+
+
 
 namespace Valkyrie.App.ViewModel
 {
@@ -19,50 +20,6 @@ namespace Valkyrie.App.ViewModel
     {
         public delegate void InputChangedHandler(Character c, string e);
         public event PropertyChangedEventHandler PropertyChanged;
-
-        //===============================================================
-
-        /*--------------------------------
-         * 
-         * Background Image
-         * 
-         * ------------------------------*/
-
-        internal string backgroundImage_;
-        public string BackgroundImage
-        {
-            get => backgroundImage_;
-            set
-            {
-                backgroundImage_ = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        //===============================================================
-
-        //----------- control buttons opacity
-
-        internal double controlOpacity_ = Preferences.Get("controlOpacity", 0.85);
-        public double controlOpacity
-        {
-            get => controlOpacity_;
-        }
-
-        //============================================================
-
-        /*--------------------------------------
-         * 
-         * We do quite a lot of work with the 
-         * Screen and Sprite classes here
-         * 
-         * ------------------------------------*/
-
-        internal Screen deviceScreen_;
-        public Screen DeviceScreen
-        {
-            get => deviceScreen_;
-        }
 
         //============================================================
 
@@ -107,7 +64,6 @@ namespace Valkyrie.App.ViewModel
             set
             {
                 paused_ = value;
-                displayNavigationBar_ = value;
                 RaisePropertyChanged();
             }
         }
@@ -131,6 +87,7 @@ namespace Valkyrie.App.ViewModel
             {
                 currentLevel_ = value;
                 LoadLevel(currentLevel_);
+                //RaisePropertyChanged();
             }
         }
 
@@ -144,10 +101,7 @@ namespace Valkyrie.App.ViewModel
 
         protected void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(caller));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
 
         //==================================================================

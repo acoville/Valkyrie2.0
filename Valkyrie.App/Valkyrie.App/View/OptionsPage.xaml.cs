@@ -14,7 +14,6 @@ namespace Valkyrie.App.View
     public partial class OptionsPage : ContentPage
     {
         internal OptionsPageViewModel opvm_;
-        internal GamePage currentGame;
 
         //==================================================================
 

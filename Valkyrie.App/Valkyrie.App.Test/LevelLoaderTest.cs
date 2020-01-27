@@ -63,7 +63,7 @@ namespace Valkyrie.App.Test
             Level SUT = loader.LoadFirstLevel();
 
             string background = SUT.ImageSource;
-            string correctName = "test_background.png";
+            string correctName = "testBackground.png";
 
             Assert.AreEqual(background, correctName);
         }

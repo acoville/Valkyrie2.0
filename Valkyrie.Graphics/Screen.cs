@@ -6,6 +6,8 @@ using Xamarin.Forms;
 
 namespace Valkyrie.Graphics
 {
+
+
     public partial class Screen
     {
         public Command Redraw { get; set; }
@@ -44,12 +46,19 @@ namespace Valkyrie.Graphics
             }
         }
 
-        //================================================================
+        //===============================================================================
 
-        public SKSurface Surface { get; set; }
-        internal SKImageInfo ScreenDetails()
+        /*-------------------------------------
+         * 
+         * Helper function to return an 
+         * SKImageInfo object
+         * 
+         * 
+         * -----------------------------------*/
+
+        public SKImageInfo Info()
         {
-            SKImageInfo info = new SKImageInfo((int)Width, (int)Height);
+            SKImageInfo info = new SKImageInfo((int)width_, (int)height_);
             return info;
         }
 
@@ -58,8 +67,8 @@ namespace Valkyrie.Graphics
         /*-------------------------------------------------------
          * 
          * ClearPaint has an alpha channel of 0, making the empty 
-         * pixels in teh image transparent so the GamePage's background
-         * image may be seen. 
+         * pixels in teh image transparent so any images beneath
+         * may be seen
          * 
          * --------------------------------------------------------*/
 
@@ -81,7 +90,7 @@ namespace Valkyrie.Graphics
         public ICommand PaintCommand { get; set; }
         public void OnPainting(SKPaintSurfaceEventArgs args)
         {
-            SKImageInfo info = args.Info;
+            //SKImageInfo info = args.Info;
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
 
@@ -140,7 +149,7 @@ namespace Valkyrie.Graphics
 
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            SKImageInfo info = args.Info;
+            //SKImageInfo info = args.Info;
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
 
@@ -155,8 +164,17 @@ namespace Valkyrie.Graphics
 
             Redraw = new Command<SKPaintSurfaceEventArgs>(OnPainting);
             PaintCommand = Redraw;
+        }
 
+        //================================================================
 
+        // this property required to instantiate an SKSurfaceEventArgs object
+
+        public SKSurface Surface { get; set; }
+        internal SKImageInfo ScreenDetails()
+        {
+            SKImageInfo info = new SKImageInfo((int)Width, (int)Height);
+            return info;
         }
     }
 }
