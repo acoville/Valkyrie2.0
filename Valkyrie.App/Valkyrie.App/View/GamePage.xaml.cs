@@ -104,8 +104,7 @@ namespace Valkyrie.App.View
         /*-------------------------------------
         * 
         * Event Handler for a click on the 
-        * paused button
-        * 
+        * paused buttonti
         * -----------------------------------*/
 
         private void PauseButtonClicked(object sender, EventArgs e)
@@ -113,12 +112,14 @@ namespace Valkyrie.App.View
             if(gpvm_.Paused)
             {
                 gpvm_.Paused = false;
+                Pause_Btn.Text = "PAUSE";
                 return;
             }
 
             if(!gpvm_.Paused)
             {
                 gpvm_.Paused = true;
+                Pause_Btn.Text = "UNPAUSE";
                 return;
             }
         }

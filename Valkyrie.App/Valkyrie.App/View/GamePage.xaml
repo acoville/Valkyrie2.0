@@ -11,6 +11,7 @@
              
              mc:Ignorable="d"
              x:Class="Valkyrie.App.View.GamePage"
+             Title="Main Menu"
              NavigationPage.HasNavigationBar="{Binding Paused}">
     
     <!-- Resources -->
@@ -56,21 +57,23 @@
             </skia:SKCanvasView>
             
             <!-- Ad that displays while paused -->
+            <!-- But make sure device has connectivity first -->
 
             <ContentView
                 x:Name="PauseAd"
-                BackgroundColor="White"
-                HeightRequest="400"
-                WidthRequest="400"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
+                HeightRequest="220"
+                WidthRequest="300"
+                VerticalOptions="Start"
+                HorizontalOptions="CenterAndExpand"
+                BackgroundColor="Black"
+                Margin="20, 20, 20, 20"
                 IsVisible="{Binding Paused}">
 
                 <StackLayout
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    WidthRequest="400"
-                    HeightRequest="400"
+                    VerticalOptions="StartAndExpand"
+                    HeightRequest="300"
+                    WidthRequest="300"
                     Padding="20">
 
                     <Label
@@ -80,36 +83,6 @@
                         TextColor="WhiteSmoke"
                         HorizontalTextAlignment="Center"
                         Text="Your Ad Here" />
-
-                </StackLayout>
-                
-            </ContentView>
-            
-            <!-- Pause menu-->
-            
-            <ContentView
-                x:Name="PauseMenu"
-                BackgroundColor="Black"
-                HeightRequest="75"
-                WidthRequest="175"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                IsVisible="{Binding Paused}"
-                Opacity="{Binding ControlOpacity}">
-
-                <StackLayout
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    WidthRequest="100"
-                    HeightRequest="50"
-                    Padding="20">
-       
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="Medium"
-                        TextColor="WhiteSmoke"
-                        HorizontalTextAlignment="Center"
-                        Text="PAUSED" />
 
                 </StackLayout>
             </ContentView>
@@ -484,6 +457,7 @@
                 <!-- Start Button-->
 
                 <Button
+                    x:Name="Pause_Btn"
                     Grid.Row="1"
                     Grid.Column="3"
                     Text="PAUSE" 
