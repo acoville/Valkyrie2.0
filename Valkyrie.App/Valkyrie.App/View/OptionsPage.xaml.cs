@@ -54,7 +54,6 @@ namespace Valkyrie.App.View
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             opvm_.controlOpacity = opacityController.Value;
-            //currentGame.gpvm_.controlOpacity = opacityController.Value;
         }
     }
 }

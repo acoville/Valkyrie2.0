@@ -56,7 +56,7 @@ namespace Valkryie.GL
 
                     case ("Background"):
                     {
-                        ImageSource = child.Attributes[0].Value.ToString();
+                        ImageSource = child.Attributes["ImageSource"].Value.ToString();
                         break;
                     }
 

@@ -13,7 +13,6 @@ using System.Runtime.CompilerServices;
 using Valkryie.GL;
 
 
-
 namespace Valkyrie.App.ViewModel
 {
     public partial class GamePageViewModel : INotifyPropertyChanged
@@ -45,7 +44,7 @@ namespace Valkyrie.App.ViewModel
          * ----------------------------------*/
         public GamePageViewModel()
         {
-            deviceScreen_ = new Screen();
+            deviceScreen_ = new GameScreen();
             GameSpeed = 50;
         }
 
@@ -87,7 +86,6 @@ namespace Valkyrie.App.ViewModel
             {
                 currentLevel_ = value;
                 LoadLevel(currentLevel_);
-                //RaisePropertyChanged();
             }
         }
 

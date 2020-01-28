@@ -12,6 +12,7 @@
              mc:Ignorable="d"
              x:Class="Valkyrie.App.View.GamePage"
              Title="Main Menu"
+             BackgroundImageSource="{Binding BackgroundImage}"
              NavigationPage.HasNavigationBar="{Binding Paused}">
     
     <!-- Resources -->
@@ -41,13 +42,13 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
-            <!-- SK Canvas View -->
+            <!-- SK GL View -->
 
             <skia:SKGLView
                 x:Name="SKView"
                 Grid.Row="0"
                 Grid.Column="0"
-                skia:BindingContext="{Binding deviceScreen}"
+                skia:BindingContext="{Binding DeviceScreen}"
                 IsVisible="True">
 
                 <skia:SKGLView.Behaviors>

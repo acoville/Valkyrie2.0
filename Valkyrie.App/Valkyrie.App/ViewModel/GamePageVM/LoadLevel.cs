@@ -23,13 +23,10 @@ namespace Valkyrie.App.ViewModel
             //---------------------------------------------------
             // set background image
 
-            Assembly assembly = GetType().GetTypeInfo().Assembly;
-            var ImagePath = "Valkyrie.App.Images.Backgrounds." + map.ImageSource;
+            //DeviceScreen.BackgroundSource = map.ImageSource;
 
-            using(Stream stream = assembly.GetManifestResourceStream(ImagePath))
-            {
-                //BackgroundImage = ImageSource.FromResource(ImagePath, assembly);
-            }
+            var path = "Valkyrie.App.Images.Backgrounds." + map.ImageSource;
+            BackgroundImage = ImageSource.FromResource(path);
         }
     }
 }

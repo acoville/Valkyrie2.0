@@ -91,18 +91,28 @@ namespace Valkyrie.App.Behaviors
 
         //=====================================================================
 
-        // the canvas needs to be painted
+        /*----------------------------------------------------------------
+         * 
+         * SKGLView.PaintSurface Event
+         * https://docs.microsoft.com/en-us/dotnet/api/skiasharp.views.forms.skglview.paintsurface?view=skiasharp-views-forms-1.68.1
+         * 
+         * There are 2 ways to draw on this surface: 
+         * by overridingthe OnPaintSurface(SKPaintGLSurfaceVentArgs)
+         * method, or by attaching a handler to the PaintSurface event
+         * 
+         * -----------------------------------------------------------*/
 
         private void OnPaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
-            // first check if the command can/should be fired
+            var surface = e.Surface;
+            var surfaceWidth = e.BackendRenderTarget.Width;
+            var surfaceHeight = e.BackendRenderTarget.Height;
 
-            if (Command?.CanExecute(e) == true)
-            {
-                // fire the command
+            var canvas = surface.Canvas;
 
-                Command.Execute(e);
-            }
+            // draw on the canvas
+
+            canvas.Flush();
         }
     }
 }

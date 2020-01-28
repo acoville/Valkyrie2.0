@@ -9,6 +9,10 @@
 
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -16,24 +20,106 @@ namespace Valkyrie.Graphics
 {
     public class GameScreen : Screen
     {
-        public GameScreen()
+        internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
+
+        internal SKBitmap background_;
+
+        //==================================================================
+        
+        internal string backgroundSource_;
+        public string BackgroundSource
         {
-            Redraw = new Command<SKPaintSurfaceEventArgs>(OnPainting);
-            PaintCommand = Redraw;
+            get => backgroundSource_;
+            set
+            {
+                backgroundSource_ = "Valkyrie.App.Images.Backgrounds." + value;
+
+                Assembly assembly = GetType().GetTypeInfo().Assembly;
+
+                try
+                {
+                    using (Stream stream = assembly.GetManifestResourceStream(backgroundSource_))
+                    {
+                        Background = SKBitmap.Decode(stream);
+                    }
+                }
+
+                catch(Exception ex)
+                {
+                    string ErrMsg = "";
+
+                    if(!string.IsNullOrEmpty(ErrMsg))
+                    {
+                        ErrMsg = ex.ToString() + Environment.NewLine;                        
+                    }
+                }
+
+            }
         }
 
-        //================================================================
+        //===================================================================
 
-        // this property required to instantiate an SKSurfaceEventArgs object
+        public SKBitmap Background
+        {
+            get => background_;
+            set
+            {
+                background_ = value;
+            }
+        }
+
+        //========================================================
+
+        //-- data relating to the mid-ground
+
+        SKImage midground_;
+
+        internal ObservableCollection<Sprite> sprites_;
+        public ObservableCollection<Sprite> Sprites
+        {
+            get => sprites_;
+            set
+            {
+                sprites_ = value;
+            }
+        }
+
+        //-----------------------------------------
+
+        internal ObservableCollection<Tile> tiles_;
+        public ObservableCollection<Tile> Tiles
+        {
+            get => tiles_;
+            set
+            {
+                tiles_ = value;
+            }
+        }
+
+        //=====================================================
+
+        // foreground
+
+        SKImage foreground_;
+
+        //=====================================================
 
         public SKSurface Surface { get; set; }
 
+        //============================================================
 
-
-        internal SKImageInfo ScreenDetails()
+        public GameScreen()
         {
-            SKImageInfo info = new SKImageInfo((int)Width, (int)Height);
-            return info;
+            // base class constructor called first, so it already has 
+            // the native display screen details
+
+            Redraw = new Command<SKPaintGLSurfaceEventArgs>(OnPainting);
+            PaintCommand = Redraw;
+
+            Sprites = new ObservableCollection<Sprite>();
+            Tiles = new ObservableCollection<Tile>();
+
+            background_ = new SKBitmap(Info());
         }
 
         //===============================================================================
@@ -43,7 +129,6 @@ namespace Valkyrie.Graphics
          * Helper function to return an 
          * SKImageInfo object
          * 
-         * 
          * -----------------------------------*/
 
         public SKImageInfo Info()
@@ -52,21 +137,9 @@ namespace Valkyrie.Graphics
             return info;
         }
 
-        //===============================================================
-
-        /*-------------------------------------------------------
-         * 
-         * ClearPaint has an alpha channel of 0, making the empty 
-         * pixels in teh image transparent so any images beneath
-         * may be seen
-         * 
-         * --------------------------------------------------------*/
-
-        internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
-
         //==============================================================
 
-        /*--------------------------------------
+        /*---------------------------------------
          * 
          * Event Handler to redraw the screen
          * 
@@ -75,19 +148,27 @@ namespace Valkyrie.Graphics
          * necessary, the performance on this
          * is bad
          * 
-         * -----------------------------------*/
+         * -------------------------------------*/
 
         public ICommand PaintCommand { get; set; }
-        public void OnPainting(SKPaintSurfaceEventArgs args)
+        public void OnPainting(SKPaintGLSurfaceEventArgs args)
         {
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
 
             canvas.Clear(ClearPaint);
 
-            // draw all sprites
+            // draw background:
 
-            // draw all static obstacles
+            //canvas.DrawBitmap(background_, new SKPoint(0, 0));
+
+            // draw middle: 
+
+            //      draw all sprites
+
+            //      draw all static obstacles
+
+            // draw foreground:
         }
 
         //===============================================================
@@ -100,7 +181,6 @@ namespace Valkyrie.Graphics
 
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            //SKImageInfo info = args.Info;
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
 

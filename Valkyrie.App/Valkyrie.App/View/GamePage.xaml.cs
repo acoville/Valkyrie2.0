@@ -92,6 +92,7 @@ namespace Valkyrie.App.View
                 if (gpvm_.Paused == false)
                 {
                     //gpvm_.EvaluateMovement();
+
                     RedrawScreen();
                 }
 

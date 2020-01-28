@@ -18,8 +18,8 @@ namespace Valkyrie.App.ViewModel
          * 
          * ------------------------------------*/
 
-        internal Screen deviceScreen_;
-        public Screen DeviceScreen
+        internal GameScreen deviceScreen_;
+        public GameScreen DeviceScreen
         {
             get => deviceScreen_;
         }
@@ -32,6 +32,20 @@ namespace Valkyrie.App.ViewModel
         public double ControlOpacity
         {
             get => controlOpacity_;
+        }
+
+        //==============================================================
+
+        // Background Image streams from the GameScreen 
+
+        internal ImageSource backgroundImage_;
+        public ImageSource BackgroundImage
+        {
+            get => backgroundImage_;
+            set
+            {
+                backgroundImage_ = value;
+            }
         }
     }
 }
