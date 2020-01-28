@@ -42,10 +42,9 @@ namespace Valkyrie.App.ViewModel
         public ImageSource BackgroundImage
         {
             get => backgroundImage_;
-            set
-            {
-                backgroundImage_ = value;
-            }
+            set => backgroundImage_ = value;
         }
+
+
     }
 }

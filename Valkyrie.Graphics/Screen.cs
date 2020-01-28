@@ -27,10 +27,7 @@ namespace Valkyrie.Graphics
         internal Orientation orientation_;
         public Orientation ScreenOrientation
         {
-            get
-            {
-                return orientation_;
-            }
+            get => orientation_;
         }
 
         //================================================================
@@ -38,10 +35,7 @@ namespace Valkyrie.Graphics
         internal double height_;
         public double Height
         {
-            get
-            {
-                return height_;
-            }
+            get => height_;
         }
 
         //---------------------------------
@@ -49,10 +43,7 @@ namespace Valkyrie.Graphics
         internal double width_;
         public double Width
         {
-            get
-            {
-                return width_;
-            }
+            get => width_;
         }
 
         

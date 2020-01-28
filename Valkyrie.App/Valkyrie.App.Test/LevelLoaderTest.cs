@@ -22,7 +22,7 @@ namespace Valkyrie.App.Test
 
         [Test]
         [Category("LevelLoader")]
-        public void LevelLoaderReadsCorrectNumberOfMaps()
+        public void NumberOfMapsTest()
         {
             LevelLoader loader = new LevelLoader();
             int size = loader.LevelNames.Count;
@@ -43,7 +43,7 @@ namespace Valkyrie.App.Test
 
         [Test]
         [Category("LevelLoader")]
-        public void LevelLoaderGetsCorrectMapName()
+        public void CorrectMapNameTest()
         {
             LevelLoader loader = new LevelLoader();
             string mapName = loader.LevelNames[0];
@@ -57,15 +57,37 @@ namespace Valkyrie.App.Test
         [Test]
         [Category("LevelLoader")]
         [Category("Level")]
-        public void XmlConstructorGetsBackgroundImage()
+        public void BackgroundImageTest()
         {
             LevelLoader loader = new LevelLoader();
             Level SUT = loader.LoadFirstLevel();
 
-            string background = SUT.ImageSource;
+            string background = SUT.BackgroundImage;
             string correctName = "testBackground.png";
 
             Assert.AreEqual(background, correctName);
+        }
+
+        //===============================================================
+
+        /*----------------------------
+         * 
+         *  Test to make sure that 
+         *  we are loading obstacles
+         * 
+         * --------------------------*/
+
+        [Test]
+        [Category("LevelLoader")]
+        [Category("Level")]
+        public void ObstaclesLoadedTest()
+        {
+            LevelLoader loader = new LevelLoader();
+            Level SUT = loader.LoadFirstLevel();
+
+            int obstacles = SUT.Obstacles.Count;
+
+            Assert.IsTrue(obstacles >= 1);
         }
     }
 }

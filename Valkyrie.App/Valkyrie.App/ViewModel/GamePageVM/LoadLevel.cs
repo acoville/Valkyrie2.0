@@ -13,6 +13,7 @@ using System.IO;
 using System.Reflection;
 using Xamarin.Forms;
 using Valkryie.GL;
+using Valkyrie.Graphics;
 
 namespace Valkyrie.App.ViewModel
 { 
@@ -20,13 +21,21 @@ namespace Valkyrie.App.ViewModel
     {
         internal void LoadLevel(Level map)
         {
-            //---------------------------------------------------
+            //-----------------------------------------------
             // set background image
 
-            //DeviceScreen.BackgroundSource = map.ImageSource;
-
-            var path = "Valkyrie.App.Images.Backgrounds." + map.ImageSource;
+            var path = "Valkyrie.App.Images.Backgrounds." + map.BackgroundImage;
             BackgroundImage = ImageSource.FromResource(path);
+
+            //-----------------------------------------------
+            // add the obstacles to the Graphics layer
+
+            foreach(var obstacle in map.Obstacles)
+            {
+                Tile tile = new Tile(obstacle);
+                DeviceScreen.Tiles.Add(tile);
+            }
+
         }
     }
 }

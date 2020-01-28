@@ -29,7 +29,6 @@ namespace Valkyrie.App.ViewModel
         internal List<String> levelNames_;
         public List<String> LevelNames => levelNames_;
 
-
         internal String currentLevel_;
 
         //========================================================================
@@ -162,16 +161,16 @@ namespace Valkyrie.App.ViewModel
 
         public Level LoadSavedState(string levelName)
         {
-            XmlDocument _level = new XmlDocument();
+            XmlDocument level = new XmlDocument();
 
             //--- if this is resuming the saved game, load that
 
             string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), levelName);
             string fileContents = File.ReadAllText(fileName);
 
-            _level.LoadXml(fileContents);
+            level.LoadXml(fileContents);
 
-            return new Level(_level);
+            return new Level(level);
         }
     }
 }

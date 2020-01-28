@@ -7,14 +7,29 @@ namespace Valkryie.GL
 {
     public class Level
     {
-        internal String imageSource_;
-        public String ImageSource
+        //======================================================
+
+        /*----------------------------------
+         * 
+         *  Obstacles
+         * 
+         * -------------------------------*/
+
+        internal List<Obstacle> obstacles_;
+
+        public List<Obstacle> Obstacles
         {
-            get => imageSource_;
-            set
-            {
-                imageSource_ = value;
-            }
+            get => obstacles_;
+            set => obstacles_ = value;
+        }
+
+        //======================================================
+
+        internal String backgroundImage_;
+        public String BackgroundImage
+        {
+            get => backgroundImage_;
+            set => backgroundImage_ = value;
         }
 
         //======================================================
@@ -42,6 +57,10 @@ namespace Valkryie.GL
 
         public Level(XmlDocument mapfile)
         {
+            Obstacles = new List<Obstacle>();
+
+            //------ begin parsing the file
+
             XmlNode root = mapfile.DocumentElement;
 
             for(int i = 0; i < root.ChildNodes.Count; i++)
@@ -56,7 +75,21 @@ namespace Valkryie.GL
 
                     case ("Background"):
                     {
-                        ImageSource = child.Attributes["ImageSource"].Value.ToString();
+                        BackgroundImage = child.Attributes["ImageSource"].Value.ToString();
+                        break;
+                    }
+
+                    //-------------------------------------------------------
+
+                    case ("Obstacles"):
+                    {
+                        for(int j = 0; j < child.ChildNodes.Count; j++)
+                        {
+                            XmlNode obsNode = child.ChildNodes[j];
+
+                            Obstacles.Add(new Obstacle(obsNode));
+                        }
+
                         break;
                     }
 

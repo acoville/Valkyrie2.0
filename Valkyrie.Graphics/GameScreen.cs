@@ -9,10 +9,7 @@
 
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -22,66 +19,13 @@ namespace Valkyrie.Graphics
     {
         internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
 
-        internal SKBitmap background_;
-
-        //==================================================================
-        
-        internal string backgroundSource_;
-        public string BackgroundSource
-        {
-            get => backgroundSource_;
-            set
-            {
-                backgroundSource_ = "Valkyrie.App.Images.Backgrounds." + value;
-
-                Assembly assembly = GetType().GetTypeInfo().Assembly;
-
-                try
-                {
-                    using (Stream stream = assembly.GetManifestResourceStream(backgroundSource_))
-                    {
-                        Background = SKBitmap.Decode(stream);
-                    }
-                }
-
-                catch(Exception ex)
-                {
-                    string ErrMsg = "";
-
-                    if(!string.IsNullOrEmpty(ErrMsg))
-                    {
-                        ErrMsg = ex.ToString() + Environment.NewLine;                        
-                    }
-                }
-
-            }
-        }
-
-        //===================================================================
-
-        public SKBitmap Background
-        {
-            get => background_;
-            set
-            {
-                background_ = value;
-            }
-        }
-
         //========================================================
-
-        //-- data relating to the mid-ground
-
-        SKImage midground_;
 
         internal ObservableCollection<Sprite> sprites_;
         public ObservableCollection<Sprite> Sprites
         {
             get => sprites_;
-            set
-            {
-                sprites_ = value;
-            }
+            set => sprites_ = value;
         }
 
         //-----------------------------------------
@@ -90,17 +34,8 @@ namespace Valkyrie.Graphics
         public ObservableCollection<Tile> Tiles
         {
             get => tiles_;
-            set
-            {
-                tiles_ = value;
-            }
+            set => tiles_ = value;
         }
-
-        //=====================================================
-
-        // foreground
-
-        SKImage foreground_;
 
         //=====================================================
 
@@ -118,8 +53,6 @@ namespace Valkyrie.Graphics
 
             Sprites = new ObservableCollection<Sprite>();
             Tiles = new ObservableCollection<Tile>();
-
-            background_ = new SKBitmap(Info());
         }
 
         //===============================================================================
@@ -139,7 +72,7 @@ namespace Valkyrie.Graphics
 
         //==============================================================
 
-        /*---------------------------------------
+        /*------------------------------------------
          * 
          * Event Handler to redraw the screen
          * 
@@ -148,7 +81,7 @@ namespace Valkyrie.Graphics
          * necessary, the performance on this
          * is bad
          * 
-         * -------------------------------------*/
+         * ---------------------------------------*/
 
         public ICommand PaintCommand { get; set; }
         public void OnPainting(SKPaintGLSurfaceEventArgs args)
@@ -158,15 +91,16 @@ namespace Valkyrie.Graphics
 
             canvas.Clear(ClearPaint);
 
-            // draw background:
+            //  draw all sprites
 
-            //canvas.DrawBitmap(background_, new SKPoint(0, 0));
+            //  draw all static obstacles
 
-            // draw middle: 
+            foreach(var tile in Tiles)
+            {
+                //canvas.DrawRect(tile.Rectangle, )
 
-            //      draw all sprites
-
-            //      draw all static obstacles
+                canvas.DrawBitmap(tile.Image, tile.Rectangle.Location);
+            }
 
             // draw foreground:
         }
