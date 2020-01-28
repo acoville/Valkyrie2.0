@@ -11,6 +11,8 @@
  * 
  * https://dotnetdevaddict.co.za/2017/07/13/turning-events-into-commands/
  * 
+ * adapted to use an SKGLView instead of an SKCanvasView
+ * 
  * =======================================================================*/
 
 using SkiaSharp.Views.Forms;
@@ -20,7 +22,7 @@ using Xamarin.Forms;
 
 namespace Valkyrie.App.Behaviors
 {
-    public class PaintSurfaceCommandBehavior : BehaviorBase<SKCanvasView>
+    public class PaintSurfaceCommandBehavior : BehaviorBase<SKGLView>
     {
         //-- bindable property for the command
 
@@ -45,7 +47,9 @@ namespace Valkyrie.App.Behaviors
 
         //-- invoked immediately after the behavior is attached to a control
 
-        protected override void OnAttachedTo(SKCanvasView bindable)
+        //protected override void OnAttachedTo(SKCanvasView bindable)
+        
+        protected override void OnAttachedTo(SKGLView bindable)
         {
             base.OnAttachedTo(bindable);
 
@@ -62,7 +66,9 @@ namespace Valkyrie.App.Behaviors
 
         // invoked when the behavior is removed from the control 
 
-        protected override void OnDetachingFrom(SKCanvasView bindable)
+        //protected override void OnDetachingFrom(SKCanvasView bindable)
+        
+        protected override void OnDetachingFrom(SKGLView bindable)
         {
             base.OnDetachingFrom(bindable);
 
@@ -87,7 +93,7 @@ namespace Valkyrie.App.Behaviors
 
         // the canvas needs to be painted
 
-        private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void OnPaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
             // first check if the command can/should be fired
 

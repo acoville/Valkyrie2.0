@@ -1,12 +1,21 @@
-﻿using SkiaSharp;
-using SkiaSharp.Views.Forms;
-using System.Windows.Input;
+﻿/*====================================================
+ * 
+ * Valkyrie.Graphics
+ * Screen base class
+ * 
+ * detects native display information, 
+ * determines screen orientation. This 
+ * class is used by the menu pages to 
+ * select the most appropriate background
+ * image during OnSizeAllocated() events.
+ * 
+ * ================================================*/
+
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Valkyrie.Graphics
 {
-
 
     public partial class Screen
     {
@@ -46,60 +55,7 @@ namespace Valkyrie.Graphics
             }
         }
 
-        //===============================================================================
-
-        /*-------------------------------------
-         * 
-         * Helper function to return an 
-         * SKImageInfo object
-         * 
-         * 
-         * -----------------------------------*/
-
-        public SKImageInfo Info()
-        {
-            SKImageInfo info = new SKImageInfo((int)width_, (int)height_);
-            return info;
-        }
-
-        //===============================================================
-
-        /*-------------------------------------------------------
-         * 
-         * ClearPaint has an alpha channel of 0, making the empty 
-         * pixels in teh image transparent so any images beneath
-         * may be seen
-         * 
-         * --------------------------------------------------------*/
-
-        internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
-
-        //==============================================================
-
-        /*--------------------------------------
-         * 
-         * Event Handler to redraw the screen
-         * 
-         * I need to find a way to cache the 
-         * surface adn only redraw what is 
-         * necessary, the performance on this
-         * is bad
-         * 
-         * -----------------------------------*/
-
-        public ICommand PaintCommand { get; set; }
-        public void OnPainting(SKPaintSurfaceEventArgs args)
-        {
-            //SKImageInfo info = args.Info;
-            SKSurface surface = args.Surface;
-            SKCanvas canvas = surface.Canvas;
-
-            canvas.Clear(ClearPaint);
-
-            // draw all sprites
-
-            // draw all static obstacles
-        }
+        
 
         //================================================================
 
@@ -139,42 +95,19 @@ namespace Valkyrie.Graphics
             }
         }
 
-        //===============================================================
+        //================================================================
 
         /*--------------------------------
          * 
-         * OnCanvasViewPaintSurface
-         * 
+         * Automatically detect
+         * display properties when 
+         * constructed
+         *
          * -----------------------------*/
-
-        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
-        {
-            //SKImageInfo info = args.Info;
-            SKSurface surface = args.Surface;
-            SKCanvas canvas = surface.Canvas;
-
-            canvas.Clear();
-        }
-
-        //================================================================
 
         public Screen()
         {
             GetScreenDetails();
-
-            Redraw = new Command<SKPaintSurfaceEventArgs>(OnPainting);
-            PaintCommand = Redraw;
-        }
-
-        //================================================================
-
-        // this property required to instantiate an SKSurfaceEventArgs object
-
-        public SKSurface Surface { get; set; }
-        internal SKImageInfo ScreenDetails()
-        {
-            SKImageInfo info = new SKImageInfo((int)Width, (int)Height);
-            return info;
         }
     }
 }

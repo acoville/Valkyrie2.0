@@ -18,9 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Xml;
-using Valkyrie.GL;
 using System.Reflection;
 using Valkryie.GL;
 

@@ -43,18 +43,18 @@
             
             <!-- SK Canvas View -->
 
-            <skia:SKCanvasView
+            <skia:SKGLView
                 x:Name="SKView"
                 Grid.Row="0"
                 Grid.Column="0"
                 skia:BindingContext="{Binding deviceScreen}"
                 IsVisible="True">
 
-                <skia:SKCanvasView.Behaviors>
+                <skia:SKGLView.Behaviors>
                     <behaviors:PaintSurfaceCommandBehavior
                         Command="{Binding PaintCommand}" />
-                </skia:SKCanvasView.Behaviors>
-            </skia:SKCanvasView>
+                </skia:SKGLView.Behaviors>
+            </skia:SKGLView>
             
             <!-- Ad that displays while paused -->
             <!-- But make sure device has connectivity first -->
