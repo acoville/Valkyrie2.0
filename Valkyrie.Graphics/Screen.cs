@@ -46,8 +46,6 @@ namespace Valkyrie.Graphics
             get => width_;
         }
 
-        
-
         //================================================================
 
         public void GetScreenDetails()

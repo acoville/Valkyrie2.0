@@ -40,6 +40,7 @@ namespace Valkyrie.App.View
             gpvm_ = new GamePageViewModel();
             BindingContext = gpvm_;
 
+            SKGLView.BindingContext = gpvm_.DeviceScreen;
             RedrawScreen = new RedrawHandler(OnRedraw);
         }
 
@@ -54,7 +55,7 @@ namespace Valkyrie.App.View
 
         public void OnRedraw()
         {
-            SKView.InvalidateSurface();
+            SKGLView.InvalidateSurface();     
         }
 
         //===================================================================
@@ -93,7 +94,7 @@ namespace Valkyrie.App.View
                 {
                     //gpvm_.EvaluateMovement();
 
-                    RedrawScreen();
+                    RedrawScreen();                 
                 }
 
                 return true;

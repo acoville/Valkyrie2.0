@@ -1,7 +1,4 @@
 ﻿using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Valkryie.GL;
 
 namespace Valkyrie.Graphics
@@ -41,7 +38,10 @@ namespace Valkyrie.Graphics
         public string ImageSource
         {
             get => imageSource_;
-            set => imageSource_ = value;
+            set
+            {
+                imageSource_ = value;
+            }
         }
 
         //---------------------------------------

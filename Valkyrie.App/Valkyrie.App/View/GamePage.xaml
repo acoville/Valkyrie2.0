@@ -45,16 +45,23 @@
             <!-- SK GL View -->
 
             <skia:SKGLView
-                x:Name="SKView"
+                x:Name="SKGLView"
                 Grid.Row="0"
                 Grid.Column="0"
-                skia:BindingContext="{Binding DeviceScreen}"
                 IsVisible="True">
-
+                   
+                <!--
                 <skia:SKGLView.Behaviors>
-                    <behaviors:PaintSurfaceCommandBehavior
-                        Command="{Binding PaintCommand}" />
+
+                    <behaviors:EventToCommandBehavior
+                        EventName="PaintSurface"
+                        Command="{Binding PaintCommand}"
+                        Converter="{StaticResource SelectedItemConverter}" />
+                    
                 </skia:SKGLView.Behaviors>
+                
+                -->
+            
             </skia:SKGLView>
             
             <!-- Ad that displays while paused -->
@@ -158,6 +165,13 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
+                    <!--
+                    <Grid.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName=""
+                    </Grid.Behaviors>
+                    -->
+                    
                     <!-- Up Button-->
 
                     <ImageButton

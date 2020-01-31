@@ -86,7 +86,6 @@ namespace Valkryie.GL
                         for(int j = 0; j < child.ChildNodes.Count; j++)
                         {
                             XmlNode obsNode = child.ChildNodes[j];
-
                             Obstacles.Add(new Obstacle(obsNode));
                         }
 

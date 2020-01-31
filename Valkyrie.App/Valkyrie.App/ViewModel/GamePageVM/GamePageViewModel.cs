@@ -86,6 +86,7 @@ namespace Valkyrie.App.ViewModel
             {
                 currentLevel_ = value;
                 LoadLevel(currentLevel_);
+                RaisePropertyChanged();
             }
         }
 
@@ -112,10 +113,11 @@ namespace Valkyrie.App.ViewModel
          *
          * 1,000 ms / 30 frames per second = 30.30
          * 1,000 ms / 20 frames per second = 50 
+         * 1,000 ms / 15 fps = 66
        
         --------------------------------------------*/
 
-        internal double gameSpeed_;
+        internal double gameSpeed_ = 50;
         public double GameSpeed
         {
             get

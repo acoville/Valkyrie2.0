@@ -16,10 +16,17 @@ using Xamarin.Forms;
 namespace Valkyrie.Graphics
 {
     public class GameScreen : Screen
-    {
-        internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
+    {   
+        internal SKColor ClearPaint = new SKColor(255, 255, 255, 100);
 
         //========================================================
+
+        /*---------------------------------
+         * 
+         * All the dynamic 2D character
+         * sprites on screen
+         * 
+         * -----------------------------*/
 
         internal ObservableCollection<Sprite> sprites_;
         public ObservableCollection<Sprite> Sprites
@@ -28,7 +35,13 @@ namespace Valkyrie.Graphics
             set => sprites_ = value;
         }
 
-        //-----------------------------------------
+        //=======================================================
+
+        /*------------------------------------
+         * 
+         * All the static 2D tiles on-screen
+         * 
+         * ----------------------------------*/
 
         internal ObservableCollection<Tile> tiles_;
         public ObservableCollection<Tile> Tiles
@@ -37,37 +50,24 @@ namespace Valkyrie.Graphics
             set => tiles_ = value;
         }
 
-        //=====================================================
-
-        public SKSurface Surface { get; set; }
-
         //============================================================
+
+        /*-------------------------------------
+         * 
+         * Constructor
+         * 
+         * ----------------------------------*/
 
         public GameScreen()
         {
             // base class constructor called first, so it already has 
             // the native display screen details
 
-            Redraw = new Command<SKPaintGLSurfaceEventArgs>(OnPainting);
+            Redraw = new Command<SKPaintGLSurfaceEventArgs>(OnPaintSurface);
             PaintCommand = Redraw;
 
             Sprites = new ObservableCollection<Sprite>();
             Tiles = new ObservableCollection<Tile>();
-        }
-
-        //===============================================================================
-
-        /*-------------------------------------
-         * 
-         * Helper function to return an 
-         * SKImageInfo object
-         * 
-         * -----------------------------------*/
-
-        public SKImageInfo Info()
-        {
-            SKImageInfo info = new SKImageInfo((int)width_, (int)height_);
-            return info;
         }
 
         //==============================================================
@@ -84,8 +84,9 @@ namespace Valkyrie.Graphics
          * ---------------------------------------*/
 
         public ICommand PaintCommand { get; set; }
-        public void OnPainting(SKPaintGLSurfaceEventArgs args)
+        public void OnPaintSurface(SKPaintGLSurfaceEventArgs args)
         {
+            // ----- ! are these the right type? ! ----
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
 
@@ -97,28 +98,8 @@ namespace Valkyrie.Graphics
 
             foreach(var tile in Tiles)
             {
-                //canvas.DrawRect(tile.Rectangle, )
-
                 canvas.DrawBitmap(tile.Image, tile.Rectangle.Location);
             }
-
-            // draw foreground:
-        }
-
-        //===============================================================
-
-        /*--------------------------------
-         * 
-         * OnCanvasViewPaintSurface
-         * 
-         * -----------------------------*/
-
-        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
-        {
-            SKSurface surface = args.Surface;
-            SKCanvas canvas = surface.Canvas;
-
-            canvas.Clear();
         }
     }
 }
