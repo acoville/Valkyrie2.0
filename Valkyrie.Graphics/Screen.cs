@@ -19,10 +19,6 @@ namespace Valkyrie.Graphics
 
     public partial class Screen
     {
-        public Command Redraw { get; set; }
-
-        //================================================================
-
         public enum Orientation { portrait, landscape, square };
         internal Orientation orientation_;
         public Orientation ScreenOrientation

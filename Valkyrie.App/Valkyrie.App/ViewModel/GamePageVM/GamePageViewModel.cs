@@ -11,7 +11,7 @@ using Valkyrie.GL;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Valkryie.GL;
-
+using Xamarin.Forms;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -45,7 +45,8 @@ namespace Valkyrie.App.ViewModel
         public GamePageViewModel()
         {
             deviceScreen_ = new GameScreen();
-            GameSpeed = 50;
+            GameSpeed = 15;
+            env_ = Device.RuntimePlatform.ToString();
         }
 
         //=============================================================
@@ -117,7 +118,7 @@ namespace Valkyrie.App.ViewModel
        
         --------------------------------------------*/
 
-        internal double gameSpeed_ = 50;
+        internal double gameSpeed_ = 15;
         public double GameSpeed
         {
             get
@@ -126,29 +127,7 @@ namespace Valkyrie.App.ViewModel
             }
             set
             {
-                //-- if within range
-
-                if (!(value > 1000) && !(value < 15))
-                {
-                    gameSpeed_ = value;
-                }
-
-                //-- slowest speed: 1 frame / second
-
-                else if (value > 1000)
-                {
-                    value = 1000;
-                    gameSpeed_ = value;
-                }
-
-                //-- fastest speed: 66 frames / second
-
-                else if (value < 15)
-                {
-                    value = 15;
-                    gameSpeed_ = value;
-                }
-
+                gameSpeed_ = 1000 / value;
                 RaisePropertyChanged();
             }
         }

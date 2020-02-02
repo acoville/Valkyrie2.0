@@ -39,6 +39,7 @@
                     x:Name="opacityController"
                     Maximum="1.0"
                     Minimum="0.2"
+                    Value="0.85"
                     ValueChanged="Slider_ValueChanged" 
                     Grid.Row="2"
                     Grid.Column="2"/>

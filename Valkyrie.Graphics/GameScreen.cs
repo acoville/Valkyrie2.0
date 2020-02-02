@@ -16,8 +16,10 @@ using Xamarin.Forms;
 namespace Valkyrie.Graphics
 {
     public class GameScreen : Screen
-    {   
-        internal SKColor ClearPaint = new SKColor(255, 255, 255, 100);
+    {
+        public Command Redraw { get; set; }
+
+        internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
 
         //========================================================
 
@@ -52,6 +54,14 @@ namespace Valkyrie.Graphics
 
         //============================================================
 
+        internal SKImageInfo ScreenDetails()
+        {
+            SKImageInfo info = new SKImageInfo((int)width_, (int)height_);
+            return info;
+        }
+
+        //============================================================
+
         /*-------------------------------------
          * 
          * Constructor
@@ -62,7 +72,7 @@ namespace Valkyrie.Graphics
         {
             // base class constructor called first, so it already has 
             // the native display screen details
-
+            
             Redraw = new Command<SKPaintGLSurfaceEventArgs>(OnPaintSurface);
             PaintCommand = Redraw;
 
@@ -87,6 +97,7 @@ namespace Valkyrie.Graphics
         public void OnPaintSurface(SKPaintGLSurfaceEventArgs args)
         {
             // ----- ! are these the right type? ! ----
+
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
 
@@ -95,7 +106,7 @@ namespace Valkyrie.Graphics
             //  draw all sprites
 
             //  draw all static obstacles
-
+                            
             foreach(var tile in Tiles)
             {
                 canvas.DrawBitmap(tile.Image, tile.Rectangle.Location);

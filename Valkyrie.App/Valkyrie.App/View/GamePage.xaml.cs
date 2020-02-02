@@ -10,6 +10,7 @@
  * 
  * ==========================================================================*/
 
+using SkiaSharp.Views.Forms;
 using System;
 using Valkyrie.App.ViewModel;
 using Xamarin.Forms;
@@ -23,6 +24,7 @@ namespace Valkyrie.App.View
     public partial class GamePage : ContentPage
     {
         event RedrawHandler RedrawScreen;
+
         internal GamePageViewModel gpvm_;
 
         //===================================================================
@@ -39,10 +41,21 @@ namespace Valkyrie.App.View
 
             gpvm_ = new GamePageViewModel();
             BindingContext = gpvm_;
-
-            SKGLView.BindingContext = gpvm_.DeviceScreen;
-            RedrawScreen = new RedrawHandler(OnRedraw);
+          
+            RedrawScreen = new RedrawHandler(Redraw);
         }
+
+        //====================================================================
+
+        /*----------------------------------
+         * 
+         * Tracking info to see how much 
+         * time has elapsed during gameplay
+         * 
+         * -------------------------------*/
+
+        internal TimeSpan frameCounter_;
+
 
         //===================================================================
 
@@ -53,9 +66,10 @@ namespace Valkyrie.App.View
          * 
          * -----------------------------------*/
 
-        public void OnRedraw()
+        public void Redraw()
         {
-            SKGLView.InvalidateSurface();     
+            SKGLView.InvalidateSurface();
+            gpvm_.FPS++;
         }
 
         //===================================================================
@@ -94,7 +108,7 @@ namespace Valkyrie.App.View
                 {
                     //gpvm_.EvaluateMovement();
 
-                    RedrawScreen();                 
+                    RedrawScreen();
                 }
 
                 return true;
@@ -111,19 +125,37 @@ namespace Valkyrie.App.View
 
         private void PauseButtonClicked(object sender, EventArgs e)
         {
-            if(gpvm_.Paused)
+            if (gpvm_.Paused)
             {
                 gpvm_.Paused = false;
                 Pause_Btn.Text = "PAUSE";
                 return;
             }
 
-            if(!gpvm_.Paused)
+            if (!gpvm_.Paused)
             {
                 gpvm_.Paused = true;
                 Pause_Btn.Text = "UNPAUSE";
                 return;
             }
+        }
+
+        //========================================================================
+
+        /*----------------------------------------------
+         * 
+         * I just cannot get the damn SKGLView to 
+         * "behave" and do this through a beahvior
+         * like I could a CanvasView. No idea
+         * what I'm missing, but I'm sick of wasting
+         * time on it. The handler will be wired through
+         * here. Sue me. 
+         * 
+         * --------------------------------------------*/
+
+        private void SKGLView_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
+        {
+            gpvm_.DeviceScreen.OnPaintSurface(e);
         }
     }
 }

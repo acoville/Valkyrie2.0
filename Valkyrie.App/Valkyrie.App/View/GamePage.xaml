@@ -47,21 +47,25 @@
             <skia:SKGLView
                 x:Name="SKGLView"
                 Grid.Row="0"
-                Grid.Column="0"
+                Grid.Column="0"              
+                BindingContext="DeviceScreen"
+                PaintSurface="SKGLView_PaintSurface"
                 IsVisible="True">
-                   
+
+                
+                
                 <!--
                 <skia:SKGLView.Behaviors>
 
-                    <behaviors:EventToCommandBehavior
+                    <behaviors:PaintSurfaceCommandBehavior
                         EventName="PaintSurface"
-                        Command="{Binding PaintCommand}"
-                        Converter="{StaticResource SelectedItemConverter}" />
+                        Command="{Binding PaintCommand}" />
+             
+                    Converter="{StaticResource SelectedItemConverter}"/>
                     
                 </skia:SKGLView.Behaviors>
                 
                 -->
-            
             </skia:SKGLView>
             
             <!-- Ad that displays while paused -->
@@ -95,6 +99,49 @@
                 </StackLayout>
             </ContentView>
 
+            <!-- Troubleshooting Labels-->
+            <!-- set visible = false in release build-->
+
+            <StackLayout
+                x:Name="Troubleshooting_Layout"
+                Grid.Row="0"
+                Grid.Column="0"
+                IsVisible="{Binding Trouble_Visible}">
+
+                <StackLayout
+                    Orientation="Vertical">
+
+                    <!-- Framerate -->
+                    <StackLayout    
+                        Orientation="Horizontal">
+
+                        <Label 
+                            Text="Framerate: " 
+                            TextColor="WhiteSmoke"/>
+
+                        <Label
+                            Text="{Binding FPS}" 
+                            TextColor="WhiteSmoke"/>
+                    </StackLayout>
+                    
+                    <!-- Runtime environment-->
+
+                    <StackLayout
+                        Orientation="Horizontal">
+
+                        <Label
+                            Text="Environment: "
+                            TextColor="WhiteSmoke" />
+
+                        <Label
+                            Text="{Binding Env}"
+                            TextColor="WhiteSmoke" />
+                    </StackLayout>
+                    
+                    
+                </StackLayout>
+            </StackLayout>
+            
             <!-- Controls -->
 
             <Grid
