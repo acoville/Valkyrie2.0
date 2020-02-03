@@ -9,6 +9,22 @@ namespace Valkryie.GL
     {
         //======================================================
 
+        /*---------------------------------
+         * 
+         * Starting Position 
+         * Game Logic Position
+         * 
+         * ------------------------------*/
+
+        internal GLPosition start_;
+        public GLPosition Start
+        {
+            get => start_;
+            set => start_ = value;
+        }
+        
+        //======================================================
+
         /*----------------------------------
          * 
          *  Obstacles
@@ -71,6 +87,14 @@ namespace Valkryie.GL
 
                 switch(Type)
                 {
+                    //--------------------------------------------------------
+
+                    case ("StartingPosition"):
+                    {
+                        Start = new GLPosition(child);
+                        break;
+                    }
+
                     //-------------------------------------------------------
 
                     case ("Background"):

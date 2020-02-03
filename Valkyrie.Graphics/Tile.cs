@@ -5,6 +5,8 @@ namespace Valkyrie.Graphics
 {
     public class Tile
     {
+
+
         public Tile(Obstacle source)
         {
             Rectangle = source.Rectangle;
@@ -67,6 +69,21 @@ namespace Valkyrie.Graphics
         public void Move(SKPoint target)
         {
             rectangle_.Offset(target);
+        }
+
+        //==================================================
+
+        /*-------------------------------
+         * 
+         * Move
+         * 
+         * accepting a GL position 
+         * 
+         * ------------------------------*/
+
+        public void Move(GLPosition target)
+        {
+            
         }
 
         //==================================================

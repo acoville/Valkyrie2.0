@@ -1,16 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Level>
+  
+    <!-- Starting Position -->
+
+  <StartingPosition
+      X="128"
+      Y="64" />
+  
     <!-- Player -->
-    
+  
+  
+  
     <!-- Static Obstacles -->
 
   <Obstacles>
 
     <Obstacle
-      Top="0.0"
-      Left="0.0"
-      Right="64.0"
-      Bottom="64.0"
+      Height="64"
+      Width="64"
+      X="0"
+      Y="64"
       Image="bricks.png"
       Static="true" />
   

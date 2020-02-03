@@ -45,7 +45,6 @@ namespace Valkyrie.App.ViewModel
         public GamePageViewModel()
         {
             deviceScreen_ = new GameScreen();
-            GameSpeed = 15;
             env_ = Device.RuntimePlatform.ToString();
         }
 
@@ -118,7 +117,7 @@ namespace Valkyrie.App.ViewModel
        
         --------------------------------------------*/
 
-        internal double gameSpeed_ = 15;
+        internal double gameSpeed_ = 30;
         public double GameSpeed
         {
             get
