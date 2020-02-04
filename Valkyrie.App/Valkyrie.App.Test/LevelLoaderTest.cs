@@ -89,5 +89,31 @@ namespace Valkyrie.App.Test
 
             Assert.IsTrue(obstacles >= 1);
         }
+
+        //===============================================================
+
+        /*------------------------------
+         * 
+         * Make sure that the Obstacle
+         * is parsed accurately
+         * 
+         * -----------------------------*/
+
+        [Test]
+        [Category("LevelLoader")]
+        [Category("Level")]
+        public void ObstacleAccuracyTest()
+        {
+            LevelLoader loader = new LevelLoader();
+            Level SUT = loader.LoadFirstLevel();
+
+            GLObstacle glob = SUT.Obstacles[0];
+
+            int tileHeight = glob.Rectangle.TileHeight;
+            int tileWidth = glob.Rectangle.TileWidth;
+
+            Assert.AreEqual(tileHeight, 1);
+            Assert.AreEqual(tileWidth, 10);
+        }
     }
 }

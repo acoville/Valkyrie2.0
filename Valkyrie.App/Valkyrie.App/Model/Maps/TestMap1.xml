@@ -18,8 +18,8 @@
     <Obstacle
       Height="1"
       Width="10"
-      X="0"
-      Y="10"
+      X="1"
+      Y="2"
       Image="Bricks"
       Static="true" />
   

@@ -67,20 +67,38 @@ namespace Valkryie.GL
 
         //======================================================
 
-        internal float height_;
-        public float Height
+        internal int tileHeight_;
+        public int TileHeight
         {
-            get => height_;
-            set => height_ = value;
+            get => tileHeight_;
+            set => tileHeight_ = value;
+        }
+
+        //-----------------------------
+
+        internal int tileWidth_;
+        public int TileWidth
+        {
+            get => tileWidth_;
+            set => tileWidth_ = value;
+        }
+
+        //======================================================
+
+        internal float pxHeight_;
+        public float pixelHeight
+        {
+            get => pxHeight_;
+            set => pxHeight_ = value;
         }
 
         //======================================================
         
-        internal float width_;
-        public float Width
+        internal float pxWidth_;
+        public float pixelWidth
         {
-            get => width_;
-            set => width_ = value;
+            get => pxWidth_;
+            set => pxWidth_ = value;
         }
         
         //======================================================
@@ -94,13 +112,16 @@ namespace Valkryie.GL
         public GLRect(GLPosition origin, float height, float width)
         {
             Origin = origin;
-            Height = height;
-            Width = width;
+            pixelHeight = height;
+            pixelWidth = width;
 
-            Top = Origin.Y + Height;
+            TileHeight = (int)pixelHeight / 64;
+            TileWidth = (int)pixelWidth / 64;
+
+            Top = Origin.Y + pixelHeight;
             Bottom = Origin.Y;
             Left = Origin.X;
-            Right = Origin.X + Width;
+            Right = Origin.X + pixelWidth;
 
             float center_x = Origin.X + (width / 2.0f);
             float center_y = Origin.Y + (height / 2.0f);
@@ -120,16 +141,20 @@ namespace Valkryie.GL
         public GLRect(GLPosition origin, int height, int width)
         {
             Origin = origin;
-            Height = (float)height * 64;
-            Width = (float)width * 64;
 
-            Top = Origin.Y + Height;
+            TileHeight = height;
+            TileWidth = width;
+
+            pixelHeight = (float)height * 64;
+            pixelWidth = (float)width * 64;
+
+            Top = Origin.Y + pixelHeight;
             Bottom = Origin.Y;
             Left = Origin.X;
-            Right = Origin.X + Width;
+            Right = Origin.X + pixelWidth;
 
-            float center_x = Origin.X + (Width / 2.0f);
-            float center_y = Origin.Y + (Height / 2.0f);
+            float center_x = Origin.X + (pixelWidth / 2.0f);
+            float center_y = Origin.Y + (pixelHeight / 2.0f);
 
             center_ = new GLPosition(center_x, center_y);
         }
@@ -149,12 +174,12 @@ namespace Valkryie.GL
             bool withinX = false;
             bool withinY = false;
 
-            if(position.X >= Origin.X && position.X <= Origin.X + Width)
+            if(position.X >= Origin.X && position.X <= Origin.X + pixelWidth)
             {
                 withinX = true;
             }
 
-            if(position.Y >= Origin.Y && position.Y <= Origin.Y + Height)
+            if(position.Y >= Origin.Y && position.Y <= Origin.Y + pixelHeight)
             {
                 withinY = true;
             }

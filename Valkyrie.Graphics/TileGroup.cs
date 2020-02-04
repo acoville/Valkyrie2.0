@@ -58,13 +58,26 @@ namespace Valkyrie.Graphics
         {
             Tiles = new List<List<Tile>>();
 
-            for(int i = 0; i < obstacle.Rectangle.Height; i++)
+            for(int i = 0; i < obstacle.Rectangle.TileHeight; i++)
             {
                 List<Tile> newRow = new List<Tile>();
 
-                for(int j = 0; j < obstacle.Rectangle.Width; j++)
+                // set the rectangle's top and bottom here
+
+                float top = obstacle.Rectangle.Origin.Y - (i * 64.0f);
+                float bottom = obstacle.Rectangle.Origin.Y + (i * 64.0f);
+
+                for(int j = 0; j < obstacle.Rectangle.TileWidth; j++)
                 {
-                    SKRect rect = new SKRect();
+                    // set the rectangle's left and right here 
+
+                    float left = obstacle.Rectangle.Origin.X + (j * 64.0f);
+                    float right = obstacle.Rectangle.Origin.X - (j * 64.0f);
+
+                    // create the SKRect, add the tile 
+
+                    SKRect rect = new SKRect(left, top, right, bottom);
+
                     Tile col = new Tile(obstacle.ImageSource, rect);
                     newRow.Add(col);
                 }
@@ -73,7 +86,7 @@ namespace Valkyrie.Graphics
             }
         }
 
-        //=====================================================
+        //====================================================================
 
         /*--------------------------------
          * 
@@ -89,14 +102,14 @@ namespace Valkyrie.Graphics
             set => SKorigin_ = value;
         }
 
-        //=====================================================
+        //==================================================================
 
         public void Translate(float deltaX, float deltaY)
         {
 
         }
 
-        //====================================================
+        //===================================================================
 
         public void MoveTo(SKPoint skiaPoint)
         {
