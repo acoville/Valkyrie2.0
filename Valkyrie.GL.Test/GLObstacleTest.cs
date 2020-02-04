@@ -4,7 +4,7 @@ using Valkryie.GL;
 
 namespace Valkyrie.GL.Test
 {
-    public class ObstacleTest
+    public class GLObstacleTest
     {
         public void Setup()
         {

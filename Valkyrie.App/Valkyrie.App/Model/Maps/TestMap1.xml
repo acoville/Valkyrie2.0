@@ -4,8 +4,8 @@
     <!-- Starting Position -->
 
   <StartingPosition
-      X="128"
-      Y="64" />
+      X="256.0"
+      Y="256.0" />
   
     <!-- Player -->
   
@@ -18,9 +18,9 @@
     <Obstacle
       Height="1"
       Width="10"
-      X="1"
-      Y="1"
-      Image="bricks.png"
+      X="0"
+      Y="10"
+      Image="Bricks"
       Static="true" />
   
   </Obstacles>

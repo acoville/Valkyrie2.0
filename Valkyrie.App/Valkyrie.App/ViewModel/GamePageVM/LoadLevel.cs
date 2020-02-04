@@ -14,6 +14,7 @@ using System.Reflection;
 using Xamarin.Forms;
 using Valkryie.GL;
 using Valkyrie.Graphics;
+using Valkyrie.App.Model;
 
 namespace Valkyrie.App.ViewModel
 { 
@@ -36,26 +37,34 @@ namespace Valkyrie.App.ViewModel
             //-----------------------------------------------
             // add the obstacles to the Graphics layer
 
-            foreach(var obstacle in map.Obstacles)
+            foreach(var glob in map.Obstacles)
             {
-                Tile tile = new Tile(obstacle);
+                // add to the List of Obstacles in the GPVM from the GLObs in Level
 
-                /*
-                                SKImageInfo info = new SKImageInfo(
-                                    (int)tile.Rectangle.Width, 
-                                    (int)tile.Rectangle.Height);
-                 */
+                obstacles_.Add(new Obstacle(glob));
+
+                //--------------------------------------------------------
+
+                // get the SKBitmap for the TileGroup
+
+                SKBitmap tileImage = new SKBitmap();
+                SKImageInfo info = new SKImageInfo(64, 64);
 
                 Assembly assembly = GetType().GetTypeInfo().Assembly;
 
-                using (Stream stream = assembly.GetManifestResourceStream(tile.ImageSource))
+                using (Stream stream = assembly.GetManifestResourceStream(glob.ImageSource))
                 {
-                    tile.Image = SKBitmap.Decode(stream);
+                    tileImage = SKBitmap.Decode(stream);
                 }
 
-                //tile.Image = SKBitmap.Decode(tile.ImageSource, info);
+                //--------------------------------------------------------
 
-                DeviceScreen.Tiles.Add(tile);
+                // create the tile group
+
+                TileGroup tilegroup = new TileGroup(glob);
+                tilegroup.MainTile = tileImage;
+
+                DeviceScreen.Tiles.Add(tilegroup);
             }
         }
     }

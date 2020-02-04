@@ -8,8 +8,6 @@ namespace Valkryie.GL
 {
     public class GLObstacle
     {
-
-
         //=======================================================
 
         /*----------------------------------------
@@ -85,7 +83,7 @@ namespace Valkryie.GL
             // get the image
 
             string source = node.Attributes["Image"].Value.ToString();
-            ImageSource = "Valkyrie.App.Images.Tiles." + source;
+            ImageSource = "Valkyrie.App.Images.Tiles." + source + ".tile.png";
         }
     }
 }

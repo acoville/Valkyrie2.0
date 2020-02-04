@@ -53,6 +53,5 @@ namespace Valkyrie.Graphics
             get => image_;
             set => image_ = value;
         }
-
     }
 }

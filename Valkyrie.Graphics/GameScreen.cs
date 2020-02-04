@@ -45,8 +45,8 @@ namespace Valkyrie.Graphics
          * 
          * ----------------------------------*/
 
-        internal ObservableCollection<Tile> tiles_;
-        public ObservableCollection<Tile> Tiles
+        internal ObservableCollection<TileGroup> tiles_;
+        public ObservableCollection<TileGroup> Tiles
         {
             get => tiles_;
             set => tiles_ = value;
@@ -77,7 +77,7 @@ namespace Valkyrie.Graphics
             PaintCommand = Redraw;
 
             Sprites = new ObservableCollection<Sprite>();
-            Tiles = new ObservableCollection<Tile>();
+            Tiles = new ObservableCollection<TileGroup>();
         }
 
         //==============================================================
@@ -107,9 +107,15 @@ namespace Valkyrie.Graphics
 
             //  draw all static obstacles
                             
-            foreach(var tile in Tiles)
+            foreach(var tileGroup in Tiles)
             {
-                canvas.DrawBitmap(tile.Image, tile.Rectangle.Location);
+                foreach(var row in tileGroup.Tiles)
+                {
+                    foreach(var col in row)
+                    {
+                        canvas.DrawBitmap(col.Image, col.Rectangle.Location);
+                    }
+                }
             }
         }
     }

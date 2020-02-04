@@ -22,10 +22,10 @@
     <EmbeddedResource Include="Images\Backgrounds\testBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Images\Tiles\bricks.png">
+    <EmbeddedResource Include="Images\Tiles\Bricks\tile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Images\Tiles\grass.png">
+    <EmbeddedResource Include="Images\Tiles\Grass\tile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Model\Maps\LevelManifest.xml">
