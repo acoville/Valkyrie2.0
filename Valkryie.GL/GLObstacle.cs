@@ -6,8 +6,10 @@ using SkiaSharp;
 
 namespace Valkryie.GL
 {
-    public class Obstacle
+    public class GLObstacle
     {
+
+
         //=======================================================
 
         /*----------------------------------------
@@ -20,8 +22,8 @@ namespace Valkryie.GL
          * 
          * -------------------------------------*/
 
-        internal SKRect rectangle_;
-        public SKRect Rectangle
+        internal GLRect rectangle_;
+        public GLRect Rectangle
         {
             get => rectangle_;
             set => rectangle_ = value;
@@ -44,7 +46,7 @@ namespace Valkryie.GL
 
         //===================================================================
         
-        public Obstacle()
+        public GLObstacle()
         {   
         }
 
@@ -61,18 +63,24 @@ namespace Valkryie.GL
          * 
          * ---------------------------------------*/
 
-        public Obstacle(XmlNode node)
+        public GLObstacle(XmlNode node)
         {
-            // initialize the rectangle
+            //--- create the GL Rectangle 
 
-            float left = float.Parse(node.Attributes["Top"].Value.ToString());
-            float top = float.Parse(node.Attributes["Left"].Value.ToString());
-            float right = float.Parse(node.Attributes["Right"].Value.ToString());
-            float bottom = float.Parse(node.Attributes["Bottom"].Value.ToString());
+            GLPosition origin = new GLPosition();
+            origin.X = float.Parse(node.Attributes["X"].Value.ToString());
+            origin.X *= 64;
 
+            origin.Y = float.Parse(node.Attributes["Y"].Value.ToString());
+            origin.Y *= 64;
 
+            float height = float.Parse(node.Attributes["Height"].Value.ToString());
+            height *= 64;
 
-            Rectangle = new SKRect(left, top, right, bottom);
+            float width = float.Parse(node.Attributes["Width"].Value.ToString());
+            width *= 64;
+
+            Rectangle = new GLRect(origin, height, width);
 
             // get the image
 

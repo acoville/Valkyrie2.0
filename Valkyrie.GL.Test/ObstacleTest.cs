@@ -17,7 +17,7 @@ namespace Valkyrie.GL.Test
         [Category("Obstacle")]
         public void ConstructionTest()
         {
-            Obstacle SUT = new Obstacle();
+            GLObstacle SUT = new GLObstacle();
             Assert.Pass();
         }
 

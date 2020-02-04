@@ -123,7 +123,7 @@ namespace Valkyrie.GL.Test
             GLRect Rect1 = new GLRect(origin1, 3, 3);
 
             GLPosition origin2 = new GLPosition(500, 400);
-            GLRect Rect2 = new GLRect(origin2, 1, 4);
+            GLRect Rect2 = new GLRect(origin2, 4, 4);
 
             Assert.IsTrue(Rect1.Intersects(Rect2));
         }
@@ -138,7 +138,7 @@ namespace Valkyrie.GL.Test
             GLRect Rect1 = new GLRect(origin1, 3, 3);
 
             GLPosition origin2 = new GLPosition(200.0f, 400.0f);
-            GLRect Rect2 = new GLRect(origin2, 1, 4);
+            GLRect Rect2 = new GLRect(origin2, 1, 1);
 
             Assert.IsFalse(Rect1.Intersects(Rect2));
         }

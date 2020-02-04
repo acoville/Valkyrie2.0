@@ -189,6 +189,33 @@ namespace Valkryie.GL
             return (XinRange && YinRange) ? true : false;
         }
 
+        //===========================================================
+
+        /*----------------------------------
+         * 
+         * Helper Function to determine 
+         * weather a given Y coordinate
+         * is within the Y range of this
+         * rectangle
+         * 
+         * ------------------------------*/
+
+        internal bool YIntersects(float arg)
+        {
+            return (arg < this.Top && arg > this.Bottom) ? true : false;
+        }
+
+        /*------------------------------
+         * 
+         * Same for X intersection
+         * 
+         * ----------------------------*/
+
+        internal bool XIntersects(float arg)
+        {
+            return (arg > this.Left && arg < this.Right) ? true : false;
+        }
+
         //=========================================================
 
         /*-----------------------------------
@@ -200,44 +227,22 @@ namespace Valkryie.GL
         public bool Intersects(GLRect other)
         {
             bool YOverlap = false;
-
-            if (other.Top <= this.Top && other.Top > this.Bottom)
+            
+            if(YIntersects(other.Top) || YIntersects(other.Bottom))
             {
-                if(other.Bottom < this.Bottom)
-                {
-                    YOverlap = true;
-                }
+                YOverlap = true;
             }
             
-            else if(other.Bottom >= this.Bottom)
-            {
-                if(other.Top > this.Top)
-                {
-                    YOverlap = true;
-                }
-            }
-
-            //-------------------------------------------
-
+            //-----------------------------------------
+            
             bool XOverlap = false;
 
-            if(other.Left >= this.Left && other.Left < this.Right)
+            if(XIntersects(other.Left) || XIntersects(other.Right))
             {
-                if(other.Right > this.Right)
-                {
-                    XOverlap = true;
-                }
-            }
-                    
-            else if(other.Right <= this.Right)
-            {
-                if(other.Left < this.Left)
-                {
-                    XOverlap = true;
-                }
+                XOverlap = true;
             }
 
-            return (XOverlap && YOverlap) ? true : false;
+            return (XOverlap || YOverlap) ? true : false;
         }
     }
 }

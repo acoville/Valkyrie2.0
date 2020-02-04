@@ -6,11 +6,10 @@ namespace Valkyrie.Graphics
     public class Tile
     {
 
-
-        public Tile(Obstacle source)
+        public Tile(string imageSource, SKRect rect)
         {
-            Rectangle = source.Rectangle;
-            ImageSource = source.ImageSource;
+            Rectangle = rect;
+            ImageSource = imageSource;
         }
 
         //==================================================
@@ -54,46 +53,6 @@ namespace Valkyrie.Graphics
             get => image_;
             set => image_ = value;
         }
-
-        //==================================================
-
-        /*----------------------------------------
-         * 
-         * Move 
-         * 
-         * for now, this will align the 
-         * rectangle's origin with the target
-         * 
-         * ------------------------------------*/
-
-        public void Move(SKPoint target)
-        {
-            rectangle_.Offset(target);
-        }
-
-        //==================================================
-
-        /*-------------------------------
-         * 
-         * Move
-         * 
-         * accepting a GL position 
-         * 
-         * ------------------------------*/
-
-        public void Move(GLPosition target)
-        {
-            
-        }
-
-        //==================================================
-
-        /*----------------------------
-         * 
-         * Translate
-         * 
-         * --------------------------*/
-
 
     }
 }

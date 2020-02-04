@@ -31,9 +31,9 @@ namespace Valkryie.GL
          * 
          * -------------------------------*/
 
-        internal List<Obstacle> obstacles_;
+        internal List<GLObstacle> obstacles_;
 
-        public List<Obstacle> Obstacles
+        public List<GLObstacle> Obstacles
         {
             get => obstacles_;
             set => obstacles_ = value;
@@ -73,7 +73,7 @@ namespace Valkryie.GL
 
         public Level(XmlDocument mapfile)
         {
-            Obstacles = new List<Obstacle>();
+            Obstacles = new List<GLObstacle>();
 
             //------ begin parsing the file
 
@@ -110,7 +110,7 @@ namespace Valkryie.GL
                         for(int j = 0; j < child.ChildNodes.Count; j++)
                         {
                             XmlNode obsNode = child.ChildNodes[j];
-                            Obstacles.Add(new Obstacle(obsNode));
+                            Obstacles.Add(new GLObstacle(obsNode));
                         }
 
                         break;

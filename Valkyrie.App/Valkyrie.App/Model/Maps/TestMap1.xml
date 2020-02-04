@@ -16,10 +16,10 @@
   <Obstacles>
 
     <Obstacle
-      Height="64"
-      Width="64"
-      X="0"
-      Y="64"
+      Height="1"
+      Width="10"
+      X="1"
+      Y="1"
       Image="bricks.png"
       Static="true" />
   
