@@ -173,10 +173,20 @@ namespace Valkryie.GL
 
         public bool Contains(GLRect other)
         {
-            bool XOverlap = false;
-            bool YOverlap = false;
+            bool XinRange = false;
+            bool YinRange = false;
 
-            return (XOverlap && YOverlap) ? true : false;
+            if (other.Left >= this.Left && other.Right <= this.Right)
+            {
+                XinRange = true;
+            }
+
+            if(other.Top <= this.Top && other.Bottom >= this.Bottom)
+            {
+                YinRange = true;
+            }
+
+            return (XinRange && YinRange) ? true : false;
         }
 
         //=========================================================
@@ -189,8 +199,43 @@ namespace Valkryie.GL
 
         public bool Intersects(GLRect other)
         {
-            bool XOverlap = false;
             bool YOverlap = false;
+
+            if (other.Top <= this.Top && other.Top > this.Bottom)
+            {
+                if(other.Bottom < this.Bottom)
+                {
+                    YOverlap = true;
+                }
+            }
+            
+            else if(other.Bottom >= this.Bottom)
+            {
+                if(other.Top > this.Top)
+                {
+                    YOverlap = true;
+                }
+            }
+
+            //-------------------------------------------
+
+            bool XOverlap = false;
+
+            if(other.Left >= this.Left && other.Left < this.Right)
+            {
+                if(other.Right > this.Right)
+                {
+                    XOverlap = true;
+                }
+            }
+                    
+            else if(other.Right <= this.Right)
+            {
+                if(other.Left < this.Left)
+                {
+                    XOverlap = true;
+                }
+            }
 
             return (XOverlap && YOverlap) ? true : false;
         }
