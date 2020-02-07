@@ -48,7 +48,7 @@ namespace Valkyrie.App.ViewModel
         {
             deviceScreen_ = new GameScreen();
             env_ = Device.RuntimePlatform.ToString();
-
+            scrollBox_ = new ScrollBox();
             actors_ = new List<Actor>();
             obstacles_ = new List<Obstacle>();
         }
@@ -91,6 +91,10 @@ namespace Valkyrie.App.ViewModel
             {
                 currentLevel_ = value;
                 LoadLevel(currentLevel_);
+
+                ScrollBox.Update(DeviceScreen.Info, ref currentLevel_);
+                DeviceScreen.ScrollBox = ScrollBox.Skia;
+                
                 RaisePropertyChanged();
             }
         }

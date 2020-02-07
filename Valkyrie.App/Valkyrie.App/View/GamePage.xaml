@@ -52,20 +52,6 @@
                 PaintSurface="SKGLView_PaintSurface"
                 IsVisible="True">
 
-                
-                
-                <!--
-                <skia:SKGLView.Behaviors>
-
-                    <behaviors:PaintSurfaceCommandBehavior
-                        EventName="PaintSurface"
-                        Command="{Binding PaintCommand}" />
-             
-                    Converter="{StaticResource SelectedItemConverter}"/>
-                    
-                </skia:SKGLView.Behaviors>
-                
-                -->
             </skia:SKGLView>
             
             <!-- Ad that displays while paused -->

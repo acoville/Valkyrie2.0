@@ -12,6 +12,7 @@
 
 using SkiaSharp.Views.Forms;
 using System;
+using Valkyrie.App.Model;
 using Valkyrie.App.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -74,17 +75,34 @@ namespace Valkyrie.App.View
 
         //===================================================================
 
-        /*----------------------------------
+        /*---------------------------------------
          * 
          * Handler for screen rotations, 
          * resizes
          * 
-         * -------------------------------*/
+         * 1 - the Device Screen will update its
+         * ScreenInfo, 
+         * 
+         * 2 - pass that to the 
+         * ScrollBox in the ViewModel, 
+         * 
+         * 3 - pass the ScrollBox's SK coords
+         * back to the screen for displaying.
+         * 
+         * -------------------------------------*/
 
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
             gpvm_.DeviceScreen.GetScreenDetails();
+
+            // aha... OnSizeAllocated happens before the level is loaded.
+
+            if (gpvm_.LevelLoaded)
+            {
+                gpvm_.ScrollBox.Update(gpvm_.DeviceScreen.Info, ref gpvm_.currentLevel_);
+                gpvm_.DeviceScreen.ScrollBox = gpvm_.ScrollBox.Skia;
+            }
         }
 
         //==================================================================
@@ -120,7 +138,8 @@ namespace Valkyrie.App.View
         /*-------------------------------------
         * 
         * Event Handler for a click on the 
-        * paused buttonti
+        * paused buttont
+        * 
         * -----------------------------------*/
 
         private void PauseButtonClicked(object sender, EventArgs e)

@@ -109,6 +109,11 @@ namespace Valkryie.GL
          * 
          * --------------------------------*/
 
+        public GLRect()
+        {}
+
+        //----------------------------------------------------
+
         public GLRect(GLPosition origin, float height, float width)
         {
             Origin = origin;

@@ -7,6 +7,12 @@ namespace Valkryie.GL
 {
     public class Level
     {
+        internal GLRect boundaries_;
+        public GLRect Boundaries
+        {
+            get => boundaries_;
+        }
+
         //======================================================
 
         /*---------------------------------
@@ -57,7 +63,8 @@ namespace Valkryie.GL
 
         public Level()
         {
-
+            boundaries_ = new GLRect();
+            boundaries_.Origin = new GLPosition(0.0f, 0.0f);
         }
 
         //======================================================

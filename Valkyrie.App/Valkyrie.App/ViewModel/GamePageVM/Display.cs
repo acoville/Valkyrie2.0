@@ -1,6 +1,8 @@
 ﻿
 
 using System.ComponentModel;
+using Valkryie.GL;
+using Valkyrie.App.Model;
 using Valkyrie.Graphics;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -22,6 +24,23 @@ namespace Valkyrie.App.ViewModel
         public GameScreen DeviceScreen
         {
             get => deviceScreen_;
+        }
+
+        //===============================================================
+
+        /*-------------------------------------------------
+         * 
+         * This is a set of dynamic GL coordinates which
+         * correspond to fixed SK coordinates. If the 
+         * player leaves this box, the camera follows
+         * 
+         * -----------------------------------------------*/
+
+        internal ScrollBox scrollBox_;
+        public ScrollBox ScrollBox
+        {
+            get => scrollBox_;
+            set => scrollBox_ = value;
         }
 
         //===============================================================
@@ -49,6 +68,7 @@ namespace Valkyrie.App.ViewModel
 
         /*-----------------------------------
          * 
+         * Troubleshooting information
          * Raw frames tracking info 
          * used to calculate FPS
          * 
@@ -111,7 +131,8 @@ namespace Valkyrie.App.ViewModel
 
         /*----------------------------------
          * 
-         * 
+         * Control variable displays debug
+         * information on screen
          * 
          * -------------------------------*/
 
@@ -123,6 +144,7 @@ namespace Valkyrie.App.ViewModel
             set
             {
                 troubleVisibile_ = value;
+                DeviceScreen.Trouble = value;
                 RaisePropertyChanged();
             }
         }

@@ -16,30 +16,39 @@ using Xamarin.Forms;
 
 namespace Valkyrie.Graphics
 {
-
     public partial class Screen
     {
+
+        internal ScreenInfo info_;
+        public ScreenInfo Info
+        {
+            get => info_;
+        }
+
+        //=================================================================
+
         public enum Orientation { portrait, landscape, square };
-        internal Orientation orientation_;
+        
+        //internal Orientation orientation_;
         public Orientation ScreenOrientation
         {
-            get => orientation_;
+            get => info_.Orientation;
         }
 
         //================================================================
 
-        internal double height_;
+        //internal double height_;
         public double Height
         {
-            get => height_;
+            get => info_.Height;
         }
 
         //---------------------------------
 
-        internal double width_;
+        //internal double width_;
         public double Width
         {
-            get => width_;
+            get => info_.Width;
         }
 
         //================================================================
@@ -47,37 +56,7 @@ namespace Valkyrie.Graphics
         public void GetScreenDetails()
         {
             var metrics = DeviceDisplay.MainDisplayInfo;
-
-            // determine orientation
-
-            width_ = metrics.Width;
-            height_ = metrics.Height;
-            
-            // shrink the render area to accomodate the 
-            // virtual controls, D-Pad and actionbuttons
-            
-            height_ *= .75;
-
-            // screen is currently in portrait
-
-            if(Height > Width)
-            {
-                orientation_ = Orientation.portrait;
-            }
-
-            // screen is currently in landscape
-
-            else if (Height < Width)
-            {
-                orientation_ = Orientation.landscape;
-            }
-
-            // must be a square
-
-            else
-            {
-                orientation_ = Orientation.square;
-            }
+            info_ = new ScreenInfo(metrics.Height, metrics.Width);     
         }
 
         //================================================================

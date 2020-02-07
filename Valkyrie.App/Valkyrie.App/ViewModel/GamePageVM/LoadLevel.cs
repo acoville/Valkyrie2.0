@@ -20,6 +20,21 @@ namespace Valkyrie.App.ViewModel
 { 
     public partial class GamePageViewModel : INotifyPropertyChanged
     {
+        /*-----------------------------------------
+         *  
+         *  Property to inform the GamePage
+         *  weather a level is loaded yet or not 
+         * 
+         * --------------------------------------*/
+
+        internal bool levelLoaded_ = false;
+        public bool LevelLoaded
+        {
+            get => levelLoaded_;
+        }
+
+        //============================================================
+
         internal void LoadLevel(Level map)
         {
             //-----------------------------------------------
@@ -28,22 +43,47 @@ namespace Valkyrie.App.ViewModel
             var path = "Valkyrie.App.Images.Backgrounds." + map.BackgroundImage;
             BackgroundImage = ImageSource.FromResource(path);
 
-            //-----------------------------------------------
-            // add the obstacles to the GL layer
+            // load obstacles into graphics layer
 
-            // this should already have been done during 
-            // level construction
-            
-            //-----------------------------------------------
-            // add the obstacles to the Graphics layer
+            LoadObstacles(map);
 
-            foreach(var glob in map.Obstacles)
+            // set up camera bounding rectangle
+
+            InitializeScrollBox(map.Start);
+            levelLoaded_ = true;
+        }
+
+        //======================================================================
+
+        /*-------------------------------------
+         * 
+         * Function to initialize the 
+         * camera scrollbox
+         * 
+         * -----------------------------------*/
+
+        internal void InitializeScrollBox(GLPosition startingPosition)
+        {
+
+        }
+
+        //======================================================================
+
+        /*------------------------------------
+         * 
+         * Helper Function to load 
+         * all obstacles into the graphics
+         * layer
+         * 
+         * ---------------------------------*/
+
+        internal void LoadObstacles(Level map)
+        {
+            foreach (var glob in map.Obstacles)
             {
                 // add to the List of Obstacles in the GPVM from the GLObs in Level
 
                 obstacles_.Add(new Obstacle(glob));
-
-                //--------------------------------------------------------
 
                 // get the SKBitmap for the TileGroup
 
@@ -67,6 +107,10 @@ namespace Valkyrie.App.ViewModel
                 DeviceScreen.Tiles.Add(tilegroup);
             }
         }
+
+        //==============================================================================
+
+
     }
 }
  

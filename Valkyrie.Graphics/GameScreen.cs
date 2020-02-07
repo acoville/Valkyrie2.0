@@ -9,6 +9,8 @@
 
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -20,6 +22,38 @@ namespace Valkyrie.Graphics
         public Command Redraw { get; set; }
 
         internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
+
+        //==================================================================
+
+        /*----------------------------
+         * 
+         * Troubleshooting info
+         * 
+         * ------------------------*/
+
+        internal bool troubleshooting_ = true;
+        public bool Trouble
+        {
+            get => troubleshooting_;
+            set => troubleshooting_ = value;
+        }
+
+        //==================================================================
+
+        /*----------------------------
+         * 
+         * Scrollbox info
+         * 
+         * ------------------------*/
+        
+        internal SKColor ScrollboxPaint = new SKColor(255, 0, 0, 100);
+
+        internal SKRect scrollBox_;
+        public SKRect ScrollBox
+        {
+            get => scrollBox_;
+            set => scrollBox_ = value;
+        }
 
         //========================================================
 
@@ -56,6 +90,9 @@ namespace Valkyrie.Graphics
 
         internal SKImageInfo ScreenDetails()
         {
+            double width_ = info_.Width;
+            double height_ = info_.Height;
+
             SKImageInfo info = new SKImageInfo((int)width_, (int)height_);
             return info;
         }
@@ -75,6 +112,7 @@ namespace Valkyrie.Graphics
             
             Redraw = new Command<SKPaintGLSurfaceEventArgs>(OnPaintSurface);
             PaintCommand = Redraw;
+            scrollBox_ = new SKRect();
 
             Sprites = new ObservableCollection<Sprite>();
             Tiles = new ObservableCollection<TileGroup>();
@@ -116,6 +154,22 @@ namespace Valkyrie.Graphics
                         canvas.DrawBitmap(col.Image, col.Rectangle.Location);
                     }
                 }
+            }
+
+            // if GPVM.Trouble is enabled, display additional
+            // sprites on-screen to aide in troubleshooting
+
+            if(troubleshooting_)
+            {
+                var paint1 = new SKPaint
+                {
+                    TextSize = 64.0f,
+                    IsAntialias = true,
+                    Color = ScrollboxPaint,
+                    Style = SKPaintStyle.StrokeAndFill
+                };
+
+                canvas.DrawRect(ScrollBox, paint1);
             }
         }
     }

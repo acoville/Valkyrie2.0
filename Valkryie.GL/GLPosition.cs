@@ -44,12 +44,26 @@ namespace Valkryie.GL
             Y = Yparam;
         }
 
-        //----------------------------------
+        //====================================================================
+
+        /*---------------------------------------
+         * 
+         * Constructor called by the Level 
+         * class, positions in a map.xml file
+         * will be defined in block coordinates, 
+         * so for now we are hand-coding the 
+         * multiplicand as 64x64 pixel block 
+         * sizes.
+         * 
+         * ------------------------------------*/
 
         public GLPosition(XmlNode node)
         {
             X = float.Parse(node.Attributes["X"].Value.ToString());
+            X *= 64.0f;
+
             Y = float.Parse(node.Attributes["Y"].Value.ToString());
+            Y *= 64.0f;
         }
 
     }
