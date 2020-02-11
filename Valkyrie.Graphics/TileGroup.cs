@@ -29,8 +29,6 @@ namespace Valkyrie.Graphics
         {
             foreach (var row in Tiles)
             {
-                /*
-                 */
 
                 for (int i = 0; i < row.Count; i++)
                 {
@@ -44,7 +42,7 @@ namespace Valkyrie.Graphics
 
                     // middle tiles
 
-                    else if (i > 0 && i < row.Count)
+                    else if (i > 0 && i < row.Count - 1)
                     {
                         row[i].DisplayImage = MainTile;
                     }
@@ -145,13 +143,20 @@ namespace Valkyrie.Graphics
 
         public void Translate(float deltaX, float deltaY)
         {
-
+            foreach (var row in Tiles)
+            {
+                foreach (var col in row)
+                {
+                    col.Translate(deltaX, deltaY);
+                }
+            }
         }
 
         //===================================================================
 
         public void MoveTo(SKPoint skiaPoint)
         {
+
 
         }
     }

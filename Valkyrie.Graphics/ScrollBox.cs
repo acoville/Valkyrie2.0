@@ -187,6 +187,9 @@ namespace Valkyrie.Graphics
          * turn provide a starting point to 
          * convert it into a SKRect
          * 
+         * what is the current ScreenInfo's 
+         * bottom (height)? That is 
+         * 
          * --------------------------------------*/
 
         public SKRect ToSkia(GLRect r)

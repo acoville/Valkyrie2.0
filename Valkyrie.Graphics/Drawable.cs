@@ -28,6 +28,14 @@ namespace Valkyrie.Graphics
 
         //===========================================================
 
+        public SKPoint SkiaOrigin
+        {
+            get;
+            set;
+        }
+
+        //===========================================================
+
         public void Mirror()
         {
             /*

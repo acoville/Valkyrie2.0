@@ -106,6 +106,8 @@ namespace Valkyrie.App.ViewModel
                 tilegroup.InitTiles();
 
                 DeviceScreen.Tiles.Add(tilegroup);
+
+
             }
         }
 

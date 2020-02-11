@@ -20,7 +20,7 @@
       Width="10"
       X="0"
       Y="5"
-      Image="Bricks"
+      Image="Bricks.Red"
       Static="true" />
   
     <Obstacle

@@ -10,5 +10,43 @@ namespace Valkyrie.Graphics
             Rectangle = rect;
             ImageSource = imageSource;
         }
+
+        //========================================================
+
+        /*----------------------------
+         * 
+         * Translate
+         * moves the tile by an 
+         * X and Y offset
+         * 
+         * --------------------------*/
+
+        public void Translate(float deltaX, float deltaY)
+        {
+            SkiaOrigin.Offset(deltaX, deltaY);
+            Rectangle.Offset(deltaX, deltaY);
+        }
+
+        //===========================================================
+
+        /*---------------------------
+         * 
+         * Move
+         * moves to a given SK coordinate
+         * 
+         * -------------------------*/
+
+        public void Move(SKPoint target)
+        {
+            SkiaOrigin = target;
+            float height = Rectangle.Height;
+            float width = Rectangle.Width;
+
+            Rectangle = new SKRect(
+                SkiaOrigin.X,
+                SkiaOrigin.X + width,
+                SkiaOrigin.Y,
+                SkiaOrigin.Y + height);
+        }
     }
 }
