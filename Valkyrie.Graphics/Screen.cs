@@ -29,7 +29,6 @@ namespace Valkyrie.Graphics
 
         public enum Orientation { portrait, landscape, square };
         
-        //internal Orientation orientation_;
         public Orientation ScreenOrientation
         {
             get => info_.Orientation;
@@ -37,7 +36,6 @@ namespace Valkyrie.Graphics
 
         //================================================================
 
-        //internal double height_;
         public double Height
         {
             get => info_.Height;
@@ -45,7 +43,6 @@ namespace Valkyrie.Graphics
 
         //---------------------------------
 
-        //internal double width_;
         public double Width
         {
             get => info_.Width;

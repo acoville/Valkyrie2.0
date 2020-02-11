@@ -51,6 +51,32 @@ namespace Valkyrie.App.ViewModel
          * 
          * ---------------------------*/
 
+        //=================================================================
 
+        /*-------------------------------
+         * 
+         * Helper function to update  
+         * on-screen elements based
+         * on the scrollbox
+         * 
+         * -----------------------------*/
+
+        internal void AlignGamePiecesToScrollBox()
+        {
+
+            // update all tiles
+
+            foreach (var tile in deviceScreen_.Tiles)
+            {
+                //tile.scrollBox_
+            }
+
+            // update all sprites
+
+            foreach (var sprite in deviceScreen_.Sprites)
+            {
+
+            }
+        }
     }
 }

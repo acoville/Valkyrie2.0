@@ -9,8 +9,6 @@
 
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -45,8 +43,12 @@ namespace Valkyrie.Graphics
          * Scrollbox info
          * 
          * ------------------------*/
-        
-        internal SKColor ScrollboxPaint = new SKColor(255, 0, 0, 100);
+
+        internal SKPaint scrollBoxPaint;
+        internal SKPaint scrollTextPaint;
+
+        internal SKColor ScrollboxColor = new SKColor(255, 0, 0, 75);
+        internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
 
         internal SKRect scrollBox_;
         public SKRect ScrollBox
@@ -54,6 +56,17 @@ namespace Valkyrie.Graphics
             get => scrollBox_;
             set => scrollBox_ = value;
         }
+
+        //================================================================
+
+        /*--------------------------
+         * 
+         * Highlight a block
+         * 
+         * ------------------------*/
+
+        internal SKPaint BlockHighlightPaint;
+        internal SKColor BlockHighlightColor = new SKColor(0, 255, 0, 75);
 
         //========================================================
 
@@ -116,6 +129,47 @@ namespace Valkyrie.Graphics
 
             Sprites = new ObservableCollection<Sprite>();
             Tiles = new ObservableCollection<TileGroup>();
+
+            PrepareTroubleshootingInfo();
+        }
+
+        //==============================================================
+
+        /*---------------------------------
+         * 
+         * Helper Function to initialize
+         * troubleshooting data members
+         * 
+         * -------------------------------*/
+
+        internal void PrepareTroubleshootingInfo()
+        {
+
+            // initialize variables used in troubleshooting
+
+            scrollBoxPaint = new SKPaint
+            {
+                Color = ScrollboxColor,
+                Style = SKPaintStyle.StrokeAndFill,
+                IsAntialias = true
+            };
+
+            scrollTextPaint = new SKPaint
+            {
+                Color = ScrolltextColor,
+                Style = SKPaintStyle.StrokeAndFill,
+                TextSize = 32.0f,
+                IsAntialias = true
+            };
+
+            // initialize block highlighter info
+
+            BlockHighlightPaint = new SKPaint
+            {
+                Color = BlockHighlightColor,
+                Style = SKPaintStyle.StrokeAndFill,
+                IsAntialias = true
+            };
         }
 
         //==============================================================
@@ -151,7 +205,7 @@ namespace Valkyrie.Graphics
                 {
                     foreach(var col in row)
                     {
-                        canvas.DrawBitmap(col.Image, col.Rectangle.Location);
+                        canvas.DrawBitmap(col.DisplayImage, col.Rectangle.Location);
                     }
                 }
             }
@@ -161,16 +215,47 @@ namespace Valkyrie.Graphics
 
             if(troubleshooting_)
             {
-                var paint1 = new SKPaint
-                {
-                    TextSize = 64.0f,
-                    IsAntialias = true,
-                    Color = ScrollboxPaint,
-                    Style = SKPaintStyle.StrokeAndFill
-                };
+                DrawScrollBox(canvas);
 
-                canvas.DrawRect(ScrollBox, paint1);
+                // HighlightBlock(canvas, ah... but where do I get the SKRect?);
+                // must be from an Actor, but only after  it has been updated
+                // by the GPVM using the Scrollbox? 
             }
+        }
+
+        //=====================================================================
+
+        /*----------------------------------
+         * 
+         * Helper Function to bullseye
+         * the starting position
+         * 
+         * -------------------------------*/
+
+        internal void HighlightBlock(SKCanvas canvas, SKRect rect)
+        {
+            
+        }
+
+        //=====================================================================
+
+        /*----------------------------------
+         * 
+         * Helper Functions to render
+         * troubleshooting information 
+         * on-screen.
+         * 
+         * --------------------------------*/
+
+        internal void DrawScrollBox(SKCanvas canvas)
+        {
+
+            canvas.DrawRect(ScrollBox, scrollBoxPaint);
+
+            SKPoint textPoint = new SKPoint(ScrollBox.Left + 10,
+                                            ScrollBox.Top + 50);
+
+            canvas.DrawText("Camera ScrollBox", textPoint, scrollTextPaint);
         }
     }
 }

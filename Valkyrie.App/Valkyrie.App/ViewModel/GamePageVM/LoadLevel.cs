@@ -49,22 +49,10 @@ namespace Valkyrie.App.ViewModel
 
             // set up camera bounding rectangle
 
-            InitializeScrollBox(map.Start);
+            ScrollBox.Update(DeviceScreen.Info, ref currentLevel_);
+            DeviceScreen.ScrollBox = ScrollBox.Skia;
+
             levelLoaded_ = true;
-        }
-
-        //======================================================================
-
-        /*-------------------------------------
-         * 
-         * Function to initialize the 
-         * camera scrollbox
-         * 
-         * -----------------------------------*/
-
-        internal void InitializeScrollBox(GLPosition startingPosition)
-        {
-
         }
 
         //======================================================================
@@ -88,13 +76,23 @@ namespace Valkyrie.App.ViewModel
                 // get the SKBitmap for the TileGroup
 
                 SKBitmap tileImage = new SKBitmap();
+                SKBitmap endImage = new SKBitmap();
                 SKImageInfo info = new SKImageInfo(64, 64);
 
                 Assembly assembly = GetType().GetTypeInfo().Assembly;
 
-                using (Stream stream = assembly.GetManifestResourceStream(glob.ImageSource))
+                //-- the main tile 
+
+                using (Stream stream = assembly.GetManifestResourceStream(glob.ImageSource + ".tile.png"))
                 {
                     tileImage = SKBitmap.Decode(stream);
+                }
+
+                //-- the endcap tile
+
+                using (Stream stream = assembly.GetManifestResourceStream(glob.ImageSource + ".end.png"))
+                {
+                    endImage = SKBitmap.Decode(stream);
                 }
 
                 //--------------------------------------------------------
@@ -103,6 +101,9 @@ namespace Valkyrie.App.ViewModel
 
                 TileGroup tilegroup = new TileGroup(glob);
                 tilegroup.MainTile = tileImage;
+                tilegroup.EndTile = endImage;
+
+                tilegroup.InitTiles();
 
                 DeviceScreen.Tiles.Add(tilegroup);
             }

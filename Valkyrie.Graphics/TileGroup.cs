@@ -1,7 +1,5 @@
 ﻿using SkiaSharp;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Valkryie.GL;
 
 namespace Valkyrie.Graphics
@@ -13,30 +11,69 @@ namespace Valkyrie.Graphics
         {
             get => mainTile_;
 
-            //--------------------------------------------------
-            /*------------------------------
-             * 
-             * This is where I would set 
-             * end-caps on the tile group
-             * 
-             * ---------------------------*/
-
             set
             {
                 mainTile_ = value;
-                foreach(var row in Tiles)
+            }
+        }
+
+        //========================================================================
+
+        /*------------------------------
+         * 
+         * Initialize Tiles
+         * 
+         * ---------------------------*/
+
+        public void InitTiles()
+        {
+            foreach (var row in Tiles)
+            {
+                /*
+                 */
+
+                for (int i = 0; i < row.Count; i++)
                 {
-                    foreach(var col in row)
+                    // left endcap
+
+                    if (i == 0)
                     {
-                        col.Image = value;
+                        row[i].DisplayImage = EndTile;
+                        row[i].Mirror();
+                    }
+
+                    // middle tiles
+
+                    else if (i > 0 && i < row.Count)
+                    {
+                        row[i].DisplayImage = MainTile;
+                    }
+
+                    // right endcap
+
+                    else
+                    {
+                        row[i].DisplayImage = EndTile;
                     }
                 }
             }
         }
 
-        internal SKBitmap endcapTile_;
+        //========================================================================
 
-        //=====================================================
+        internal SKBitmap endTile_;
+        public SKBitmap EndTile
+        {
+            get => endTile_;
+            
+            set
+            {
+                endTile_ = value;
+                InitTiles();
+            }
+        }
+
+        //=========================================================================
         
         internal List<List<Tile>> tiles_;
         public List<List<Tile>> Tiles
@@ -45,7 +82,7 @@ namespace Valkyrie.Graphics
             set => tiles_ = value;
         }
 
-        //=====================================================
+        //=======================================================================
 
         /*------------------------------------
          * 
@@ -66,6 +103,8 @@ namespace Valkyrie.Graphics
 
                 float top = obstacle.Rectangle.Origin.Y - (i * 64.0f);
                 float bottom = obstacle.Rectangle.Origin.Y + (i * 64.0f);
+
+                //------------------------------------------------------
 
                 for(int j = 0; j < obstacle.Rectangle.TileWidth; j++)
                 {
@@ -112,13 +151,6 @@ namespace Valkyrie.Graphics
         //===================================================================
 
         public void MoveTo(SKPoint skiaPoint)
-        {
-
-        }
-
-        //====================================================
-
-        public void MoveTo(GLPosition glPoint)
         {
 
         }

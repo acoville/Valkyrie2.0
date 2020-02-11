@@ -39,7 +39,7 @@ namespace Valkyrie.Graphics
             // shrink the render area to accomodate the 
             // virtual controls, D-Pad and actionbuttons
 
-            height_ *= .75;
+            //height_ *= .75;
 
             // screen is currently in portrait
 

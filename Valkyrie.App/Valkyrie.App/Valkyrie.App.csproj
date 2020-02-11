@@ -13,8 +13,11 @@
   <ItemGroup>
     <None Remove="Images\Backgrounds\testBackground.png" />
     <None Remove="Images\Tiles\bricks.png" />
+    <None Remove="Images\Tiles\Bricks\end.png" />
     <None Remove="Images\Tiles\Bricks\tile.png" />
     <None Remove="Images\Tiles\grass.png" />
+    <None Remove="Images\Tiles\Grass\end.png" />
+    <None Remove="Images\Tiles\Grass\tile.png" />
     <None Remove="Model\Maps\LevelManifest.xml" />
     <None Remove="Model\Maps\TestMap1.xml" />
   </ItemGroup>
@@ -23,10 +26,10 @@
     <EmbeddedResource Include="Images\Backgrounds\testBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Images\Tiles\Bricks\end.png" />
     <EmbeddedResource Include="Images\Tiles\Bricks\tile.png" />
-    <EmbeddedResource Include="Images\Tiles\Grass\tile.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Tiles\Grass\end.png" />
+    <EmbeddedResource Include="Images\Tiles\Grass\tile.png" />
     <EmbeddedResource Include="Model\Maps\LevelManifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

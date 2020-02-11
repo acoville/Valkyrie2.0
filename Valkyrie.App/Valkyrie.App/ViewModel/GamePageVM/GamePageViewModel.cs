@@ -91,10 +91,6 @@ namespace Valkyrie.App.ViewModel
             {
                 currentLevel_ = value;
                 LoadLevel(currentLevel_);
-
-                ScrollBox.Update(DeviceScreen.Info, ref currentLevel_);
-                DeviceScreen.ScrollBox = ScrollBox.Skia;
-                
                 RaisePropertyChanged();
             }
         }
