@@ -5,6 +5,16 @@ namespace Valkyrie.Graphics
 {
     public class Tile : Drawable
     {
+        //=========================================================
+
+        /*-----------------------------
+         * 
+         * 
+         * 
+         * --------------------------*/
+
+        //=========================================================
+
         public Tile(string imageSource, SKRect rect)
         {
             Rectangle = rect;
@@ -23,8 +33,12 @@ namespace Valkyrie.Graphics
 
         public void Translate(float deltaX, float deltaY)
         {
-            SkiaOrigin.Offset(deltaX, deltaY);
-            Rectangle.Offset(deltaX, deltaY);
+            SKPoint origin = SkiaOrigin;
+
+            origin.X += deltaX;
+            origin.Y += deltaY;
+
+            SkiaOrigin = origin;
         }
 
         //===========================================================

@@ -167,8 +167,8 @@ namespace Valkyrie.Graphics
         {
             // find the deltas between origin and target
 
-            float deltaX = SKOrigin.X - target.X;
-            float deltaY = SKOrigin.Y - target.Y;
+            float deltaX = target.X - SKOrigin.X;
+            float deltaY = target.Y - SKOrigin.Y;
 
             Translate(deltaX, deltaY);
         }

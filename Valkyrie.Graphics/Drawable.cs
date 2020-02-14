@@ -28,10 +28,11 @@ namespace Valkyrie.Graphics
 
         //===========================================================
 
+        internal SKPoint skiaOrigin_;
         public SKPoint SkiaOrigin
         {
-            get;
-            set;
+            get => skiaOrigin_;
+            set => skiaOrigin_ = value;
         }
 
         //===========================================================

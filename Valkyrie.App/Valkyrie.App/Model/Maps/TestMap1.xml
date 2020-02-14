@@ -18,12 +18,13 @@
     <Obstacle
       Height="1"
       Width="10"
-      X="0"
-      Y="5"
+      X="3"
+      Y="10"
       Image="Bricks.Red"
       Static="true" />
-  
+
     <Obstacle
+      Label="floor"
       Height="1"
       Width="30"
       X="0"

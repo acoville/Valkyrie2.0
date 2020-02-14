@@ -114,10 +114,10 @@ namespace Valkyrie.Graphics
 
         public void AddTileGroup(Obstacle val)
         {
-            //GLPosition origin = val.obstacle_.Rectangle.Origin;
+            GLPosition origin = val.obstacle_.Rectangle.Origin;
 
-            //SKPoint target = scrollBox_.ToSkia(origin, (float)Height);
-            //val.Tiles.MoveTo(target);
+            SKPoint target = scrollBox_.ToSkia(origin);
+            val.Tiles.MoveTo(target);
 
             tiles_.Add(val.Tiles);
         }
@@ -217,7 +217,7 @@ namespace Valkyrie.Graphics
                 {
                     foreach(var col in row)
                     {
-                        canvas.DrawBitmap(col.DisplayImage, col.Rectangle.Location);
+                        canvas.DrawBitmap(col.DisplayImage, col.SkiaOrigin);
                     }
                 }
             }

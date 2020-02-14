@@ -170,12 +170,13 @@ namespace Valkyrie.Graphics
          * 
          * -----------------------------------*/
 
-        public SKPoint ToSkia(GLPosition p, float height)
+        public SKPoint ToSkia(GLPosition p)
         {
             float skia_x = p.X;
-            float skia_y = (float)info_.Height 
-                            - p.Y 
-                            - height;
+
+            float skia_y = (float)info_.Height - p.Y;
+
+            skia_y *= .78f;
 
             SKPoint newPoint = new SKPoint(skia_x, skia_y);
 
