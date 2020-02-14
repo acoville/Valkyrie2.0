@@ -24,9 +24,26 @@ namespace Valkyrie.App.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GamePage : ContentPage
     {
-        event RedrawHandler RedrawScreen;
+        /*-----------------------------------------
+         * 
+         * Public accessor is for the MenuPage's
+         * benefit - the Optionspage updates 
+         * control opacity and that value needs
+         * to be written here
+         * 
+         * --------------------------------------*/
 
         internal GamePageViewModel gpvm_;
+        
+        //===================================================================
+
+        /*-------------------------
+         * 
+         *  Delegates
+         * 
+         * ------------------------*/
+
+        event RedrawHandler RedrawScreen;
 
         //===================================================================
 
@@ -41,8 +58,7 @@ namespace Valkyrie.App.View
             InitializeComponent();
 
             gpvm_ = new GamePageViewModel();
-            BindingContext = gpvm_;
-          
+            BindingContext = gpvm_;    
             RedrawScreen = new RedrawHandler(Redraw);
         }
 
@@ -58,7 +74,6 @@ namespace Valkyrie.App.View
         public void Redraw()
         {
             SKGLView.InvalidateSurface();
-            gpvm_.Frames++;
         }
 
         //===================================================================
@@ -66,31 +81,12 @@ namespace Valkyrie.App.View
         /*---------------------------------------
          * 
          * Handler for screen rotations, 
-         * resizes
-         * 
-         * 1 - the Device Screen will update its
-         * ScreenInfo, 
-         * 
-         * 2 - pass that to the 
-         * ScrollBox in the ViewModel, 
-         * 
-         * 3 - pass the ScrollBox's SK coords
-         * back to the screen for displaying.
          * 
          * -------------------------------------*/
 
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
-            gpvm_.DeviceScreen.GetScreenDetails();
-
-            // aha... OnSizeAllocated happens before the level is loaded.
-
-            if (gpvm_.LevelLoaded)
-            {
-                gpvm_.ScrollBox.Update(gpvm_.DeviceScreen.Info, ref gpvm_.currentLevel_);
-                gpvm_.DeviceScreen.ScrollBox = gpvm_.ScrollBox.Skia;
-            }
         }
 
         //==================================================================
@@ -118,11 +114,12 @@ namespace Valkyrie.App.View
                 {
                     //gpvm_.EvaluateMovement();
 
-                    RedrawScreen();
 
-                    //-- update framerate
+                    //-- Redraw Screen, update framerate
                     
-
+                    RedrawScreen();
+                    
+                    gpvm_.Frames++;
                     t2 = DateTime.Now;
                     timeElapsed = t2 - t1;
                     
@@ -135,6 +132,21 @@ namespace Valkyrie.App.View
 
                 return true;
             });
+        }
+
+        //===========================================================
+
+        /*-------------------------------------------
+         * 
+         * Pause the game if player backs out to 
+         * main menu
+         * 
+         * -----------------------------------------*/
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            gpvm_.Paused = true;
         }
 
         //===================================================================

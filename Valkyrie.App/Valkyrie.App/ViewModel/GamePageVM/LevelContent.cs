@@ -70,10 +70,21 @@ namespace Valkyrie.App.ViewModel
                 // step 1: find out far from the scrollbox GL origin 
                 //      this obstacle's GL origin is
 
-                
+                /*
+                GLPosition scrollBoxOrigin = ScrollBox.GLRect.Origin;
+                GLPosition obstacleOrigin = obstacle.GLObs.Rectangle.Origin;
 
+                float deltaY = scrollBoxOrigin.Y - obstacleOrigin.Y;
+                float deltaX = scrollBoxOrigin.X - obstacleOrigin.X;
 
-                //obstacle.Tiles.
+                obstacle.Tiles.Translate(deltaX, deltaY);
+                */
+
+                float newY = (float)DeviceScreen.Height - obstacle.obstacle_.Rectangle.Top;
+
+                float deltaY = obstacle.Tiles.SKOrigin.Y - newY;
+
+                obstacle.Tiles.Translate(0.0f, deltaY);
             }
 
             // update all sprites

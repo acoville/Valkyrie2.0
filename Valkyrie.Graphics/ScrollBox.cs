@@ -46,6 +46,11 @@ namespace Valkyrie.Graphics
         //=====================================================
 
         internal GLRect glRect_;
+        public GLRect GLRect
+        {
+            get => glRect_;
+            set => glRect_ = value;
+        }
 
         //=====================================================
 

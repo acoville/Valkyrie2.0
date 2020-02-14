@@ -96,18 +96,16 @@ namespace Valkyrie.Graphics
         public ObservableCollection<TileGroup> Tiles
         {
             get => tiles_;
-            set => tiles_ = value;
-        }
+            //set => tiles_ = value;
 
-        //============================================================
+            set
+            {
+                tiles_ = value;
 
-        internal SKImageInfo ScreenDetails()
-        {
-            double width_ = info_.Width;
-            double height_ = info_.Height;
 
-            SKImageInfo info = new SKImageInfo((int)width_, (int)height_);
-            return info;
+
+                // move the tile in relation to the scrollbox? 
+            }
         }
 
         //============================================================

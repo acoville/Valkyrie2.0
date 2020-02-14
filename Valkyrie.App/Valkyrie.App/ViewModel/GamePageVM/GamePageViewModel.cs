@@ -48,7 +48,6 @@ namespace Valkyrie.App.ViewModel
         {
             deviceScreen_ = new GameScreen();
             env_ = Device.RuntimePlatform.ToString();
-            scrollBox_ = new ScrollBox();
             actors_ = new List<Actor>();
             obstacles_ = new List<Obstacle>();
         }

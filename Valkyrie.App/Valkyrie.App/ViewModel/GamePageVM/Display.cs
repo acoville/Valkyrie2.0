@@ -28,23 +28,6 @@ namespace Valkyrie.App.ViewModel
 
         //===============================================================
 
-        /*-------------------------------------------------
-         * 
-         * This is a set of dynamic GL coordinates which
-         * correspond to fixed SK coordinates. If the 
-         * player leaves this box, the camera follows
-         * 
-         * -----------------------------------------------*/
-
-        internal ScrollBox scrollBox_;
-        public ScrollBox ScrollBox
-        {
-            get => scrollBox_;
-            set => scrollBox_ = value;
-        }
-
-        //===============================================================
-
         //----------- control buttons opacity
 
         internal double controlOpacity_ = Preferences.Get("controlOpacity", 0.85);

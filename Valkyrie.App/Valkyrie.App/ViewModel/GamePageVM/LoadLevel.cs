@@ -37,7 +37,6 @@ namespace Valkyrie.App.ViewModel
 
         internal void LoadLevel(Level map)
         {
-            //-----------------------------------------------
             // set background image
 
             var path = "Valkyrie.App.Images.Backgrounds." + map.BackgroundImage;
@@ -46,12 +45,15 @@ namespace Valkyrie.App.ViewModel
             // load obstacles into graphics layer
 
             LoadObstacles(map);
+            
+            // set up player1
 
-            // set up camera bounding rectangle
 
-            ScrollBox.Update(DeviceScreen.Info, ref currentLevel_);
-            DeviceScreen.ScrollBox = ScrollBox.Skia;
 
+            // load actors
+            
+
+            
             levelLoaded_ = true;
         }
 
@@ -107,6 +109,9 @@ namespace Valkyrie.App.ViewModel
                 obstacles_[i].Tiles.MainTile = tileImage;
                 obstacles_[i].Tiles.EndTile = endImage;
                 obstacles_[i].Tiles.InitTiles();
+
+                // move it to where it needs to be? 
+                // no, the DeviceScreen should do that.
 
                 DeviceScreen.Tiles.Add(obstacles_[i].Tiles);
             }

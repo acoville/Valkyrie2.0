@@ -102,13 +102,10 @@
                     <StackLayout    
                         Orientation="Horizontal">
 
-                        <Label 
-                            Text="Framerate: " 
-                            TextColor="WhiteSmoke"/>
-
                         <Label
-                            Text="{Binding FPS}"
-                            TextColor="WhiteSmoke"/>
+                            Text="{Binding FPS,
+                                   StringFormat='FPS: {0:0.##}'}"
+                                   TextColor="WhiteSmoke"/>
 
                     </StackLayout>
                     
