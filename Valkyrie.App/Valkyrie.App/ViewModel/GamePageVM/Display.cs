@@ -34,6 +34,7 @@ namespace Valkyrie.App.ViewModel
         public double ControlOpacity
         {
             get => controlOpacity_;
+            set => controlOpacity_ = value;
         }
 
         //==============================================================
@@ -87,7 +88,6 @@ namespace Valkyrie.App.ViewModel
         public float FPS
         {
             get => fps_;
-
             set
             {
                 fps_ = value;

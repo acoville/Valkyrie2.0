@@ -41,6 +41,7 @@ namespace Valkyrie.Graphics
         public SKRect Skia
         {
             get => skiaRect_;
+            set => skiaRect_ = value;
         }
 
         //=====================================================
@@ -66,9 +67,12 @@ namespace Valkyrie.Graphics
             glRect_ = new GLRect();
         }
 
-        public ScrollBox(ScreenInfo info, ref Level map)
+        public ScrollBox(ScreenInfo info)
         {
-            Update(info, ref map);          
+            info_ = info;
+            skiaRect_ = new SKRect();
+            glRect_ = new GLRect();
+            Update(info);          
         }
 
         //==========================================================================
@@ -79,11 +83,11 @@ namespace Valkyrie.Graphics
          * 
          * -----------------------------*/
 
-        public void Update(ScreenInfo info, ref Level map)
+        public void Update(ScreenInfo info)
         {
             skiaRect_ = UpdateSKRect(info);
 
-            GLPosition start = map.Start;
+            //GLPosition start = map.Start;
 
             float top = skiaRect_.Bottom;
             float bottom = skiaRect_.Top;
@@ -153,7 +157,7 @@ namespace Valkyrie.Graphics
 
         //==============================================================
 
-        /*---------------------------------
+        /*-------------------------------------
          * 
          * Convert a GL position to 
          * a Skia position based on 
@@ -164,7 +168,7 @@ namespace Valkyrie.Graphics
          * is this a block? h = 64 pixels
          * a sprite? h = x pixels
          * 
-         * -------------------------------*/
+         * -----------------------------------*/
 
         public SKPoint ToSkia(GLPosition p, float height)
         {

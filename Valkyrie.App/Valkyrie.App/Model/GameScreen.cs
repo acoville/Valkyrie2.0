@@ -11,6 +11,8 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Valkryie.GL;
+using Valkyrie.App.Model;
 using Xamarin.Forms;
 
 namespace Valkyrie.Graphics
@@ -50,11 +52,19 @@ namespace Valkyrie.Graphics
         internal SKColor ScrollboxColor = new SKColor(255, 0, 0, 75);
         internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
 
-        internal SKRect scrollBox_;
+        //=================================================================
+
+        /*-----------------------------
+         * 
+         * 
+         * 
+         * ---------------------------*/
+
+        internal ScrollBox scrollBox_;
         public SKRect ScrollBox
         {
-            get => scrollBox_;
-            set => scrollBox_ = value;
+            get => scrollBox_.Skia;
+            set => scrollBox_.Skia = value;
         }
 
         //================================================================
@@ -93,19 +103,23 @@ namespace Valkyrie.Graphics
          * ----------------------------------*/
 
         internal ObservableCollection<TileGroup> tiles_;
-        public ObservableCollection<TileGroup> Tiles
+
+        //============================================================
+
+        /*----------------------------------
+         *
+         *  Function to Add a Tile
+         * 
+         * --------------------------------*/
+
+        public void AddTileGroup(Obstacle val)
         {
-            get => tiles_;
-            //set => tiles_ = value;
+            //GLPosition origin = val.obstacle_.Rectangle.Origin;
 
-            set
-            {
-                tiles_ = value;
+            //SKPoint target = scrollBox_.ToSkia(origin, (float)Height);
+            //val.Tiles.MoveTo(target);
 
-
-
-                // move the tile in relation to the scrollbox? 
-            }
+            tiles_.Add(val.Tiles);
         }
 
         //============================================================
@@ -123,10 +137,11 @@ namespace Valkyrie.Graphics
             
             Redraw = new Command<SKPaintGLSurfaceEventArgs>(OnPaintSurface);
             PaintCommand = Redraw;
-            scrollBox_ = new SKRect();
 
-            Sprites = new ObservableCollection<Sprite>();
-            Tiles = new ObservableCollection<TileGroup>();
+            scrollBox_ = new ScrollBox(Info);
+
+            sprites_ = new ObservableCollection<Sprite>();
+            tiles_ = new ObservableCollection<TileGroup>();
 
             PrepareTroubleshootingInfo();
         }
@@ -142,7 +157,6 @@ namespace Valkyrie.Graphics
 
         internal void PrepareTroubleshootingInfo()
         {
-
             // initialize variables used in troubleshooting
 
             scrollBoxPaint = new SKPaint
@@ -197,7 +211,7 @@ namespace Valkyrie.Graphics
 
             //  draw all static obstacles
                             
-            foreach(var tileGroup in Tiles)
+            foreach(var tileGroup in tiles_)
             {
                 foreach(var row in tileGroup.Tiles)
                 {

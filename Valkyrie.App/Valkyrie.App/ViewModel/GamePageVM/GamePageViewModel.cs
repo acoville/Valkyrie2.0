@@ -109,15 +109,9 @@ namespace Valkyrie.App.ViewModel
 
         //==================================================================
 
-        //-- interface control variables
-
         /*----------------------------------------------
 
          * The Skia image is redrawn at a rate of
-         *
-         * 1,000 ms / 30 frames per second = 30.30
-         * 1,000 ms / 20 frames per second = 50 
-         * 1,000 ms / 15 fps = 66
        
         --------------------------------------------*/
 
