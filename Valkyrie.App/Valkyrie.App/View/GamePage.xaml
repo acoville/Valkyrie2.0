@@ -98,6 +98,7 @@
                     Orientation="Vertical">
 
                     <!-- Framerate -->
+                    
                     <StackLayout    
                         Orientation="Horizontal">
 
@@ -106,8 +107,9 @@
                             TextColor="WhiteSmoke"/>
 
                         <Label
-                            Text="{Binding FPS}" 
+                            Text="{Binding FPS}"
                             TextColor="WhiteSmoke"/>
+
                     </StackLayout>
                     
                     <!-- Runtime environment-->

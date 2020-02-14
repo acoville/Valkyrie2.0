@@ -74,7 +74,7 @@ namespace Valkyrie.App.ViewModel
          * 
          * ---------------------------------*/
 
-        internal int frames_;
+        internal int frames_ = 0;
         public int Frames
         {
             get => frames_;
@@ -83,13 +83,13 @@ namespace Valkyrie.App.ViewModel
             {
                 if(value == 0)
                 {
-                    FPS = 1000/frames_;
+                    FPS = frames_;
                 }
 
                 frames_ = value;
+                RaisePropertyChanged();
             }
         }
-
 
         //==============================================================
 
@@ -100,8 +100,8 @@ namespace Valkyrie.App.ViewModel
          * 
          * ----------------------------------*/
 
-        internal int fps_;
-        public int FPS
+        internal float fps_;
+        public float FPS
         {
             get => fps_;
 

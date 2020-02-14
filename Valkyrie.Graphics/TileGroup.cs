@@ -145,19 +145,32 @@ namespace Valkyrie.Graphics
         {
             foreach (var row in Tiles)
             {
-                foreach (var col in row)
+                float newY = SKOrigin.Y + deltaY;
+
+                for (int i = 0; i < row.Count; i++)
                 {
-                    col.Translate(deltaX, deltaY);
+                    // no, that's not going to work, they'll all just be
+                    // stacked on the same square if I do that. 
+
+                    //col.Translate(deltaX, deltaY);
+
+                    float newX = SKOrigin.X + (i * 64.0f);
+
+                    row[i].Translate(newX, newY);
                 }
             }
         }
 
         //===================================================================
 
-        public void MoveTo(SKPoint skiaPoint)
+        public void MoveTo(SKPoint target)
         {
+            // find the deltas between origin and target
 
+            float deltaX = SKOrigin.X - target.X;
+            float deltaY = SKOrigin.Y - target.Y;
 
+            Translate(deltaX, deltaY);
         }
     }
 }

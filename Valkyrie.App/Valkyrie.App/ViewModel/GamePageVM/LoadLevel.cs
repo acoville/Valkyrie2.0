@@ -73,6 +73,10 @@ namespace Valkyrie.App.ViewModel
 
                 obstacles_.Add(new Obstacle(glob));
 
+                // get the index of the obstacle we just added
+
+                int i = obstacles_.Count - 1;
+
                 // get the SKBitmap for the TileGroup
 
                 SKBitmap tileImage = new SKBitmap();
@@ -99,15 +103,12 @@ namespace Valkyrie.App.ViewModel
 
                 // create the tile group
 
-                TileGroup tilegroup = new TileGroup(glob);
-                tilegroup.MainTile = tileImage;
-                tilegroup.EndTile = endImage;
+                obstacles_[i].Tiles = new TileGroup(glob);
+                obstacles_[i].Tiles.MainTile = tileImage;
+                obstacles_[i].Tiles.EndTile = endImage;
+                obstacles_[i].Tiles.InitTiles();
 
-                tilegroup.InitTiles();
-
-                DeviceScreen.Tiles.Add(tilegroup);
-
-
+                DeviceScreen.Tiles.Add(obstacles_[i].Tiles);
             }
         }
 

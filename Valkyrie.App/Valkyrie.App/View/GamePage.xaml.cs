@@ -46,18 +46,6 @@ namespace Valkyrie.App.View
             RedrawScreen = new RedrawHandler(Redraw);
         }
 
-        //====================================================================
-
-        /*----------------------------------
-         * 
-         * Tracking info to see how much 
-         * time has elapsed during gameplay
-         * 
-         * -------------------------------*/
-
-        internal TimeSpan frameCounter_;
-
-
         //===================================================================
 
         /*--------------------------------------
@@ -70,7 +58,7 @@ namespace Valkyrie.App.View
         public void Redraw()
         {
             SKGLView.InvalidateSurface();
-            gpvm_.FPS++;
+            gpvm_.Frames++;
         }
 
         //===================================================================
@@ -120,6 +108,10 @@ namespace Valkyrie.App.View
         {
             base.OnAppearing();
 
+            DateTime t1 = DateTime.Now;
+            DateTime t2;
+            TimeSpan timeElapsed;
+
             Device.StartTimer(TimeSpan.FromMilliseconds(gpvm_.GameSpeed), () =>
             {
                 if (gpvm_.Paused == false)
@@ -127,6 +119,18 @@ namespace Valkyrie.App.View
                     //gpvm_.EvaluateMovement();
 
                     RedrawScreen();
+
+                    //-- update framerate
+                    
+
+                    t2 = DateTime.Now;
+                    timeElapsed = t2 - t1;
+                    
+                    if(timeElapsed >= TimeSpan.FromSeconds(1.0))
+                    {
+                        gpvm_.Frames = 0;
+                        t1 = DateTime.Now;
+                    }
                 }
 
                 return true;
@@ -171,7 +175,6 @@ namespace Valkyrie.App.View
          * here. Sue me. 
          * 
          * --------------------------------------------*/
-
         private void SKGLView_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
             gpvm_.DeviceScreen.OnPaintSurface(e);

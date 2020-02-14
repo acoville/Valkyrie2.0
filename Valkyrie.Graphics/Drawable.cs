@@ -38,9 +38,6 @@ namespace Valkyrie.Graphics
 
         public void Mirror()
         {
-            /*
-             */
-
             SKBitmap newImage = new SKBitmap(DisplayImage.Width, DisplayImage.Height, false);
 
             for (int i = 0; i < DisplayImage.Height; i++)

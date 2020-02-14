@@ -63,12 +63,17 @@ namespace Valkyrie.App.ViewModel
 
         internal void AlignGamePiecesToScrollBox()
         {
-
             // update all tiles
 
-            foreach (var tile in deviceScreen_.Tiles)
+            foreach (var obstacle in obstacles_)
             {
-                //tile.scrollBox_
+                // step 1: find out far from the scrollbox GL origin 
+                //      this obstacle's GL origin is
+
+                
+
+
+                //obstacle.Tiles.
             }
 
             // update all sprites

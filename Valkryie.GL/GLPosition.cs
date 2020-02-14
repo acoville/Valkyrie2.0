@@ -65,6 +65,5 @@ namespace Valkryie.GL
             Y = float.Parse(node.Attributes["Y"].Value.ToString());
             Y *= 64.0f;
         }
-
     }
 }
