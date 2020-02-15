@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Valkyrie.App.ViewModel;
+using Xamarin.Essentials;
 
 namespace Valkyrie.App.View
 {
@@ -54,6 +55,7 @@ namespace Valkyrie.App.View
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             opvm_.controlOpacity = opacityController.Value;
+            Preferences.Set("ControlOpacity", opacityController.Value);
         }
     }
 }

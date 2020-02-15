@@ -196,13 +196,6 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
-                    <!--
-                    <Grid.Behaviors>
-                        <behaviors:EventToCommandBehavior
-                            EventName=""
-                    </Grid.Behaviors>
-                    -->
                     
                     <!-- Up Button-->
 

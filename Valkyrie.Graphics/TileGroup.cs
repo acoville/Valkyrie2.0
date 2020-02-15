@@ -154,11 +154,6 @@ namespace Valkyrie.Graphics
 
                 for (int i = 0; i < row.Count; i++)
                 {
-                    // no, that's not going to work, they'll all just be
-                    // stacked on the same square if I do that. 
-
-                    //col.Translate(deltaX, deltaY);
-
                     float newX = SKOrigin.X + deltaX + (i * 64.0f);
 
                     row[i].Translate(newX, newY);
