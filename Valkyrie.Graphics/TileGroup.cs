@@ -104,12 +104,17 @@ namespace Valkyrie.Graphics
 
                 //------------------------------------------------------
 
-                for(int j = 0; j < obstacle.Rectangle.TileWidth; j++)
+                int obs_left = (int)obstacle.Rectangle.Left;
+                int obs_right = (int)obstacle.Rectangle.Right;
+                int limit = (obs_right - obs_left) / 64;
+
+                for(int j = 0; j < limit; j++)
                 {
                     // set the rectangle's left and right here 
 
-                    float left = obstacle.Rectangle.Origin.X + (j * 64.0f);
-                    float right = obstacle.Rectangle.Origin.X - (j * 64.0f);
+                    float left = obstacle.Rectangle.Left + (j * 64.0f);
+
+                    float right = left + 64;
 
                     // create the SKRect, add the tile 
 
@@ -154,7 +159,7 @@ namespace Valkyrie.Graphics
 
                     //col.Translate(deltaX, deltaY);
 
-                    float newX = SKOrigin.X + (i * 64.0f);
+                    float newX = SKOrigin.X + deltaX + (i * 64.0f);
 
                     row[i].Translate(newX, newY);
                 }

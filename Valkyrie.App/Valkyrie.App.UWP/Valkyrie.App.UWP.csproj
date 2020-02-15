@@ -161,6 +161,10 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Valkyrie.Graphics\Valkyrie.Graphics.csproj">
+      <Project>{e266edd7-4f4b-4f2a-9661-3456f682eb90}</Project>
+      <Name>Valkyrie.Graphics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Valkyrie.App\Valkyrie.App.csproj">
       <Project>{269E9236-8AB0-4442-81B7-46E1EEC0BE94}</Project>
       <Name>Valkyrie.App</Name>

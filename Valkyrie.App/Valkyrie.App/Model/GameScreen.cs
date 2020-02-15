@@ -117,6 +117,7 @@ namespace Valkyrie.Graphics
             GLPosition origin = val.obstacle_.Rectangle.Origin;
 
             SKPoint target = scrollBox_.ToSkia(origin);
+            
             val.Tiles.MoveTo(target);
 
             tiles_.Add(val.Tiles);
