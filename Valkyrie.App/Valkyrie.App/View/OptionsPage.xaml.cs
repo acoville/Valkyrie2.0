@@ -55,7 +55,7 @@ namespace Valkyrie.App.View
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             opvm_.controlOpacity = opacityController.Value;
-            Preferences.Set("ControlOpacity", opacityController.Value);
+            Preferences.Set("controlOpacity", opvm_.controlOpacity);
         }
     }
 }

@@ -79,7 +79,6 @@ namespace Valkyrie.App.ViewModel
         public OptionsPageViewModel()
         {
             deviceScreen_ = new Screen();
-            
         }
 
         //=======================================================================

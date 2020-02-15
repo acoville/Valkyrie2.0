@@ -14,6 +14,7 @@ using SkiaSharp.Views.Forms;
 using System;
 using Valkyrie.App.Model;
 using Valkyrie.App.ViewModel;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -103,6 +104,8 @@ namespace Valkyrie.App.View
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            gpvm_.ControlOpacity = Preferences.Get("controlOpacity", 0.85);
 
             DateTime t1 = DateTime.Now;
             DateTime t2;
