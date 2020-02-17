@@ -119,26 +119,27 @@ namespace Valkryie.GL
                 GLObstacle obs = new GLObstacle();
                 obs.ImageSource = ImageSource;
 
-                // left aligned staircase
-
-                if(orientation == "Left")
-                {
-                    origin.Translate((float)i * 64, (float)i * 64);
-                }
-
-                // right aligned staircase
-
-                else
-                {
-                    origin.Translate(0, i * 64);
-                }
-
                 obs.Rectangle.TileHeight = 1;
                 obs.Rectangle.TileWidth = width;
                 width -= 1;
 
                 obs.Rectangle.MoveTo(origin);
                 result.Add(obs);
+
+                // left aligned staircase
+
+                if (orientation == "Left")
+                {
+                    origin.Translate(64.0f, 64.0f);
+                }
+
+                // right aligned staircase
+
+                else
+                {
+                    origin.Translate(0, 64.0f);
+                }
+
             }
 
             return result;
