@@ -31,7 +31,7 @@ namespace Valkryie.GL
 
         //======================================================
 
-        internal float top_;
+        internal float top_ = 0.0f;
         public float Top
         {
             get => top_;
@@ -40,7 +40,7 @@ namespace Valkryie.GL
 
         //======================================================
 
-        internal float bottom_;
+        internal float bottom_ = 0.0f;
         public float Bottom
         {
             get => bottom_;
@@ -49,7 +49,7 @@ namespace Valkryie.GL
 
         //=====================================================
 
-        internal float left_;
+        internal float left_ = 0.0f;
         public float Left
         {
             get => left_;
@@ -58,7 +58,7 @@ namespace Valkryie.GL
 
         //====================================================
 
-        internal float right_;
+        internal float right_ = 0.0f;
         public float Right
         {
             get => right_;
@@ -67,25 +67,35 @@ namespace Valkryie.GL
 
         //======================================================
 
-        internal int tileHeight_;
+        internal int tileHeight_ = 0;
         public int TileHeight
         {
             get => tileHeight_;
-            set => tileHeight_ = value;
+            
+            set
+            {
+                tileHeight_ = value;
+                PixelHeight = tileHeight_ * 64;
+            }
         }
 
         //-----------------------------
 
-        internal int tileWidth_;
+        internal int tileWidth_ = 0;
         public int TileWidth
         {
             get => tileWidth_;
-            set => tileWidth_ = value;
+
+            set
+            {
+                tileWidth_ = value;
+                PixelWidth = tileWidth_ * 64;
+            }
         }
 
         //======================================================
 
-        internal float pxHeight_;
+        internal float pxHeight_ = 0.0f;
         public float PixelHeight
         {
             get => pxHeight_;
@@ -94,7 +104,7 @@ namespace Valkryie.GL
 
         //======================================================
         
-        internal float pxWidth_;
+        internal float pxWidth_ = 0.0f;
         public float PixelWidth
         {
             get => pxWidth_;
@@ -110,7 +120,9 @@ namespace Valkryie.GL
          * --------------------------------*/
 
         public GLRect()
-        {}
+        {
+            origin_ = new GLPosition();
+        }
 
         //-----------------------------------------------------
 
@@ -290,6 +302,120 @@ namespace Valkryie.GL
             }
 
             return (XOverlap || YOverlap) ? true : false;
+        }
+
+        //================================================================
+
+        /*---------------------------
+         * 
+         * Move To function 
+         * 
+         * ------------------------*/
+
+        public void MoveTo(GLPosition target)
+        {
+            origin_.MoveTo(target);
+
+            bottom_ = origin_.Y;
+            left_ = origin_.X;
+            right_ = left_ + pxWidth_;
+            top_ = bottom_ + pxHeight_;
+        }
+
+        //==============================================================
+
+        /*---------------------------
+         * 
+         * Translate
+         * 
+         * -------------------------*/
+
+        public void Translate(float deltaX, float deltaY)
+        {
+            origin_.Translate(deltaX, deltaY);
+
+            bottom_ = origin_.Y;
+            left_ = origin_.X;
+            right_ = left_ + pxWidth_;
+            top_ = bottom_ + pxHeight_;
+        }
+
+        //==============================================================
+
+        /*----------------------------------
+         * 
+         * Equality, Inequality operators
+         * 
+         * -------------------------------*/
+
+        public static bool operator == (GLRect lhs, GLRect rhs)
+        {
+            bool result = false;
+
+            if(lhs.Left == rhs.Left)
+            {
+                if(lhs.Right == rhs.Right)
+                {
+                    if(lhs.Top == rhs.Top)
+                    {
+                        if(lhs.Bottom == rhs.Bottom)
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        //===========================================================
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as GLRect;
+
+            return this == other;
+        }
+
+        //==========================================================
+
+        public override int GetHashCode()
+        {
+            int hash = origin_.GetHashCode();
+
+            //int hash = 0;
+
+            hash += TileHeight;
+            hash += TileWidth;
+
+            return hash;
+        }
+
+        //===========================================================
+
+        public static bool operator != (GLRect lhs, GLRect rhs)
+        {
+            if (lhs.Left != rhs.Left)
+                return true;
+
+            if (lhs.Right != rhs.Right)
+                return true;
+
+            if (lhs.Bottom != rhs.Bottom)
+                return true;
+
+            if (lhs.Top != rhs.Top)
+                return true;
+
+            //-- they must be equal
+
+            return false;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Valkyrie.Graphics
          * 
          * ------------------------*/
 
-        internal bool troubleshooting_ = true;
+        internal bool troubleshooting_ = false;
         public bool Trouble
         {
             get => troubleshooting_;

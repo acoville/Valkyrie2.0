@@ -119,7 +119,7 @@ namespace Valkyrie.App.ViewModel
          * 
          * -------------------------------*/
 
-        internal bool troubleVisibile_ = true;
+        internal bool troubleVisibile_ = false;
         public bool Trouble_Visible
         {
             get => troubleVisibile_;

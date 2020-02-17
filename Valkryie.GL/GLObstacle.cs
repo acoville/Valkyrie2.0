@@ -45,7 +45,8 @@ namespace Valkryie.GL
         //===================================================================
         
         public GLObstacle()
-        {   
+        {
+            Rectangle = new GLRect();
         }
 
         //===================================================================
@@ -55,9 +56,8 @@ namespace Valkryie.GL
          *  Constructor accepting an 
          *  XML Node argument
          *  
-         *  I like it this way, it means I only
-         *  have to change things here if I want
-         *  to alter how the map stores data
+         *  Creates a Rectangular obstacle
+         *  using h x w 
          * 
          * ---------------------------------------*/
 
@@ -84,6 +84,90 @@ namespace Valkryie.GL
 
             string source = node.Attributes["Image"].Value.ToString();
             ImageSource = "Valkyrie.App.Images.Tiles." + source;
+        }
+
+        //=============================================================
+
+        /*------------------------------------------
+         * 
+         * Factory Pattern 
+         * 
+         * Creates a list of obstacles resembling
+         * a 1:1 staircase
+         * 
+         * ----------------------------------------*/
+
+        public static List<GLObstacle> Staircase(XmlNode node)
+        {
+            List<GLObstacle> result = new List<GLObstacle>();
+
+            int X = int.Parse(node.Attributes["X"].Value.ToString());
+            int Y = int.Parse(node.Attributes["Y"].Value.ToString());
+            
+            GLPosition origin = new GLPosition(X * 64, Y * 64);
+            
+            int height = int.Parse(node.Attributes["Height"].Value.ToString());            
+            int width = height;
+
+            string orientation = node.Attributes["Orientation"].Value.ToString();
+
+            string source = node.Attributes["Image"].Value.ToString();
+            string ImageSource = "Valkyrie.App.Images.Tiles." + source;
+
+            for (int i = 0; i < height; i++)
+            {
+                GLObstacle obs = new GLObstacle();
+                obs.ImageSource = ImageSource;
+
+                // left aligned staircase
+
+                if(orientation == "Left")
+                {
+                    origin.Translate((float)i * 64, (float)i * 64);
+                }
+
+                // right aligned staircase
+
+                else
+                {
+                    origin.Translate(0, i * 64);
+                }
+
+                obs.Rectangle.TileHeight = 1;
+                obs.Rectangle.TileWidth = width;
+                width -= 1;
+
+                obs.Rectangle.MoveTo(origin);
+                result.Add(obs);
+            }
+
+            return result;
+        }
+
+        //===============================================================
+
+        /*--------------------------------
+         * 
+         * MoveTo
+         * 
+         * ------------------------------*/
+
+        public void MoveGLRectTo(GLPosition target)
+        {
+            Rectangle.MoveTo(target);
+        }
+
+        //===============================================================
+
+        /*--------------------------------
+         * 
+         * MoveTo
+         * 
+         * ------------------------------*/
+
+        public void TranslateGLRect(float deltaX, float deltaY)
+        {
+            Rectangle.Translate(deltaX, deltaY);
         }
     }
 }

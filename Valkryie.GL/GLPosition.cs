@@ -36,7 +36,7 @@ namespace Valkryie.GL
         public GLPosition()
         {}
 
-        //-----------------------------------
+        //---------------------------------------------
 
         public GLPosition(float Xparam, float Yparam)
         {
@@ -64,6 +64,64 @@ namespace Valkryie.GL
 
             Y = float.Parse(node.Attributes["Y"].Value.ToString());
             Y *= 64.0f;
+        }
+
+        //=================================================================
+
+        /*------------------------------
+         * 
+         * Move To 
+         * 
+         * ----------------------------*/
+
+        public void MoveTo(GLPosition target)
+        {
+            X = target.X;
+            Y = target.Y;
+        }
+
+        //===============================================================
+
+        /*--------------------------------
+         * 
+         * Translate
+         * 
+         * ------------------------------*/
+
+        public void Translate(float deltaX, float deltaY)
+        {
+            X += deltaX;
+            Y += deltaY;
+        }
+
+        //=================================================================
+
+        static public bool operator == (GLPosition lhs, GLPosition rhs)
+        {
+            return (lhs.X == rhs.X && lhs.Y == rhs.Y);
+        }
+
+        //================================================================
+
+        static public bool operator != (GLPosition lhs, GLPosition rhs)
+        {
+            return (lhs.X != rhs.X || lhs.Y != rhs.Y);
+        }
+
+        //===============================================================
+
+        public override int GetHashCode()
+        {
+            return (int)X + (int)Y;
+        }
+
+        //===============================================================
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as GLPosition;
+
+            return (other == this);
         }
     }
 }

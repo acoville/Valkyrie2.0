@@ -117,7 +117,27 @@ namespace Valkryie.GL
                         for(int j = 0; j < child.ChildNodes.Count; j++)
                         {
                             XmlNode obsNode = child.ChildNodes[j];
-                            Obstacles.Add(new GLObstacle(obsNode));
+
+                            string type = obsNode.Attributes["Type"].Value.ToString();
+
+                            //------------------------------------------
+                            
+                            if(type == "Rectangle")
+                            {
+                                Obstacles.Add(new GLObstacle(obsNode));
+                            }
+
+                            //------------------------------------------
+
+                            else if(type == "Stair")
+                            {
+                                List<GLObstacle> staircase = GLObstacle.Staircase(obsNode);
+
+                                foreach(var obstacle in staircase)
+                                {
+                                    Obstacles.Add(obstacle);
+                                }
+                            }
                         }
 
                         break;

@@ -9,21 +9,32 @@
   
     <!-- Player -->
   
-  
+    
   
     <!-- Static Obstacles -->
 
   <Obstacles>
 
     <Obstacle
+      Type="Rectangle"
       Height="1"
       Width="4"
       X="5"
       Y="8"
       Image="Bricks.Red"
       Static="true" />
-
+    
     <Obstacle
+      Type="Stair"
+      Orientation="Left"
+      X="8"
+      Y="2"
+      Height="5"
+      Image="Bricks.Red"
+      Static="true" />
+      
+    <Obstacle
+      Type="Rectangle"
       Label="floor"
       Height="1"
       Width="30"

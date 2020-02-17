@@ -142,5 +142,158 @@ namespace Valkyrie.GL.Test
 
             Assert.IsFalse(Rect1.Intersects(Rect2));
         }
+
+        //==========================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void TranslateAccuracyTest()
+        {
+            GLPosition origin1 = new GLPosition(500.0f, 500.0f);
+            GLRect SUT = new GLRect(origin1, 3, 3);
+
+            SUT.Translate(50, 0);
+            GLPosition origin2 = SUT.Origin;
+
+            GLPosition test = new GLPosition(550.0f, 500.0f);
+
+            Assert.IsTrue(origin2 == test);
+        }
+
+        //===========================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void TranslateCenterTest()
+        {
+            GLPosition origin1 = new GLPosition(500.0f, 500.0f);
+            GLRect SUT = new GLRect(origin1, 3, 3);
+
+            GLPosition center1 = SUT.Center;
+            GLPosition test = center1;
+
+            SUT.Translate(50, 0);
+            test.Translate(50, 0);
+
+            GLPosition center2 = SUT.Center;
+
+            Assert.IsTrue(center1 == center2);
+        }
+
+        //============================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void ObjectEqualsTrueTest()
+        {
+            GLRect r1 = new GLRect();
+            GLRect r2 = new GLRect();
+
+            Assert.AreEqual(r1, r2);
+        }
+
+        //===========================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void ObjectEqualsFalseTest()
+        {
+            GLRect r1 = new GLRect(10, 10, 10, 10);
+            GLRect r2 = new GLRect(10, 20, 10, 10);
+
+            Assert.AreNotEqual(r1, r2);
+        }
+
+        //===========================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void HashCodeTrueTest()
+        {
+            GLRect r1 = new GLRect();
+            GLRect r2 = new GLRect();
+
+            var hash1 = r1.GetHashCode();
+            var hash2 = r2.GetHashCode();
+
+            Assert.AreEqual(hash1, hash2);
+        }
+
+        //==========================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void HashCodeFalseTest()
+        {
+            GLRect r1 = new GLRect(10, 10, 10, 10);
+            GLRect r2 = new GLRect(10, 20, 10, 10);
+
+            var hash1 = r1.GetHashCode();
+            var hash2 = r2.GetHashCode();
+
+            Assert.AreNotEqual(r1, r2);
+        }
+
+        //============================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void TranslateBoundsTest()
+        {
+            GLPosition origin1 = new GLPosition(500.0f, 500.0f);
+            GLRect SUT = new GLRect(origin1, 3, 3);
+
+            SUT.Translate(50, 0);
+
+
+        }
+
+        //===============================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void EqualityOperatorTrueTest()
+        {
+            GLRect r1 = new GLRect();
+            GLRect r2 = new GLRect();
+
+            Assert.IsTrue(r1 == r2);
+        }
+
+        //================================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void EqualityOperatorFalseTest()
+        {
+            GLRect r1 = new GLRect(10, 10, 10, 10);
+            GLRect r2 = new GLRect(10, 20, 10, 10);
+
+            Assert.IsFalse(r1 == r2);
+        }
+
+        //===============================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void InequalityTrueTest()
+        {
+            GLRect r1 = new GLRect(10, 10, 10, 10);
+            GLRect r2 = new GLRect(10, 20, 10, 10);
+
+            Assert.IsTrue(r1 != r2);
+        }
+
+        //==============================================================
+
+        [Test]
+        [Category("GL Rectangle")]
+        public void InequalityFalseTest()
+        {
+            GLRect r1 = new GLRect();
+            GLRect r2 = new GLRect();
+
+            Assert.IsFalse(r1 != r2);
+        }
     }
 }
