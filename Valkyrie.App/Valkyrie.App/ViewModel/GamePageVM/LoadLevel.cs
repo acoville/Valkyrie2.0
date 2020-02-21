@@ -45,6 +45,10 @@ namespace Valkyrie.App.ViewModel
             // load obstacles into graphics layer
 
             LoadObstacles(map);
+
+            // load props
+
+
             
             // set up player1
 

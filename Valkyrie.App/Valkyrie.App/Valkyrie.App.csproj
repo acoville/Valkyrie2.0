@@ -12,9 +12,12 @@
 
   <ItemGroup>
     <None Remove="Images\Backgrounds\testBackground.png" />
+    <None Remove="Images\Props\StoneCottage\prop.png" />
     <None Remove="Images\Tiles\bricks.png" />
     <None Remove="Images\Tiles\Bricks\Red\end.png" />
     <None Remove="Images\Tiles\Bricks\Red\tile.png" />
+    <None Remove="Images\Tiles\Cobblestone\end.png" />
+    <None Remove="Images\Tiles\Cobblestone\tile.png" />
     <None Remove="Images\Tiles\end.png" />
     <None Remove="Images\Tiles\grass.png" />
     <None Remove="Images\Tiles\Grass\tile.png" />
@@ -26,8 +29,15 @@
     <EmbeddedResource Include="Images\Backgrounds\testBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Images\Props\StoneCottage\prop.png" />
     <EmbeddedResource Include="Images\Tiles\Bricks\Red\end.png" />
     <EmbeddedResource Include="Images\Tiles\Bricks\Red\tile.png" />
+    <EmbeddedResource Include="Images\Tiles\Cobblestone\end.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Tiles\Cobblestone\tile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Images\Tiles\Grass\tile.png" />
     <EmbeddedResource Include="Images\Tiles\Grass\end.png" />
     <EmbeddedResource Include="Model\Maps\LevelManifest.xml">

@@ -42,7 +42,7 @@ namespace Valkyrie.Graphics
 
         /*----------------------------
          * 
-         * Scrollbox info
+         * Scrollbox Troubleshooting info
          * 
          * ------------------------*/
 
@@ -56,7 +56,7 @@ namespace Valkyrie.Graphics
 
         /*-----------------------------
          * 
-         * 
+         * Scrollbox
          * 
          * ---------------------------*/
 
@@ -123,6 +123,16 @@ namespace Valkyrie.Graphics
             tiles_.Add(val.Tiles);
         }
 
+        //===========================================================
+
+        internal ObservableCollection<Drawable> props_;
+
+        public void AddProp(Prop arg)
+        {
+            //SKPoint target = scrollBox_.ToSkia(arg.Rectangle.)
+            props_.Add(arg);
+        }
+
         //============================================================
 
         /*-------------------------------------
@@ -143,6 +153,7 @@ namespace Valkyrie.Graphics
 
             sprites_ = new ObservableCollection<Sprite>();
             tiles_ = new ObservableCollection<TileGroup>();
+            props_ = new ObservableCollection<Drawable>();
 
             PrepareTroubleshootingInfo();
         }
@@ -208,6 +219,13 @@ namespace Valkyrie.Graphics
 
             canvas.Clear(ClearPaint);
 
+            // draw all props
+
+            foreach(var prop in props_)
+            {
+                canvas.DrawBitmap(prop.DisplayImage, prop.SkiaOrigin);
+            }
+
             //  draw all sprites
 
             //  draw all static obstacles
@@ -229,25 +247,7 @@ namespace Valkyrie.Graphics
             if(troubleshooting_)
             {
                 DrawScrollBox(canvas);
-
-                // HighlightBlock(canvas, ah... but where do I get the SKRect?);
-                // must be from an Actor, but only after  it has been updated
-                // by the GPVM using the Scrollbox? 
             }
-        }
-
-        //=====================================================================
-
-        /*----------------------------------
-         * 
-         * Helper Function to bullseye
-         * the starting position
-         * 
-         * -------------------------------*/
-
-        internal void HighlightBlock(SKCanvas canvas, SKRect rect)
-        {
-            
         }
 
         //=====================================================================
@@ -262,7 +262,6 @@ namespace Valkyrie.Graphics
 
         internal void DrawScrollBox(SKCanvas canvas)
         {
-
             canvas.DrawRect(ScrollBox, scrollBoxPaint);
 
             SKPoint textPoint = new SKPoint(ScrollBox.Left + 10,

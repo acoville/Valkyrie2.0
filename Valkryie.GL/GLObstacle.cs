@@ -139,7 +139,6 @@ namespace Valkryie.GL
                 {
                     origin.Translate(0, 64.0f);
                 }
-
             }
 
             return result;

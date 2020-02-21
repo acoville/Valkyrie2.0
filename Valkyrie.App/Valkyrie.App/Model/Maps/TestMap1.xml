@@ -19,8 +19,8 @@
       Type="Rectangle"
       Height="1"
       Width="4"
-      X="5"
-      Y="8"
+      X="13"
+      Y="10"
       Image="Bricks.Red"
       Static="true" />
     
@@ -32,7 +32,16 @@
       Height="5"
       Image="Bricks.Red"
       Static="true" />
-      
+
+    <Obstacle
+      Type="Stair"
+      Orientation="Right"
+      X="16"
+      Y="2"
+      Height="5"
+      Image="Bricks.Red"
+      Static="true" />
+
     <Obstacle
       Type="Rectangle"
       Label="floor"
@@ -44,6 +53,18 @@
       Static="true" />
   
   </Obstacles>
+  
+  <!-- Background Props -->
+
+  <Props>
+
+    <Prop
+      Placement="Background"
+      X="5"
+      Y="1"
+      Image="StoneCottage" />
+    
+  </Props>
   
     <!-- Monsters -->
   

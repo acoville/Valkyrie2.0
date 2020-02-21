@@ -63,8 +63,10 @@ namespace Valkryie.GL
 
         public Level()
         {
-            boundaries_ = new GLRect();
-            boundaries_.Origin = new GLPosition(0.0f, 0.0f);
+            boundaries_ = new GLRect
+            {
+                Origin = new GLPosition(0.0f, 0.0f)
+            };
         }
 
         //======================================================
@@ -107,6 +109,18 @@ namespace Valkryie.GL
                     case ("Background"):
                     {
                         BackgroundImage = child.Attributes["ImageSource"].Value.ToString();
+                        break;
+                    }
+
+                    //-------------------------------------------------------
+
+                    case ("Props"):
+                    {
+                        for(int j = 0; j < child.ChildNodes.Count; j++)
+                        {
+                            
+                        }
+
                         break;
                     }
 
