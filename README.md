@@ -6,6 +6,11 @@ little more than custom images and the ability to write some XML data files to c
 The app has been designed following the MVVM design pattern, with XAML content page markups, C# code behind and a C# ViewModel with
 supporting classes.
 
+# Support Valkyrie on Kickstarter
+
+There is a Kickstarter campaign to support this project live right now. 
+https://www.kickstarter.com/projects/valkyrieengine/valkyrie-an-open-source-2d-mobile-game-engine/
+
 ## What is covered by the open-source license: 
 
 The Valkyrie.GL game logic .NET standard library: this contains game logic coordinates, collision detection, combat engine mechanics
