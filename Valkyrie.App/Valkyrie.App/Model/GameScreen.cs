@@ -228,6 +228,8 @@ namespace Valkyrie.Graphics
 
             //  draw all sprites
 
+
+
             //  draw all static obstacles
                             
             foreach(var tileGroup in tiles_)
