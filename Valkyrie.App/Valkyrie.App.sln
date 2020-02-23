@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.GL.Test", "..\Valkyrie.GL.Test\Valkyrie.GL.Test.csproj", "{51F7F038-0594-4FCC-9F67-A08F744D93E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valkyrie.App.Test", "Valkyrie.App.Test\Valkyrie.App.Test.csproj", "{4806F8F5-0B90-43F6-B47C-E8733BFD6C2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.App.Test", "Valkyrie.App.Test\Valkyrie.App.Test.csproj", "{4806F8F5-0B90-43F6-B47C-E8733BFD6C2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
