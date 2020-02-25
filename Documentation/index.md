@@ -45,14 +45,11 @@ Build artifacts are not covered by the open source license. Anyone may use this 
 ## Documentation 
 
 1. Setting up your Dev Environment
-2. Helpful Links for programming in C#, XAML, Xamarin
-3. Compiling
-4. Debugging 
-5. Program Execution Flow
-6. Content Pages
-7. Valkyrie.App Library
-8. Valkyrie.GL Library
-9. Valkyrie.Graphics Library
-10. Creating Graphics for use in Valkyrie projects
-11. Creating a Level
-12. Creating a Manifest of Levels. 
+2. Content Pages
+3. Runtime Execution Flow
+4. Valkyrie.App Library
+5. Valkyrie.GL Library
+6. Valkyrie.Graphics Library
+7. Creating Graphics for use in Valkyrie projects
+8. Creating your own Level
+9. Creating a Manifest of Levels. 

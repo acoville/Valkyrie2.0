@@ -25,6 +25,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.GL.Test", "..\Valk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.App.Test", "Valkyrie.App.Test\Valkyrie.App.Test.csproj", "{4806F8F5-0B90-43F6-B47C-E8733BFD6C2C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{27A5F1A8-D1F8-4B73-8FC5-063F54282789}"
+	ProjectSection(SolutionItems) = preProject
+		..\Documentation\DevEnvironment.md = ..\Documentation\DevEnvironment.md
+		..\Documentation\HelpfulLinks.md = ..\Documentation\HelpfulLinks.md
+		..\Documentation\index.md = ..\Documentation\index.md
+		Runtime.md = Runtime.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
