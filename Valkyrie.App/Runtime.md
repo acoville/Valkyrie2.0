@@ -46,5 +46,10 @@ class constructors. This is a trivially modifiable system. The only nodes that t
 class parses for iteslf is the starting position and the background image. Every other piece,
 from an obstacle to monsters to powerups - these nodes are parsed by their own class constructors.
 
+This is advantageous to the developer. If you choose to change the way one of these classes is
+serialized or extend its functionality, or create derived classes of it you only need to make changes
+in 2 places: the XML document and the class constructor. The Level in this case is just a loading 
+mechanism and never looks at that data. 
+
 
 
