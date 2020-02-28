@@ -59,9 +59,9 @@
   <Props>
 
     <Prop
-      Placement="Background"
       X="5"
       Y="1"
+      Layer="Background"
       Image="StoneCottage" />
     
   </Props>

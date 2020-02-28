@@ -48,7 +48,7 @@ namespace Valkyrie.App.ViewModel
 
             // load props
 
-
+            LoadProps(map);
             
             // set up player1
 
@@ -123,7 +123,13 @@ namespace Valkyrie.App.ViewModel
 
         //==============================================================================
 
+        internal void LoadProps(Level map)
+        {
+            foreach(var prop in map.Props)
+            {
 
+            }
+        }
     }
 }
  

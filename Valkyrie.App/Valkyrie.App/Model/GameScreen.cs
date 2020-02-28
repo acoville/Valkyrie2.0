@@ -118,7 +118,7 @@ namespace Valkyrie.Graphics
 
             SKPoint target = scrollBox_.ToSkia(origin);
             
-            val.Tiles.MoveTo(target);
+            val.Tiles.Move(target);
 
             tiles_.Add(val.Tiles);
         }
@@ -127,7 +127,7 @@ namespace Valkyrie.Graphics
 
         internal ObservableCollection<Drawable> props_;
 
-        public void AddProp(Prop arg)
+        public void AddProp(GraphicsProp arg)
         {
             //SKPoint target = scrollBox_.ToSkia(arg.Rectangle.)
             props_.Add(arg);

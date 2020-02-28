@@ -15,6 +15,7 @@ using Xamarin.Forms;
 using Valkyrie.App.Model;
 using System.Collections.Generic;
 
+
 namespace Valkyrie.App.ViewModel
 {
     public partial class GamePageViewModel : INotifyPropertyChanged
@@ -50,6 +51,7 @@ namespace Valkyrie.App.ViewModel
             env_ = Device.RuntimePlatform.ToString();
             actors_ = new List<Actor>();
             obstacles_ = new List<Obstacle>();
+            props_ = new List<Prop>();
         }
 
         //=============================================================
