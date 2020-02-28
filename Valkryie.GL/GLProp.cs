@@ -20,7 +20,16 @@ namespace Valkryie.GL
             set => imageSource_ = value;
         }
 
-        //=========================================================
+        //===========================================================
+
+        internal string layer_;
+        public string Layer
+        {
+            get => layer_;
+            set => layer_ = value;
+        }
+
+        //===========================================================
 
         public GLProp(XmlNode node)
         {
@@ -38,7 +47,11 @@ namespace Valkryie.GL
             //--- extract the image source
 
             string source = node.Attributes["Image"].Value.ToString();
-            imageSource_ = "Valkyrie.App.Images.Props." + source + "prop.png";
+            imageSource_ = "Valkyrie.App.Images.Props." + source;
+
+            //--- what layer is this supposed to be in? 
+
+            layer_ = node.Attributes["Layer"].Value.ToString();
         }
     }
 }

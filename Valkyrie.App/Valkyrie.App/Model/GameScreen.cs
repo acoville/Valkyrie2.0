@@ -126,11 +126,10 @@ namespace Valkyrie.Graphics
         //===========================================================
 
         internal ObservableCollection<Drawable> props_;
-
-        public void AddProp(GraphicsProp arg)
+        public void AddProp(Prop arg)
         {
-            //SKPoint target = scrollBox_.ToSkia(arg.Rectangle.)
-            props_.Add(arg);
+            SKPoint target = scrollBox_.ToSkia(arg.GLProp.GLPosition);
+            props_.Add(arg.SKProp);
         }
 
         //============================================================

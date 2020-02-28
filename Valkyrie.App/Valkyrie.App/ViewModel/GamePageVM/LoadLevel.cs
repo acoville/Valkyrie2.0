@@ -123,11 +123,44 @@ namespace Valkyrie.App.ViewModel
 
         //==============================================================================
 
+        /*------------------------------------------------
+         * 
+         * For the moment, this is going to be all 
+         * props in the level, but at runtime I am 
+         * planning an optimization that will only
+         * load stuff into memory that is nearby
+         * 
+         * -------------------------------------------*/
+
         internal void LoadProps(Level map)
         {
-            foreach(var prop in map.Props)
+            foreach(var glprop in map.Props)
             {
+                //-- construct the Drawable object
 
+                Drawable sprite = new Drawable();
+                SKBitmap image = new SKBitmap();
+                Assembly assembly = GetType().GetTypeInfo().Assembly;
+                
+                using (Stream stream = assembly.GetManifestResourceStream(glprop.ImageSource + ".prop.png"))
+                {
+                    image = SKBitmap.Decode(stream);
+                }
+
+                sprite.DisplayImage = image;
+
+                //-- construct the App.Model.Prop object
+
+                Prop prop = new Prop(glprop);
+                prop.SKProp = sprite;
+
+                //-- add to the GPVM
+
+                props_.Add(prop);
+
+                //-- add to the device screen
+
+                DeviceScreen.AddProp(prop);
             }
         }
     }

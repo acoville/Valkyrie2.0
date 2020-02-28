@@ -12,7 +12,7 @@ namespace Valkyrie.Graphics
 
         public GraphicsProp(GLProp prop)
         {
-            
+
         }
     }
 }

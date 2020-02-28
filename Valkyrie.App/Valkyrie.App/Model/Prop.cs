@@ -19,17 +19,17 @@ namespace Valkyrie.App.Model
 {
     public class Prop
     {
-        internal GLProp gLProp_;
+        internal GLProp glProp_;
         public GLProp GLProp
         {
-            get => gLProp_;
-            set => gLProp_ = value;
+            get => glProp_;
+            set => glProp_ = value;
         }
 
         //==================================================
 
-        internal GraphicsProp skiaProp_;
-        public GraphicsProp SKProp
+        internal Drawable skiaProp_;
+        public Drawable SKProp
         {
             get => skiaProp_;
             set => skiaProp_ = value;
@@ -41,13 +41,8 @@ namespace Valkyrie.App.Model
 
         public Prop(GLProp prop)
         {
-            // gl position
-
-            // layer
-
-            // imagesource
-
-
+            glProp_ = prop;
+            skiaProp_ = new GraphicsProp(glProp_);
         }
     }
 }
