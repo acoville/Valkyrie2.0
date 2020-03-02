@@ -62,14 +62,7 @@
       X="1"
       Y="1"
       Layer="Foreground"
-      Image="trees.birch.foreground" />
-
-    <Prop
-      X="5"
-      Y="1"
-      Layer="Background"
-      Image="StoneCottage" />
-
+      Image="trees.birch" />
     
   </Props>
   
