@@ -48,13 +48,17 @@ namespace Valkyrie.Graphics
 
         //===========================================================
 
-        /*-------------------------------------------
+        /*------------------------------------------------
          * 
          * Creates a new temporary SKBitmap which 
          * is the reverse (mirror) of the current
          * display image.
          * 
-         * ----------------------------------------*/
+         * I'm generating unwanted artifacts in 
+         * a tile where the first few pixels are empty
+         * not sure why. 
+         * 
+         * ---------------------------------------------*/
 
         public void Mirror()
         {
@@ -66,7 +70,14 @@ namespace Valkyrie.Graphics
                 {
                     SKColor color = DisplayImage.GetPixel(DisplayImage.Width - j, i);
 
-                    newImage.SetPixel(j, i, color);
+                    // check to see if the pixel is empty
+
+                    int r = color.Red;
+                    int b = color.Blue;
+                    int g = color.Green;
+
+                    if(r != 0 && b != 0 && g != 0)
+                        newImage.SetPixel(j, i, color);
                 }
             }
 

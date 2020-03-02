@@ -87,8 +87,8 @@ namespace Valkyrie.Graphics
          * 
          * -----------------------------*/
 
-        internal ObservableCollection<Sprite> sprites_;
-        public ObservableCollection<Sprite> Sprites
+        internal ObservableCollection<Drawable> sprites_;
+        public ObservableCollection<Drawable> Sprites
         {
             get => sprites_;
             set => sprites_ = value;
@@ -170,7 +170,7 @@ namespace Valkyrie.Graphics
 
             scrollBox_ = new ScrollBox(Info);
 
-            sprites_ = new ObservableCollection<Sprite>();
+            sprites_ = new ObservableCollection<Drawable>();
             tiles_ = new ObservableCollection<TileGroup>();
             props_ = new ObservableCollection<Drawable>();
 

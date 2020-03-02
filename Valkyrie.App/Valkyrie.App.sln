@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		..\Documentation\DevEnvironment.md = ..\Documentation\DevEnvironment.md
 		..\Documentation\HelpfulLinks.md = ..\Documentation\HelpfulLinks.md
 		..\Documentation\index.md = ..\Documentation\index.md
+		Props.md = Props.md
 		Runtime.md = Runtime.md
 	EndProjectSection
 EndProject
