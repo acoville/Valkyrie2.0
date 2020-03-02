@@ -125,10 +125,30 @@ namespace Valkyrie.Graphics
 
         //===========================================================
 
+        /*-----------------------------------------
+         * 
+         * Prop objects are any image that 
+         * contributes to the mood, decor and
+         * environmental feel of the composed
+         * image but is non-interactive to 
+         * the player. For the moment, I do not
+         * need any more complex logic than what
+         * is in the base Drawable class to do 
+         * this.
+         * 
+         * ---------------------------------------*/
+
         internal ObservableCollection<Drawable> props_;
         public void AddProp(Prop arg)
         {
             SKPoint target = scrollBox_.ToSkia(arg.GLProp.GLPosition);
+
+            arg.SKProp.Move(target);
+
+            int height = arg.SKProp.DisplayImage.Height * -1;
+
+            arg.SKProp.Translate(0, height);
+
             props_.Add(arg.SKProp);
         }
 

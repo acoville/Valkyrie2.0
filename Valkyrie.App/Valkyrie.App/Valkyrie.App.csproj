@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Images\Backgrounds\testBackground.png" />
     <None Remove="Images\Props\StoneCottage\prop.png" />
+    <None Remove="Images\Props\trees\birch\foreground\prop.png" />
     <None Remove="Images\Tiles\bricks.png" />
     <None Remove="Images\Tiles\Bricks\Red\end.png" />
     <None Remove="Images\Tiles\Bricks\Red\tile.png" />
@@ -30,6 +31,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Images\Props\StoneCottage\prop.png" />
+    <EmbeddedResource Include="Images\Props\trees\birch\foreground\prop.png" />
     <EmbeddedResource Include="Images\Tiles\Bricks\Red\end.png" />
     <EmbeddedResource Include="Images\Tiles\Bricks\Red\tile.png" />
     <EmbeddedResource Include="Images\Tiles\Cobblestone\end.png">

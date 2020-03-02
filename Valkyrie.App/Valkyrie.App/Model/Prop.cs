@@ -42,7 +42,7 @@ namespace Valkyrie.App.Model
         public Prop(GLProp prop)
         {
             glProp_ = prop;
-            skiaProp_ = new GraphicsProp(glProp_);
+            skiaProp_ = new Drawable();
         }
     }
 }
