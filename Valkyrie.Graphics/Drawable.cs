@@ -2,6 +2,8 @@
 
 namespace Valkyrie.Graphics
 {
+    public enum Layer { background, middle, foreground };
+
     public class Drawable
     {
         public string ImageSource
@@ -16,6 +18,15 @@ namespace Valkyrie.Graphics
         {
             get;
             set;
+        }
+
+        //====================================================
+
+        internal Layer layer_ = Layer.middle;
+        public Layer RenderLayer
+        {
+            get => layer_;
+            set => layer_ = value;
         }
 
         //===========================================================
@@ -37,6 +48,14 @@ namespace Valkyrie.Graphics
 
         //===========================================================
 
+        /*-------------------------------------------
+         * 
+         * Creates a new temporary SKBitmap which 
+         * is the reverse (mirror) of the current
+         * display image.
+         * 
+         * ----------------------------------------*/
+
         public void Mirror()
         {
             SKBitmap newImage = new SKBitmap(DisplayImage.Width, DisplayImage.Height, false);
@@ -52,6 +71,48 @@ namespace Valkyrie.Graphics
             }
 
             DisplayImage = newImage;
+        }
+
+        //========================================================
+
+        /*----------------------------
+         * 
+         * Translate
+         * moves the tile by an 
+         * X and Y offset
+         * 
+         * --------------------------*/
+
+        public virtual void Translate(float deltaX, float deltaY)
+        {
+            SKPoint origin = SkiaOrigin;
+
+            origin.X += deltaX;
+            origin.Y += deltaY;
+
+            SkiaOrigin = origin;
+        }
+
+        //===========================================================
+
+        /*----------------------------------
+         * 
+         * Move
+         * moves to a given SK coordinate
+         * 
+         * ------------------------------*/
+
+        public virtual void Move(SKPoint target)
+        {
+            SkiaOrigin = target;
+            float height = Rectangle.Height;
+            float width = Rectangle.Width;
+
+            Rectangle = new SKRect(
+                SkiaOrigin.X,
+                SkiaOrigin.X + width,
+                SkiaOrigin.Y,
+                SkiaOrigin.Y + height);
         }
     }
 }

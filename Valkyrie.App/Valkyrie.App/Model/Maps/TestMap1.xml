@@ -59,10 +59,10 @@
   <Props>
 
     <Prop
-      Placement="Background"
-      X="5"
+      X="1"
       Y="1"
-      Image="StoneCottage" />
+      Layer="Foreground"
+      Image="trees.birch" />
     
   </Props>
   

@@ -28,7 +28,22 @@ namespace Valkryie.GL
             get => start_;
             set => start_ = value;
         }
-        
+
+        //======================================================
+
+        /*---------------------------------
+         * 
+         * Props
+         * 
+         * -------------------------------*/
+
+        internal List<GLProp> props_;
+        public List<GLProp> Props
+        {
+            get => props_;
+            set => props_ = value;
+        }
+
         //======================================================
 
         /*----------------------------------
@@ -38,7 +53,6 @@ namespace Valkryie.GL
          * -------------------------------*/
 
         internal List<GLObstacle> obstacles_;
-
         public List<GLObstacle> Obstacles
         {
             get => obstacles_;
@@ -63,6 +77,9 @@ namespace Valkryie.GL
 
         public Level()
         {
+            obstacles_ = new List<GLObstacle>();
+            props_ = new List<GLProp>();
+
             boundaries_ = new GLRect
             {
                 Origin = new GLPosition(0.0f, 0.0f)
@@ -82,7 +99,13 @@ namespace Valkryie.GL
 
         public Level(XmlDocument mapfile)
         {
-            Obstacles = new List<GLObstacle>();
+            obstacles_ = new List<GLObstacle>();
+            props_ = new List<GLProp>();
+
+            boundaries_ = new GLRect
+            {
+                Origin = new GLPosition(0.0f, 0.0f)
+            };
 
             //------ begin parsing the file
 
@@ -118,7 +141,8 @@ namespace Valkryie.GL
                     {
                         for(int j = 0; j < child.ChildNodes.Count; j++)
                         {
-                            
+                            XmlNode propNode = child.ChildNodes[j];
+                            props_.Add(new GLProp(propNode));
                         }
 
                         break;
@@ -159,6 +183,7 @@ namespace Valkryie.GL
 
                     //-------------------------------------------------------
                 }
+
             }
         }
     }

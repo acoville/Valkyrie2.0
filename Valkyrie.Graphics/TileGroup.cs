@@ -4,7 +4,7 @@ using Valkryie.GL;
 
 namespace Valkyrie.Graphics
 {
-    public class TileGroup
+    public class TileGroup : Drawable
     {
         internal SKBitmap mainTile_;
         public SKBitmap MainTile
@@ -128,33 +128,17 @@ namespace Valkyrie.Graphics
             }
         }
 
-        //====================================================================
-
-        /*--------------------------------
-         * 
-         * Moving / Displaying this group
-         * of tiles
-         * 
-         * -------------------------------*/
-
-        internal SKPoint SKorigin_;
-        public SKPoint SKOrigin
-        {
-            get => SKorigin_;
-            set => SKorigin_ = value;
-        }
-
         //==================================================================
 
-        public void Translate(float deltaX, float deltaY)
+        public override void Translate(float deltaX, float deltaY)
         {
             foreach (var row in Tiles)
             {
-                float newY = SKOrigin.Y + deltaY;
+                float newY = skiaOrigin_.Y + deltaY;
 
                 for (int i = 0; i < row.Count; i++)
                 {
-                    float newX = SKOrigin.X + deltaX + (i * 64.0f);
+                    float newX = skiaOrigin_.X + deltaX + (i * 64.0f);
 
                     row[i].Translate(newX, newY);
                 }
@@ -163,12 +147,12 @@ namespace Valkyrie.Graphics
 
         //===================================================================
 
-        public void MoveTo(SKPoint target)
+        public override void Move(SKPoint target)
         {
             // find the deltas between origin and target
 
-            float deltaX = target.X - SKOrigin.X;
-            float deltaY = target.Y - SKOrigin.Y;
+            float deltaX = target.X - skiaOrigin_.X;
+            float deltaY = target.Y - skiaOrigin_.Y;
 
             Translate(deltaX, deltaY);
         }

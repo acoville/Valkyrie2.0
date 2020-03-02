@@ -9,26 +9,9 @@ namespace Valkyrie.App.ViewModel
 {
     public partial class GamePageViewModel : INotifyPropertyChanged
     {
-        //============================================================
-
-        /*------------------------------------
-         * 
-         * Actors
-         * 
-         * --------------------------------*/
-
         internal List<Actor> actors_;
-
-        //===========================================================
-
-        /*------------------------------------
-         * 
-         * Obstacles
-         * 
-         * ---------------------------------*/
-
         internal List<Obstacle> obstacles_;
-
+        internal List<Prop> props_;
 
         //===========================================================
 
