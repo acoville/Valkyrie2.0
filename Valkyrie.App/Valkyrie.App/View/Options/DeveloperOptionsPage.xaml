@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Valkyrie.App.View.Options.DeveloperOptions">
+             x:Class="Valkyrie.App.View.Options.DeveloperOptionsPage">
     <ContentPage.Content>
 
         <Grid
@@ -27,7 +27,8 @@
                 x:Name="FPS_switch"
                 Grid.Row="0"
                 Grid.Column="1"
-                IsToggled="False" />
+                IsToggled="False"
+                Toggled="FPS_switch_Toggled"/>
 
             <Label
                 Grid.Row="0"

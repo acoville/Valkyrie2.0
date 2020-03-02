@@ -99,27 +99,12 @@ namespace Valkyrie.App.ViewModel
 
         /*----------------------------------
          * 
-         * Troubleshooting Information
-         * Runtime Environment
-         * 
-         * ------------------------------*/
-
-        internal string env_;
-        public string Env
-        {
-            get => env_;
-        }
-
-        //=============================================================
-
-        /*----------------------------------
-         * 
          * Control variable displays debug
          * information on screen
          * 
          * -------------------------------*/
 
-        internal bool troubleVisibile_ = false;
+        internal bool troubleVisibile_ = true;
         public bool Trouble_Visible
         {
             get => troubleVisibile_;
@@ -128,6 +113,102 @@ namespace Valkyrie.App.ViewModel
             {
                 troubleVisibile_ = value;
                 DeviceScreen.Trouble = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        //=============================================================
+
+        /*-----------------------------------------
+         * 
+         * Control variables that dictate weather
+         * debug info is displayed on-screen.
+         * 
+         * FPS and runtime environment share an 
+         * element on GamePage.xaml, so both 
+         * properties will check to see if that
+         * element should be hidden or shown.
+         * 
+         * --------------------------------------*/
+
+        internal bool displayFPS_ = Preferences.Get("display_FPS", false);
+        
+        //internal bool displayFPS_ = true;
+
+        public bool DisplayFPS
+        {
+            get => displayFPS_;
+            set
+            {
+                if(value == true)
+                {
+                    if(!troubleVisibile_)
+                    {
+                        displayFPS_ = value;
+                        Trouble_Visible = value;
+                    }                    
+                }
+
+                else
+                {
+                    if(!displayEnv_)
+                    {
+                        displayFPS_ = value;
+                        Trouble_Visible = false;
+                    }
+                }
+
+                RaisePropertyChanged();
+            }
+        }
+
+        //=============================================================
+
+        /*--------------------------------------
+         * 
+         * Runtime Environment Property
+         * 
+         * ------------------------------------*/
+
+        internal string runtimeEnv_ = Device.RuntimePlatform.ToString();
+        public string RuntimeEnv
+        {
+            get => runtimeEnv_;
+        }
+
+        /*--------------------------------------
+         * 
+         * Property controlling weather to 
+         * display the Environment Runtime 
+         * on-screen
+         * 
+         * ------------------------------------*/
+
+        internal bool displayEnv_ = Preferences.Get("displayEnv", false);
+        public bool DisplayEnv
+        {
+            get => displayEnv_;
+            
+            set
+            {
+                if(value == true)
+                {
+                    if (!troubleVisibile_)
+                    {
+                        displayEnv_ = value;
+                        Trouble_Visible = value;
+                    }
+                }
+
+                else
+                {
+                    if (!displayFPS_)
+                    {
+                        displayEnv_ = value;
+                        Trouble_Visible = false;
+                    }
+                }
+    
                 RaisePropertyChanged();
             }
         }

@@ -82,7 +82,7 @@
     <EmbeddedResource Update="View\Options\ControlOptions.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\Options\DeveloperOptions.xaml">
+    <EmbeddedResource Update="View\Options\DeveloperOptionsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\Options\DisplayOptions.xaml">
@@ -95,5 +95,11 @@
 
   <ItemGroup>
     <Folder Include="Images\Characters\Erina\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\Options\DeveloperOptionsPage.xaml.cs">
+      <DependentUpon>DeveloperOptionsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

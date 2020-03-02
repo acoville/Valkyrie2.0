@@ -48,7 +48,6 @@ namespace Valkyrie.App.ViewModel
         public GamePageViewModel()
         {
             deviceScreen_ = new GameScreen();
-            env_ = Device.RuntimePlatform.ToString();
             actors_ = new List<Actor>();
             obstacles_ = new List<Obstacle>();
             props_ = new List<Prop>();

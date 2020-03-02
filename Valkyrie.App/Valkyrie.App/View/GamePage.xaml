@@ -100,7 +100,8 @@
                     <!-- Framerate -->
                     
                     <StackLayout    
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        IsVisible="{Binding DisplayFPS}">
 
                         <Label
                             Text="{Binding FPS,
@@ -112,14 +113,15 @@
                     <!-- Runtime environment-->
 
                     <StackLayout
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        IsVisible="{Binding DisplayEnv}">
 
                         <Label
                             Text="Environment: "
                             TextColor="WhiteSmoke" />
 
                         <Label
-                            Text="{Binding Env}"
+                            Text="{Binding RuntimeEnv}"
                             TextColor="WhiteSmoke" />
                     </StackLayout>
                     

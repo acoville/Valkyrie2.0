@@ -2,6 +2,7 @@
 using Xamarin.Forms.Xaml;
 using Valkyrie.App.ViewModel;
 using Xamarin.Essentials;
+using Valkyrie.App.View.Options;
 
 namespace Valkyrie.App.View
 {
@@ -9,6 +10,7 @@ namespace Valkyrie.App.View
     public partial class OptionsPage : ContentPage
     {
         internal OptionsPageViewModel opvm_;
+        internal DeveloperOptionsPage devOptions_;
 
         //==================================================================
 
@@ -23,6 +25,7 @@ namespace Valkyrie.App.View
             InitializeComponent();
 
             opvm_ = new OptionsPageViewModel();
+
             BindingContext = opvm_;
 
         }
@@ -42,6 +45,7 @@ namespace Valkyrie.App.View
             opvm_.DeviceScreen.GetScreenDetails();
             BackgroundImageSource = opvm_.GetImageSource();
             base.OnSizeAllocated(width, height);
+            devOptions_ = new DeveloperOptionsPage();
         }
 
         //===========================================================================
@@ -56,6 +60,13 @@ namespace Valkyrie.App.View
         {
             opvm_.controlOpacity = opacityController.Value;
             Preferences.Set("controlOpacity", opvm_.controlOpacity);
+        }
+
+        //===============================================================================
+
+        private void DevOptions_Pressed(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(devOptions_);
         }
     }
 }
