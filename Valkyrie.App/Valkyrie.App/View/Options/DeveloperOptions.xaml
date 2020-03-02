@@ -6,21 +6,42 @@
              mc:Ignorable="d"
              x:Class="Valkyrie.App.View.Options.DeveloperOptions">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            
+
+        <Grid
+            Margin="20, 20, 20, 20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
             <!-- fps -->
+
+            <Switch
+                x:Name="FPS_switch"
+                Grid.Row="0"
+                Grid.Column="1"
+                IsToggled="False" />
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="2"
+                Text="Display FPS" />
 
             <!-- runtime environment -->
 
             <!-- display scrollbox -->
-            
+
             <!-- actor caption boxes -->
-            
+
             <!-- grid -->
-            
-        </StackLayout>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
