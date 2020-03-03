@@ -36,7 +36,7 @@
     <Obstacle
       Type="Stair"
       Orientation="Right"
-      X="16"
+      X="17"
       Y="2"
       Height="5"
       Image="Bricks.Red"
@@ -46,7 +46,7 @@
       Type="Rectangle"
       Label="floor"
       Height="1"
-      Width="30"
+      Width="100"
       X="0"
       Y="1"
       Image="Grass"
@@ -64,6 +64,17 @@
       Layer="Foreground"
       Image="trees.birch" />
 
+    <Prop
+      X="20"
+      Y="1"
+      Layer="Foreground"
+      Image="trees.birch" />
+      
+    <Prop
+      X="25"
+      Y="1"
+      Layer="Background"
+      Image="graves" />
     
   </Props>
   
