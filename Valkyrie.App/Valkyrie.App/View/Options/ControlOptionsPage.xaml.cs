@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Valkyrie.App.View.Options
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DisplayOptions : ContentPage
+    public partial class ControlOptionsPage : ContentPage
     {
-        public DisplayOptions()
+        public ControlOptionsPage()
         {
             InitializeComponent();
         }

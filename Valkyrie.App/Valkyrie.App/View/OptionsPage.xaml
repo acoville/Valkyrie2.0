@@ -20,7 +20,11 @@
 
                 <RowDefinition Height="50" />   <!-- sample D-Pad image -->
 
-                <RowDefinition Height="75" />   <!-- Developer Options -->
+                <RowDefinition Height="60" />   <!-- Developer Options -->
+
+                <RowDefinition Height="60" />   <!-- Control Options -->
+
+                <RowDefinition Height="60" />   <!-- Display Options -->
 
                 <RowDefinition Height="*" />    <!-- margin on bottom -->
             </Grid.RowDefinitions>
@@ -72,6 +76,26 @@
                 x:Name="DevOptions"
                 BackgroundColor="{Binding ActiveColor}"
                 Pressed="DevOptions_Pressed" />
+
+            <!-- Control Options Button -->
+
+            <Button 
+                Text="Input Options"
+                Grid.Row="5"
+                Grid.Column="2"
+                x:Name="InputOptionsBtn"
+                BackgroundColor="{Binding ActiveColor}"
+                Pressed="InputOptionsBtn_Pressed" />
+
+            <!-- Display Options Button -->
+
+            <Button
+                Text="Display Options"
+                Grid.Row="6"
+                Grid.Column="2"
+                x:Name="DisplayOptionsBtn"
+                BackgroundColor="{Binding ActiveColor}"
+                Pressed="DisplayOptionsBtn_Pressed" />
 
         </Grid>
     </ContentPage.Content>

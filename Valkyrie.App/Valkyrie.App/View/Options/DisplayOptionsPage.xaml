@@ -4,20 +4,12 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Valkyrie.App.View.Options.ControlOptions">
+             x:Class="Valkyrie.App.View.Options.DisplayOptionsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Display Options"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            
-            <!-- Input Methods -->
-            
-            <!-- Virtual D-pad & buttons -->
-            <!-- Keyboard & Mouse (PC, Mac) -->
-            <!-- XBox controller (PC) -->
-            <!-- other gamepad (bluetooth) -->
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -4,21 +4,12 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Valkyrie.App.View.Options.DisplayOptions">
+             x:Class="Valkyrie.App.View.Options.ControlOptionsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Control Options"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            
-            <!-- (if mobile) Lock gamescreen (disable rotation) -->
-            
-            <!-- chromecast to linked TV? -->
-
-            <!-- https://github.com/Tapanila/SharpCaster -->
-            
-            <!-- Android TV -->
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

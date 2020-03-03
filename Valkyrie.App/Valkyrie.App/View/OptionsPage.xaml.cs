@@ -10,7 +10,10 @@ namespace Valkyrie.App.View
     public partial class OptionsPage : ContentPage
     {
         internal OptionsPageViewModel opvm_;
+
         internal DeveloperOptionsPage devOptions_;
+        internal ControlOptionsPage ctrlOptions_;
+        internal DisplayOptionsPage displayOptions_;
 
         //==================================================================
 
@@ -25,7 +28,10 @@ namespace Valkyrie.App.View
             InitializeComponent();
             opvm_ = new OptionsPageViewModel();
             BindingContext = opvm_;
+
             devOptions_ = new DeveloperOptionsPage();
+            ctrlOptions_ = new ControlOptionsPage();
+            displayOptions_ = new DisplayOptionsPage();
         }
 
         //================================================================
@@ -68,6 +74,22 @@ namespace Valkyrie.App.View
 
             Navigation.PushAsync(devOptions_);
         }
+
+        //==============================================================================
+
+        private void InputOptionsBtn_Pressed(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(ctrlOptions_);
+        }
+        
+        //==============================================================================
+
+        private void DisplayOptionsBtn_Pressed(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(displayOptions_);
+        }
+
+
 
     }
 }
