@@ -6,10 +6,26 @@
              mc:Ignorable="d"
              x:Class="Valkyrie.App.View.Options.DisplayOptionsPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Display Options"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
+        <Grid
+            Margin="20, 20, 20, 20">
+
+            <Grid.RowDefinitions>
+
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                
+                
+            </Grid.ColumnDefinitions>
+            
+            <!-- Chromecast Button -->
+            
+            <!-- Brightness -->
+
+            
+            
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>

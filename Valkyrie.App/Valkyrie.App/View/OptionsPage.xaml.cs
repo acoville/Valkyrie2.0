@@ -88,8 +88,5 @@ namespace Valkyrie.App.View
         {
             Navigation.PushAsync(displayOptions_);
         }
-
-
-
     }
 }
