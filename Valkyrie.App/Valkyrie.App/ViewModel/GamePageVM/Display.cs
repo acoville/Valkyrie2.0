@@ -119,6 +119,21 @@ namespace Valkyrie.App.ViewModel
 
         //=============================================================
 
+        internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
+        public bool DisplayScrollbox
+        {
+            get => displayScrollbox_;
+
+            set
+            {
+                Preferences.Set("displayScrollbox", value);
+                deviceScreen_.displayScrollbox_ = value;
+                RaisePropertyChanged(nameof(DisplayScrollbox));
+            }
+        }
+
+        //=============================================================
+
         /*-----------------------------------------
          * 
          * Control variables that dictate weather
@@ -132,8 +147,6 @@ namespace Valkyrie.App.ViewModel
          * --------------------------------------*/
 
         internal bool displayFPS_ = Preferences.Get("display_FPS", false);
-        
-        //internal bool displayFPS_ = true;
 
         public bool DisplayFPS
         {

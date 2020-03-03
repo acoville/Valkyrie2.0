@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Valkyrie.Graphics;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -79,6 +80,40 @@ namespace Valkyrie.App.ViewModel
         public OptionsPageViewModel()
         {
             deviceScreen_ = new Screen();
+        }
+
+
+        //==========================================================================
+
+        /*--------------------------------
+         * 
+         * Active and Inactive colors
+         * for the menu buttons
+         * 
+         * -----------------------------*/
+
+        internal Color activeColor_ = Color.LightBlue;
+        public Color ActiveColor
+        {
+            get => activeColor_;
+            set
+            {
+                activeColor_ = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        //--------------------------------------------
+
+        internal Color inactiveColor_ = Color.Gray;
+        public Color InactiveColor
+        {
+            get => inactiveColor_;
+            set
+            {
+                inactiveColor_ = value;
+                RaisePropertyChanged();
+            }
         }
 
         //=======================================================================

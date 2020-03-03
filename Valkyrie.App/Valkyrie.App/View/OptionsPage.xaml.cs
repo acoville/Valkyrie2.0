@@ -23,11 +23,9 @@ namespace Valkyrie.App.View
         public OptionsPage()
         {
             InitializeComponent();
-
             opvm_ = new OptionsPageViewModel();
-
             BindingContext = opvm_;
-
+            devOptions_ = new DeveloperOptionsPage();
         }
 
         //================================================================
@@ -45,7 +43,6 @@ namespace Valkyrie.App.View
             opvm_.DeviceScreen.GetScreenDetails();
             BackgroundImageSource = opvm_.GetImageSource();
             base.OnSizeAllocated(width, height);
-            devOptions_ = new DeveloperOptionsPage();
         }
 
         //===========================================================================
@@ -66,7 +63,11 @@ namespace Valkyrie.App.View
 
         private void DevOptions_Pressed(object sender, System.EventArgs e)
         {
+            devOptions_.dovm_.ActiveColor = opvm_.ActiveColor;
+            devOptions_.dovm_.InactiveColor = opvm_.InactiveColor;
+
             Navigation.PushAsync(devOptions_);
         }
+
     }
 }

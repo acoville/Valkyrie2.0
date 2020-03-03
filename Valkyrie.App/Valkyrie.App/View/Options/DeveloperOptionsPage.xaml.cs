@@ -37,5 +37,19 @@ namespace Valkyrie.App.View.Options
         {
             dovm_.DisplayFPS = e.Value;
         }
+
+        //-------------------------------------------------------------------
+
+        private void Runtime_Env_Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            dovm_.DisplayRuntimeEnv = e.Value;
+        }
+
+        //-------------------------------------------------------------------
+
+        private void Scrollbox_Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            
+        }
     }
 }

@@ -10,13 +10,19 @@
         <Grid
             x:Name="Outer"
             Margin="20, 20, 20, 20">
-            
+
             <Grid.RowDefinitions>
+                <RowDefinition Height="20" />   <!-- margin on top -->
+
                 <RowDefinition Height="20" />   <!-- transparency label -->
-                <RowDefinition Height="20" />   <!-- transparency slider -->
+
+                <RowDefinition Height="50" />   <!-- transparency slider -->
+
                 <RowDefinition Height="50" />   <!-- sample D-Pad image -->
-                <RowDefinition Height="50" />   <!-- Developer Options -->
-                <RowDefinition Height="*" />
+
+                <RowDefinition Height="75" />   <!-- Developer Options -->
+
+                <RowDefinition Height="*" />    <!-- margin on bottom -->
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -45,26 +51,28 @@
                     ValueChanged="Slider_ValueChanged" 
                     Grid.Row="2"
                     Grid.Column="2"/>
-            
+
             <!-- Sample control to see the opacity -->
 
             <Image
                     x:Name="sampleDPad"
-                    Grid.Row="3"
+                    Grid.Row="2"
                     Grid.Column="2"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     Opacity="{Binding controlOpacity}"
                     Source="dpad.png"/>
 
+            <!-- Developer Options button -->
+            
             <Button 
                 Text="Developer Options"
                 Grid.Row="4"
                 Grid.Column="2"
                 x:Name="DevOptions"
+                BackgroundColor="{Binding ActiveColor}"
                 Pressed="DevOptions_Pressed" />
 
         </Grid>
     </ContentPage.Content>
-
 </ContentPage>

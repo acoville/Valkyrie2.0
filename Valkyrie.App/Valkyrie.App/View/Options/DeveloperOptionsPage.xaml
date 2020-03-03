@@ -5,12 +5,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Valkyrie.App.View.Options.DeveloperOptionsPage">
+    
     <ContentPage.Content>
 
         <Grid
             Margin="20, 20, 20, 20">
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -37,7 +40,31 @@
 
             <!-- runtime environment -->
 
+            <Switch
+                x:Name="Runtime_Env_Switch"
+                Grid.Row="1"
+                Grid.Column="1"
+                IsToggled="False"
+                Toggled="Runtime_Env_Switch_Toggled"/>
+
+            <Label
+                Grid.Row="1"
+                Grid.Column="2"
+                Text="Display Runtime Environment" />
+
             <!-- display scrollbox -->
+
+            <Switch
+                x:Name="Scrollbox_Switch"
+                Grid.Row="2"
+                Grid.Column="1"
+                IsToggled="False"
+                Toggled="Scrollbox_Switch_Toggled" />
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="2"
+                Text="Show Scrollbox" />
 
             <!-- actor caption boxes -->
 

@@ -80,10 +80,6 @@ namespace Valkyrie.App.View
 
         //============================================================
 
-
-
-        //============================================================
-
         /*---------------------------------
          * 
          * Save Button Clicked
@@ -130,6 +126,9 @@ namespace Valkyrie.App.View
 
         private void Options_Btn_Clicked(object sender, EventArgs e)
         {
+            optionsPage_.opvm_.ActiveColor = menuPageViewModel_.ActiveColor;
+            optionsPage_.opvm_.InactiveColor = menuPageViewModel_.InactiveColor;
+
             Navigation.PushAsync(optionsPage_);
         }
     }

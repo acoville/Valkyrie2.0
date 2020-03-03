@@ -25,26 +25,8 @@ namespace Valkyrie.App.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GamePage : ContentPage
     {
-        /*-----------------------------------------
-         * 
-         * Public accessor is for the MenuPage's
-         * benefit - the Optionspage updates 
-         * control opacity and that value needs
-         * to be written here
-         * 
-         * --------------------------------------*/
-
-        internal GamePageViewModel gpvm_;
-        
-        //===================================================================
-
-        /*-------------------------
-         * 
-         *  Delegates
-         * 
-         * ------------------------*/
-
         event RedrawHandler RedrawScreen;
+        internal GamePageViewModel gpvm_;
 
         //===================================================================
 
@@ -88,6 +70,7 @@ namespace Valkyrie.App.View
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
+
         }
 
         //==================================================================
@@ -116,6 +99,7 @@ namespace Valkyrie.App.View
                 if (gpvm_.Paused == false)
                 {
                     //gpvm_.EvaluateMovement();
+                    
 
 
                     //-- Redraw Screen, update framerate

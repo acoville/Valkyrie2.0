@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Valkryie.GL;
 using Valkyrie.App.Model;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Valkyrie.Graphics
@@ -52,20 +53,23 @@ namespace Valkyrie.Graphics
         internal SKColor ScrollboxColor = new SKColor(255, 0, 0, 75);
         internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
 
+        internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
+
         //=================================================================
+
+        internal ScrollBox scrollBox_;
 
         /*-----------------------------
          * 
          * Scrollbox
          * 
-         * ---------------------------*/
 
-        internal ScrollBox scrollBox_;
         public SKRect ScrollBox
         {
             get => scrollBox_.Skia;
             set => scrollBox_.Skia = value;
         }
+         * ---------------------------*/
 
         //================================================================
 
@@ -262,10 +266,9 @@ namespace Valkyrie.Graphics
                 }
             }
 
-            // if GPVM.Trouble is enabled, display additional
-            // sprites on-screen to aide in troubleshooting
+            // troubleshooting artifacts enabled in developer mode
 
-            if(troubleshooting_)
+            if(Preferences.Get("displayScrollbox", false))
             {
                 DrawScrollBox(canvas);
             }
@@ -283,10 +286,12 @@ namespace Valkyrie.Graphics
 
         internal void DrawScrollBox(SKCanvas canvas)
         {
-            canvas.DrawRect(ScrollBox, scrollBoxPaint);
+            canvas.DrawRect(scrollBox_.Skia, scrollBoxPaint);
 
-            SKPoint textPoint = new SKPoint(ScrollBox.Left + 10,
-                                            ScrollBox.Top + 50);
+            SKRect rect = scrollBox_.Skia;
+
+            SKPoint textPoint = new SKPoint(rect.Left + 10,
+                                            rect.Top + 50);
 
             canvas.DrawText("Camera ScrollBox", textPoint, scrollTextPaint);
         }
