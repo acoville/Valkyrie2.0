@@ -21,7 +21,10 @@ namespace Valkyrie.App.View.Options
         {
             dovm_ = new DevOptionsViewModel();
             InitializeComponent();
+
             FPS_switch.IsToggled = Preferences.Get("display_FPS", false);
+            Runtime_Env_Switch.IsToggled = Preferences.Get("displayEnv", false);
+            Scrollbox_Switch.IsToggled = Preferences.Get("displayScrollbox", false);
         }
 
         //=====================================================================
@@ -49,7 +52,7 @@ namespace Valkyrie.App.View.Options
 
         private void Scrollbox_Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            
+            dovm_.DisplayScrollbox = e.Value;
         }
     }
 }

@@ -112,7 +112,6 @@ namespace Valkyrie.App.ViewModel
             set
             {
                 troubleVisibile_ = value;
-                DeviceScreen.Trouble = value;
                 RaisePropertyChanged();
             }
         }
@@ -153,25 +152,8 @@ namespace Valkyrie.App.ViewModel
             get => displayFPS_;
             set
             {
-                if(value == true)
-                {
-                    if(!troubleVisibile_)
-                    {
-                        displayFPS_ = value;
-                        Trouble_Visible = value;
-                    }                    
-                }
-
-                else
-                {
-                    if(!displayEnv_)
-                    {
-                        displayFPS_ = value;
-                        Trouble_Visible = false;
-                    }
-                }
-
-                RaisePropertyChanged();
+                displayFPS_ = value;
+                RaisePropertyChanged(nameof(DisplayFPS));
             }
         }
 
@@ -204,25 +186,8 @@ namespace Valkyrie.App.ViewModel
             
             set
             {
-                if(value == true)
-                {
-                    if (!troubleVisibile_)
-                    {
-                        displayEnv_ = value;
-                        Trouble_Visible = value;
-                    }
-                }
-
-                else
-                {
-                    if (!displayFPS_)
-                    {
-                        displayEnv_ = value;
-                        Trouble_Visible = false;
-                    }
-                }
-    
-                RaisePropertyChanged();
+                displayEnv_ = value;
+                RaisePropertyChanged(nameof(DisplayEnv));
             }
         }
     }

@@ -30,7 +30,6 @@ namespace Valkyrie.Graphics
          * 
          * Troubleshooting info
          * 
-         * ------------------------*/
 
         internal bool troubleshooting_ = false;
         public bool Trouble
@@ -38,6 +37,7 @@ namespace Valkyrie.Graphics
             get => troubleshooting_;
             set => troubleshooting_ = value;
         }
+         * ------------------------*/
 
         //==================================================================
 
@@ -268,7 +268,7 @@ namespace Valkyrie.Graphics
 
             // troubleshooting artifacts enabled in developer mode
 
-            if(Preferences.Get("displayScrollbox", false))
+            if(Preferences.Get("displayScrollbox", true))
             {
                 DrawScrollBox(canvas);
             }
