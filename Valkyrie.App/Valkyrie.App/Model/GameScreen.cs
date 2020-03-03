@@ -26,26 +26,14 @@ namespace Valkyrie.Graphics
 
         //==================================================================
 
-        /*----------------------------
+        /*----------------------------------
          * 
-         * Troubleshooting info
+         * Scrollbox and related control,
+         * utility variables
          * 
-
-        internal bool troubleshooting_ = false;
-        public bool Trouble
-        {
-            get => troubleshooting_;
-            set => troubleshooting_ = value;
-        }
-         * ------------------------*/
-
-        //==================================================================
-
-        /*----------------------------
-         * 
-         * Scrollbox Troubleshooting info
-         * 
-         * ------------------------*/
+         * --------------------------------*/
+        
+        internal ScrollBox scrollBox_;
 
         internal SKPaint scrollBoxPaint;
         internal SKPaint scrollTextPaint;
@@ -54,22 +42,6 @@ namespace Valkyrie.Graphics
         internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
 
         internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
-
-        //=================================================================
-
-        internal ScrollBox scrollBox_;
-
-        /*-----------------------------
-         * 
-         * Scrollbox
-         * 
-
-        public SKRect ScrollBox
-        {
-            get => scrollBox_.Skia;
-            set => scrollBox_.Skia = value;
-        }
-         * ---------------------------*/
 
         //================================================================
 

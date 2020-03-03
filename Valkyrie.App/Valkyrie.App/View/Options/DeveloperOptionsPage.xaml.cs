@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Valkyrie.App.ViewModel;
+﻿using Valkyrie.App.ViewModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,6 +15,7 @@ namespace Valkyrie.App.View.Options
         public DeveloperOptionsPage()
         {
             dovm_ = new DevOptionsViewModel();
+            BindingContext = dovm_;
             InitializeComponent();
 
             FPS_switch.IsToggled = Preferences.Get("display_FPS", false);
@@ -29,12 +25,14 @@ namespace Valkyrie.App.View.Options
 
         //=====================================================================
 
-        /*---------------------------
-         * 
-         * Toggle switch handler for 
-         * displaying FPS 
-         * 
-         * ------------------------*/
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            dovm_.screen_.GetScreenDetails();
+
+            base.OnSizeAllocated(width, height);
+        }
+
+        //=====================================================================
 
         private void FPS_switch_Toggled(object sender, ToggledEventArgs e)
         {

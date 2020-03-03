@@ -89,6 +89,9 @@ namespace Valkyrie.App.View
             base.OnAppearing();
 
             gpvm_.ControlOpacity = Preferences.Get("controlOpacity", 0.85);
+            gpvm_.DisplayEnv = Preferences.Get("displayEnv", false);
+            gpvm_.DisplayFPS = Preferences.Get("display_FPS", false);
+            gpvm_.DisplayScrollbox = Preferences.Get("displayScrollbox", false);
 
             DateTime t1 = DateTime.Now;
             DateTime t2;

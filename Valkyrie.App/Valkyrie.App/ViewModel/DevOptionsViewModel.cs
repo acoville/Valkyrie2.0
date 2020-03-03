@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
+using Valkyrie.Graphics;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -11,6 +9,7 @@ namespace Valkyrie.App.ViewModel
     public class DevOptionsViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        internal Screen screen_;
 
         //==========================================================================
 
@@ -49,6 +48,7 @@ namespace Valkyrie.App.ViewModel
 
         public DevOptionsViewModel()
         {
+            screen_ = new Screen();
         }
 
         //=================================================================
@@ -109,10 +109,7 @@ namespace Valkyrie.App.ViewModel
 
         protected void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(caller));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
     }
 }
