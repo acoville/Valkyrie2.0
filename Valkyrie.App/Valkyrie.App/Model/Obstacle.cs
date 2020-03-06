@@ -8,6 +8,15 @@ namespace Valkyrie.App.Model
 {
     public class Obstacle
     {
+        internal Position position_;
+        public Position Position
+        {
+            get => position_;
+            set => position_ = value;
+        }
+
+        //=================================================
+
         internal GLObstacle obstacle_;
         public GLObstacle GLObs
         {
@@ -38,7 +47,7 @@ namespace Valkyrie.App.Model
 
             Tiles = new TileGroup(obstacle_);
 
-
+            position_ = new Position(obstacle_.Rectangle.Origin, Tiles.SkiaOrigin);
         }
 
 

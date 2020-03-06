@@ -22,7 +22,21 @@ namespace Valkyrie.Graphics
     {
         public Command Redraw { get; set; }
 
+        internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
+        internal bool initialized_ = false;
+
         internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
+        internal SKColor ScrollboxColor = new SKColor(255, 0, 0, 75);
+        internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
+        internal SKColor BlockHighlightColor = new SKColor(0, 255, 0, 75);
+
+        internal SKPaint scrollBoxPaint;
+        internal SKPaint scrollTextPaint;
+        internal SKPaint BlockHighlightPaint;
+
+        internal ObservableCollection<Drawable> sprites_;
+        internal ObservableCollection<Obstacle> tiles_;
+        internal ObservableCollection<Prop> props_;
 
         //==================================================================
 
@@ -32,7 +46,7 @@ namespace Valkyrie.Graphics
          * utility variables
          * 
          * --------------------------------*/
-        
+
         internal ScrollBox scrollBox_;
         public ScrollBox ScrollBox
         {
@@ -57,56 +71,9 @@ namespace Valkyrie.Graphics
                 {
                     float deltaX = oldOrigin.X - newOrigin.X;
                     float deltaY = oldOrigin.Y - newOrigin.Y;
-
-
                 }
             }
         }
-
-        internal SKPaint scrollBoxPaint;
-        internal SKPaint scrollTextPaint;
-
-        internal SKColor ScrollboxColor = new SKColor(255, 0, 0, 75);
-        internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
-
-        internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
-
-        //================================================================
-
-        /*--------------------------
-         * 
-         * Highlight a block
-         * 
-         * ------------------------*/
-
-        internal SKPaint BlockHighlightPaint;
-        internal SKColor BlockHighlightColor = new SKColor(0, 255, 0, 75);
-
-        //========================================================
-
-        /*---------------------------------
-         * 
-         * All the dynamic 2D character
-         * sprites on screen
-         * 
-         * -----------------------------*/
-
-        internal ObservableCollection<Drawable> sprites_;
-        public ObservableCollection<Drawable> Sprites
-        {
-            get => sprites_;
-            set => sprites_ = value;
-        }
-
-        //=======================================================
-
-        /*------------------------------------
-         * 
-         * All the static 2D tiles on-screen
-         * 
-         * ----------------------------------*/
-
-        internal ObservableCollection<TileGroup> tiles_;
 
         //============================================================
 
@@ -118,13 +85,13 @@ namespace Valkyrie.Graphics
 
         public void AddTileGroup(Obstacle val)
         {
-            GLPosition origin = val.obstacle_.Rectangle.Origin;
+            GLPosition glOrigin = val.Position.GLPosition;
+            val.Position.SKPosition = scrollBox_.ToSkia(glOrigin);
 
-            SKPoint target = scrollBox_.ToSkia(origin);
+            SKPoint target = scrollBox_.ToSkia(glOrigin);
             
             val.Tiles.Move(target);
-
-            tiles_.Add(val.Tiles);
+            tiles_.Add(val);
         }
 
         //===========================================================
@@ -145,61 +112,37 @@ namespace Valkyrie.Graphics
 
             if(initialized_)
             {
-                SKRect oldRect = scrollBox_.Skia;
-                SKPoint oldOffset = oldRect.Location;
-
-                GLPosition oldOrigin = scrollBox_.GLRect.Origin;
-
                 scrollBox_ = new ScrollBox(Info);
-
-                SKRect newRect = scrollBox_.Skia;
-                SKPoint newOffset = newRect.Location;
-
-                if(oldRect != newRect)
-                {
-                    float deltaX = oldOffset.X - newOffset.X;
-                    float deltaY = oldOffset.Y - newOffset.Y;
-
-                    AlignDrawablesToScrollBox(deltaX, deltaY);
-                }
+                AlignPiecesToScrollBox();
             }
         }
 
         //===========================================================
 
-        /*-----------------------------------
-         * 
-         * Helper Function to realign all 
-         * drawable objects when the scrollbox
-         * changes
-         * 
-         * ---------------------------------*/
-
-        internal void AlignDrawablesToScrollBox(float deltaX, float deltaY)
+        internal void AlignPiecesToScrollBox()
         {
-            foreach(var tile in tiles_)
+            foreach(var obstacle in tiles_)
             {
-                tile.Translate(deltaX, deltaY);
+                GLPosition glPos = obstacle.Position.GLPosition;
+                obstacle.Position.skiaPosition_ = scrollBox_.ToSkia(glPos);
             }
 
-            foreach(var prop in props_)
+            //--------------------------------------
+
+            foreach (var prop in props_)
             {
-                prop.Translate(deltaX, deltaY);
+                GLPosition glPos = prop.Position.GLPosition;
+                prop.Position.skiaPosition_ = scrollBox_.ToSkia(glPos);
             }
+
+            //--------------------------------------
+            /*
+            foreach(var actor in sprites_)
+            {
+
+            }
+             */
         }
-
-        //===========================================================
-
-        /*------------------------------------
-         * 
-         * Helper info will inform the 
-         * GetScreenDetails() override weather
-         * the screen has already been 
-         * initialized or not
-         * 
-         * ---------------------------------*/
-
-        internal bool initialized_ = false;
 
         //===========================================================
 
@@ -216,7 +159,6 @@ namespace Valkyrie.Graphics
          * 
          * ---------------------------------------*/
 
-        internal ObservableCollection<Drawable> props_;
         public void AddProp(Prop arg)
         {
             SKPoint target = scrollBox_.ToSkia(arg.GLProp.GLPosition);
@@ -227,7 +169,7 @@ namespace Valkyrie.Graphics
 
             arg.SKProp.Translate(0, height);
 
-            props_.Add(arg.SKProp);
+            props_.Add(arg);
         }
 
         //============================================================
@@ -249,8 +191,8 @@ namespace Valkyrie.Graphics
             scrollBox_ = new ScrollBox(Info);
 
             sprites_ = new ObservableCollection<Drawable>();
-            tiles_ = new ObservableCollection<TileGroup>();
-            props_ = new ObservableCollection<Drawable>();
+            tiles_ = new ObservableCollection<Obstacle>();
+            props_ = new ObservableCollection<Prop>();
 
             PrepareTroubleshootingInfo();
             initialized_ = true;
@@ -321,7 +263,7 @@ namespace Valkyrie.Graphics
 
             foreach(var prop in props_)
             {
-                canvas.DrawBitmap(prop.DisplayImage, prop.SkiaOrigin);
+                canvas.DrawBitmap(prop.skiaProp_.DisplayImage, prop.skiaProp_.SkiaOrigin);
             }
 
             //  draw all sprites
@@ -332,7 +274,7 @@ namespace Valkyrie.Graphics
                             
             foreach(var tileGroup in tiles_)
             {
-                foreach(var row in tileGroup.Tiles)
+                foreach(var row in tileGroup.Tiles.Tiles)
                 {
                     foreach(var col in row)
                     {
