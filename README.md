@@ -11,6 +11,11 @@ supporting classes.
 There is a Kickstarter campaign to support this project live right now. 
 https://www.kickstarter.com/projects/valkyrieengine/valkyrie-an-open-source-2d-mobile-game-engine/
 
+## Follow my development blog
+
+I am blogging my developer story on this project, follow it at 
+https://www.gamedev.net/manage/blogs/4380/
+
 ## What is covered by the open-source license: 
 
 The Valkyrie.GL game logic .NET standard library: this contains game logic coordinates, collision detection, combat engine mechanics
