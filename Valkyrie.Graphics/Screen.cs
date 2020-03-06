@@ -50,7 +50,7 @@ namespace Valkyrie.Graphics
 
         //================================================================
 
-        public void GetScreenDetails()
+        public virtual void GetScreenDetails()
         {
             var metrics = DeviceDisplay.MainDisplayInfo;
             info_ = new ScreenInfo(metrics.Height, metrics.Width);     

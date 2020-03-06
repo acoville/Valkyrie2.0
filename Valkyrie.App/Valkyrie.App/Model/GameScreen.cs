@@ -34,6 +34,34 @@ namespace Valkyrie.Graphics
          * --------------------------------*/
         
         internal ScrollBox scrollBox_;
+        public ScrollBox ScrollBox
+        {
+            get => scrollBox_;
+            
+            set
+            {
+                /*----------------------------------------------
+                 * 
+                 * We are only updating the Skia coordinates,
+                 * not the GL coordinates
+                 * 
+                 * ------------------------------------------*/
+
+                SKPoint oldOrigin = scrollBox_.Skia.Location;
+
+                scrollBox_ = value;
+
+                SKPoint newOrigin = scrollBox_.Skia.Location;
+
+                if(oldOrigin != newOrigin)
+                {
+                    float deltaX = oldOrigin.X - newOrigin.X;
+                    float deltaY = oldOrigin.Y - newOrigin.Y;
+
+
+                }
+            }
+        }
 
         internal SKPaint scrollBoxPaint;
         internal SKPaint scrollTextPaint;
@@ -101,6 +129,80 @@ namespace Valkyrie.Graphics
 
         //===========================================================
 
+        /*------------------------------------------
+         * 
+         * Override of Screen.GetScreenDetails()
+         * will detect native display resolution, 
+         * 
+         * then adjust the scrollbox and realign
+         * game pieces to where they need to be.
+         * 
+         * --------------------------------------*/
+
+        public override void GetScreenDetails()
+        {
+            base.GetScreenDetails();
+
+            if(initialized_)
+            {
+                SKRect oldRect = scrollBox_.Skia;
+                SKPoint oldOffset = oldRect.Location;
+
+                GLPosition oldOrigin = scrollBox_.GLRect.Origin;
+
+                scrollBox_ = new ScrollBox(Info);
+
+                SKRect newRect = scrollBox_.Skia;
+                SKPoint newOffset = newRect.Location;
+
+                if(oldRect != newRect)
+                {
+                    float deltaX = oldOffset.X - newOffset.X;
+                    float deltaY = oldOffset.Y - newOffset.Y;
+
+                    AlignDrawablesToScrollBox(deltaX, deltaY);
+                }
+            }
+        }
+
+        //===========================================================
+
+        /*-----------------------------------
+         * 
+         * Helper Function to realign all 
+         * drawable objects when the scrollbox
+         * changes
+         * 
+         * ---------------------------------*/
+
+        internal void AlignDrawablesToScrollBox(float deltaX, float deltaY)
+        {
+            foreach(var tile in tiles_)
+            {
+                tile.Translate(deltaX, deltaY);
+            }
+
+            foreach(var prop in props_)
+            {
+                prop.Translate(deltaX, deltaY);
+            }
+        }
+
+        //===========================================================
+
+        /*------------------------------------
+         * 
+         * Helper info will inform the 
+         * GetScreenDetails() override weather
+         * the screen has already been 
+         * initialized or not
+         * 
+         * ---------------------------------*/
+
+        internal bool initialized_ = false;
+
+        //===========================================================
+
         /*-----------------------------------------
          * 
          * Prop objects are any image that 
@@ -151,6 +253,7 @@ namespace Valkyrie.Graphics
             props_ = new ObservableCollection<Drawable>();
 
             PrepareTroubleshootingInfo();
+            initialized_ = true;
         }
 
         //==============================================================

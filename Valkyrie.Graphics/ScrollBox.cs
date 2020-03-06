@@ -37,6 +37,8 @@ namespace Valkyrie.Graphics
     {
         internal ScreenInfo info_;
 
+        //=====================================================
+
         internal SKRect skiaRect_;
         public SKRect Skia
         {
