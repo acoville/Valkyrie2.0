@@ -35,7 +35,7 @@ namespace Valkyrie.Graphics
         internal SKPaint BlockHighlightPaint;
 
         internal ObservableCollection<Drawable> sprites_;
-        internal ObservableCollection<Obstacle> tiles_;
+        internal ObservableCollection<Obstacle> obstacles_;
         internal ObservableCollection<Prop> props_;
 
         //==================================================================
@@ -83,15 +83,13 @@ namespace Valkyrie.Graphics
          * 
          * --------------------------------*/
 
-        public void AddTileGroup(Obstacle val)
+        public void AddObstacle(Obstacle val)
         {
             GLPosition glOrigin = val.Position.GLPosition;
-            val.Position.SKPosition = scrollBox_.ToSkia(glOrigin);
-
             SKPoint target = scrollBox_.ToSkia(glOrigin);
-            
+
             val.Tiles.Move(target);
-            tiles_.Add(val);
+            obstacles_.Add(val);
         }
 
         //===========================================================
@@ -112,7 +110,7 @@ namespace Valkyrie.Graphics
 
             if(initialized_)
             {
-                scrollBox_ = new ScrollBox(Info);
+                scrollBox_.Update(Info);
                 AlignPiecesToScrollBox();
             }
         }
@@ -121,18 +119,27 @@ namespace Valkyrie.Graphics
 
         internal void AlignPiecesToScrollBox()
         {
-            foreach(var obstacle in tiles_)
+            foreach(var obstacle in obstacles_)
             {
                 GLPosition glPos = obstacle.Position.GLPosition;
-                obstacle.Position.skiaPosition_ = scrollBox_.ToSkia(glPos);
+                SKPoint target = scrollBox_.ToSkia(glPos);
+                
+                //obstacle.Position.skiaPosition_ = target;
+                //obstacle.Tiles.Move(target);
+
+
             }
 
             //--------------------------------------
 
             foreach (var prop in props_)
             {
-                GLPosition glPos = prop.Position.GLPosition;
-                prop.Position.skiaPosition_ = scrollBox_.ToSkia(glPos);
+                SKPoint target = scrollBox_.ToSkia(prop.Position.GLPosition);
+
+                int height = prop.SKProp.DisplayImage.Height;
+                target.Y -= height;
+
+                prop.SKProp.Move(target);
             }
 
             //--------------------------------------
@@ -161,14 +168,12 @@ namespace Valkyrie.Graphics
 
         public void AddProp(Prop arg)
         {
-            SKPoint target = scrollBox_.ToSkia(arg.GLProp.GLPosition);
+            SKPoint target = scrollBox_.ToSkia(arg.Position.GLPosition);
+
+            int height = arg.SKProp.DisplayImage.Height;
+            target.Y -= height;
 
             arg.SKProp.Move(target);
-
-            int height = arg.SKProp.DisplayImage.Height * -1;
-
-            arg.SKProp.Translate(0, height);
-
             props_.Add(arg);
         }
 
@@ -191,7 +196,7 @@ namespace Valkyrie.Graphics
             scrollBox_ = new ScrollBox(Info);
 
             sprites_ = new ObservableCollection<Drawable>();
-            tiles_ = new ObservableCollection<Obstacle>();
+            obstacles_ = new ObservableCollection<Obstacle>();
             props_ = new ObservableCollection<Prop>();
 
             PrepareTroubleshootingInfo();
@@ -271,10 +276,10 @@ namespace Valkyrie.Graphics
 
 
             //  draw all static obstacles
-                            
-            foreach(var tileGroup in tiles_)
+            
+            foreach(var obstacle in obstacles_)
             {
-                foreach(var row in tileGroup.Tiles.Tiles)
+                foreach(var row in obstacle.Tiles.Tiles)
                 {
                     foreach(var col in row)
                     {
@@ -285,7 +290,7 @@ namespace Valkyrie.Graphics
 
             // troubleshooting artifacts enabled in developer mode
 
-            if(Preferences.Get("displayScrollbox", true))
+            if(Preferences.Get("displayScrollbox", false))
             {
                 DrawScrollBox(canvas);
             }

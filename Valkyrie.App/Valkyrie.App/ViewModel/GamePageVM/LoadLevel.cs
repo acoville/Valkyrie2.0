@@ -117,7 +117,7 @@ namespace Valkyrie.App.ViewModel
                 // move it to where it needs to be? 
                 // no, the DeviceScreen should do that.
 
-                DeviceScreen.AddTileGroup(obstacles_[i]);
+                DeviceScreen.AddObstacle(obstacles_[i]);
             }
         }
 
