@@ -109,15 +109,15 @@ namespace Valkyrie.App.ViewModel
 
                 // create the tile group
 
-                obstacles_[i].Tiles = new TileGroup(glob);
-                obstacles_[i].Tiles.MainTile = tileImage;
-                obstacles_[i].Tiles.EndTile = endImage;
-                obstacles_[i].Tiles.InitTiles();
+                obstacles_[i].TilesGroup = new TileGroup(glob);
+                obstacles_[i].TilesGroup.MainTile = tileImage;
+                obstacles_[i].TilesGroup.EndTile = endImage;
+                obstacles_[i].TilesGroup.InitTiles();
 
                 // move it to where it needs to be? 
                 // no, the DeviceScreen should do that.
 
-                DeviceScreen.AddTileGroup(obstacles_[i]);
+                DeviceScreen.AddObstacle(obstacles_[i]);
             }
         }
 

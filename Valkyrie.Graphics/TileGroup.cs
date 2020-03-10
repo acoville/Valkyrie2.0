@@ -149,12 +149,20 @@ namespace Valkyrie.Graphics
 
         public override void Move(SKPoint target)
         {
-            // find the deltas between origin and target
+            for(int i = 0; i < Tiles.Count; i++)
+            {
+                for(int j = 0; j < Tiles[i].Count; j++)
+                {
+                    tiles_[i][j].SkiaOrigin = target;
 
-            float deltaX = target.X - skiaOrigin_.X;
-            float deltaY = target.Y - skiaOrigin_.Y;
+                    float deltaX = j * 64.0f;
+                    float deltaY = i * 64.0f;
 
-            Translate(deltaX, deltaY);
+                    tiles_[i][j].Translate(deltaX, deltaY);
+                }
+            }
+
+            skiaOrigin_ = target;
         }
     }
 }
