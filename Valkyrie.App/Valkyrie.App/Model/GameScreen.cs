@@ -112,7 +112,7 @@ namespace Valkyrie.Graphics
                 }
             }
 
-            //drawables_.Sort
+            drawables_.Sort();
         }
 
         //===========================================================
@@ -137,7 +137,7 @@ namespace Valkyrie.Graphics
             props_.Add(arg);
 
             drawables_.Add(arg.SKProp);
-            //drawables_.Sort()
+            drawables_.Sort();
         }
 
         //===========================================================

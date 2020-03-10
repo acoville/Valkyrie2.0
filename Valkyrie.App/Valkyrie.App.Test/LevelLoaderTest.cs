@@ -27,7 +27,7 @@ namespace Valkyrie.App.Test
             LevelLoader loader = new LevelLoader();
             int size = loader.LevelNames.Count;
 
-            Assert.AreEqual(size, 1);
+            Assert.AreEqual(size, 2);
         }
 
         //===============================================================
@@ -113,7 +113,7 @@ namespace Valkyrie.App.Test
             int tileWidth = glob.Rectangle.TileWidth;
 
             Assert.AreEqual(tileHeight, 1);
-            Assert.AreEqual(tileWidth, 10);
+            Assert.AreEqual(tileWidth, 4);
         }
     }
 }

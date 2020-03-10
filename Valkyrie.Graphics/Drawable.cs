@@ -1,11 +1,16 @@
 ﻿using SkiaSharp;
+using System;
 
 namespace Valkyrie.Graphics
 {
-    public enum Layer { background, middle, foreground };
-
-    public class Drawable : IDrawable
+    public class Drawable : IDrawable, IComparable
     {
+        //=============================================
+        
+        // PROPERTIES
+        
+        //=============================================
+
         internal SKBitmap displayImage_;
         public SKBitmap DisplayImage
         {
@@ -13,7 +18,7 @@ namespace Valkyrie.Graphics
             set => displayImage_ = value;
         }
 
-        //===========================================================
+        //-------------------------------------
 
         internal SKRect rect_;
         public SKRect Rectangle
@@ -22,13 +27,24 @@ namespace Valkyrie.Graphics
             set => rect_ = value;
         }
 
-        //===========================================================
+        //-------------------------------------
 
         internal SKPosition skiaOrigin_;
         public SKPosition SKPosition
         {
             get => skiaOrigin_;
             set => skiaOrigin_ = value;
+        }
+
+        //===========================================================
+
+        // FUNCTIONS
+
+        //===========================================================
+
+        public Drawable()
+        {
+            SKPosition = new SKPosition(0, 0, 0);
         }
 
         //===========================================================
@@ -128,6 +144,43 @@ namespace Valkyrie.Graphics
                 SKPosition.Y + height);
 
             SKPosition.Depth = target.Depth;
+        }
+
+        //============================================================
+
+        /*------------------------------------
+         * 
+         *  Default Comparison of Drawables
+         *  will be to compare depth in 
+         *  descending order
+         * 
+         * ---------------------------------*/
+
+        int IComparable.CompareTo(object obj)
+        {
+            var other = (Drawable)obj;
+
+            return DepthCompare(other);
+        }
+
+        //==========================================================
+
+        internal int DepthCompare(Drawable other)
+        {
+            if(SKPosition.Depth > other.SKPosition.Depth)
+            {
+                return -1;
+            }
+            
+            else if(SKPosition.Depth == other.SKPosition.Depth)
+            {
+                return 0;
+            }
+
+            else
+            {
+                return 1;
+            }
         }
     }
 }
