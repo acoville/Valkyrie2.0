@@ -7,8 +7,8 @@ namespace Valkyrie.Graphics
         SKBitmap DisplayImage { get; set; }
         SKPosition SKPosition { get; set; }
         
-
         void Mirror();
         //void Scale();
+        //void Filter();
     }
 }

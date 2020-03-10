@@ -4,6 +4,12 @@ namespace Valkryie.GL
 {
     public class GLProp
     {
+        //==================================================
+
+        // Properties
+
+        //==================================================
+
         internal GLPosition position_;
         public GLPosition GLPosition
         {
@@ -11,7 +17,7 @@ namespace Valkryie.GL
             set => position_ = value;
         }
 
-        //============================================================
+        //--------------------------------------------
 
         internal string imageSource_;
         public string ImageSource
@@ -20,16 +26,13 @@ namespace Valkryie.GL
             set => imageSource_ = value;
         }
 
-        //===========================================================
+        //==================================================
 
-        internal string layer_;
-        public string Layer
-        {
-            get => layer_;
-            set => layer_ = value;
-        }
+        // FUNCTIONS
 
-        //===========================================================
+        //==================================================
+
+        // constructor
 
         public GLProp(XmlNode node)
         {
@@ -42,16 +45,15 @@ namespace Valkryie.GL
             origin.Y = float.Parse(node.Attributes["Y"].Value.ToString());
             origin.Y *= 64;
 
+            origin.Z = float.Parse(node.Attributes["Z"].Value.ToString());
+            origin.Z *= 64;
+
             position_ = origin;
 
             //--- extract the image source
 
             string source = node.Attributes["Image"].Value.ToString();
             imageSource_ = "Valkyrie.App.Images.Props." + source;
-
-            //--- what layer is this supposed to be in? 
-
-            layer_ = node.Attributes["Layer"].Value.ToString();
         }
     }
 }

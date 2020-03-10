@@ -19,13 +19,19 @@ namespace Valkyrie.App.Model
 {
     public class Prop
     {
+        //==================================================
+
+        // Properties
+
+        //==================================================
+
         public GLPosition GLPosition
         {
             get => GLProp.GLPosition;
             set => GLProp.GLPosition = value;
         }
         
-        //===================================================
+        //--------------------------------------------
 
         public SKPosition SKPosition
         {
@@ -33,7 +39,7 @@ namespace Valkyrie.App.Model
             set => SKProp.SKPosition = value;
         }
 
-        //===================================================
+        //--------------------------------------------
 
         internal GLProp glProp_;
         public GLProp GLProp
@@ -42,7 +48,7 @@ namespace Valkyrie.App.Model
             set => glProp_ = value;
         }
 
-        //==================================================
+        //--------------------------------------------
 
         internal Drawable skiaProp_;
         public Drawable SKProp
@@ -50,6 +56,10 @@ namespace Valkyrie.App.Model
             get => skiaProp_;
             set => skiaProp_ = value;
         }
+
+        //==================================================
+
+        // FUNCTIONS
 
         //==================================================
 

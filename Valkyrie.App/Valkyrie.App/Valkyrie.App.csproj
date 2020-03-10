@@ -26,6 +26,7 @@
     <None Remove="Images\Tiles\Grass\tile.png" />
     <None Remove="Model\Maps\LevelManifest.xml" />
     <None Remove="Model\Maps\TestMap1.xml" />
+    <None Remove="Model\Maps\TestMap2.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +53,7 @@
     <EmbeddedResource Include="Model\Maps\TestMap1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Model\Maps\TestMap2.xml" />
   </ItemGroup>
 
   <ItemGroup>

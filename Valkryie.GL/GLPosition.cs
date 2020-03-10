@@ -4,22 +4,31 @@ namespace Valkryie.GL
 {
     public class GLPosition
     {
-        //================================================
+        //-------------------------------------------------
 
-        internal float x_;
+        internal float x_ = 0.0f;
         public float X
         {
             get => x_;
             set => x_ = value;
         }
 
-        //================================================
+        //-------------------------------------------------
 
-        internal float y_;
+        internal float y_ = 0.0f;
         public float Y
         {
             get => y_;
             set => y_ = value;
+        }
+
+        //-------------------------------------------------
+
+        internal float z_ = 1.0f;
+        public float Z
+        {
+            get => z_;
+            set => z_ = value;
         }
 
         //================================================
@@ -39,6 +48,15 @@ namespace Valkryie.GL
         {
             X = Xparam;
             Y = Yparam;
+        }
+
+        //--------------------------------------------
+
+        public GLPosition(float Xparam, float Yparam, float Zparam)
+        {
+            X = Xparam;
+            Y = Yparam;
+            Z = Zparam;
         }
 
         //====================================================================
@@ -61,6 +79,9 @@ namespace Valkryie.GL
 
             Y = float.Parse(node.Attributes["Y"].Value.ToString());
             Y *= 64.0f;
+
+            Z = float.Parse(node.Attributes["Z"].Value.ToString());
+            Z *= 64.0f;
         }
 
         //=================================================================
@@ -75,6 +96,7 @@ namespace Valkryie.GL
         {
             X = target.X;
             Y = target.Y;
+            Z = target.Z;
         }
 
         //===============================================================
@@ -91,25 +113,38 @@ namespace Valkryie.GL
             Y += deltaY;
         }
 
+        //------------------------------------------------
+
+        public void Translate(float deltaX, float deltaY, float deltaZ)
+        {
+            X += deltaX;
+            Y += deltaY;
+            Z += deltaZ;
+        }
+
         //=================================================================
 
         static public bool operator == (GLPosition lhs, GLPosition rhs)
         {
-            return (lhs.X == rhs.X && lhs.Y == rhs.Y);
+            return (lhs.X == rhs.X 
+                        && lhs.Y == rhs.Y 
+                        && lhs.Z == rhs.Z);
         }
 
         //================================================================
 
         static public bool operator != (GLPosition lhs, GLPosition rhs)
         {
-            return (lhs.X != rhs.X || lhs.Y != rhs.Y);
+            return (lhs.X != rhs.X 
+                        || lhs.Y != rhs.Y
+                        || lhs.Z != rhs.Z);
         }
 
         //===============================================================
 
         public override int GetHashCode()
         {
-            return (int)X + (int)Y;
+            return (int)X + (int)Y + (int)Z;
         }
 
         //===============================================================

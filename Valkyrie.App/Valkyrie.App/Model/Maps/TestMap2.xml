@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Level>
+
+  <!-- Starting Position -->
+
+  <StartingPosition
+      X="4"
+      Y="3"
+      Z="1"/>
+
+  <!-- Player -->
+
+
+
+  <!-- Static Obstacles -->
+
+  <Obstacles>
+
+    <Obstacle
+      Type="Rectangle"
+      Label="floor"
+      Height="1"
+      Width="1"
+      X="0"
+      Y="1"
+      Image="Grass"
+      Static="true" />    
+    
+  </Obstacles>
+
+  <!-- Background Props -->
+
+  <Props>
+
+    <Prop
+      X="1"
+      Y="1"
+      Layer="Foreground"
+      Image="trees.birch" />
+
+    <Prop
+      X="20"
+      Y="1"
+      Layer="Foreground"
+      Image="trees.birch" />
+
+    <Prop
+      X="25"
+      Y="1"
+      Layer="Background"
+      Image="graves" />
+
+  </Props>
+
+  <!-- Monsters -->
+
+  <!-- Cutscenes -->
+
+  <!-- Background Image -->
+
+  <Background
+      ImageSource ="testBackground.png" />
+
+  <!-- Events / Triggers -->
+  <!-- OnStart -->
+  <!-- Player HP reaches 0 -->
+  <!-- Victory Condition -->
+  <!-- reached a save point -->
+  <!-- timer reaches countdown -->
+</Level>

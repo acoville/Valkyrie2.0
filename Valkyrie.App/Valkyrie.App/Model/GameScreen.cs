@@ -40,6 +40,8 @@ namespace Valkyrie.Graphics
         internal ObservableCollection<Obstacle> obstacles_;
         internal ObservableCollection<Prop> props_;
 
+        internal ObservableCollection<IDrawable> drawables_;
+
         //==================================================================
 
         /*----------------------------------
@@ -92,6 +94,24 @@ namespace Valkyrie.Graphics
 
             val.MoveSprite(target);
             obstacles_.Add(val);
+
+            //drawables_.Add(val.TilesGroup);
+
+            for(int i = 0; i < val.TilesGroup.Tiles.Count; i++)
+            {
+                var row = val.TilesGroup.Tiles[i];
+
+                for(int j = 0; j < row.Count; j++)
+                {
+                    var tile = row[j];
+
+
+
+                    drawables_.Add(tile);
+                }
+            }
+
+            //drawables_.Sort
         }
 
         //===========================================================
@@ -114,6 +134,8 @@ namespace Valkyrie.Graphics
             arg.MoveSprite(target);
 
             props_.Add(arg);
+
+            drawables_.Add(arg.SKProp);
         }
 
         //===========================================================
@@ -198,6 +220,7 @@ namespace Valkyrie.Graphics
             sprites_ = new ObservableCollection<Drawable>();
             obstacles_ = new ObservableCollection<Obstacle>();
             props_ = new ObservableCollection<Prop>();
+            drawables_ = new ObservableCollection<IDrawable>();
 
             PrepareTroubleshootingInfo();
             initialized_ = true;
@@ -264,6 +287,15 @@ namespace Valkyrie.Graphics
 
             canvas.Clear(ClearPaint);
 
+            /*
+             */
+
+            foreach(var drawable in drawables_)
+            {
+                canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
+            }
+
+            /*
             // draw all props
 
             foreach(var prop in props_)
@@ -272,8 +304,6 @@ namespace Valkyrie.Graphics
             }
 
             //  draw all sprites
-
-
 
             //  draw all static obstacles
             
@@ -287,6 +317,7 @@ namespace Valkyrie.Graphics
                     }
                 }
             }
+             */
 
             // troubleshooting artifacts enabled in developer mode
 

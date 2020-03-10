@@ -121,6 +121,7 @@ namespace Valkyrie.Graphics
                     SKRect rect = new SKRect(left, top, right, bottom);
 
                     Tile col = new Tile(obstacle.ImageSource, rect);
+
                     newRow.Add(col);
                 }
 
