@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SkiaSharp;
 using Valkryie.GL;
 using Valkyrie.Graphics;
 
@@ -8,11 +6,26 @@ namespace Valkyrie.App.Model
 {
     public class Obstacle
     {
-        internal Position position_;
-        public Position Position
+        public GLPosition GLPosition
         {
-            get => position_;
-            set => position_ = value;
+            get => GLObs.Rectangle.Origin;
+
+            set
+            {
+                GLObs.MoveGLRectTo(value);
+            }
+        }
+
+        //=================================================
+
+        public SKPoint SKPosition
+        {
+            get => tilegroup_.SkiaOrigin;
+            
+            set
+            {
+                tilegroup_.Move(value);
+            }
         }
 
         //=================================================
@@ -27,7 +40,7 @@ namespace Valkyrie.App.Model
         //================================================
 
         internal TileGroup tilegroup_;
-        public TileGroup Tiles
+        public TileGroup TilesGroup
         {
             get => tilegroup_;
             set => tilegroup_ = value;
@@ -44,12 +57,37 @@ namespace Valkyrie.App.Model
         public Obstacle(GLObstacle globs)
         {
             obstacle_ = globs;
-
-            Tiles = new TileGroup(obstacle_);
-
-            position_ = new Position(obstacle_.Rectangle.Origin, Tiles.SkiaOrigin);
+            TilesGroup = new TileGroup(obstacle_);
         }
 
+        //==================================================
 
+        /*--------------------------------
+         * 
+         * Move Sprite
+         * 
+         * ------------------------------*/
+
+        public void MoveSprite(SKPoint target)
+        {
+            tilegroup_.Move(target);
+        }
+
+        //==================================================
+
+        /*--------------------------------
+         * 
+         * Translate Sprite
+         * 
+         * ------------------------------*/
+
+        public void TranslateSprite(float deltaX, float deltaY)
+        {
+            SKPoint newpoint = SKPosition;
+            newpoint.X += deltaX;
+            newpoint.Y += deltaY;
+
+            SKPosition = newpoint;
+        }
     }
 }

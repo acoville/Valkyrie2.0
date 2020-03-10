@@ -11,7 +11,7 @@
  * 
  * ==========================================================*/
 
-using System.Xml;
+using SkiaSharp;
 using Valkryie.GL;
 using Valkyrie.Graphics;
 
@@ -19,13 +19,19 @@ namespace Valkyrie.App.Model
 {
     public class Prop
     {
-        internal Position position_;
-        public Position Position
+        public GLPosition GLPosition
         {
-            get => position_;
-            set => position_ = value;
+            get => GLProp.GLPosition;
+            set => GLProp.GLPosition = value;
         }
+        
+        //===================================================
 
+        public SKPoint SKPosition
+        {
+            get => SKProp.SkiaOrigin;
+            set => SKProp.SkiaOrigin = value;
+        }
 
         //===================================================
 
@@ -47,14 +53,19 @@ namespace Valkyrie.App.Model
 
         //==================================================
 
+        public void MoveSprite(SKPoint target)
+        {
+            SKProp.Move(target);
+        }
+
+        //==================================================
+
         // constructors
 
         public Prop(GLProp prop)
         {
             glProp_ = prop;
             skiaProp_ = new Drawable();
-
-            position_ = new Position(glProp_.GLPosition, skiaProp_.SkiaOrigin);
         }
     }
 }

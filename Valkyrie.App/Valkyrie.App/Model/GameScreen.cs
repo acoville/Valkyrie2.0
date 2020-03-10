@@ -25,6 +25,8 @@ namespace Valkyrie.Graphics
         internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
         internal bool initialized_ = false;
 
+        internal int sizeAllocations_ = 0;
+
         internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
         internal SKColor ScrollboxColor = new SKColor(255, 0, 0, 75);
         internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
@@ -85,11 +87,33 @@ namespace Valkyrie.Graphics
 
         public void AddObstacle(Obstacle val)
         {
-            GLPosition glOrigin = val.Position.GLPosition;
+            GLPosition glOrigin = val.GLPosition;
             SKPoint target = scrollBox_.ToSkia(glOrigin);
 
-            val.Tiles.Move(target);
+            val.MoveSprite(target);
             obstacles_.Add(val);
+        }
+
+        //===========================================================
+
+        /*-----------------------------------------
+         * 
+         * Function to Add an Obstacle
+         * 
+         * ---------------------------------------*/
+
+        public void AddProp(Prop arg)
+        {
+            SKPoint target = scrollBox_.ToSkia(arg.GLPosition);
+
+            int height = arg.SKProp.DisplayImage.Height;
+            target.Y -= height;
+
+            //arg.SKProp.Move(target);
+
+            arg.MoveSprite(target);
+
+            props_.Add(arg);
         }
 
         //===========================================================
@@ -108,73 +132,49 @@ namespace Valkyrie.Graphics
         {
             base.GetScreenDetails();
 
-            if(initialized_)
+            if(sizeAllocations_ > 1)
             {
                 scrollBox_.Update(Info);
                 AlignPiecesToScrollBox();
             }
+
+            sizeAllocations_++;
         }
 
         //===========================================================
 
         internal void AlignPiecesToScrollBox()
         {
-            foreach(var obstacle in obstacles_)
-            {
-                GLPosition glPos = obstacle.Position.GLPosition;
-                SKPoint target = scrollBox_.ToSkia(glPos);
-                
-                //obstacle.Position.skiaPosition_ = target;
-                //obstacle.Tiles.Move(target);
-
-
-            }
 
             //--------------------------------------
 
             foreach (var prop in props_)
             {
-                SKPoint target = scrollBox_.ToSkia(prop.Position.GLPosition);
+                SKPoint target = scrollBox_.ToSkia(prop.GLPosition);
 
                 int height = prop.SKProp.DisplayImage.Height;
                 target.Y -= height;
 
-                prop.SKProp.Move(target);
+                prop.MoveSprite(target);
             }
 
             //--------------------------------------
+
+            foreach(var obstacle in obstacles_)
+            {
+                GLPosition glOrigin = obstacle.GLPosition;
+                SKPoint target = scrollBox_.ToSkia(glOrigin);
+                
+                obstacle.MoveSprite(target);
+            }
+
+            
             /*
             foreach(var actor in sprites_)
             {
 
             }
              */
-        }
-
-        //===========================================================
-
-        /*-----------------------------------------
-         * 
-         * Prop objects are any image that 
-         * contributes to the mood, decor and
-         * environmental feel of the composed
-         * image but is non-interactive to 
-         * the player. For the moment, I do not
-         * need any more complex logic than what
-         * is in the base Drawable class to do 
-         * this.
-         * 
-         * ---------------------------------------*/
-
-        public void AddProp(Prop arg)
-        {
-            SKPoint target = scrollBox_.ToSkia(arg.Position.GLPosition);
-
-            int height = arg.SKProp.DisplayImage.Height;
-            target.Y -= height;
-
-            arg.SKProp.Move(target);
-            props_.Add(arg);
         }
 
         //============================================================
@@ -189,7 +189,7 @@ namespace Valkyrie.Graphics
         {
             // base class constructor called first, so it already has 
             // the native display screen details
-            
+
             Redraw = new Command<SKPaintGLSurfaceEventArgs>(OnPaintSurface);
             PaintCommand = Redraw;
 
@@ -268,7 +268,7 @@ namespace Valkyrie.Graphics
 
             foreach(var prop in props_)
             {
-                canvas.DrawBitmap(prop.skiaProp_.DisplayImage, prop.skiaProp_.SkiaOrigin);
+                canvas.DrawBitmap(prop.skiaProp_.DisplayImage, prop.SKPosition);
             }
 
             //  draw all sprites
@@ -279,7 +279,7 @@ namespace Valkyrie.Graphics
             
             foreach(var obstacle in obstacles_)
             {
-                foreach(var row in obstacle.Tiles.Tiles)
+                foreach(var row in obstacle.TilesGroup.Tiles)
                 {
                     foreach(var col in row)
                     {

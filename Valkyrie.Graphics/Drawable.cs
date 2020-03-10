@@ -116,6 +116,7 @@ namespace Valkyrie.Graphics
         public virtual void Move(SKPoint target)
         {
             SkiaOrigin = target;
+
             float height = Rectangle.Height;
             float width = Rectangle.Width;
 
