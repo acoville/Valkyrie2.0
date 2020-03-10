@@ -9,6 +9,7 @@
 
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Valkryie.GL;
@@ -36,11 +37,11 @@ namespace Valkyrie.Graphics
         internal SKPaint scrollTextPaint;
         internal SKPaint BlockHighlightPaint;
 
-        internal ObservableCollection<Drawable> sprites_;
-        internal ObservableCollection<Obstacle> obstacles_;
-        internal ObservableCollection<Prop> props_;
+        internal List<Drawable> sprites_;
+        internal List<Obstacle> obstacles_;
+        internal List<Prop> props_;
 
-        internal ObservableCollection<IDrawable> drawables_;
+        internal List<IDrawable> drawables_;
 
         //==================================================================
 
@@ -136,6 +137,7 @@ namespace Valkyrie.Graphics
             props_.Add(arg);
 
             drawables_.Add(arg.SKProp);
+            //drawables_.Sort()
         }
 
         //===========================================================
@@ -217,10 +219,10 @@ namespace Valkyrie.Graphics
 
             scrollBox_ = new ScrollBox(Info);
 
-            sprites_ = new ObservableCollection<Drawable>();
-            obstacles_ = new ObservableCollection<Obstacle>();
-            props_ = new ObservableCollection<Prop>();
-            drawables_ = new ObservableCollection<IDrawable>();
+            sprites_ = new List<Drawable>();
+            obstacles_ = new List<Obstacle>();
+            props_ = new List<Prop>();
+            drawables_ = new List<IDrawable>();
 
             PrepareTroubleshootingInfo();
             initialized_ = true;
