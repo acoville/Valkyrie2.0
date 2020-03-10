@@ -147,13 +147,13 @@ namespace Valkyrie.Graphics
 
         //===================================================================
 
-        public override void Move(SKPoint target)
+        public override void Move(SKPosition target)
         {
             for(int i = 0; i < Tiles.Count; i++)
             {
                 for(int j = 0; j < Tiles[i].Count; j++)
                 {
-                    tiles_[i][j].SkiaOrigin = target;
+                    tiles_[i][j].SKPosition = target;
 
                     float deltaX = j * 64.0f;
                     float deltaY = i * 64.0f;

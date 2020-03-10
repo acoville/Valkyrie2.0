@@ -7,7 +7,6 @@ namespace Valkyrie.Graphics
         public Tile(string imageSource, SKRect rect)
         {
             Rectangle = rect;
-            ImageSource = imageSource;
         }
     }
 }

@@ -18,9 +18,9 @@ namespace Valkyrie.App.Model
 
         //=================================================
 
-        public SKPoint SKPosition
+        public SKPosition SKPosition
         {
-            get => tilegroup_.SkiaOrigin;
+            get => tilegroup_.SKPosition;
             
             set
             {
@@ -83,7 +83,7 @@ namespace Valkyrie.App.Model
 
         public void TranslateSprite(float deltaX, float deltaY)
         {
-            SKPoint newpoint = SKPosition;
+            SKPoint newpoint = SKPosition.SKPoint;
             newpoint.X += deltaX;
             newpoint.Y += deltaY;
 

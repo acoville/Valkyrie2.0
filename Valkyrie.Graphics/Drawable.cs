@@ -4,43 +4,28 @@ namespace Valkyrie.Graphics
 {
     public enum Layer { background, middle, foreground };
 
-    public class Drawable
+    public class Drawable : IDrawable
     {
-        public string ImageSource
-        {
-            get;
-            set;
-        }
-
-        //============================================================
-
+        internal SKBitmap displayImage_;
         public SKBitmap DisplayImage
         {
-            get;
-            set;
-        }
-
-        //====================================================
-
-        internal Layer layer_ = Layer.middle;
-        public Layer RenderLayer
-        {
-            get => layer_;
-            set => layer_ = value;
+            get => displayImage_;
+            set => displayImage_ = value;
         }
 
         //===========================================================
 
+        internal SKRect rect_;
         public SKRect Rectangle
         {
-            get;
-            set;
+            get => rect_;
+            set => rect_ = value;
         }
 
         //===========================================================
 
-        internal SKPoint skiaOrigin_;
-        public SKPoint SkiaOrigin
+        internal SKPosition skiaOrigin_;
+        public SKPosition SKPosition
         {
             get => skiaOrigin_;
             set => skiaOrigin_ = value;
@@ -96,12 +81,28 @@ namespace Valkyrie.Graphics
 
         public virtual void Translate(float deltaX, float deltaY)
         {
-            SKPoint origin = SkiaOrigin;
+            SKPoint origin = SKPosition.SKPoint;
 
             origin.X += deltaX;
             origin.Y += deltaY;
 
-            SkiaOrigin = origin;
+            SKPosition = origin;
+        }
+
+        //===========================================================
+
+        public virtual void Translate(float deltaX, float deltaY, float deltaZ)
+        {
+            SKPosition origin = SKPosition;
+            origin.X += deltaX;
+            origin.Y += deltaY;
+            
+            origin.Depth += deltaZ;
+
+            // add call to scalar here
+            // add call to haze filter here
+
+            SKPosition = origin;
         }
 
         //===========================================================
@@ -113,18 +114,20 @@ namespace Valkyrie.Graphics
          * 
          * ------------------------------*/
 
-        public virtual void Move(SKPoint target)
+        public virtual void Move(SKPosition target)
         {
-            SkiaOrigin = target;
+            SKPosition = target;
 
             float height = Rectangle.Height;
             float width = Rectangle.Width;
 
             Rectangle = new SKRect(
-                SkiaOrigin.X,
-                SkiaOrigin.X + width,
-                SkiaOrigin.Y,
-                SkiaOrigin.Y + height);
+                SKPosition.X,
+                SKPosition.X + width,
+                SKPosition.Y,
+                SKPosition.Y + height);
+
+            SKPosition.Depth = target.Depth;
         }
     }
 }

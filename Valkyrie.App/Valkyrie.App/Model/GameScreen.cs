@@ -268,7 +268,7 @@ namespace Valkyrie.Graphics
 
             foreach(var prop in props_)
             {
-                canvas.DrawBitmap(prop.skiaProp_.DisplayImage, prop.SKPosition);
+                canvas.DrawBitmap(prop.skiaProp_.DisplayImage, prop.SKPosition.SKPoint);
             }
 
             //  draw all sprites
@@ -283,7 +283,7 @@ namespace Valkyrie.Graphics
                 {
                     foreach(var col in row)
                     {
-                        canvas.DrawBitmap(col.DisplayImage, col.SkiaOrigin);
+                        canvas.DrawBitmap(col.DisplayImage, col.SKPosition.SKPoint);
                     }
                 }
             }

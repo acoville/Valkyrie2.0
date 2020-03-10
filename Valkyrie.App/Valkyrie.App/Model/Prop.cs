@@ -27,10 +27,10 @@ namespace Valkyrie.App.Model
         
         //===================================================
 
-        public SKPoint SKPosition
+        public SKPosition SKPosition
         {
-            get => SKProp.SkiaOrigin;
-            set => SKProp.SkiaOrigin = value;
+            get => SKProp.SKPosition;
+            set => SKProp.SKPosition = value;
         }
 
         //===================================================
