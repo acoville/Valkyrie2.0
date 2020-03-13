@@ -93,6 +93,10 @@ namespace Valkyrie.Graphics
         {
             Tiles = new List<List<Tile>>();
 
+            // set the rectangle's depth (Z) here
+
+            float depth = obstacle.Rectangle.Origin.Z;
+
             for(int i = 0; i < obstacle.Rectangle.TileHeight; i++)
             {
                 List<Tile> newRow = new List<Tile>();
@@ -121,6 +125,7 @@ namespace Valkyrie.Graphics
                     SKRect rect = new SKRect(left, top, right, bottom);
 
                     Tile col = new Tile(obstacle.ImageSource, rect);
+                    col.SKPosition.Depth = depth;
 
                     newRow.Add(col);
                 }
@@ -150,6 +155,8 @@ namespace Valkyrie.Graphics
 
         public override void Move(SKPosition target)
         {
+            float deltaZ = target.Depth;
+
             for(int i = 0; i < Tiles.Count; i++)
             {
                 for(int j = 0; j < Tiles[i].Count; j++)
@@ -160,6 +167,10 @@ namespace Valkyrie.Graphics
                     float deltaY = i * 64.0f;
 
                     tiles_[i][j].Translate(deltaX, deltaY);
+                    tiles_[i][j].SKPosition.Depth = deltaZ;
+
+
+                    //tiles_[i][j].Translate(deltaX, deltaY, deltaZ);
                 }
             }
 

@@ -63,7 +63,7 @@ namespace Valkyrie.App.Model
 
         //==================================================
 
-        public void MoveSprite(SKPoint target)
+        public void MoveSprite(SKPosition target)
         {
             SKProp.Move(target);
         }

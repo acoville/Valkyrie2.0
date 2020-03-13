@@ -72,6 +72,9 @@ namespace Valkryie.GL
             origin.Y = float.Parse(node.Attributes["Y"].Value.ToString());
             origin.Y *= 64;
 
+            origin.Z = float.Parse(node.Attributes["Z"].Value.ToString());
+            origin.Z *= 64;
+
             float height = float.Parse(node.Attributes["Height"].Value.ToString());
             height *= 64;
 
@@ -103,6 +106,7 @@ namespace Valkryie.GL
 
             int X = int.Parse(node.Attributes["X"].Value.ToString());
             int Y = int.Parse(node.Attributes["Y"].Value.ToString());
+            int Z = int.Parse(node.Attributes["Z"].Value.ToString());
             
             GLPosition origin = new GLPosition(X * 64, Y * 64);
             
@@ -130,14 +134,14 @@ namespace Valkryie.GL
 
                 if (orientation == "Left")
                 {
-                    origin.Translate(64.0f, 64.0f);
+                    origin.Translate(64.0f, 64.0f, Z);
                 }
 
                 // right aligned staircase
 
                 else
                 {
-                    origin.Translate(0, 64.0f);
+                    origin.Translate(0, 64.0f, Z);
                 }
             }
 
@@ -168,6 +172,13 @@ namespace Valkryie.GL
         public void TranslateGLRect(float deltaX, float deltaY)
         {
             Rectangle.Translate(deltaX, deltaY);
+        }
+
+        //-----------------------------------------
+
+        public void TranslateGLRetct(float deltaX, float deltaY, float deltaZ)
+        {
+            Rectangle.Translate(deltaX, deltaY, deltaZ);
         }
     }
 }

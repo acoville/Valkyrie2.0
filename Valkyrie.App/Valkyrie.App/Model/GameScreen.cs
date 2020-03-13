@@ -91,12 +91,11 @@ namespace Valkyrie.Graphics
         public void AddObstacle(Obstacle val)
         {
             GLPosition glOrigin = val.GLPosition;
-            SKPoint target = scrollBox_.ToSkia(glOrigin);
+
+            SKPosition target = scrollBox_.ToSkia(glOrigin);
 
             val.MoveSprite(target);
             obstacles_.Add(val);
-
-            //drawables_.Add(val.TilesGroup);
 
             for(int i = 0; i < val.TilesGroup.Tiles.Count; i++)
             {
@@ -105,9 +104,6 @@ namespace Valkyrie.Graphics
                 for(int j = 0; j < row.Count; j++)
                 {
                     var tile = row[j];
-
-
-
                     drawables_.Add(tile);
                 }
             }
@@ -125,12 +121,10 @@ namespace Valkyrie.Graphics
 
         public void AddProp(Prop arg)
         {
-            SKPoint target = scrollBox_.ToSkia(arg.GLPosition);
+            SKPosition target = scrollBox_.ToSkia(arg.GLPosition);
 
             int height = arg.SKProp.DisplayImage.Height;
             target.Y -= height;
-
-            //arg.SKProp.Move(target);
 
             arg.MoveSprite(target);
 
@@ -174,7 +168,7 @@ namespace Valkyrie.Graphics
 
             foreach (var prop in props_)
             {
-                SKPoint target = scrollBox_.ToSkia(prop.GLPosition);
+                SKPosition target = scrollBox_.ToSkia(prop.GLPosition);
 
                 int height = prop.SKProp.DisplayImage.Height;
                 target.Y -= height;
@@ -187,7 +181,7 @@ namespace Valkyrie.Graphics
             foreach(var obstacle in obstacles_)
             {
                 GLPosition glOrigin = obstacle.GLPosition;
-                SKPoint target = scrollBox_.ToSkia(glOrigin);
+                SKPosition target = scrollBox_.ToSkia(glOrigin);
                 
                 obstacle.MoveSprite(target);
             }
@@ -282,8 +276,6 @@ namespace Valkyrie.Graphics
         public ICommand PaintCommand { get; set; }
         public void OnPaintSurface(SKPaintGLSurfaceEventArgs args)
         {
-            // ----- ! are these the right type? ! ----
-
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
 
@@ -294,32 +286,8 @@ namespace Valkyrie.Graphics
 
             foreach(var drawable in drawables_)
             {
-                canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
+                DrawDrawable(drawable, args);
             }
-
-            /*
-            // draw all props
-
-            foreach(var prop in props_)
-            {
-                canvas.DrawBitmap(prop.skiaProp_.DisplayImage, prop.SKPosition.SKPoint);
-            }
-
-            //  draw all sprites
-
-            //  draw all static obstacles
-            
-            foreach(var obstacle in obstacles_)
-            {
-                foreach(var row in obstacle.TilesGroup.Tiles)
-                {
-                    foreach(var col in row)
-                    {
-                        canvas.DrawBitmap(col.DisplayImage, col.SKPosition.SKPoint);
-                    }
-                }
-            }
-             */
 
             // troubleshooting artifacts enabled in developer mode
 
@@ -334,7 +302,7 @@ namespace Valkyrie.Graphics
         /*----------------------------------
          * 
          * Helper Functions to render
-         * troubleshooting information 
+         * the scrollbox on screen
          * on-screen.
          * 
          * --------------------------------*/
@@ -349,6 +317,30 @@ namespace Valkyrie.Graphics
                                             rect.Top + 50);
 
             canvas.DrawText("Camera ScrollBox", textPoint, scrollTextPaint);
+        }
+
+        //=====================================================================
+
+        /*----------------------------------------
+         * 
+         * Helper Function to rener one of the 
+         * objects in the List<Drawable> drawables_
+         * 
+         * --------------------------------------*/
+
+        internal void DrawDrawable(IDrawable drawable, SKPaintGLSurfaceEventArgs args)
+        {
+            SKSurface surface = args.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
+
+            if(Preferences.Get("Labels", false))
+            {
+                string skiaCoords = drawable.SKPosition.ToString();
+                SKPoint target = drawable.SKPosition.SKPoint;
+                canvas.DrawText(skiaCoords, target, scrollTextPaint);
+            }
         }
     }
 }

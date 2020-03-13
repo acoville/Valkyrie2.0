@@ -59,8 +59,30 @@ namespace Valkyrie.Graphics
         public static implicit operator SKPosition(SKPoint v)
         {
             SKPosition pos = new SKPosition(v);
-
             return pos;
+        }
+
+        //=====================================================
+
+        public override bool Equals(object other)
+        {
+            var otherPos = (SKPosition)other;
+
+            float x2 = otherPos.X;
+            float y2 = otherPos.Y;
+            float z2 = otherPos.Depth;
+
+            return (X == x2 &&
+                    Y == y2 &&
+                    Depth == z2);
+        }
+
+        //=======================================================
+
+        public override string ToString()
+        {
+            string result = "SK: " + X + ", " + Y + ", " + Depth;
+            return result;
         }
     }
 }

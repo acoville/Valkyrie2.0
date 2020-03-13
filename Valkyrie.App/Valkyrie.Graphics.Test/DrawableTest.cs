@@ -13,6 +13,7 @@ namespace Valkyrie.Graphics.Test
         //=========================================================
 
         [Test]
+        [Category("Drawable")]
         public void DrawableSortDescendingOrderTest()
         {
             List<IDrawable> SUT = new List<IDrawable>();
@@ -37,5 +38,32 @@ namespace Valkyrie.Graphics.Test
 
             Assert.AreEqual(first, control);
         }
+
+        //=====================================================================
+
+        /*--------------------------------------------------------------
+         * 
+         * Test to make sure that a Drawable.Translate(deltaX, deltaY)
+         * and Drawable.Translate(deltaX, deltaY, deltaZ) produce the same
+         * XY movement
+         * 
+         * -----------------------------------------------------------*/
+
+        [Test]
+        [Category("Drawable")]
+        public void Translate2D_Produces_Same_XY_As_Translate3D()
+        {
+            Drawable d1 = new Drawable();
+            Drawable d2 = new Drawable();
+
+            d1.Translate(25.0f, 25.0f);
+            d2.Translate(25.0f, 25.0f, 0.0f);
+
+            Assert.AreEqual(d1.SKPosition, d2.SKPosition);
+        }
+
+        //========================================================================
+
+
     }
 }

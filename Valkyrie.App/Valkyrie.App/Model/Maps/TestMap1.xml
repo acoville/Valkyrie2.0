@@ -6,7 +6,7 @@
   <StartingPosition
       X="4"
       Y="3"
-      Z="1"/>
+      Z="0"/>
   
     <!-- Player -->
   
@@ -22,6 +22,7 @@
       Width="4"
       X="13"
       Y="10"
+      Z="0"
       Image="Bricks.Red"
       Static="true" />
     
@@ -30,6 +31,7 @@
       Orientation="Left"
       X="8"
       Y="2"
+      Z="0"
       Height="5"
       Image="Bricks.Red"
       Static="true" />
@@ -39,6 +41,7 @@
       Orientation="Right"
       X="17"
       Y="2"
+      Z="0"
       Height="5"
       Image="Bricks.Red"
       Static="true" />
@@ -50,6 +53,7 @@
       Width="100"
       X="0"
       Y="1"
+      Z="0"
       Image="Grass"
       Static="true" />
   
@@ -67,7 +71,7 @@
 
     <Prop
       X="20"
-      Y="2"
+      Y="1"
       Z="2"
       Image="trees.birch" />     
     

@@ -155,5 +155,13 @@ namespace Valkryie.GL
 
             return (other == this);
         }
+
+        //==============================================================
+
+        public override string ToString()
+        {
+            string result = "GL: " + X + ", " + Y + ", " + Z;
+            return result;
+        }
     }
 }

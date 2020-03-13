@@ -68,7 +68,7 @@ namespace Valkyrie.App.Model
          * 
          * ------------------------------*/
 
-        public void MoveSprite(SKPoint target)
+        public void MoveSprite(SKPosition target)
         {
             tilegroup_.Move(target);
         }

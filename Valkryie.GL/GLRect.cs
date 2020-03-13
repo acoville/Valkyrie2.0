@@ -193,6 +193,11 @@ namespace Valkryie.GL
             center_ = new GLPosition(center_x, center_y);
         }
 
+        internal void Translate(float deltaX, float deltaY)
+        {
+            throw new NotImplementedException();
+        }
+
         //=========================================================
 
         /*--------------------------------------
@@ -330,9 +335,9 @@ namespace Valkryie.GL
          * 
          * -------------------------*/
 
-        public void Translate(float deltaX, float deltaY)
+        public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
         {
-            origin_.Translate(deltaX, deltaY);
+            origin_.Translate(deltaX, deltaY, deltaZ);
 
             bottom_ = origin_.Y;
             left_ = origin_.X;
