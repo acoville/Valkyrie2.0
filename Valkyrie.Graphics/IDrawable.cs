@@ -6,9 +6,13 @@ namespace Valkyrie.Graphics
     {
         SKBitmap DisplayImage { get; set; }
         SKPosition SKPosition { get; set; }
+        float Scalar { get; set; }
+
         
         void Mirror();
-        //void Scale();
+
+        void Scale();
+
         //void Filter();
     }
 }

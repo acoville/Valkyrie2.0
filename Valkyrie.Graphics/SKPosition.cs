@@ -54,6 +54,11 @@ namespace Valkyrie.Graphics
             point_ = point;
         }
 
+        public SKPosition()
+        {
+            point_ = new SKPoint();
+        }
+
         //=====================================================
 
         public static implicit operator SKPosition(SKPoint v)

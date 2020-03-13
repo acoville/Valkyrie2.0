@@ -125,6 +125,9 @@ namespace Valkyrie.Graphics
                     SKRect rect = new SKRect(left, top, right, bottom);
 
                     Tile col = new Tile(obstacle.ImageSource, rect);
+
+                    //col.SKPosition = new SKPosition(rect.Location);
+
                     col.SKPosition.Depth = depth;
 
                     newRow.Add(col);

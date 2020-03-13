@@ -75,6 +75,18 @@
       Z="2"
       Image="trees.birch" />     
     
+      <Prop
+      X="5"
+      Y="1"
+      Z="5"
+      Image="trees.birch" />
+
+    <Prop
+      X="17"
+      Y="1"
+      Z="5"
+      Image="trees.birch" />    
+  
   </Props>
   
     <!-- Monsters -->

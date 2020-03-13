@@ -33,9 +33,27 @@ namespace Valkyrie.Graphics
         public SKPosition SKPosition
         {
             get => skiaOrigin_;
-            set => skiaOrigin_ = value;
-        }
 
+            set => skiaOrigin_ = value;
+
+            /*
+
+            set
+            {
+                if (skiaOrigin_ != null && value != null)
+                {
+                    if (value.Depth != skiaOrigin_.Depth)
+                    {
+                        float deltaZ = SKPosition.Depth - skiaOrigin_.Depth;
+                        Scalar = deltaZ / 64.0f;
+
+                        SKPosition.Depth = skiaOrigin_.Depth;
+                    }
+                }
+            }
+             */
+        }
+        
         //===========================================================
 
         // FUNCTIONS
@@ -116,6 +134,12 @@ namespace Valkyrie.Graphics
             origin.Depth += deltaZ;
 
             // add call to scalar here
+
+            if (deltaZ != 0.0f)
+            {
+                Scalar = deltaZ / 64.0f;               
+            }
+
             // add call to haze filter here
 
             SKPosition = origin;
@@ -143,7 +167,13 @@ namespace Valkyrie.Graphics
                 SKPosition.Y,
                 SKPosition.Y + height);
 
-            SKPosition.Depth = target.Depth;
+            if(SKPosition.Depth != target.Depth)
+            {
+                float deltaZ = SKPosition.Depth - target.Depth;
+                Scalar = deltaZ / 64.0f;
+
+                SKPosition.Depth = target.Depth;      
+            }
         }
 
         //============================================================
@@ -182,5 +212,61 @@ namespace Valkyrie.Graphics
                 return 1;
             }
         }
+
+        //===========================================================
+
+        /*-----------------------------------------
+         * 
+         * property that controls foreshortening
+         * depening on the depth of the sprite
+         * 
+         * --------------------------------------*/
+
+        internal float scalar_ = 1.0f;
+        public float Scalar
+        {
+            get => scalar_;
+            
+            set
+            {
+                scalar_ = value;
+                Scale();
+            }
+        }
+
+        //=========================================================
+
+        /*------------------------------------------------
+        * 
+        * goals of this function:
+        * 
+        * keep the "Bottom" unchanged, only
+        * shorten it or grow it from the top down
+        * 
+        * Keep horizontal growht or contraction centered
+        * 
+        * ----------------------------------------------*/
+
+        public virtual void Scale()
+        {
+            float height = Rectangle.Height;
+            float width = Rectangle.Width;
+
+            float newHeight = height * scalar_;
+            float newWidth = width * scalar_;
+
+            float deltaY = newHeight - height;
+            float deltaX = newWidth - width;
+
+            SKImageInfo info = new SKImageInfo((int)newHeight, (int)newWidth);
+
+            SKBitmap newBitmap = new SKBitmap(info);
+
+            DisplayImage.ScalePixels(newBitmap, SKFilterQuality.High);
+
+            DisplayImage = newBitmap;
+        }
+
+
     }
 }
