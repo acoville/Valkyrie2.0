@@ -10,7 +10,6 @@
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Valkryie.GL;
 using Valkyrie.App.Model;
@@ -23,11 +22,9 @@ namespace Valkyrie.Graphics
     {
         public Command Redraw { get; set; }
 
-        //internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
         internal bool initialized_ = false;
-
         internal int sizeAllocations_ = 0;
-
+        
         internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
         internal SKColor ScrollboxColor = new SKColor(255, 0, 0, 75);
         internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
@@ -71,8 +68,6 @@ namespace Valkyrie.Graphics
 
             val.MoveSprite(target);
             
-            //obstacles_.Add(val);
-
             for(int i = 0; i < val.TilesGroup.Tiles.Count; i++)
             {
                 var row = val.TilesGroup.Tiles[i];
@@ -223,6 +218,8 @@ namespace Valkyrie.Graphics
 
             canvas.Clear(ClearPaint);
 
+            // draw everything in the drawables_ list, back to front
+
             foreach(var drawable in drawables_)
             {
                 DrawDrawable(drawable, args);
@@ -274,7 +271,7 @@ namespace Valkyrie.Graphics
 
             canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
 
-            if(Preferences.Get("Labels", false))
+            if(Preferences.Get("Labels", true))
             {
                 string skiaCoords = drawable.SKPosition.ToString();
                 SKPoint target = drawable.SKPosition.SKPoint;

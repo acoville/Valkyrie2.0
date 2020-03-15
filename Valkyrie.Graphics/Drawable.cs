@@ -6,9 +6,26 @@ namespace Valkyrie.Graphics
     public class Drawable : IDrawable, IComparable
     {
         //=============================================
-        
+
         // PROPERTIES
-        
+
+        //=============================================
+
+        internal SKBitmap sourceImage_;
+        public SKBitmap SourceImage
+        {
+            get => sourceImage_;
+            set
+            {
+                sourceImage_ = value;
+
+                if(!SourceImage.DrawsNothing)
+                {
+                    SourceImage.CopyTo(DisplayImage);
+                }
+            }
+        }
+
         //=============================================
 
         internal SKBitmap displayImage_;
@@ -45,6 +62,7 @@ namespace Valkyrie.Graphics
         public Drawable()
         {
             SKPosition = new SKPosition(0, 0, 0);
+            SourceImage = new SKBitmap();
             DisplayImage = new SKBitmap();
         }
 
@@ -99,11 +117,16 @@ namespace Valkyrie.Graphics
         public virtual void Translate(float deltaX, float deltaY)
         {
             SKPoint origin = SKPosition.SKPoint;
+            float depth = SKPosition.Depth;
 
             origin.X += deltaX;
             origin.Y += deltaY;
-
+            
+            
             SKPosition = origin;
+            SKPosition.Depth = depth;
+
+            //SKPosition.point_ = origin;
         }
 
         //===========================================================
@@ -189,26 +212,6 @@ namespace Valkyrie.Graphics
             }
         }
 
-        //===========================================================
-
-        /*-----------------------------------------
-         * 
-         * property that controls foreshortening
-         * depening on the depth of the sprite
-         * 
-         * --------------------------------------*/
-
-        internal float scalar_ = 1.0f;
-        public float Scalar
-        {
-            get => scalar_;
-            
-            set
-            {
-                scalar_ = value;
-            }
-        }
-
         //=========================================================
 
         /*------------------------------------------------
@@ -260,10 +263,8 @@ namespace Valkyrie.Graphics
                 float newBottom = Rectangle.Bottom;
 
                 float deltaY = newBottom - oldBottom;
-                Translate(0, deltaY);
+                Translate(0.0f, deltaY);
             }
         }
-
-
     }
 }
