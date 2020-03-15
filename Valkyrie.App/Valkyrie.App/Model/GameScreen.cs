@@ -23,7 +23,7 @@ namespace Valkyrie.Graphics
     {
         public Command Redraw { get; set; }
 
-        internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
+        //internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
         internal bool initialized_ = false;
 
         internal int sizeAllocations_ = 0;
@@ -36,10 +36,6 @@ namespace Valkyrie.Graphics
         internal SKPaint scrollBoxPaint;
         internal SKPaint scrollTextPaint;
         internal SKPaint BlockHighlightPaint;
-
-        internal List<Drawable> sprites_;
-        internal List<Obstacle> obstacles_;
-        internal List<Prop> props_;
 
         internal List<IDrawable> drawables_;
 
@@ -56,28 +52,7 @@ namespace Valkyrie.Graphics
         public ScrollBox ScrollBox
         {
             get => scrollBox_;
-            
-            set
-            {
-                /*----------------------------------------------
-                 * 
-                 * We are only updating the Skia coordinates,
-                 * not the GL coordinates
-                 * 
-                 * ------------------------------------------*/
-
-                SKPoint oldOrigin = scrollBox_.Skia.Location;
-
-                scrollBox_ = value;
-
-                SKPoint newOrigin = scrollBox_.Skia.Location;
-
-                if(oldOrigin != newOrigin)
-                {
-                    float deltaX = oldOrigin.X - newOrigin.X;
-                    float deltaY = oldOrigin.Y - newOrigin.Y;
-                }
-            }
+            set => scrollBox_ = value;
         }
 
         //============================================================
@@ -95,7 +70,8 @@ namespace Valkyrie.Graphics
             SKPosition target = scrollBox_.ToSkia(glOrigin);
 
             val.MoveSprite(target);
-            obstacles_.Add(val);
+            
+            //obstacles_.Add(val);
 
             for(int i = 0; i < val.TilesGroup.Tiles.Count; i++)
             {
@@ -121,16 +97,23 @@ namespace Valkyrie.Graphics
 
         public void AddProp(Prop arg)
         {
-            SKPosition target = scrollBox_.ToSkia(arg.GLPosition);
+            SKPosition target = scrollBox_.ToSkia(arg.GLPosition);            
 
             int height = arg.SKProp.DisplayImage.Height;
             target.Y -= height;
 
             arg.MoveSprite(target);
-
-            props_.Add(arg);
+            
+            if (arg.SKProp.SKPosition.Depth != 0)
+            {
+                arg.SKProp.Scale();
+            }
 
             drawables_.Add(arg.SKProp);
+
+            // the call to sort here is necessary to ensure that 
+            // arg is now drawn in the correct Z layer
+
             drawables_.Sort();
         }
 
@@ -153,46 +136,9 @@ namespace Valkyrie.Graphics
             if(sizeAllocations_ > 1)
             {
                 scrollBox_.Update(Info);
-                AlignPiecesToScrollBox();
             }
 
             sizeAllocations_++;
-        }
-
-        //===========================================================
-
-        internal void AlignPiecesToScrollBox()
-        {
-
-            //--------------------------------------
-
-            foreach (var prop in props_)
-            {
-                SKPosition target = scrollBox_.ToSkia(prop.GLPosition);
-
-                int height = prop.SKProp.DisplayImage.Height;
-                target.Y -= height;
-
-                prop.MoveSprite(target);
-            }
-
-            //--------------------------------------
-
-            foreach(var obstacle in obstacles_)
-            {
-                GLPosition glOrigin = obstacle.GLPosition;
-                SKPosition target = scrollBox_.ToSkia(glOrigin);
-                
-                obstacle.MoveSprite(target);
-            }
-
-            
-            /*
-            foreach(var actor in sprites_)
-            {
-
-            }
-             */
         }
 
         //============================================================
@@ -212,10 +158,6 @@ namespace Valkyrie.Graphics
             PaintCommand = Redraw;
 
             scrollBox_ = new ScrollBox(Info);
-
-            sprites_ = new List<Drawable>();
-            obstacles_ = new List<Obstacle>();
-            props_ = new List<Prop>();
             drawables_ = new List<IDrawable>();
 
             PrepareTroubleshootingInfo();
@@ -281,9 +223,6 @@ namespace Valkyrie.Graphics
 
             canvas.Clear(ClearPaint);
 
-            /*
-             */
-
             foreach(var drawable in drawables_)
             {
                 DrawDrawable(drawable, args);
@@ -335,7 +274,7 @@ namespace Valkyrie.Graphics
 
             canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
 
-            if(Preferences.Get("Labels", true))
+            if(Preferences.Get("Labels", false))
             {
                 string skiaCoords = drawable.SKPosition.ToString();
                 SKPoint target = drawable.SKPosition.SKPoint;

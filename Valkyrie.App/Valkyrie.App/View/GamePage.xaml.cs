@@ -71,6 +71,7 @@ namespace Valkyrie.App.View
         {
             base.OnSizeAllocated(width, height);
             gpvm_.DeviceScreen.GetScreenDetails();
+            gpvm_.AlignGamePiecesToScreen();
         }
 
         //==================================================================
@@ -91,8 +92,7 @@ namespace Valkyrie.App.View
             gpvm_.ControlOpacity = Preferences.Get("controlOpacity", 0.85);
             gpvm_.DisplayEnv = Preferences.Get("displayEnv", false);
             gpvm_.DisplayFPS = Preferences.Get("display_FPS", false);
-            gpvm_.DisplayScrollbox = Preferences.Get("displayScrollbox", false);
-
+            
             DateTime t1 = DateTime.Now;
             DateTime t2;
             TimeSpan timeElapsed;

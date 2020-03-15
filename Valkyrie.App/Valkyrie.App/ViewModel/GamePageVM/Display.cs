@@ -97,42 +97,6 @@ namespace Valkyrie.App.ViewModel
 
         //=============================================================
 
-        /*----------------------------------
-         * 
-         * Control variable displays debug
-         * information on screen
-         * 
-         * -------------------------------*/
-
-        internal bool troubleVisibile_ = true;
-        public bool Trouble_Visible
-        {
-            get => troubleVisibile_;
-
-            set
-            {
-                troubleVisibile_ = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        //=============================================================
-
-        internal bool displayScrollbox_ = Preferences.Get("displayScrollbox", false);
-        public bool DisplayScrollbox
-        {
-            get => displayScrollbox_;
-
-            set
-            {
-                Preferences.Set("displayScrollbox", value);
-                deviceScreen_.displayScrollbox_ = value;
-                RaisePropertyChanged(nameof(DisplayScrollbox));
-            }
-        }
-
-        //=============================================================
-
         /*-----------------------------------------
          * 
          * Control variables that dictate weather
@@ -189,6 +153,48 @@ namespace Valkyrie.App.ViewModel
                 displayEnv_ = value;
                 RaisePropertyChanged(nameof(DisplayEnv));
             }
+        }
+
+        //=====================================================================
+
+        /*----------------------------------------
+         * 
+         *  Function called during resize events
+         *  or scrolling to move all the drawables
+         *  into place
+         * 
+         * -------------------------------------*/
+
+        public void AlignGamePiecesToScreen()
+        {
+            foreach (var prop in props_)
+            {
+                SKPosition target = deviceScreen_.scrollBox_.ToSkia(prop.GLPosition);
+
+                int height = prop.SKProp.DisplayImage.Height;
+                target.Y -= height;
+
+                prop.MoveSprite(target);
+            }
+
+            //--------------------------------------
+
+            foreach (var obstacle in obstacles_)
+            {
+                GLPosition glOrigin = obstacle.GLPosition;
+                SKPosition target = deviceScreen_.scrollBox_.ToSkia(glOrigin);
+
+                obstacle.MoveSprite(target);
+            }
+
+            //--------------------------------------
+
+            /*
+            foreach(var actor in sprites_)
+            {
+
+            }
+             */
         }
     }
 }

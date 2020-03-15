@@ -147,13 +147,13 @@ namespace Valkyrie.App.ViewModel
                     image = SKBitmap.Decode(stream);
                 }
 
-                sprite.DisplayImage = image;
+                image.CopyTo(sprite.DisplayImage);
 
                 //-- construct the App.Model.Prop object
 
                 Prop prop = new Prop(glprop);
                 prop.SKProp = sprite;
-
+                
                 //-- add to the GPVM
 
                 props_.Add(prop);

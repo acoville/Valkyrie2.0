@@ -33,25 +33,7 @@ namespace Valkyrie.Graphics
         public SKPosition SKPosition
         {
             get => skiaOrigin_;
-
             set => skiaOrigin_ = value;
-
-            /*
-
-            set
-            {
-                if (skiaOrigin_ != null && value != null)
-                {
-                    if (value.Depth != skiaOrigin_.Depth)
-                    {
-                        float deltaZ = SKPosition.Depth - skiaOrigin_.Depth;
-                        Scalar = deltaZ / 64.0f;
-
-                        SKPosition.Depth = skiaOrigin_.Depth;
-                    }
-                }
-            }
-             */
         }
         
         //===========================================================
@@ -63,6 +45,7 @@ namespace Valkyrie.Graphics
         public Drawable()
         {
             SKPosition = new SKPosition(0, 0, 0);
+            DisplayImage = new SKBitmap();
         }
 
         //===========================================================
@@ -135,11 +118,6 @@ namespace Valkyrie.Graphics
 
             // add call to scalar here
 
-            if (deltaZ != 0.0f)
-            {
-                Scalar = deltaZ / 64.0f;               
-            }
-
             // add call to haze filter here
 
             SKPosition = origin;
@@ -170,8 +148,6 @@ namespace Valkyrie.Graphics
             if(SKPosition.Depth != target.Depth)
             {
                 float deltaZ = SKPosition.Depth - target.Depth;
-                Scalar = deltaZ / 64.0f;
-
                 SKPosition.Depth = target.Depth;      
             }
         }
@@ -230,7 +206,6 @@ namespace Valkyrie.Graphics
             set
             {
                 scalar_ = value;
-                Scale();
             }
         }
 
@@ -249,22 +224,39 @@ namespace Valkyrie.Graphics
 
         public virtual void Scale()
         {
-            float height = Rectangle.Height;
-            float width = Rectangle.Width;
+            if(DisplayImage != null && SKPosition != null)
+            {
+                float oldBottom = Rectangle.Bottom;
 
-            float newHeight = height * scalar_;
-            float newWidth = width * scalar_;
+                float oldHeight = Math.Abs(Rectangle.Height);
+                float oldWidth = Math.Abs(Rectangle.Width);
 
-            float deltaY = newHeight - height;
-            float deltaX = newWidth - width;
+                /*
+                 * Each prop is being scaled differently, OR 
+                 * is being scaled more than once. I literally 
+                 * cannot solve this.
+                 */
 
-            SKImageInfo info = new SKImageInfo((int)newHeight, (int)newWidth);
+                if(oldHeight <= 0 || oldWidth <= 0)
+                {
+                    return;
+                }
 
-            SKBitmap newBitmap = new SKBitmap(info);
+                float scalar = 1.0f;
 
-            DisplayImage.ScalePixels(newBitmap, SKFilterQuality.High);
+                float newHeight = oldHeight * scalar;
+                float newWidth = oldWidth * scalar;
 
-            DisplayImage = newBitmap;
+                SKImageInfo info = new SKImageInfo((int)newHeight, (int)newWidth);
+                SKBitmap newDisplayImage = new SKBitmap(info);
+
+                DisplayImage.ScalePixels(newDisplayImage, SKFilterQuality.High);
+                
+                //newDisplayImage.CopyTo(DisplayImage);
+
+                //float deltaY = oldHeight - newHeight;
+                //Translate(0, deltaY);
+            }
         }
 
 

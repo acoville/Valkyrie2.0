@@ -66,25 +66,25 @@
     <Prop
       X="1"
       Y="1"
-      Z="2"
+      Z="1"
       Image="trees.birch" />
 
     <Prop
       X="20"
       Y="1"
-      Z="2"
+      Z="1"
       Image="trees.birch" />     
     
       <Prop
       X="5"
       Y="1"
-      Z="5"
+      Z="2"
       Image="trees.birch" />
 
     <Prop
       X="17"
       Y="1"
-      Z="5"
+      Z="2"
       Image="trees.birch" />    
   
   </Props>
