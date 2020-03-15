@@ -1,8 +1,5 @@
-﻿
-
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Valkryie.GL;
-using Valkyrie.App.Model;
 using Valkyrie.Graphics;
 using Xamarin.Essentials;
 using Xamarin.Forms;

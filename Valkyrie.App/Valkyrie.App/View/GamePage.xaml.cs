@@ -12,7 +12,6 @@
 
 using SkiaSharp.Views.Forms;
 using System;
-using Valkyrie.App.Model;
 using Valkyrie.App.ViewModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;

@@ -251,11 +251,16 @@ namespace Valkyrie.Graphics
                 SKBitmap newDisplayImage = new SKBitmap(info);
 
                 DisplayImage.ScalePixels(newDisplayImage, SKFilterQuality.High);
-                
-                //newDisplayImage.CopyTo(DisplayImage);
+                newDisplayImage.CopyTo(DisplayImage);
 
-                //float deltaY = oldHeight - newHeight;
-                //Translate(0, deltaY);
+                // because +Y is down in Skia, the delta is going to be 
+                // new - old, which if we were scaling down would result in 
+                // a negative number
+
+                float newBottom = Rectangle.Bottom;
+
+                float deltaY = newBottom - oldBottom;
+                Translate(0, deltaY);
             }
         }
 

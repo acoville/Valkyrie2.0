@@ -42,12 +42,7 @@ namespace Valkyrie.App.ViewModel
             var path = "Valkyrie.App.Images.Backgrounds." + map.BackgroundImage;
             BackgroundImage = ImageSource.FromResource(path);
 
-            // load obstacles into graphics layer
-
             LoadObstacles(map);
-
-            // load props
-
             LoadProps(map);
             
             // set up player1
@@ -55,8 +50,6 @@ namespace Valkyrie.App.ViewModel
 
 
             // load actors
-            
-
             
             levelLoaded_ = true;
         }
