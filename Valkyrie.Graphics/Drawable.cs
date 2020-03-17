@@ -11,23 +11,6 @@ namespace Valkyrie.Graphics
 
         //=============================================
 
-        internal SKBitmap sourceImage_;
-        public SKBitmap SourceImage
-        {
-            get => sourceImage_;
-            set
-            {
-                sourceImage_ = value;
-
-                if(!SourceImage.DrawsNothing)
-                {
-                    SourceImage.CopyTo(DisplayImage);
-                }
-            }
-        }
-
-        //=============================================
-
         internal SKBitmap displayImage_;
         public SKBitmap DisplayImage
         {
@@ -62,8 +45,38 @@ namespace Valkyrie.Graphics
         public Drawable()
         {
             SKPosition = new SKPosition(0, 0, 0);
-            SourceImage = new SKBitmap();
             DisplayImage = new SKBitmap();
+            Rectangle = new SKRect();
+        }
+
+        //===========================================================
+
+        /*----------------------------------------
+         * 
+         * Helper function to update the 
+         * Drawable's SKRect. I completely 
+         * forgot about initializing and updating
+         * this even though I was keying Scale() 
+         * to it. Ye Gods this cost me a lot of 
+         * time and pain. Uninitialized data
+         * WILL bite you.
+         * 
+         * -------------------------------------*/
+
+        internal void UpdateRectangle()
+        {
+            float width = DisplayImage.Width;
+            float height = DisplayImage.Height;
+
+            //-- initialize the rectangle
+
+            float X1 = SKPosition.X;
+            float X2 = X1 + width;
+
+            float Y1 = SKPosition.Y;
+            float Y2 = Y1 + height;
+
+            Rectangle = new SKRect(X1, Y1, X2, Y2);
         }
 
         //===========================================================
@@ -122,11 +135,10 @@ namespace Valkyrie.Graphics
             origin.X += deltaX;
             origin.Y += deltaY;
             
-            
             SKPosition = origin;
             SKPosition.Depth = depth;
 
-            //SKPosition.point_ = origin;
+            UpdateRectangle();
         }
 
         //===========================================================
@@ -141,9 +153,13 @@ namespace Valkyrie.Graphics
 
             // add call to scalar here
 
+            Scale();
+
             // add call to haze filter here
 
             SKPosition = origin;
+
+            UpdateRectangle();
         }
 
         //===========================================================
@@ -170,9 +186,10 @@ namespace Valkyrie.Graphics
 
             if(SKPosition.Depth != target.Depth)
             {
-                float deltaZ = SKPosition.Depth - target.Depth;
-                SKPosition.Depth = target.Depth;      
+                Scale();      
             }
+
+            UpdateRectangle();
         }
 
         //============================================================
@@ -188,7 +205,6 @@ namespace Valkyrie.Graphics
         int IComparable.CompareTo(object obj)
         {
             var other = (Drawable)obj;
-
             return DepthCompare(other);
         }
 
@@ -229,41 +245,45 @@ namespace Valkyrie.Graphics
         {
             if(DisplayImage != null && SKPosition != null)
             {
+                //-- get the current display image information 
+
                 float oldBottom = Rectangle.Bottom;
 
                 float oldHeight = Math.Abs(Rectangle.Height);
                 float oldWidth = Math.Abs(Rectangle.Width);
-
-                /*
-                 * Each prop is being scaled differently, OR 
-                 * is being scaled more than once. I literally 
-                 * cannot solve this.
-                 */
 
                 if(oldHeight <= 0 || oldWidth <= 0)
                 {
                     return;
                 }
 
-                float scalar = 1.0f;
+                //-- determine the scaled image dimensions
 
+                float scalar = (float)1.0 - (SKPosition.Depth / 64 * .1f);
+                
                 float newHeight = oldHeight * scalar;
                 float newWidth = oldWidth * scalar;
 
-                SKImageInfo info = new SKImageInfo((int)newHeight, (int)newWidth);
-                SKBitmap newDisplayImage = new SKBitmap(info);
+                SKImageInfo NewInfo = new SKImageInfo((int)newHeight, (int)newWidth);
+                
+                //-- perform the Scaling, copy to the DisplayImage
 
-                DisplayImage.ScalePixels(newDisplayImage, SKFilterQuality.High);
+                SKBitmap newDisplayImage = new SKBitmap(NewInfo);
+                DisplayImage.ScalePixels(newDisplayImage, SKFilterQuality.High);                
                 newDisplayImage.CopyTo(DisplayImage);
 
-                // because +Y is down in Skia, the delta is going to be 
-                // new - old, which if we were scaling down would result in 
-                // a negative number
+                /*
+                    because +Y is down in Skia, the delta is going to be 
+                    new - old, which if we were scaling down would result in 
+                    a negative number
+                 */
 
                 float newBottom = Rectangle.Bottom;
 
                 float deltaY = newBottom - oldBottom;
+
                 Translate(0.0f, deltaY);
+                UpdateRectangle();
             }
         }
     }

@@ -129,9 +129,10 @@ namespace Valkyrie.App.ViewModel
         {
             foreach(var glprop in map.Props)
             {
+                Prop prop = new Prop(glprop);
+                
                 //-- construct the Drawable object
 
-                Drawable sprite = new Drawable();
                 SKBitmap image = new SKBitmap();
                 Assembly assembly = GetType().GetTypeInfo().Assembly;
                 
@@ -140,11 +141,13 @@ namespace Valkyrie.App.ViewModel
                     image = SKBitmap.Decode(stream);
                 }
 
-                image.CopyTo(sprite.DisplayImage);
+                Drawable sprite = new Drawable();
+                sprite.DisplayImage = image;
 
+                //Drawable sprite = new Drawable(image);
+                
                 //-- construct the App.Model.Prop object
 
-                Prop prop = new Prop(glprop);
                 prop.SKProp = sprite;
                 
                 //-- add to the GPVM

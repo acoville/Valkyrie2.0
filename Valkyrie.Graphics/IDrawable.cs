@@ -4,7 +4,6 @@ namespace Valkyrie.Graphics
 {
     public interface IDrawable
     {
-        SKBitmap SourceImage { get; set; }
         SKBitmap DisplayImage { get; set; }
         SKPosition SKPosition { get; set; }
         
