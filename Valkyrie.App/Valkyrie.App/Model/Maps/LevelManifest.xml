@@ -8,7 +8,7 @@
 
   <!-- Levels within the chapter -->
   
-  <Level Name="TestMap1.xml" />
   <Level Name="TestMap2.xml" />
+  <Level Name="TestMap1.xml" />
   
 </Chapter>

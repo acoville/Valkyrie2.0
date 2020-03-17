@@ -20,9 +20,10 @@
       Type="Rectangle"
       Label="floor"
       Height="1"
-      Width="1"
+      Width="100"
       X="0"
       Y="1"
+      Z="0"
       Image="Grass"
       Static="true" />    
     
@@ -33,22 +34,64 @@
   <Props>
 
     <Prop
-      X="1"
+      X ="22"
       Y="1"
-      Layer="Foreground"
+      Z="-2"
+      Image="trees.birch" />
+    
+    <Prop
+      X="-8"
+      Y="1"
+      Z="-2"
       Image="trees.birch" />
 
     <Prop
       X="20"
       Y="1"
-      Layer="Foreground"
+      Z="1"
       Image="trees.birch" />
 
     <Prop
-      X="25"
+      X="3"
       Y="1"
-      Layer="Background"
-      Image="graves" />
+      Z="2"
+      Image="trees.birch" />
+
+    <Prop
+      X="17"
+      Y="1"
+      Z="2"
+      Image="trees.birch" />
+
+    <Prop
+      X="9"
+      Y="1"
+      Z="6"
+      Image="trees.birch" />
+
+    <Prop
+      X="13"
+      Y="1"
+      Z="6"
+      Image="trees.birch" />
+
+    <Prop
+      X="3"
+      Y="1"
+      Z="6"
+      Image="trees.birch" />
+
+    <Prop
+      X="19"
+      Y="1"
+      Z="6"
+      Image="trees.birch" />
+
+    <Prop
+      X="22"
+      Y="1"
+      Z="6"
+      Image="trees.birch" />
 
   </Props>
 

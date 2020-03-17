@@ -178,11 +178,13 @@ namespace Valkyrie.Graphics
             float height = Rectangle.Height;
             float width = Rectangle.Width;
 
+            /*
             Rectangle = new SKRect(
                 SKPosition.X,
                 SKPosition.X + width,
                 SKPosition.Y,
                 SKPosition.Y + height);
+             */
 
             if(SKPosition.Depth != target.Depth)
             {
