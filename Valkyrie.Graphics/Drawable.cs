@@ -230,16 +230,15 @@ namespace Valkyrie.Graphics
 
         //=========================================================
 
-        /*------------------------------------------------
+        /*-----------------------------------------------------
         * 
-        * goals of this function:
+        * Scale method
         * 
-        * keep the "Bottom" unchanged, only
-        * shorten it or grow it from the top down
+        * creates a new SKBitmap and scales up the current
+        * display image depending on the depth / Z coordinate
+        * of the current SKPosition
         * 
-        * Keep horizontal growht or contraction centered
-        * 
-        * ----------------------------------------------*/
+        * ----------------------------------------------------*/
 
         public virtual void Scale()
         {
@@ -279,12 +278,63 @@ namespace Valkyrie.Graphics
                  */
 
                 float newBottom = Rectangle.Bottom;
-
                 float deltaY = newBottom - oldBottom;
 
                 Translate(0.0f, deltaY);
                 UpdateRectangle();
             }
+        }
+
+        //===============================================================================
+
+        /*----------------------------------
+         * 
+         * Filter Method
+         * 
+         * ---------------------------------*/
+
+        public void Filter(SKColor maskColor)
+        {
+            // depending on the depth, we will add more or less of this mask
+
+            byte mR = maskColor.Red;
+            byte mG = maskColor.Green;
+            byte mB = maskColor.Blue;
+            byte mA = maskColor.Alpha;
+
+            for(int y = 0; y < DisplayImage.Height; y++)
+            {
+                for(int x = 0; x < DisplayImage.Width; x++)
+                {
+                    SKColor color = new SKColor();
+                    color = DisplayImage.GetPixel(x, y);
+
+                    byte R = color.Red;
+                    byte G = color.Green;
+                    byte B = color.Blue;
+                    byte Alpha = color.Alpha;
+
+                    if(R != 0 && G != 0 && B != 0)
+                    {
+                        R += mR;
+                        G += mG;
+                        B += mB;
+                        Alpha += mA;
+
+                        SKColor result = new SKColor(R, G, B, Alpha);
+
+                        DisplayImage.SetPixel(x, y, result);
+                    }
+                }
+            }
+        }
+
+        //================================================================================
+
+        public void Filter(byte R, byte G, byte B, byte Alpha)
+        {
+            SKColor color = new SKColor(R, G, B, Alpha);
+            Filter(color);
         }
     }
 }

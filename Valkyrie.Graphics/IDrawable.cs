@@ -1,4 +1,11 @@
-﻿using SkiaSharp;
+﻿/*===========================================================
+ * 
+ * 
+ * 
+ * 
+ * ========================================================*/
+
+using SkiaSharp;
 
 namespace Valkyrie.Graphics
 {
@@ -8,9 +15,8 @@ namespace Valkyrie.Graphics
         SKPosition SKPosition { get; set; }
         
         void Mirror();
-
         void Scale();
-
-        //void Filter();
+        void Filter(SKColor maskColor);
+        void Filter(byte R, byte B, byte G, byte Alpha);
     }
 }
