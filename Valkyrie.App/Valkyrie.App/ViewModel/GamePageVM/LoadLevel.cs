@@ -136,26 +136,26 @@ namespace Valkyrie.App.ViewModel
                 SKBitmap image = new SKBitmap();
                 Assembly assembly = GetType().GetTypeInfo().Assembly;
                 
-                using (Stream stream = assembly.GetManifestResourceStream(glprop.ImageSource + ".prop.png"))
+//                using (Stream stream = assembly.GetManifestResourceStream(glprop.ImageSource + ".prop.png"))
+
+                using (Stream stream = assembly.GetManifestResourceStream(glprop.ImageSource))
                 {
                     image = SKBitmap.Decode(stream);
                 }
 
+                SKImageInfo info = new SKImageInfo(image.Width, image.Height);
                 Drawable sprite = new Drawable();
+                sprite.DisplayImage = new SKBitmap(info);
+
                 sprite.DisplayImage = image;
 
-                //Drawable sprite = new Drawable(image);
-                
                 //-- construct the App.Model.Prop object
 
                 prop.SKProp = sprite;
                 
-                //-- add to the GPVM
+                //-- add to the GPVM, device screen
 
                 props_.Add(prop);
-
-                //-- add to the device screen
-
                 DeviceScreen.AddProp(prop);
             }
         }

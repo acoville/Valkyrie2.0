@@ -76,7 +76,7 @@ namespace Valkyrie.App.Model
         {
             glProp_ = prop;
             skiaProp_ = new Drawable();
-            skiaProp_.SKPosition.Depth = prop.GLPosition.Z;
+            skiaProp_.SKPosition.Z = prop.GLPosition.Z;
         }
     }
 }

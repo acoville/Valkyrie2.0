@@ -15,7 +15,7 @@ namespace Valkyrie.Graphics
         //------------------------------------------
 
         internal float depth_ = 0.0f;
-        public float Depth
+        public float Z
         {
             get => depth_;
             set => depth_ = value;
@@ -75,18 +75,18 @@ namespace Valkyrie.Graphics
 
             float x2 = otherPos.X;
             float y2 = otherPos.Y;
-            float z2 = otherPos.Depth;
+            float z2 = otherPos.Z;
 
             return (X == x2 &&
                     Y == y2 &&
-                    Depth == z2);
+                    Z == z2);
         }
 
         //=======================================================
 
         public override string ToString()
         {
-            string result = "SK: " + X + ", " + Y + ", " + Depth;
+            string result = "SK: " + X + ", " + Y + ", " + Z;
             return result;
         }
     }

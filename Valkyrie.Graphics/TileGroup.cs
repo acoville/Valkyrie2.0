@@ -152,7 +152,7 @@ namespace Valkyrie.Graphics
 
         public override void Move(SKPosition target)
         {
-            float deltaZ = target.Depth;
+            float deltaZ = target.Z;
 
             for(int i = 0; i < Tiles.Count; i++)
             {
@@ -164,7 +164,7 @@ namespace Valkyrie.Graphics
                     float deltaY = i * 64.0f;
 
                     tiles_[i][j].Translate(deltaX, deltaY);
-                    tiles_[i][j].SKPosition.Depth = deltaZ;
+                    tiles_[i][j].SKPosition.Z = deltaZ;
 
 
                     //tiles_[i][j].Translate(deltaX, deltaY, deltaZ);

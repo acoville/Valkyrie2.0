@@ -11,7 +11,6 @@
   <!-- Player -->
 
 
-
   <!-- Static Obstacles -->
 
   <Obstacles>
@@ -37,61 +36,61 @@
       X ="22"
       Y="1"
       Z="-2"
-      Image="trees.birch" />
+      Image="trees.birch.prop.png" />
     
     <Prop
       X="-8"
       Y="1"
       Z="-2"
-      Image="trees.birch" />
+      Image="trees.birch.prop5.png" />
 
     <Prop
       X="20"
       Y="1"
       Z="1"
-      Image="trees.birch" />
+      Image="trees.birch.prop6.png" />
 
     <Prop
       X="3"
       Y="1"
       Z="2"
-      Image="trees.birch" />
+      Image="trees.birch.prop.png" />
 
     <Prop
       X="17"
       Y="1"
       Z="2"
-      Image="trees.birch" />
+      Image="trees.birch.prop.png" />
 
     <Prop
       X="9"
       Y="1"
       Z="6"
-      Image="trees.birch" />
+      Image="trees.birch.prop5.png" />
 
     <Prop
       X="13"
       Y="1"
       Z="6"
-      Image="trees.birch" />
+      Image="trees.birch.prop.png" />
 
     <Prop
       X="3"
       Y="1"
       Z="6"
-      Image="trees.birch" />
+      Image="trees.birch.prop5.png" />
 
     <Prop
       X="19"
       Y="1"
       Z="6"
-      Image="trees.birch" />
+      Image="trees.birch.prop.png" />
 
     <Prop
       X="22"
       Y="1"
       Z="6"
-      Image="trees.birch" />
+      Image="trees.birch.prop6.png" />
 
   </Props>
 

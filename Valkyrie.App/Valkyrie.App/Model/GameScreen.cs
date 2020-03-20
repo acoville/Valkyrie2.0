@@ -92,14 +92,14 @@ namespace Valkyrie.Graphics
 
         public void AddProp(Prop arg)
         {
-            SKPosition target = scrollBox_.ToSkia(arg.GLPosition);            
-
             int height = arg.SKProp.DisplayImage.Height;
+
+            SKPosition target = scrollBox_.ToSkia(arg.GLPosition);            
             target.Y -= height;
 
             arg.MoveSprite(target);
             
-            if (arg.SKProp.SKPosition.Depth != 0)
+            if (arg.SKProp.SKPosition.Z != 0)
             {
                 arg.SKProp.Scale();
             }

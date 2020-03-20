@@ -15,7 +15,14 @@ namespace Valkyrie.Graphics
         public SKBitmap DisplayImage
         {
             get => displayImage_;
-            set => displayImage_ = value;
+
+            //set => displayImage_ = value;
+
+            set
+            {
+                displayImage_ = value;
+                UpdateRectangle();
+            }
         }
 
         //-------------------------------------
@@ -130,13 +137,13 @@ namespace Valkyrie.Graphics
         public virtual void Translate(float deltaX, float deltaY)
         {
             SKPoint origin = SKPosition.SKPoint;
-            float depth = SKPosition.Depth;
+            float depth = SKPosition.Z;
 
             origin.X += deltaX;
             origin.Y += deltaY;
             
             SKPosition = origin;
-            SKPosition.Depth = depth;
+            SKPosition.Z = depth;
 
             UpdateRectangle();
         }
@@ -146,10 +153,10 @@ namespace Valkyrie.Graphics
         public virtual void Translate(float deltaX, float deltaY, float deltaZ)
         {
             SKPosition origin = SKPosition;
+            
             origin.X += deltaX;
             origin.Y += deltaY;
-            
-            origin.Depth += deltaZ;
+            origin.Z += deltaZ;
 
             // add call to scalar here
 
@@ -158,7 +165,6 @@ namespace Valkyrie.Graphics
             // add call to haze filter here
 
             SKPosition = origin;
-
             UpdateRectangle();
         }
 
@@ -186,7 +192,7 @@ namespace Valkyrie.Graphics
                 SKPosition.Y + height);
              */
 
-            if(SKPosition.Depth != target.Depth)
+            if(SKPosition.Z != target.Z)
             {
                 Scale();      
             }
@@ -214,12 +220,12 @@ namespace Valkyrie.Graphics
 
         internal int DepthCompare(Drawable other)
         {
-            if(SKPosition.Depth > other.SKPosition.Depth)
+            if(SKPosition.Z > other.SKPosition.Z)
             {
                 return -1;
             }
             
-            else if(SKPosition.Depth == other.SKPosition.Depth)
+            else if(SKPosition.Z == other.SKPosition.Z)
             {
                 return 0;
             }
@@ -250,17 +256,12 @@ namespace Valkyrie.Graphics
 
                 float oldBottom = Rectangle.Bottom;
 
-                float oldHeight = Math.Abs(Rectangle.Height);
-                float oldWidth = Math.Abs(Rectangle.Width);
-
-                if(oldHeight <= 0 || oldWidth <= 0)
-                {
-                    return;
-                }
+                float oldHeight = Rectangle.Height;
+                float oldWidth = Rectangle.Width;
 
                 //-- determine the scaled image dimensions
 
-                float scalar = (float)1.0 - (SKPosition.Depth / 64 * .1f);
+                float scalar = (float)1.0 - (SKPosition.Z / 64 * .1f);
                 
                 float newHeight = oldHeight * scalar;
                 float newWidth = oldWidth * scalar;
@@ -270,7 +271,9 @@ namespace Valkyrie.Graphics
                 //-- perform the Scaling, copy to the DisplayImage
 
                 SKBitmap newDisplayImage = new SKBitmap(NewInfo);
+
                 DisplayImage.ScalePixels(newDisplayImage, SKFilterQuality.High);                
+                
                 newDisplayImage.CopyTo(DisplayImage);
 
                 /*
