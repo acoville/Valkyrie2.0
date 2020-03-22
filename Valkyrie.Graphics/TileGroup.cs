@@ -106,6 +106,10 @@ namespace Valkyrie.Graphics
                 float top = obstacle.Rectangle.Origin.Y - (i * 64.0f);
                 float bottom = obstacle.Rectangle.Origin.Y + (i * 64.0f);
 
+                // set Z here
+
+                float Z = obstacle.Rectangle.Origin.Z;
+
                 //------------------------------------------------------
 
                 int obs_left = (int)obstacle.Rectangle.Left;
@@ -123,7 +127,7 @@ namespace Valkyrie.Graphics
                     // create the SKRect, add the tile 
 
                     SKRect rect = new SKRect(left, top, right, bottom);
-                    Tile col = new Tile(obstacle.ImageSource, rect);
+                    Tile col = new Tile(obstacle.ImageSource, rect, Z);
                     newRow.Add(col);
                 }
 

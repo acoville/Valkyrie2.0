@@ -89,5 +89,22 @@ namespace Valkyrie.Graphics
             string result = "SK: " + X + ", " + Y + ", " + Z;
             return result;
         }
+
+        //=======================================================
+
+        public void Translate(float deltaX, float deltaY, float deltaZ)
+        {
+            X += deltaX;
+            Y += deltaY;
+            Z += deltaZ;
+        }
+
+        //------------------------------------------------
+
+        public void Translate(float deltaX, float deltaY)
+        {
+            X += deltaX;
+            Y += deltaY;
+        }
     }
 }

@@ -174,17 +174,33 @@ namespace Valkyrie.Graphics
 
         public SKPosition ToSkia(GLPosition p)
         {
-            GLPosition boxOrigin = this.GLRect.Origin;
 
-            float deltaX = boxOrigin.X - p.X;
-            float deltaY = boxOrigin.Y - p.Y;
+            // determine X
 
+            float deltaX = GLRect.Origin.X - p.X;
             float skiaX = this.skiaRect_.Left;
-            float skiaY = this.skiaRect_.Bottom;
 
-            SKPoint target = new SKPoint(skiaX, skiaY);
+            // determine Y
 
-            target.Offset(-deltaX, deltaY);
+            float GL_Origin_Y = skiaRect_.Bottom;
+
+            float deltaY = p.Y - GLRect.Bottom;
+           
+            float skiaY = GL_Origin_Y - deltaY;
+            
+
+            /*
+            float height = skiaRect_.Height;
+            float skiaY = this.skiaRect_.Bottom - height;
+            float deltaY = p.Y - boxOrigin.Y;
+
+            skiaY -= deltaY;
+             */
+
+            // make sure not to drop the Z data
+
+            SKPosition target = new SKPosition(skiaX, skiaY, p.Z);
+            target.Translate(-deltaX, deltaY);
 
             return target;
         }

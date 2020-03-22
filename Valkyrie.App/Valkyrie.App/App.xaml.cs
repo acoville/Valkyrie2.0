@@ -23,15 +23,19 @@ namespace Valkyrie.App
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new SplashPage());
+
+            MainMenu = new MenuPage();
+            MainPage = new NavigationPage(MainMenu);
+
+            //MainPage = new NavigationPage(new SplashPage());
         }
 
         //=====================================================
         protected async override void OnStart()
         {
-            await Task.Delay(TimeSpan.FromSeconds(4));
-            MainMenu = new MenuPage();
-            MainPage = new NavigationPage(MainMenu);
+            //await Task.Delay(TimeSpan.FromSeconds(4));
+            //MainMenu = new MenuPage();
+            //MainPage = new NavigationPage(MainMenu);
         }
 
         //=====================================================

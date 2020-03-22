@@ -42,6 +42,7 @@ namespace Valkyrie.App.ViewModel
             var path = "Valkyrie.App.Images.Backgrounds." + map.BackgroundImage;
             BackgroundImage = ImageSource.FromResource(path);
 
+            LoadStartingPosition(map);
             LoadObstacles(map);
             LoadProps(map);
             
@@ -52,6 +53,13 @@ namespace Valkyrie.App.ViewModel
             // load actors
             
             levelLoaded_ = true;
+        }
+
+        //======================================================================
+
+        void LoadStartingPosition(Level map)
+        {
+            //DeviceScreen.ScrollBox.GLRect.Origin = new GLPosition(map.)
         }
 
         //======================================================================
@@ -135,8 +143,6 @@ namespace Valkyrie.App.ViewModel
 
                 SKBitmap image = new SKBitmap();
                 Assembly assembly = GetType().GetTypeInfo().Assembly;
-                
-//                using (Stream stream = assembly.GetManifestResourceStream(glprop.ImageSource + ".prop.png"))
 
                 using (Stream stream = assembly.GetManifestResourceStream(glprop.ImageSource))
                 {

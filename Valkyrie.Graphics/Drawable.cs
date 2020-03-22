@@ -179,18 +179,9 @@ namespace Valkyrie.Graphics
 
         public virtual void Move(SKPosition target)
         {
+            // target has a Z of 0 here... we lost it somewhere
+
             SKPosition = target;
-
-            float height = Rectangle.Height;
-            float width = Rectangle.Width;
-
-            /*
-            Rectangle = new SKRect(
-                SKPosition.X,
-                SKPosition.X + width,
-                SKPosition.Y,
-                SKPosition.Y + height);
-             */
 
             if(SKPosition.Z != target.Z)
             {
@@ -256,8 +247,8 @@ namespace Valkyrie.Graphics
 
                 float oldBottom = Rectangle.Bottom;
 
-                float oldHeight = Rectangle.Height;
-                float oldWidth = Rectangle.Width;
+                float oldHeight = Math.Abs(Rectangle.Height);
+                float oldWidth = Math.Abs(Rectangle.Width);
 
                 //-- determine the scaled image dimensions
 

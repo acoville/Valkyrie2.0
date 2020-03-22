@@ -92,13 +92,24 @@ namespace Valkyrie.Graphics
 
         public void AddProp(Prop arg)
         {
-            int height = arg.SKProp.DisplayImage.Height;
+            SKPosition target = scrollBox_.ToSkia(arg.GLPosition); 
+            
+            //-- correct Y 
 
-            SKPosition target = scrollBox_.ToSkia(arg.GLPosition);            
+            int height = arg.SKProp.DisplayImage.Height;
             target.Y -= height;
+
+            //-- correct X 
+
+            int width = arg.SKProp.DisplayImage.Width;
+            target.X += (width / 2.0f);
+
+            //-- move into position
 
             arg.MoveSprite(target);
             
+            //-- if Z is not in the foreground layer, it will need to be scaled.
+
             if (arg.SKProp.SKPosition.Z != 0)
             {
                 arg.SKProp.Scale();
