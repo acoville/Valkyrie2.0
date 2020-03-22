@@ -13,27 +13,6 @@
 <!--
 
 
-
-      <Obstacle
-        Type="Rectangle"
-        Height="1"
-        Width="4"
-        X="13"
-        Y="12"
-        Z="0"
-        Image="Bricks.Red"
-        Static="true" />
-
-      <Obstacle
-        Type="Stair"
-        Orientation="Left"
-        X="8"
-        Y="4"
-        Z="0"
-        Height="5"
-        Image="Bricks.Red"
-        Static="true" />
-
       <Obstacle
         Type="Stair"
         Orientation="Right"
@@ -44,13 +23,33 @@
         Image="Bricks.Red"
         Static="true" />  
 
+      <Obstacle
+        Type="Rectangle"
+        Height="1"
+        Width="4"
+        X="13"
+        Y="12"
+        Z="0"
+        Image="Bricks.Red"
+        Static="true" />
+  
+      <Obstacle
+        Type="Stair"
+        Orientation="Left"
+        X="8"
+        Y="4"
+        Z="0"
+        Height="5"
+        Image="Bricks.Red"
+        Static="true" />
+
   
   -->    
   
     <!-- Static Obstacles -->
 
     <Obstacles>
-
+        
       <Obstacle
         Type="Rectangle"
         Label="floor"
@@ -61,40 +60,58 @@
         Z="0"
         Image="Grass"
         Static="true" />
-  
+        
     </Obstacles>
   
   <!-- Background Props -->
 
-  <!--
+        <!--
+    
+  -->
+
+  <Props>
+ 
+    <Prop
+      X="-2"
+      Y="3"
+      Z="5"
+      Image="trees.birch.prop5.png" />
+      
+    <Prop
+      X="4"
+      Y="3"
+      Z="1"
+      Image="trees.birch.prop6.png" />    
+ 
+    <Prop
+      X="20"
+      Y="3"
+      Z="1"
+      Image="trees.birch.prop5.png" />
 
     <Prop
       X="1"
       Y="3"
-      Z="20"
+      Z="2"
       Image="trees.birch.prop.png" />
 
     <Prop
       X="12"
       Y="3"
-      Z="20"
-      Image="trees.birch.prop.png" />     
-    
+      Z="2"
+      Image="trees.birch.prop.png" />  
+
+    <Prop
+      X="22"
+      Y="3"
+      Z="5"
+      Image="trees.birch.prop6.png" />    
+
     <Prop
       X="20"
       Y="3"
-      Z="20"
+      Z="5"
       Image="trees.birch.prop5.png" />
-  
-  -->
-
-  <Props>
-
-    <Prop
-      X="4"
-      Y="1"
-      Z="1"
-      Image="trees.birch.prop6.png" />    
   
   </Props>
   

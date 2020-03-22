@@ -63,7 +63,6 @@ namespace Valkyrie.Graphics
         public void AddObstacle(Obstacle val)
         {
             GLPosition glOrigin = val.GLPosition;
-
             SKPosition target = scrollBox_.ToSkia(glOrigin);
 
             val.MoveSprite(target);
@@ -107,12 +106,14 @@ namespace Valkyrie.Graphics
             //-- move into position
 
             arg.MoveSprite(target);
-            
+
             //-- if Z is not in the foreground layer, it will need to be scaled.
 
-            if (arg.SKProp.SKPosition.Z != 0)
+            float Z = arg.SKProp.SKPosition.Z;
+
+            if (Z > 64)
             {
-                arg.SKProp.Scale();
+                //arg.SKProp.Scale();
             }
 
             drawables_.Add(arg.SKProp);

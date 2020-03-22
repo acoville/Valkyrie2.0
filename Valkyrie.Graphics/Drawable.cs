@@ -245,10 +245,10 @@ namespace Valkyrie.Graphics
             {
                 //-- get the current display image information 
 
-                float oldBottom = Rectangle.Bottom;
+                //float oldBottom = Rectangle.Bottom;
 
-                float oldHeight = Math.Abs(Rectangle.Height);
-                float oldWidth = Math.Abs(Rectangle.Width);
+                float oldHeight = Rectangle.Height;
+                float oldWidth = Rectangle.Width;
 
                 //-- determine the scaled image dimensions
 
@@ -262,8 +262,9 @@ namespace Valkyrie.Graphics
                 //-- perform the Scaling, copy to the DisplayImage
 
                 SKBitmap newDisplayImage = new SKBitmap(NewInfo);
-
                 DisplayImage.ScalePixels(newDisplayImage, SKFilterQuality.High);                
+                
+                //UpdateRectangle();
                 
                 newDisplayImage.CopyTo(DisplayImage);
 
@@ -273,11 +274,10 @@ namespace Valkyrie.Graphics
                     a negative number
                  */
 
-                float newBottom = Rectangle.Bottom;
-                float deltaY = newBottom - oldBottom;
+                //float newBottom = Rectangle.Bottom;
+                //float deltaY = newBottom - oldBottom;
 
-                Translate(0.0f, deltaY);
-                UpdateRectangle();
+                //Translate(0.0f, deltaY);
             }
         }
 

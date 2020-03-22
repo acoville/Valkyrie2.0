@@ -178,30 +178,18 @@ namespace Valkyrie.Graphics
             // determine X
 
             float deltaX = GLRect.Origin.X - p.X;
-            float skiaX = this.skiaRect_.Left;
+            float skiaX = this.skiaRect_.Left - deltaX;
 
             // determine Y
 
             float GL_Origin_Y = skiaRect_.Bottom;
-
             float deltaY = p.Y - GLRect.Bottom;
-           
             float skiaY = GL_Origin_Y - deltaY;
-            
-
-            /*
-            float height = skiaRect_.Height;
-            float skiaY = this.skiaRect_.Bottom - height;
-            float deltaY = p.Y - boxOrigin.Y;
-
-            skiaY -= deltaY;
-             */
-
+  
             // make sure not to drop the Z data
 
             SKPosition target = new SKPosition(skiaX, skiaY, p.Z);
-            target.Translate(-deltaX, deltaY);
-
+            
             return target;
         }
 
