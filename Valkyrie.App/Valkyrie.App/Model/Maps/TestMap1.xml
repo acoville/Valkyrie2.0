@@ -5,7 +5,7 @@
 
   <StartingPosition
       X="10"
-      Y="1"
+      Y="3"
       Z="0"/>
   
     <!-- Player -->
@@ -70,48 +70,55 @@
   -->
 
   <Props>
- 
-    <Prop
-      X="-2"
-      Y="3"
-      Z="5"
-      Image="trees.birch.prop5.png" />
-      
-    <Prop
-      X="4"
-      Y="3"
-      Z="1"
-      Image="trees.birch.prop6.png" />    
- 
-    <Prop
-      X="20"
-      Y="3"
-      Z="1"
-      Image="trees.birch.prop5.png" />
 
     <Prop
       X="1"
       Y="3"
-      Z="2"
-      Image="trees.birch.prop.png" />
+      Z="10"
+      Image="trees.birch.prop6.png" />
 
     <Prop
-      X="12"
+      X="9"
       Y="3"
-      Z="2"
-      Image="trees.birch.prop.png" />  
+      Z="10"
+      Image="trees.birch.prop5.png" />
 
     <Prop
-      X="22"
+      X="13"
       Y="3"
-      Z="5"
-      Image="trees.birch.prop6.png" />    
-
+      Z="10"
+      Image="trees.birch.prop5.png" />
+  
     <Prop
       X="20"
       Y="3"
-      Z="5"
+      Z="10"
+      Image="trees.birch.prop6.png" />
+  
+      
+    <Prop
+      X="-2"
+      Y="3"
+      Z="2"
       Image="trees.birch.prop5.png" />
+
+    <Prop
+      X="4"
+      Y="3"
+      Z="2"
+      Image="trees.birch.prop6.png" />
+
+    <Prop
+      X="10"
+      Y="3"
+      Z="2"
+      Image="trees.birch.prop5.png" />
+  
+    <Prop
+      X="15"
+      Y="3"
+      Z="2"
+      Image="trees.birch.prop6.png" />
   
   </Props>
   
