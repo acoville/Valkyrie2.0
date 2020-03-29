@@ -33,7 +33,14 @@ namespace Valkyrie.App.ViewModel
             get => levelLoaded_;
         }
 
-        //============================================================
+        //=======================================================================
+
+        /*---------------------------------
+         * 
+         * 
+         * 
+         * 
+         * ------------------------------*/
 
         internal void LoadLevel(Level map)
         {
@@ -137,8 +144,6 @@ namespace Valkyrie.App.ViewModel
         {
             foreach(var glprop in map.Props)
             {
-                Prop prop = new Prop(glprop);
-                
                 //-- construct the Drawable object
 
                 SKBitmap image = new SKBitmap();
@@ -150,14 +155,25 @@ namespace Valkyrie.App.ViewModel
                 }
 
                 SKImageInfo info = new SKImageInfo(image.Width, image.Height);
-                Drawable sprite = new Drawable();
-                sprite.DisplayImage = new SKBitmap(info);
-
-                sprite.DisplayImage = image;
 
                 //-- construct the App.Model.Prop object
 
-                prop.SKProp = sprite;
+                Prop prop = new Prop(glprop);
+                
+                if(glprop.Scalable)
+                {
+                    Scalable sprite = new Scalable();
+                    sprite.DisplayImage = new SKBitmap(info);
+                    sprite.DisplayImage = image;
+                    prop.SKProp = sprite;
+                }
+                else
+                {
+                    Drawable sprite = new Drawable();
+                    sprite.DisplayImage = new SKBitmap(info);
+                    sprite.DisplayImage = image;
+                    prop.SKProp = sprite;
+                }
                 
                 //-- add to the GPVM, device screen
 

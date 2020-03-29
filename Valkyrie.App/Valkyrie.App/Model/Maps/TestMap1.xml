@@ -77,24 +77,28 @@
       X="-2"
       Y="3"
       Z="10"
+      Scalable="false"
       Image="trees.birch.prop.png" />
 
     <Prop
       X="9"
       Y="3"
       Z="10"
+      Scalable="false"
       Image="trees.birch.prop5.png" />
 
     <Prop
       X="13"
       Y="3"
       Z="10"
+      Scalable="false"
       Image="trees.birch.prop5.png" />
   
     <Prop
       X="20"
       Y="3"
       Z="10"
+      Scalable="false"
       Image="trees.birch.prop6.png" />
   
       
@@ -102,25 +106,50 @@
       X="-2"
       Y="3"
       Z="2"
+      Scalable="false"
       Image="trees.birch.prop5.png" />
 
     <Prop
       X="4"
       Y="3"
       Z="2"
+      Scalable="false"
       Image="trees.birch.prop6.png" />
 
     <Prop
       X="12"
       Y="3"
       Z="2"
+      Scalable="false"
       Image="trees.birch.prop.png" />
   
     <Prop
       X="15"
       Y="3"
       Z="2"
+      Scalable="false"
       Image="trees.birch.prop6.png" />
+  
+    <Prop
+      X="0"
+      Y="0"
+      Z="-1"
+      Scalable="true"
+      Image="footers.grass.prop.png" />
+
+    <Prop
+      X="10"
+      Y="0"
+      Z="-1"
+      Scalable="true"
+      Image="footers.grass.prop.png" />
+
+    <Prop
+      X="20"
+      Y="0"
+      Z="-1"
+      Scalable="true"
+      Image="footers.grass.prop.png" />  
   
   </Props>
   

@@ -19,11 +19,32 @@ namespace Valkryie.GL
 
         //--------------------------------------------
 
+        //====================================================
+
+        /*---------------------------------
+         *  
+         *  This is not acutally ideal, but
+         *  the GL Prop is going to carry 
+         *  some image information to help
+         *  the GPVM build the sprite in the
+         *  /Model layer
+         * 
+         * ------------------------------*/
+
         internal string imageSource_;
         public string ImageSource
         {
             get => imageSource_;
             set => imageSource_ = value;
+        }
+
+        //---------------------------------------
+
+        internal bool scalable_ = false;
+        public bool Scalable
+        {
+            get => scalable_;
+            set => scalable_ = value;
         }
 
         //==================================================
@@ -54,6 +75,10 @@ namespace Valkryie.GL
 
             string source = node.Attributes["Image"].Value.ToString();
             imageSource_ = "Valkyrie.App.Images.Props." + source;
+
+            //--- get the scalable information
+
+            Scalable = bool.Parse(node.Attributes["Scalable"].Value.ToString());
         }
     }
 }

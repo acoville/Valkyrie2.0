@@ -41,7 +41,7 @@ namespace Valkyrie.App.Model
 
         //--------------------------------------------
 
-        internal GLProp glProp_;
+        protected GLProp glProp_;
         public GLProp GLProp
         {
             get => glProp_;
@@ -50,8 +50,8 @@ namespace Valkyrie.App.Model
 
         //--------------------------------------------
 
-        internal Drawable skiaProp_;
-        public Drawable SKProp
+        internal IDrawable skiaProp_;
+        public IDrawable SKProp
         {
             get => skiaProp_;
             set => skiaProp_ = value;
@@ -75,7 +75,9 @@ namespace Valkyrie.App.Model
         public Prop(GLProp prop)
         {
             glProp_ = prop;
+
             skiaProp_ = new Drawable();
+            
             skiaProp_.SKPosition.Z = prop.GLPosition.Z;
         }
     }

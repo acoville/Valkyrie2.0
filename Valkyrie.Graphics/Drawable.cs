@@ -160,7 +160,7 @@ namespace Valkyrie.Graphics
 
             // add call to scalar here
 
-            Scale();
+            //Scale();
 
             // add call to haze filter here
 
@@ -183,10 +183,10 @@ namespace Valkyrie.Graphics
 
             SKPosition = target;
 
-            if(SKPosition.Z != target.Z)
-            {
-                Scale();      
-            }
+//            if(SKPosition.Z != target.Z)
+//            {
+//                Scale();      
+//            }
 
             UpdateRectangle();
         }
