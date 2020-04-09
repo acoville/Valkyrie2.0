@@ -15,6 +15,7 @@
 
 
 
+
   
   -->    
   
@@ -32,36 +33,37 @@
         Z="0"
         Image="Grass"
         Static="true" />
-        
+
       <Obstacle
         Type="Stair"
-        Orientation="Right"
+        Orientation="Left"
         X="17"
         Y="4"
         Z="0"
         Height="5"
         Image="Bricks.Red"
         Static="true" />  
-
+        
       <Obstacle
         Type="Rectangle"
         Height="1"
         Width="4"
-        X="13"
+        X="22"
         Y="12"
         Z="0"
         Image="Bricks.Red"
         Static="true" />
-  
+      
       <Obstacle
         Type="Stair"
-        Orientation="Left"
-        X="8"
+        Orientation="Right"
+        X="26"
         Y="4"
         Z="0"
         Height="5"
         Image="Bricks.Red"
         Static="true" />  
+  
   
     </Obstacles>
   
@@ -74,69 +76,37 @@
   <Props>
 
     <Prop
-      X="-2"
-      Y="3"
-      Z="10"
-      Scalable="false"
-      Image="trees.birch.prop.png" />
-
-    <Prop
-      X="9"
-      Y="3"
-      Z="10"
-      Scalable="false"
-      Image="trees.birch.prop5.png" />
-
-    <Prop
-      X="13"
-      Y="3"
-      Z="10"
-      Scalable="false"
-      Image="trees.birch.prop5.png" />
-  
-    <Prop
-      X="20"
-      Y="3"
-      Z="10"
-      Scalable="false"
-      Image="trees.birch.prop6.png" />
-  
-      
-    <Prop
-      X="-2"
-      Y="3"
-      Z="2"
-      Scalable="false"
-      Image="trees.birch.prop5.png" />
-
-    <Prop
-      X="4"
+      X="-4"
       Y="3"
       Z="2"
       Scalable="false"
       Image="trees.birch.prop6.png" />
 
     <Prop
-      X="12"
+      X="25"
       Y="3"
       Z="2"
       Scalable="false"
       Image="trees.birch.prop.png" />
   
     <Prop
-      X="15"
-      Y="3"
-      Z="2"
-      Scalable="false"
-      Image="trees.birch.prop6.png" />
-  
-    <Prop
-      X="0"
-      Y="0"
-      Z="-1"
-      Scalable="true"
-      Image="footers.grass.prop.png" />
+        X="-4"
+        Y="3"
+        Z="15"
+        Scalable="false"
+        Image="mountains.snow.prop.png" />
 
+     <Prop
+        X="15"
+        Y="3"
+        Z="14"
+        Scalable="false"
+        Image="mountains.snow.prop.png" />
+  
+  </Props>
+
+  <!--
+  
     <Prop
       X="10"
       Y="0"
@@ -151,7 +121,7 @@
       Scalable="true"
       Image="footers.grass.prop.png" />  
   
-  </Props>
+  -->
   
     <!-- Monsters -->
   

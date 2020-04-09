@@ -32,6 +32,10 @@ namespace Valkyrie.Graphics
                 float oldHeight = Rectangle.Height;
                 float oldWidth = Rectangle.Width;
 
+                //-- get the current SKPosition
+
+                SKPosition oldPosition = this.SKPosition;
+
                 //-- determine the scaled image dimensions
 
                 float scalar = (float)1.0 - (SKPosition.Z / 64 * .1f);
@@ -39,15 +43,18 @@ namespace Valkyrie.Graphics
                 float newHeight = oldHeight * scalar;
                 float newWidth = oldWidth * scalar;
 
+                SKSize newSize = new SKSize(newWidth, newHeight);
+                
+                //Rectangle.Inflate(newSize);
+
                 SKImageInfo NewInfo = new SKImageInfo((int)newHeight, (int)newWidth);
 
                 //-- perform the Scaling, copy to the DisplayImage
 
                 SKBitmap newDisplayImage = new SKBitmap(NewInfo);
+                
                 DisplayImage.ScalePixels(newDisplayImage, SKFilterQuality.High);
-
-                UpdateRectangle();
-
+                
                 newDisplayImage.CopyTo(DisplayImage);
             }
         }
@@ -76,14 +83,9 @@ namespace Valkyrie.Graphics
 
         public override void Move(SKPosition target)
         {
-            // target has a Z of 0 here... we lost it somewhere
-
             SKPosition = target;
 
-            if (SKPosition.Z != target.Z)
-            {
-                Scale();
-            }
+            Scale();
 
             UpdateRectangle();
         }

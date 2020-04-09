@@ -106,16 +106,6 @@ namespace Valkyrie.Graphics
             //-- move into position
 
             arg.MoveSprite(target);
-
-            //-- if Z is not in the foreground layer, it will need to be scaled.
-
-            float Z = arg.SKProp.SKPosition.Z;
-
-            if (Z > 64)
-            {
-                //arg.SKProp.Scale();
-            }
-
             drawables_.Add(arg.SKProp);
 
             // the call to sort here is necessary to ensure that 

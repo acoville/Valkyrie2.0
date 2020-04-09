@@ -15,6 +15,7 @@
     <None Remove="Images\Props\footers\grass\prop.png" />
     <None Remove="Images\Props\graves\prop.png" />
     <None Remove="Images\Props\graves\prop2.png" />
+    <None Remove="Images\Props\mountains\snow\prop.png" />
     <None Remove="Images\Props\StoneCottage\prop.png" />
     <None Remove="Images\Props\trees\birch\prop.png" />
     <None Remove="Images\Props\trees\birch\prop5.png" />
@@ -39,6 +40,7 @@
     <EmbeddedResource Include="Images\Props\footers\grass\prop.png" />
     <EmbeddedResource Include="Images\Props\graves\prop.png" />
     <EmbeddedResource Include="Images\Props\graves\prop2.png" />
+    <EmbeddedResource Include="Images\Props\mountains\snow\prop.png" />
     <EmbeddedResource Include="Images\Props\StoneCottage\prop.png" />
     <EmbeddedResource Include="Images\Props\trees\birch\prop.png" />
     <EmbeddedResource Include="Images\Props\trees\birch\prop5.png" />
