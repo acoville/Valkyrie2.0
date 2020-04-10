@@ -11,7 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Images\Characters\Erina\**" />
+    <EmbeddedResource Remove="Images\Characters\Erina\**" />
+    <None Remove="Images\Characters\Erina\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\Backgrounds\testBackground.png" />
+    <None Remove="Images\Characters\Trash Mobs\Zombie\zombie1.png" />
     <None Remove="Images\Props\footers\grass\prop.png" />
     <None Remove="Images\Props\graves\prop.png" />
     <None Remove="Images\Props\graves\prop2.png" />
@@ -37,6 +44,7 @@
     <EmbeddedResource Include="Images\Backgrounds\testBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Images\Characters\Trash Mobs\Zombie\zombie1.png" />
     <EmbeddedResource Include="Images\Props\footers\grass\prop.png" />
     <EmbeddedResource Include="Images\Props\graves\prop.png" />
     <EmbeddedResource Include="Images\Props\graves\prop2.png" />
@@ -105,10 +113,6 @@
     <EmbeddedResource Update="View\SplashPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\Characters\Erina\" />
   </ItemGroup>
 
   <ItemGroup>

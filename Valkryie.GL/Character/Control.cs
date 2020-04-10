@@ -25,37 +25,26 @@ namespace Valkyrie.GL
         private String name_ = "UNKNOWN";
         public String Name
         {
-            get
-            {
-                return name_;
-            }
-
-            set
-            {
-                name_ = value;
-            }
+            get => name_;
+            set => name_ = value;
         }
 
         //=========================================================
 
-        /*-------------------------------------
+        /*----------------------------
+         * Teams
          * 
-         *  Variables governing interaction 
-         *  with computer AI / player control
+         * 0: player's team
+         * 1: neutral
+         * 2 - N: hostiles or 3rd parties
          * 
-         * ----------------------------------*/
+         * -------------------------*/
 
-        private int team_ = 0;
+        internal int team_ = 1;
         public int Team
         {
-            get
-            {
-                return team_;
-            }
-            set
-            {
-                team_ = value;
-            }
+            get => team_;
+            set => team_ = value;
         }
 
         //=========================================================

@@ -8,14 +8,32 @@
       Y="3"
       Z="0"/>
   
-    <!-- Player -->
+    <!-- Actors, includes all payer characters, NPCs and monsters
+        that will be used in this level and their starting GL positions.
+        
+        Attributes:
+          control = "player / npc"
+          team = "0, 1, 2, 3, 4... N" 
+          SpriteSource = "Images.Characters..." 
+          X= ""
+          Y= ""
+          we will get into movement and combat stuff in a bit -->
   
-<!--
+    <Actors>
 
-
-
-
-
+      <Actor
+        Name="Bob"
+        X="5"
+        Y="4"
+        Control="player"
+        Team="0"
+        SpriteSource="Characters.Trash Mobs.Zombie"/>
+    
+    </Actors>
+  
+  <!--
+  
+  
   
   -->    
   
@@ -64,12 +82,11 @@
         Image="Bricks.Red"
         Static="true" />  
   
-  
     </Obstacles>
   
   <!-- Background Props -->
 
-        <!--
+  <!--
     
   -->
 
@@ -106,24 +123,9 @@
   </Props>
 
   <!--
-  
-    <Prop
-      X="10"
-      Y="0"
-      Z="-1"
-      Scalable="true"
-      Image="footers.grass.prop.png" />
 
-    <Prop
-      X="20"
-      Y="0"
-      Z="-1"
-      Scalable="true"
-      Image="footers.grass.prop.png" />  
-  
+
   -->
-  
-    <!-- Monsters -->
   
     <!-- Cutscenes -->
   

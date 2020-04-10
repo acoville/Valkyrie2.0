@@ -131,6 +131,23 @@ namespace Valkyrie.App.ViewModel
 
         //==============================================================================
 
+        /*-----------------------------------------------
+         * 
+         * Load Characters
+         * 
+         * --------------------------------------------*/
+
+        internal void LoadCharacters(Level map)
+        { 
+            foreach(var character in map.Characters)
+            {
+                Actor actor = new Actor(character);
+                actors_.Add(actor);
+            }
+        }
+
+        //==============================================================================
+
         /*------------------------------------------------
          * 
          * For the moment, this is going to be all 

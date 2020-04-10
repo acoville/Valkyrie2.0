@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using Valkyrie.GL;
 
 namespace Valkryie.GL
 {
@@ -61,6 +62,21 @@ namespace Valkryie.GL
 
         //======================================================
 
+        /*------------------------------
+         * 
+         * 
+         * 
+         * ----------------------------*/
+
+        internal List<Character> characters_;
+        public List<Character> Characters
+        {
+            get => characters_;
+            set => characters_ = value;
+        }
+
+        //======================================================
+
         internal String backgroundImage_;
         public String BackgroundImage
         {
@@ -79,6 +95,7 @@ namespace Valkryie.GL
         {
             obstacles_ = new List<GLObstacle>();
             props_ = new List<GLProp>();
+            characters_ = new List<Character>();
 
             boundaries_ = new GLRect
             {
@@ -101,6 +118,7 @@ namespace Valkryie.GL
         {
             obstacles_ = new List<GLObstacle>();
             props_ = new List<GLProp>();
+            characters_ = new List<Character>();
 
             boundaries_ = new GLRect
             {
@@ -182,6 +200,18 @@ namespace Valkryie.GL
                     }
 
                     //-------------------------------------------------------
+
+                    case ("Actors"):
+                    {
+                        for(int j = 0; j < child.ChildNodes.Count; j++)
+                        {
+                            XmlNode ActorNode = child.ChildNodes[j];
+                            Character character = new Character(ActorNode);
+                            Characters.Add(character);
+                        }
+
+                        break;
+                    }
                 }
 
             }

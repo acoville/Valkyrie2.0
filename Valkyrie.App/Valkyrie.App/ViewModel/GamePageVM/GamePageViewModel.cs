@@ -11,7 +11,6 @@ using Valkyrie.GL;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Valkryie.GL;
-using Xamarin.Forms;
 using Valkyrie.App.Model;
 using System.Collections.Generic;
 

@@ -100,10 +100,8 @@ namespace Valkyrie.App.View
             {
                 if (gpvm_.Paused == false)
                 {
-                    //gpvm_.EvaluateMovement();
+                    gpvm_.EvaluateMovement();
                     
-
-
                     //-- Redraw Screen, update framerate
                     
                     RedrawScreen();

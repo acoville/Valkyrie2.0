@@ -1,7 +1,7 @@
 ﻿/*===========================================================
  * 
- * 
- * 
+ *  The IDrawable Interface is used by the GameScreen class
+ *  to display all on-screen elements. 
  * 
  * ========================================================*/
 

@@ -10,10 +10,31 @@ namespace Valkyrie.App.Model
     {
         //Character character_;
 
+        internal Character character_;
+        public Character GLCharacter
+        {
+            get => character_;
+            set => character_ = value;
+        }
 
+        //--------------------------------------------------
 
         //Sprite sprite_;
 
+        internal Sprite sprite_;
+        public Sprite Sprite
+        {
+            get => sprite_;
+            set => sprite_ = value;
+        }
+
+        //===================================================================
+
+        public Actor(Character character)
+        {
+            GLCharacter = character;
+            Sprite = new Sprite();
+        }
 
     }
 }
