@@ -83,6 +83,38 @@ namespace Valkyrie.Graphics
 
         //===========================================================
 
+        /*----------------------------------------
+         * 
+         * Helper Function to Add an Actor
+         * 
+         * -------------------------------------*/
+
+        public void AddActor(Actor actor)
+        {
+            SKPosition target = scrollBox_.ToSkia(actor.GLPosition);
+
+            // determine starting image to use
+
+            actor.Sprite.Status = Status.standing;
+
+            //-- correct Y
+
+            int height = actor.Sprite.DisplayImage.Height;
+            target.Y -= height;
+
+            //-- correct X 
+
+            int width = actor.Sprite.DisplayImage.Width;
+            target.X += (width / 2.0f);
+
+            actor.Sprite.Move(target);
+            drawables_.Add(actor.Sprite);
+
+            drawables_.Sort();
+        }
+
+        //===========================================================
+
         /*-----------------------------------------
          * 
          * Function to Add an Obstacle
@@ -100,8 +132,8 @@ namespace Valkyrie.Graphics
 
             //-- correct X 
 
-            int width = arg.SKProp.DisplayImage.Width;
-            target.X += (width / 2.0f);
+            //int width = arg.SKProp.DisplayImage.Width;
+            //target.X += (width / 2.0f);
 
             //-- move into position
 

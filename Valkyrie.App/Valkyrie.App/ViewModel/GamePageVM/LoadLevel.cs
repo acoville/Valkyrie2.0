@@ -52,13 +52,15 @@ namespace Valkyrie.App.ViewModel
             LoadStartingPosition(map);
             LoadObstacles(map);
             LoadProps(map);
-            
+
             // set up player1
 
 
 
             // load actors
-            
+
+            LoadCharacters(map);
+
             levelLoaded_ = true;
         }
 
@@ -139,11 +141,41 @@ namespace Valkyrie.App.ViewModel
 
         internal void LoadCharacters(Level map)
         { 
+
             foreach(var character in map.Characters)
             {
                 Actor actor = new Actor(character);
+                actor.Sprite = CreateSprite(actor);
+
+                // set up control system                
+                
                 actors_.Add(actor);
+                deviceScreen_.AddActor(actor);
             }
+        }
+
+        //=============================================================================
+
+        internal Sprite CreateSprite(Actor actor)
+        {
+            Assembly assembly = GetType().GetTypeInfo().Assembly;
+            Sprite sprite = new Sprite();
+
+            //-- standing
+
+            try
+            {
+                var source = actor.ImageSource + ".standing.png";
+
+                using (Stream stream = assembly.GetManifestResourceStream(source))
+                {
+                    sprite.StandingImage = SKBitmap.Decode(stream);
+                }
+            }
+            catch(FileNotFoundException)
+            {}
+
+            return sprite;
         }
 
         //==============================================================================

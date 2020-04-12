@@ -7,10 +7,7 @@
  * ======================================================*/
 
 using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Valkyrie.GL;
+using System.Xml;
 
 namespace Valkyrie.Graphics
 {
@@ -72,6 +69,8 @@ namespace Valkyrie.Graphics
         //----------------------------------------
 
         internal Status status_ = Status.standing;
+        private XmlNode node;
+
         public Status Status
         {
             get => status_;
@@ -134,6 +133,8 @@ namespace Valkyrie.Graphics
                 {
                     Mirror();
                 }
+
+                UpdateRectangle();
             }
         }
 
@@ -154,6 +155,8 @@ namespace Valkyrie.Graphics
         falling,
         attack
     };
+
+    //-----------------------------------
 
     public enum Facing { left, right };
 }

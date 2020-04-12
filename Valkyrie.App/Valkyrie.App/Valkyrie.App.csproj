@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <None Remove="Images\Backgrounds\testBackground.png" />
-    <None Remove="Images\Characters\Trash Mobs\Zombie\zombie1.png" />
+    <None Remove="Images\Characters\TrashMobs\Zombie\standing.png" />
     <None Remove="Images\Props\footers\grass\prop.png" />
     <None Remove="Images\Props\graves\prop.png" />
     <None Remove="Images\Props\graves\prop2.png" />
@@ -44,7 +44,7 @@
     <EmbeddedResource Include="Images\Backgrounds\testBackground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Images\Characters\Trash Mobs\Zombie\zombie1.png" />
+    <EmbeddedResource Include="Images\Characters\TrashMobs\Zombie\standing.png" />
     <EmbeddedResource Include="Images\Props\footers\grass\prop.png" />
     <EmbeddedResource Include="Images\Props\graves\prop.png" />
     <EmbeddedResource Include="Images\Props\graves\prop2.png" />

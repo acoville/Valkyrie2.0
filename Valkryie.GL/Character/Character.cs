@@ -85,13 +85,19 @@ namespace Valkyrie.GL
             GLPosition position = new GLPosition();
 
             position.X = float.Parse(node.Attributes["X"].Value.ToString());
+            position.X *= 64.0f;
+            
             position.Y = float.Parse(node.Attributes["Y"].Value.ToString());
+            position.Y *= 64.0f;
+
+            position.Z = 0.0f;
 
             GLPosition = position;
 
             //-- what is the sprite source? 
 
-            SpriteSource = node.Attributes["SpriteSource"].Value.ToString();
+            SpriteSource = "Valkyrie.App.Images.Characters." 
+                + node.Attributes["SpriteSource"].Value.ToString();
         }
     }
 }

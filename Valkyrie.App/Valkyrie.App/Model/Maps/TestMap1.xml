@@ -24,10 +24,10 @@
       <Actor
         Name="Bob"
         X="5"
-        Y="4"
+        Y="3"
         Control="player"
         Team="0"
-        SpriteSource="Characters.Trash Mobs.Zombie"/>
+        SpriteSource="TrashMobs.Zombie"/>
     
     </Actors>
   
@@ -140,4 +140,5 @@
       <!-- Victory Condition -->
       <!-- reached a save point -->
       <!-- timer reaches countdown -->
+  
 </Level>
