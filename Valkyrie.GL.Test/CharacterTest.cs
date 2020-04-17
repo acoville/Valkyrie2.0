@@ -34,7 +34,7 @@ namespace Valkyrie.GL.Test
         [Category("Character")]
         public void DefaultConstructorTest()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             Assert.Pass();
         }
 
@@ -54,7 +54,7 @@ namespace Valkyrie.GL.Test
         [Category("Death")]
         public void DeathByHitPointsTest()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             Assert.IsTrue(!SUT.Dead);
 
             SUT.HP -= 101;
@@ -77,7 +77,7 @@ namespace Valkyrie.GL.Test
         [Category("Death")]
         public void DeadCharacterCannotRecieveCommands()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             string finalWords = SUT.Command;
 
             SUT.HP -= 101;
@@ -104,7 +104,7 @@ namespace Valkyrie.GL.Test
         [Category("Death")]
         public void RevivedCharacterIsAliveAgain()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             SUT.HP -= 101;
 
             Assert.IsTrue(SUT.Dead);
@@ -130,7 +130,7 @@ namespace Valkyrie.GL.Test
         [Category("Death")]
         public void RevivedCharacterReceivesCommands()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             string finalWords = SUT.Command;
 
             SUT.HP -= 101;
@@ -162,7 +162,7 @@ namespace Valkyrie.GL.Test
         [Category("Combat")]
         public void HitPointsBoundsLowTest()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             SUT.HP -= 101;
 
             Assert.IsTrue(SUT.HP >= 0);
@@ -187,7 +187,7 @@ namespace Valkyrie.GL.Test
         [Category("Combat")]
         public void HitPointsBoundsHighTest()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
 
             SUT.HP += 100;
 
@@ -211,7 +211,7 @@ namespace Valkyrie.GL.Test
         [Category("Combat")]
         public void StaminaLowBoundTest()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             SUT.SP -= 110;
 
             Assert.AreEqual(SUT.SP, 0);
@@ -231,7 +231,7 @@ namespace Valkyrie.GL.Test
         [Category("Combat")]
         public void StaminaUpperBoundTest()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             int startingStamina = SUT.SP;
             SUT.SP += 50;
 
@@ -252,7 +252,7 @@ namespace Valkyrie.GL.Test
         [Category("Skill")]
         public void ParrySkillCheck()
         {
-            Character SUT = new Character();
+            GLCharacter SUT = new GLCharacter();
             SUT.Parry.Level = 10.0;
 
             Assert.AreEqual(SUT.Parry.Level, 10.0);
@@ -272,7 +272,7 @@ namespace Valkyrie.GL.Test
         [Category("Combat")]
         public void MitigateMeleeDamage()
         {
-            Character Victim = new Character();
+            GLCharacter Victim = new GLCharacter();
 
             int startingHP = Victim.HP;
 

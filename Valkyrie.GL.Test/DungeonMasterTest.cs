@@ -40,10 +40,10 @@ namespace Valkyrie.GL.Test
 
             Skill swordplay = new Skill("swordplay", 10);
 
-            var Attacker = new Character();
+            var Attacker = new GLCharacter();
             Attacker.MeleeWeapon = sword;
 
-            var Defender = new Character();
+            var Defender = new GLCharacter();
             Defender.MeleeWeapon = sword;
 
             //---------------------------------------

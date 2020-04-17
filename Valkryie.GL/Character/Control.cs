@@ -18,7 +18,7 @@ using System;
 
 namespace Valkyrie.GL
 {
-    public partial class Character
+    public partial class GLCharacter
     {
         //=========================================================
 

@@ -33,7 +33,7 @@ namespace Valkryie.GL
         {
             // determine how much damage the attack causes
 
-            Character attacker = attack.Attacker;
+            GLCharacter attacker = attack.Attacker;
             Skill attackSkill = attack.AttackSkill;
 
             int UnmitigatedDamage = attack.AttackWeapon.Damage;
@@ -48,7 +48,7 @@ namespace Valkryie.GL
             // The Character class will now perform any 
             // mitigation and deduct HP
 
-            Character defender = attack.Defender;
+            GLCharacter defender = attack.Defender;
             defender.TakeDamage(UnmitigatedDamage, type);
         }
     }

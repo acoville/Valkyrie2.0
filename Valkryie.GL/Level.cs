@@ -68,8 +68,8 @@ namespace Valkryie.GL
          * 
          * ----------------------------*/
 
-        internal List<Character> characters_;
-        public List<Character> Characters
+        internal List<GLCharacter> characters_;
+        public List<GLCharacter> Characters
         {
             get => characters_;
             set => characters_ = value;
@@ -95,7 +95,7 @@ namespace Valkryie.GL
         {
             obstacles_ = new List<GLObstacle>();
             props_ = new List<GLProp>();
-            characters_ = new List<Character>();
+            characters_ = new List<GLCharacter>();
 
             boundaries_ = new GLRect
             {
@@ -118,7 +118,7 @@ namespace Valkryie.GL
         {
             obstacles_ = new List<GLObstacle>();
             props_ = new List<GLProp>();
-            characters_ = new List<Character>();
+            characters_ = new List<GLCharacter>();
 
             boundaries_ = new GLRect
             {
@@ -206,7 +206,7 @@ namespace Valkryie.GL
                         for(int j = 0; j < child.ChildNodes.Count; j++)
                         {
                             XmlNode ActorNode = child.ChildNodes[j];
-                            Character character = new Character(ActorNode);
+                            GLCharacter character = new GLCharacter(ActorNode);
                             Characters.Add(character);
                         }
 

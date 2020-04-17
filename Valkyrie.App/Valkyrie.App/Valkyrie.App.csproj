@@ -27,6 +27,7 @@
     <None Remove="Images\Props\trees\birch\prop.png" />
     <None Remove="Images\Props\trees\birch\prop5.png" />
     <None Remove="Images\Props\trees\birch\prop6.png" />
+    <None Remove="Images\Props\trees\pine\prop.png" />
     <None Remove="Images\Tiles\bricks.png" />
     <None Remove="Images\Tiles\Bricks\Red\end.png" />
     <None Remove="Images\Tiles\Bricks\Red\tile.png" />
@@ -53,6 +54,7 @@
     <EmbeddedResource Include="Images\Props\trees\birch\prop.png" />
     <EmbeddedResource Include="Images\Props\trees\birch\prop5.png" />
     <EmbeddedResource Include="Images\Props\trees\birch\prop6.png" />
+    <EmbeddedResource Include="Images\Props\trees\pine\prop.png" />
     <EmbeddedResource Include="Images\Tiles\Bricks\Red\end.png" />
     <EmbeddedResource Include="Images\Tiles\Bricks\Red\tile.png" />
     <EmbeddedResource Include="Images\Tiles\Cobblestone\end.png">

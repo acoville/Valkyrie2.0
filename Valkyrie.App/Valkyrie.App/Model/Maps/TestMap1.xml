@@ -101,8 +101,8 @@
 
     <Prop
       X="25"
-      Y="3"
       Z="2"
+      Y="3"
       Scalable="false"
       Image="trees.birch.prop.png" />
   
@@ -119,7 +119,7 @@
         Z="14"
         Scalable="false"
         Image="mountains.snow.prop.png" />
-  
+
   </Props>
 
   <!--

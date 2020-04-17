@@ -10,10 +10,16 @@ namespace Valkyrie.App.Model
 {
     public class Actor
     {
-        //Character character_;
+        //=====================================================================
 
-        internal Character character_;
-        public Character GLCharacter
+        /*------------------------------------
+         * 
+         * Valkyrie.Game Logic related state
+         * 
+         * ----------------------------------*/
+
+        internal GLCharacter character_;
+        public GLCharacter GLCharacter
         {
             get => character_;
             set => character_ = value;
@@ -24,7 +30,22 @@ namespace Valkyrie.App.Model
         public GLPosition GLPosition
         {
             get => character_.GLPosition;
-            set => character_.GLPosition.MoveTo(value);
+            //set => character_.GLPosition.MoveTo(value);
+        }
+
+        //====================================================================
+
+        /*-----------------------------------
+         * 
+         * Valkyrie.Graphics related state
+         * 
+         * --------------------------------*/
+
+        internal Sprite sprite_;
+        public Sprite Sprite
+        {
+            get => sprite_;
+            set => sprite_ = value;
         }
 
         //-------------------------------------------------
@@ -32,7 +53,7 @@ namespace Valkyrie.App.Model
         public SKPosition SKPosition
         {
             get => sprite_.SKPosition;
-            set => sprite_.Move(value);
+            //set => sprite_.Move(value);
         }
 
         //--------------------------------------------------
@@ -44,20 +65,15 @@ namespace Valkyrie.App.Model
             set => imageSource_ = value;
         }
 
-        //--------------------------------------------------
-
-        //Sprite sprite_;
-
-        internal Sprite sprite_;
-        public Sprite Sprite
-        {
-            get => sprite_;
-            set => sprite_ = value;
-        }
-
         //===================================================================
 
-        public Actor(Character character)
+        /*--------------------------------
+         * 
+         * Valkyrie.Model 
+         * 
+         * -----------------------------*/
+
+        public Actor(GLCharacter character)
         {
             GLCharacter = character;
             imageSource_ = GLCharacter.SpriteSource;
@@ -68,9 +84,46 @@ namespace Valkyrie.App.Model
 
         public Actor(XmlNode node)
         {
-            GLCharacter = new Character(node);
+            GLCharacter = new GLCharacter(node);
             imageSource_ = GLCharacter.SpriteSource;
             Sprite = new Sprite();
         }
+
+        //==================================================================
+
+        /*-----------------------------------------
+         * 
+         * The problem with trying to handle
+         * this internally is that I need access
+         * to the GPVM DeviceScreen's scrollbox
+         * to get an accurate Skia position.
+         * 
+         * ---------------------------------------*/
+
+        public void MoveTo(GLPosition target)
+        {
+
+        }
+
+        //==================================================================
+
+        public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
+        {
+            character_.GLPosition.Translate(deltaX, deltaY, deltaZ);
+            Sprite.Translate(deltaX, (-deltaY), deltaZ);
+        }
+
+        //===================================================================
+
+        /*---------------------------
+         * 
+         * Control
+         * 
+
+        public Status Status
+        {
+            get => GLCharacter.
+        }
+         * ------------------------*/
     }
 }

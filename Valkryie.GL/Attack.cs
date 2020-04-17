@@ -7,8 +7,8 @@ namespace Valkryie.GL
 {
     public class Attack
     {
-        internal Character attacker_;
-        public Character Attacker 
+        internal GLCharacter attacker_;
+        public GLCharacter Attacker 
         {
             get
             {
@@ -26,8 +26,8 @@ namespace Valkryie.GL
 
         //==========================================
         
-        internal Character defender_;
-        public Character Defender
+        internal GLCharacter defender_;
+        public GLCharacter Defender
         {
             get
             {
@@ -59,8 +59,8 @@ namespace Valkryie.GL
 
         // constructor
 
-        public Attack(Character attacker,
-                      Character defender,
+        public Attack(GLCharacter attacker,
+                      GLCharacter defender,
                       Weapon attackingWeapon)
         {
             Attacker = attacker;

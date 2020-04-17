@@ -6,7 +6,7 @@ using Valkryie.GL;
 
 namespace Valkyrie.GL
 {
-    public partial class Character
+    public partial class GLCharacter
     {
         //=============================================
         // ATTRIBUTES
@@ -44,36 +44,12 @@ namespace Valkyrie.GL
          * 
          * -------------------------*/
 
-        public Character()
+        public GLCharacter()
         { }
-
-        //--------------------------------
-
-        public Character(string L)
-        {
-            Name = L;
-        }
-
-        //--------------------------------
-
-        // copy constructor, used during GPVM.AddMonsters()
-
-        public Character(Character orig)
-        {
-            Name = orig.Name;
-            HP = orig.HP;
-            MaxHP = orig.MaxHP;
-
-            xSpeed = orig.xSpeed;
-            Max_X_Speed = orig.Max_X_Speed;
-            xAccelerationRate = orig.xAccelerationRate;
-
-            ySpeed = orig.ySpeed;
-        }
 
         //--------------------------------------------------------
 
-        public Character(XmlNode node)
+        public GLCharacter(XmlNode node)
         {
             //-- who is this character and what team do they belong to? 
 
