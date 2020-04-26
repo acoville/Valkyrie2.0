@@ -187,11 +187,18 @@ namespace Valkyrie.App.ViewModel
             //--------------------------------------
 
             /*
-            foreach(var actor in sprites_)
-            {
+             */ 
 
+            foreach(var actor in actors_)
+            {
+                GLPosition glOrigin = actor.GLPosition;
+                SKPosition target = deviceScreen_.scrollBox_.ToSkia(glOrigin);
+
+                int height = actor.Sprite.DisplayImage.Height;
+                target.Y -= height;
+
+                actor.Sprite.Move(target);
             }
-             */
         }
     }
 }

@@ -70,7 +70,7 @@ namespace Valkyrie.App.View
         {
             base.OnSizeAllocated(width, height);
             gpvm_.DeviceScreen.GetScreenDetails();
-            gpvm_.AlignGamePiecesToScreen();
+            gpvm_.AlignGamePiecesToScreen();        // in GPVM_Display.cs
         }
 
         //==================================================================

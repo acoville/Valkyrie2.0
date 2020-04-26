@@ -10,6 +10,7 @@
  * ========================================================*/
 
 using NUnit.Framework;
+using System;
 using Valkryie.GL;
 
 namespace Valkyrie.GL.Test
