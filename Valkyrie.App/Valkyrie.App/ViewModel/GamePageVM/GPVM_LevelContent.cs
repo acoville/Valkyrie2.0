@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using Valkryie.GL;
 using Valkyrie.App.Model;
 
 namespace Valkyrie.App.ViewModel
@@ -13,23 +10,7 @@ namespace Valkyrie.App.ViewModel
         internal List<Obstacle> obstacles_;
         internal List<Prop> props_;
 
-        //===========================================================
-
-        /*--------------------------------
-         * 
-         * Events? 
-         * 
-         * -----------------------------*/
-
-
-        //===========================================================
-
-        /*-----------------------------
-         * 
-         * Items?
-         * 
-         * ---------------------------*/
-
-
+        // items
+        // events
     }
 }

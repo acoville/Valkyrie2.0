@@ -12,6 +12,7 @@
 
 using SkiaSharp.Views.Forms;
 using System;
+using System.Threading.Tasks;
 using Valkyrie.App.ViewModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -101,15 +102,22 @@ namespace Valkyrie.App.View
                 if (gpvm_.Paused == false)
                 {
                     gpvm_.EvaluateMovement();
+
+                    //-- Redraw Screen, move to a dedicated render thread
+
+                    Task.Run(() =>
+                    {
+                        RedrawScreen();
+                    });
                     
-                    //-- Redraw Screen, update framerate
-                    
-                    RedrawScreen();
-                    
+                    //-- update the frame counter
+
                     gpvm_.Frames++;
                     t2 = DateTime.Now;
                     timeElapsed = t2 - t1;
                     
+                    // the setter of the Frames property updates FPS
+
                     if(timeElapsed >= TimeSpan.FromSeconds(1.0))
                     {
                         gpvm_.Frames = 0;

@@ -2,6 +2,15 @@
 
 namespace Valkyrie.Controls
 {
+    public enum commands
+    {
+        jump,
+        attack,
+        nullcommand
+    }
+
+    //=============================================================
+
     public class Command
     {
         internal string commandString_ = "";
@@ -9,6 +18,6 @@ namespace Valkyrie.Controls
         {
             get => commandString_;
             set => commandString_ = value;
-        }  //  // /
+        }
     }
 }

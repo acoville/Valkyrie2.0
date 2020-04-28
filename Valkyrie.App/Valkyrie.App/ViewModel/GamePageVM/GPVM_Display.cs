@@ -186,9 +186,6 @@ namespace Valkyrie.App.ViewModel
 
             //--------------------------------------
 
-            /*
-             */ 
-
             foreach(var actor in actors_)
             {
                 GLPosition glOrigin = actor.GLPosition;
