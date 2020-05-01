@@ -27,7 +27,6 @@ namespace Valkryie.GL
          *  to be up to the Character class to 
          *  resolve
          * 
-         * -------------------------------------*/
 
         public void ResolveCombat(Attack attack)
         {
@@ -51,5 +50,6 @@ namespace Valkryie.GL
             GLCharacter defender = attack.Defender;
             defender.TakeDamage(UnmitigatedDamage, type);
         }
+         * -------------------------------------*/
     }
 }

@@ -51,13 +51,13 @@ namespace Valkyrie.GL
          *  naturally whenever the player
          *  is not moving.
          * 
-         * -------------------------------*/
 
         internal int staminaRecoveryRate_ = 5;
         internal void RecoverStamina()
         {
             SP += staminaRecoveryRate_;
         }
+         * -------------------------------*/
 
         //========================================================================
 
@@ -66,13 +66,13 @@ namespace Valkyrie.GL
          *  Recieves incoming damage dealt,
          *  
          * 
-         * -----------------------------------*/
 
         public void TakeDamage(int unmitigatedDamage, DamageType type)
         {
             int mitigatedDamage = MitigateDamage(unmitigatedDamage, type);
             HP -= mitigatedDamage;
         }
+         * -----------------------------------*/
 
         //=========================================================================
 
@@ -82,7 +82,6 @@ namespace Valkyrie.GL
          * to want to further encapsulate this
          * in an inventory system soon.
          * 
-         * --------------------------------------*/
 
         internal Weapon meleeWeapon_;
         public Weapon MeleeWeapon 
@@ -111,6 +110,7 @@ namespace Valkyrie.GL
                 rangedWeapon_ = value;
             }
         }
+         * --------------------------------------*/
 
         //=========================================================================
 
@@ -121,7 +121,6 @@ namespace Valkyrie.GL
          *  armor, dodge, parry and 
          *  damage type
          * 
-         * --------------------------------*/
 
         internal int MitigateDamage(int unmitigatedDamage, DamageType type)
         {
@@ -154,5 +153,6 @@ namespace Valkyrie.GL
 
             return modifiedDamage;
         }
+         * --------------------------------*/
     }
 }

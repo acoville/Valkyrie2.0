@@ -12,7 +12,6 @@ namespace Valkyrie.GL
          * represent the player's life 
          * if HP falls to 0 they die
          * 
-         * --------------------------------*/
 
         internal int maxHitPoints_ = 100;
         public int MaxHP
@@ -60,6 +59,7 @@ namespace Valkyrie.GL
                 }
             }
         }
+         * --------------------------------*/
 
         //========================================================================
 
@@ -75,7 +75,6 @@ namespace Valkyrie.GL
          *  breath, have lower attack speed, lower
          *  movement speed, etc..
          * 
-         * ------------------------------------------*/
 
         internal int stamina_ = 100;
         public int SP
@@ -101,6 +100,7 @@ namespace Valkyrie.GL
                 stamina_ = value;
             }
         }
+         * ------------------------------------------*/
 
         //=========================================================
 
@@ -109,7 +109,6 @@ namespace Valkyrie.GL
          *  Maximum Stamina governs how 
          *  much SP may be regained
          * 
-         * ------------------------------*/
 
         internal int maxStamina_ = 100;
 
@@ -125,6 +124,7 @@ namespace Valkyrie.GL
                 maxStamina_ = value;
             }
         }
+         * ------------------------------*/
 
         //==========================================================
 
@@ -133,7 +133,6 @@ namespace Valkyrie.GL
          * Melee Skills
          * Parry
          * 
-         * ---------------------------*/
 
         internal Skill dodge_ = new Skill("dodge", 1);
 
@@ -141,6 +140,7 @@ namespace Valkyrie.GL
         {
             get { return dodge_; }
         }
+         * ---------------------------*/
 
         //==========================================================
 
@@ -149,13 +149,13 @@ namespace Valkyrie.GL
          * Melee Skills
          * Dodge
          * 
-         * -----------------------*/
 
         internal Skill parry_ = new Skill("parry", 1);
         public Skill Parry
         {
             get { return parry_; }
         }
+         * -----------------------*/
 
         //==========================================================
 
@@ -164,13 +164,13 @@ namespace Valkyrie.GL
          * Melee Skills
          * Block
          * 
-         * ---------------------*/
         
         internal Skill block_ = new Skill("block", 1);
         public Skill Block
         {
             get { return block_; }
         }
+         * ---------------------*/
 
         //===============================================================
 

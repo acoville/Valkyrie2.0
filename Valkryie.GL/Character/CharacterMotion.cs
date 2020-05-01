@@ -25,14 +25,8 @@ namespace Valkyrie.GL
         private int maxJumps_ = 1;
         public int MaxJumps
         {
-            get
-            {
-                return maxJumps_;
-            }
-            set
-            {
-                maxJumps_ = value;
-            }
+            get => maxJumps_;
+            set => maxJumps_ = value;
         }
 
         //--------------------------------------
@@ -40,10 +34,7 @@ namespace Valkyrie.GL
         private int currentJump_ = 0;
         public int CurrentJumps
         {
-            get
-            {
-                return currentJump_;
-            }
+            get => currentJump_;
 
             set
             {
@@ -66,14 +57,8 @@ namespace Valkyrie.GL
         private double ySpeed_ = 0.0;
         public double ySpeed
         {
-            get
-            {
-                return ySpeed_;
-            }
-            set
-            {
-                ySpeed_ = value;
-            }
+            get => ySpeed_;
+            set => ySpeed_ = value;
         }
 
         //---------------------------------------
@@ -100,17 +85,17 @@ namespace Valkyrie.GL
          * 
          * ----------------------------------------*/
 
-        internal int max_X_Speed = 20;
+        internal int max_X_Speed_ = 20;
         public int Max_X_Speed
         {
             get
             {
-                return max_X_Speed;
+                return max_X_Speed_;
             }
 
             set
             {
-                max_X_Speed = value;
+                max_X_Speed_ = value;
             }
         }
 
@@ -156,7 +141,7 @@ namespace Valkyrie.GL
 
         //---------------------------------------
 
-        public void Acclerate_X()
+        public void Accelerate_X()
         {
             if (xSpeed + xAccelerationRate >= Max_X_Speed)
             {

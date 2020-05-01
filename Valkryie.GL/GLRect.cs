@@ -193,6 +193,8 @@ namespace Valkryie.GL
             center_ = new GLPosition(center_x, center_y);
         }
 
+        //============================================================
+
         internal void Translate(float deltaX, float deltaY)
         {
             throw new NotImplementedException();
