@@ -15,7 +15,7 @@ using System.Text;
 
 namespace Valkyrie.Controls
 {
-    class VPadController : IController
+    class Controller : IController
     {
         internal DateTime t1 = DateTime.Now;
         internal DateTime t2;
@@ -29,14 +29,22 @@ namespace Valkyrie.Controls
         
         //=======================================================================
 
-        /*---------------------------------------
+        /*----------------------------------------------------------------
          * 
+         * The Input property updates the controller's input string. 
+         * This string could be a simple 1-button press like 'A' 
+         * will ouput the command Jump or a complex combination 
+         * like the hadoken with 3 directionals and an attack done in 
+         * order and within a certain time window. 
          * 
+         * The input window is staring at 250ms before the string resets.
          * 
-         * -------------------------------------*/
+         * -------------------------------------------------------------*/
 
         public string Input
         {
+            get => input_;
+
             set
             {
                 // how much time has elapsed since the last input?
@@ -63,10 +71,15 @@ namespace Valkyrie.Controls
                     input_ += value;
                     timeSinceLastInput = TimeSpan.FromSeconds(0.0);
                 }
+
+                //-- evaulate the string to see if it matches a command
+
+
             }
         }
 
         //======================================================================
+
         public Command SendCommand()
         {
             throw new NotImplementedException();

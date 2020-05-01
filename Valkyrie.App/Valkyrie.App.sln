@@ -30,13 +30,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		..\Documentation\DevEnvironment.md = ..\Documentation\DevEnvironment.md
 		..\Documentation\HelpfulLinks.md = ..\Documentation\HelpfulLinks.md
 		..\Documentation\index.md = ..\Documentation\index.md
+		License.md = License.md
 		Props.md = Props.md
 		Runtime.md = Runtime.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.Graphics.Test", "Valkyrie.Graphics.Test\Valkyrie.Graphics.Test.csproj", "{C035AA66-8977-403B-91F9-D0429020B9D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valkyrie.Controls", "Valkyrie.Controls\Valkyrie.Controls.csproj", "{03D96B0C-9B7E-4577-A7BE-2BC041ACE10B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valkyrie.Controls", "Valkyrie.Controls\Valkyrie.Controls.csproj", "{03D96B0C-9B7E-4577-A7BE-2BC041ACE10B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

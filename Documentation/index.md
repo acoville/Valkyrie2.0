@@ -4,11 +4,6 @@ Valkyrie is v2 of an open-source 2d sidescrolling game engine. It is written in 
 little more than custom images and the ability to write some XML data files to create a unique game that can hit a broad audience. The app has been designed following the MVVM design pattern, with XAML content page markups, C# code behind and a C# ViewModel with
 supporting classes.
 
-## Support Valkyrie on Kickstarter
-
-There is a Kickstarter campaign to support this project live right now. 
-https://www.kickstarter.com/projects/valkyrieengine/valkyrie-an-open-source-2d-mobile-game-engine/
-
 ## How to Create a game using Valkyrie
 
 Step 1: simply fork or clone this repo. I developed this using Visual Studio 2019, which has the Xamarin mobile work package included by default. Developers for Android may need to update your AppCompat library in NuGet. All projects in the /Platforms directory will 
