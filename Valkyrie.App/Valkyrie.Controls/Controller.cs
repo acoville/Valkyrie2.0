@@ -15,7 +15,7 @@ using System.Text;
 
 namespace Valkyrie.Controls
 {
-    class Controller : IController
+    public class Controller : IController
     {
         internal DateTime t1 = DateTime.Now;
         internal DateTime t2;

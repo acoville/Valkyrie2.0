@@ -220,6 +220,8 @@ namespace Valkyrie.GL
 
         //========================================================
 
+        /*
+
         internal Direction facing_ = Direction.right;
         public Direction Facing
         {
@@ -233,5 +235,6 @@ namespace Valkyrie.GL
                 facing_ = value;
             }
         }
+         */
     }
 }

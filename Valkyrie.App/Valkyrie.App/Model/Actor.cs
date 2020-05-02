@@ -91,22 +91,6 @@ namespace Valkyrie.App.Model
 
         //==================================================================
 
-        /*-----------------------------------------
-         * 
-         * The problem with trying to handle
-         * this internally is that I need access
-         * to the GPVM DeviceScreen's scrollbox
-         * to get an accurate Skia position.
-         * 
-         * ---------------------------------------*/
-
-        public void MoveTo(GLPosition target)
-        {
-
-        }
-
-        //==================================================================
-
         public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
         {
             character_.GLPosition.Translate(deltaX, deltaY, deltaZ);
@@ -119,11 +103,11 @@ namespace Valkyrie.App.Model
          * 
          * Control
          * 
+         * ------------------------*/
 
         public Status Status
         {
             get => GLCharacter.
         }
-         * ------------------------*/
     }
 }

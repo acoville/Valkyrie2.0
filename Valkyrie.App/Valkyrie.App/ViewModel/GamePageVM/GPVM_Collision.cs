@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 using Valkyrie.App.Model;
 
 namespace Valkyrie.App.ViewModel
@@ -16,12 +17,12 @@ namespace Valkyrie.App.ViewModel
          * 
          * -----------------------------------*/
 
-        public void EvaluateMovement()
+        public async Task EvaluateMovement()
         {
             foreach(var actor in actors_)
             {
-                EvaluateVerticalMotion(actor);
-                EvaluateHorizontalMotion(actor);
+                await EvaluateVerticalMotion(actor);
+                await EvaluateHorizontalMotion(actor);
             }
         }
 
@@ -33,7 +34,7 @@ namespace Valkyrie.App.ViewModel
          * 
          * -----------------------------------*/
 
-        internal void EvaluateVerticalMotion(Actor actor)
+        internal async Task EvaluateVerticalMotion(Actor actor)
         {
 
         }
@@ -46,7 +47,7 @@ namespace Valkyrie.App.ViewModel
          * 
          * -----------------------------------*/
 
-        internal void EvaluateHorizontalMotion(Actor actor)
+        internal async Task EvaluateHorizontalMotion(Actor actor)
         {
 
         }

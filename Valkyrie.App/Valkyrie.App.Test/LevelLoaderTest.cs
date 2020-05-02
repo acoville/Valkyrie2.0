@@ -113,7 +113,7 @@ namespace Valkyrie.App.Test
             int tileWidth = glob.Rectangle.TileWidth;
 
             Assert.AreEqual(tileHeight, 1);
-            Assert.AreEqual(tileWidth, 4);
+            Assert.AreEqual(tileWidth, 100);
         }
     }
 }

@@ -85,7 +85,7 @@ namespace Valkyrie.App.View
          * 
          * -----------------------------------*/
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
@@ -101,15 +101,28 @@ namespace Valkyrie.App.View
             {
                 if (gpvm_.Paused == false)
                 {
-                    gpvm_.EvaluateMovement();
+                    #region collision detection
+                    
+                    Task.Run(async () =>
+                    {
+                        await gpvm_.EvaluateMovement();
+                    });
+
+                    #endregion
 
                     //-- Redraw Screen, move to a dedicated render thread
+
+                    #region render
 
                     Task.Run(() =>
                     {
                         RedrawScreen();
                     });
-                    
+
+                    #endregion
+
+                    #region framerate counter
+
                     //-- update the frame counter
 
                     gpvm_.Frames++;
@@ -123,6 +136,8 @@ namespace Valkyrie.App.View
                         gpvm_.Frames = 0;
                         t1 = DateTime.Now;
                     }
+
+                    #endregion
                 }
 
                 return true;
