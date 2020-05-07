@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Threading;
 using Valkyrie.App.Model;
 using Valkyrie.GL;
 using Valkyrie.Graphics;
@@ -7,47 +8,67 @@ namespace Valkyrie.Controls.Test
 {
     public class ControllerTests
     {
-        internal Controller testController;
-
-        internal GLCharacter glc;
-        internal Actor player1;
+        internal Controller SUT;
 
         //====================================================================
 
         [SetUp]
         public void Setup()
         {
-            testController = new Controller();
-
-            glc = new GLCharacter();
-            player1 = new Actor(glc);
-
-            //player1.
-
-            // perhaps add a GamePageViewModel here?
+            SUT = new Controller();
         }
 
-        //===================================================================
+        //====================================================================
+
+        /*------------------------------------------------
+         * 
+         * If the user waits too long (250ms) to enter another
+         * button in the sequence, the input string 
+         * resets and is overwritten instead of combined
+         * 
+         * ---------------------------------------------*/
 
         [Test]
         [Category("Controller")]
-        public void Test1()
+        [Category("Input")]
+        public void InputResetTest()
         {
-            Assert.Pass();
+            SUT.Input = "A";
+            Thread.Sleep(250);
+            SUT.Input = "A";
+
+            var result = SUT.Input;
+            Assert.AreEqual(result, "A");
         }
 
         //===================================================================
 
-        /*------------------------------
+        /*------------------------------------------------
          * 
+         * If the setter property is called within
+         * the 250ms time window (1/4 second) then
+         * the input string is concatenated instead
+         * of overwritten.
          * 
-         * ----------------------------*/
+         * This still passes at a 249ms delay.
+         * 
+         * ---------------------------------------------*/
 
         [Test]
-        [Category("Conroller")]
-        public void AttackTest()
+        [Category("Controller")]
+        [Category("Input")]
+        public void InputConcatenateTest()
         {
-            Assert.Pass();
+            SUT.Input = "A";
+            Thread.Sleep(200);
+            SUT.Input = "A";
+
+            var result = SUT.Input;
+            Assert.AreEqual(result, "AA");
         }
+
+        //=====================================================================
+
+
     }
 }

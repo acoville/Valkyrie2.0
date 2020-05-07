@@ -96,18 +96,5 @@ namespace Valkyrie.App.Model
             character_.GLPosition.Translate(deltaX, deltaY, deltaZ);
             Sprite.Translate(deltaX, (-deltaY), deltaZ);
         }
-
-        //===================================================================
-
-        /*---------------------------
-         * 
-         * Control
-         * 
-         * ------------------------*/
-
-        public Status Status
-        {
-            get => GLCharacter.
-        }
     }
 }
