@@ -13,7 +13,7 @@
                 <RowDefinition Height="20" /> <!-- margin on top -->
                 <RowDefinition Height="60" /> <!-- menu label text -->
                 <RowDefinition Height="60" /> <!-- input type label -->
-                <RowDefinition Height="60" /> <!-- input dropdown box -->
+                <RowDefinition Height="120" /> <!-- input dropdown box -->
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Valkyrie.Graphics;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Valkyrie.App.ViewModel
@@ -111,26 +112,35 @@ namespace Valkyrie.App.ViewModel
 
         //=====================================================================
 
+        /*---------------------------------------------
+         * 
+         * For the moment, I find it unlikely that
+         * an Android device is going to have an 
+         * external USB keybaord attached, so that 
+         * check will only be run if the runtime 
+         * Environment is UWP or iOS.
+         * 
+         * -----------------------------------------*/
+
         internal void DetectControllers()
         {
-            keyboardPresent_ = DetectKeyboard();
+            var idiom = DeviceInfo.Idiom.ToString();
+            
+            if(idiom == "Desktop")
+            {
+                keyboardPresent_ = true;
+                Preferences.Set("Controller", "Keyboard + Mouse");
+            }
+
             gamepadPresent_ = DetectGamepad();
-        }
-
-        //====================================================================
-
-        internal bool DetectKeyboard()
-        {
-
-
-            return true;
         }
 
         //====================================================================
 
         internal bool DetectGamepad()
         {
-            return true;
+
+            return false;
         }
             
         //=====================================================================

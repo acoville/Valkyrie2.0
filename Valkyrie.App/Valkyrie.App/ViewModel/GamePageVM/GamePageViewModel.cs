@@ -40,7 +40,21 @@ namespace Valkyrie.App.ViewModel
 
             if(input == "Virtual Gamepad")
             {
-                displayVirtualController_ = true;
+                DisplayVirtualController = true;
+            }
+
+            else
+            {
+                DisplayVirtualController = false;
+
+                //deviceScreen_.ScrollBox.GLRect.Bottom -= 64;
+                //deviceScreen_.ScrollBox.Skia.Bottom += 64;
+                //AlignGamePiecesToScreen();
+
+
+                // move the scrollbox's lower boundary down 1 cube / 64 pixels
+                // it would mean repositioning everything on screen again.. 
+
             }
         }
 
