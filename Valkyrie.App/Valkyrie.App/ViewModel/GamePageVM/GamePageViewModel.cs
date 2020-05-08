@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 using Valkryie.GL;
 using Valkyrie.App.Model;
 using System.Collections.Generic;
-
+using Xamarin.Essentials;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -21,30 +21,6 @@ namespace Valkyrie.App.ViewModel
     {
         public delegate void InputChangedHandler(GLCharacter c, string e);
         public event PropertyChangedEventHandler PropertyChanged;
-
-        //============================================================
-
-        /*-----------------------------------
-         * 
-         * Navigation Bar becomes visible 
-         * when pause button is pressed
-         * 
-         * ---------------------------------*/
-
-        internal bool displayNavigationBar_ = false;
-        public bool DisplayNavigationBar
-        {
-            get => displayNavigationBar_;
-        }
-
-        //===========================================================
-
-        internal bool displayVirtualController_ = true;
-        public bool DisplayVirtualController
-        {
-            get => displayVirtualController_;
-
-        }
 
         //===========================================================
 
@@ -59,6 +35,13 @@ namespace Valkyrie.App.ViewModel
             actors_ = new List<Actor>();
             obstacles_ = new List<Obstacle>();
             props_ = new List<Prop>();
+
+            string input = Preferences.Get("Controller", "Virtual Gamepad");
+
+            if(input == "Virtual Gamepad")
+            {
+                displayVirtualController_ = true;
+            }
         }
 
         //=============================================================

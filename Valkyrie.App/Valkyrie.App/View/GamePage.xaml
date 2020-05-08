@@ -41,7 +41,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
+            <!-- ====================================================== -->
+
             <!-- SK GL View -->
 
             <skia:SKGLView
@@ -53,7 +55,9 @@
                 IsVisible="True">
 
             </skia:SKGLView>
-            
+
+            <!-- ====================================================== -->
+
             <!-- Ad that displays while paused -->
             <!-- But make sure device has connectivity first -->
 
@@ -84,6 +88,8 @@
 
                 </StackLayout>
             </ContentView>
+
+            <!-- ====================================================== -->
 
             <!-- Troubleshooting Labels-->
             <!-- set visible = false in release build-->
@@ -128,7 +134,9 @@
                 </StackLayout>
             </StackLayout>
             
-            <!-- Controls -->
+            <!-- ====================================================== -->
+            
+            <!-- Virtual Gamepad -->
 
             <Grid
                 x:Name="Buttons"

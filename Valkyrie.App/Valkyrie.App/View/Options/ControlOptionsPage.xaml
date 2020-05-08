@@ -5,11 +5,46 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Valkyrie.App.View.Options.ControlOptionsPage">
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Control Options"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" /> <!-- margin on top -->
+                <RowDefinition Height="60" /> <!-- menu label text -->
+                <RowDefinition Height="60" /> <!-- input type label -->
+                <RowDefinition Height="60" /> <!-- input dropdown box -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            
+            <!-- Buttons -->
+
+            <Label 
+                Text="CONTROL OPTIONS"
+                TextColor="WhiteSmoke"
+                Grid.Row="1"
+                Grid.Column="1" />
+
+            <Label 
+                Grid.Row="1"
+                Grid.Column="2"
+                TextColor="WhiteSmoke"
+                Text="Input Device" />
+
+            <ListView 
+                Grid.Row="2"
+                Grid.Column="2"
+                x:Name="Selector"
+                ItemsSource="{Binding Controllers}" 
+                ItemSelected="Selector_ItemSelected"/>
+
+        </Grid>
+        
     </ContentPage.Content>
 </ContentPage>

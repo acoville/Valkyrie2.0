@@ -179,6 +179,16 @@ namespace Valkyrie.App.View
             {
                 gpvm_.Paused = false;
                 Pause_Btn.Text = "PAUSE";
+
+                if(Preferences.Get("Controller", "Virtual Gamepad") == "Virtual Gamepad")
+                {
+                    gpvm_.DisplayVirtualController = true;
+                }
+                else
+                {
+                    gpvm_.DisplayVirtualController = false;
+                }
+
                 return;
             }
 

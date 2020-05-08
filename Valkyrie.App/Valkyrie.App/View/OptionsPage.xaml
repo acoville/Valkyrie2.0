@@ -80,7 +80,7 @@
             <!-- Control Options Button -->
 
             <Button 
-                Text="Input Options"
+                Text="Control Options"
                 Grid.Row="5"
                 Grid.Column="2"
                 x:Name="InputOptionsBtn"

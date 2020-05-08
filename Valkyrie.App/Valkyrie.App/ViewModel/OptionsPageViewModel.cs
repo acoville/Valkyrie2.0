@@ -13,14 +13,6 @@ namespace Valkyrie.App.ViewModel
 
         //====================================================================
 
-        internal bool keyboardPresent_ = false;
-        public bool KeyboardPresent
-        {
-            get => keyboardPresent_;
-        }
-
-        //====================================================================
-
         /*--------------------------------------
          * 
          * Gets information about the screen
@@ -81,8 +73,7 @@ namespace Valkyrie.App.ViewModel
         {
             deviceScreen_ = new Screen();
         }
-
-
+        
         //==========================================================================
 
         /*--------------------------------

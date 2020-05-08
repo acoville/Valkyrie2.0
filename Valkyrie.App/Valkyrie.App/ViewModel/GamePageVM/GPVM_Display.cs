@@ -152,6 +152,35 @@ namespace Valkyrie.App.ViewModel
             }
         }
 
+        //============================================================
+
+        /*-----------------------------------
+         * 
+         * Navigation Bar becomes visible 
+         * when pause button is pressed
+         * 
+         * ---------------------------------*/
+
+        internal bool displayNavigationBar_ = false;
+        public bool DisplayNavigationBar
+        {
+            get => displayNavigationBar_;
+        }
+
+        //===========================================================
+
+        internal bool displayVirtualController_ = false;
+        public bool DisplayVirtualController
+        {
+            get => displayVirtualController_;
+
+            set
+            {
+                displayVirtualController_ = value;
+                RaisePropertyChanged();
+            }
+        }
+
         //=====================================================================
 
         /*----------------------------------------
