@@ -22,11 +22,87 @@ namespace Valkyrie.Controls
         internal TimeSpan timeSinceLastInput = TimeSpan.FromSeconds(1.0);
 
         // we will go with a reset timer of 1/4 second and see how that feels
-
         internal TimeSpan resetTime = TimeSpan.FromMilliseconds(250);
 
-        internal string input_ = "";
-        
+        internal TimeSpan simultaneousPressTime = TimeSpan.FromMilliseconds(50);
+
+        //=======================================================================
+
+        /*-----------------------------------------
+         * 
+         * Default Constructor
+         * 
+         * default input set
+         * 
+         * --------------------------------------*/
+
+        public Controller()
+        {
+            Commands = new List<string>
+            {
+                // directionals
+
+                "UP",
+                "UR",
+                "R",
+                "DR",
+                "DN",
+                "DL",
+                "L",
+                "UL",
+
+                // actions
+
+                "B",
+                "A"
+            };
+        }
+
+        //=======================================================================
+
+        /*------------------------------------------
+         * 
+         * The commands list contains 
+         * all the input sequences which should 
+         * result in an action, for instance
+         * 
+         * from classic Street Fighter: Hadoken
+         * D, DR, R + punch
+         * D, DL, L + punch
+         * 
+         * -------------------------------------*/
+
+        internal List<string> commands_;
+        public List<string> Commands
+        {
+            get => commands_;
+            set => commands_ = value;
+        }
+
+        //======================================================================
+
+        /*------------------------------------------
+         * 
+         * Attempts to find a match in the 
+         * list of command strings. 
+         *
+         * Complexity: linear time
+         * 
+         * ---------------------------------------*/
+
+        public bool ParseCommand()
+        {
+            foreach (var command in commands_)
+            {
+                if (input_ == command)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         //=======================================================================
 
         /*----------------------------------------------------------------
@@ -41,6 +117,7 @@ namespace Valkyrie.Controls
          * 
          * -------------------------------------------------------------*/
 
+        internal string input_ = "";
         public string Input
         {
             get => input_;
@@ -68,18 +145,52 @@ namespace Valkyrie.Controls
 
                 else
                 {
-                    input_ += value;
+                    // have to put this if for an empty string here, or else 
+                    // the first input will get a leading ", "
+
+                    if(input_ == "")
+                    {
+                        input_ += value;
+                    }
+
+                    else
+                    {
+                        // if the press is within a window of 50ms, then it is
+                        // considered a simultaneous press
+
+                        if(timeSinceLastInput <= simultaneousPressTime)
+                        {
+                            input_ += " + " + value;
+                        }
+
+                        // otherwise, it is considered a sequential press
+                        
+                        else
+                        {
+                            input_ += ", " + value;
+                        }
+                    }
+
+                    // either way, we now need to reset the last input timer
+
+                    t1 = DateTime.Now;
                     timeSinceLastInput = TimeSpan.FromSeconds(0.0);
                 }
 
-                //-- evaulate the string to see if it matches a command
+                //--------------------------
 
+                // see if it matches any of the input strings 
+
+                if(ParseCommand())
+                {
+                    // send the command
+
+                    // flush the input string buffer
+
+                    
+                }
             }
         }
-
-        //======================================================================
-
-
 
         //======================================================================
 

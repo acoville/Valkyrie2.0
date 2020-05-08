@@ -114,10 +114,15 @@ namespace Valkyrie.App.View
 
                     #region render
 
+
+                    /*
                     Task.Run(() =>
                     {
                         RedrawScreen();
                     });
+                     */
+
+                    RedrawScreen();
 
                     #endregion
 

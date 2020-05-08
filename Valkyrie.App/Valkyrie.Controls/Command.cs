@@ -2,12 +2,6 @@
 
 namespace Valkyrie.Controls
 {
-    public enum commands
-    {
-        jump,
-        attack,
-        nullcommand
-    }
 
     //=============================================================
 

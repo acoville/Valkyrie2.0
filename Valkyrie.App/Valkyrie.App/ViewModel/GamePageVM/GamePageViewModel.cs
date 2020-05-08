@@ -39,6 +39,15 @@ namespace Valkyrie.App.ViewModel
 
         //===========================================================
 
+        internal bool displayVirtualController_ = true;
+        public bool DisplayVirtualController
+        {
+            get => displayVirtualController_;
+
+        }
+
+        //===========================================================
+
         /*------------------------------------
          * 
          * Constructor

@@ -16,6 +16,9 @@ namespace Valkyrie.Controls.Test
         public void Setup()
         {
             SUT = new Controller();
+
+            string hadoken = "D, DR, R + B";
+            SUT.Commands.Add(hadoken);
         }
 
         //====================================================================
@@ -35,6 +38,10 @@ namespace Valkyrie.Controls.Test
         {
             SUT.Input = "A";
             Thread.Sleep(250);
+            
+            // have to give it another input since the input string
+            // won't reset itself until it gets a new input
+
             SUT.Input = "A";
 
             var result = SUT.Input;
@@ -43,31 +50,127 @@ namespace Valkyrie.Controls.Test
 
         //===================================================================
 
-        /*------------------------------------------------
+        /*----------------------------------------------------
          * 
          * If the setter property is called within
          * the 250ms time window (1/4 second) then
          * the input string is concatenated instead
-         * of overwritten.
+         * of overwritten. This still passes at a 249ms delay.
          * 
-         * This still passes at a 249ms delay.
+         * A press is considered simultaneous to another press
+         * if it is within 50ms of the previous press
          * 
-         * ---------------------------------------------*/
+         * A + B
+         * 
+         * -------------------------------------------------*/
 
         [Test]
         [Category("Controller")]
         [Category("Input")]
-        public void InputConcatenateTest()
+        public void SimultaneousInputTest()
         {
             SUT.Input = "A";
-            Thread.Sleep(200);
-            SUT.Input = "A";
+            SUT.Input = "B";
 
             var result = SUT.Input;
-            Assert.AreEqual(result, "AA");
+            Assert.AreEqual(result, "A + B");
         }
 
         //=====================================================================
+
+        /*------------------------------------------
+         * 
+         * A press is considered sequential if 
+         * it is within the 250ms window of the last
+         * press but outside the 50ms window of a 
+         * simultaneous press
+         * 
+         * A, B
+         * 
+         * ---------------------------------------*/
+
+        [Test]
+        [Category("Controller")]
+        [Category("Input")]
+        public void SequentialInputTest()
+        {
+            SUT.Input = "A";
+            Thread.Sleep(200);
+            SUT.Input = "B";
+
+            var result = SUT.Input;
+            Assert.AreEqual(result, "A, B");
+        }
+
+        //=====================================================================
+
+        /*---------------------------------------------------
+         * 
+         * Test to make sure that we can get a simultaneous 
+         * press added to a sequence
+         * 
+         * D, DR, R + B
+         * 
+         * ------------------------------------------------*/
+
+        [Test]
+        [Category("Controller")]
+        [Category("Input")]
+        public void SequentialThenSimultaneousTest()
+        {
+            SUT.Input = "D";
+            Thread.Sleep(100);
+
+            SUT.Input = "DR";
+            Thread.Sleep(100);
+
+            SUT.Input = "R";
+            Thread.Sleep(10);
+            SUT.Input = "B";
+
+            var result = SUT.Input;
+            Assert.AreEqual("D, DR, R + B", result);
+        }
+
+        //=====================================================================
+
+        [Test]
+        [Category("Controller")]
+        public void ParseCommandTrueTest()
+        {
+            SUT.Input = "D";
+            Thread.Sleep(100);
+
+            SUT.Input = "DR";
+            Thread.Sleep(100);
+
+            SUT.Input = "R";
+            Thread.Sleep(10);
+            SUT.Input = "B";
+
+            Assert.IsTrue(SUT.ParseCommand());
+        }
+
+        //======================================================================
+
+        [Test]
+        [Category("Controler")]
+        public void ParseCommandFalseTest()
+        {
+            SUT.Input = "D";
+            Thread.Sleep(100);
+
+            SUT.Input = "DR";
+            Thread.Sleep(100);
+
+            SUT.Input = "R";
+            Thread.Sleep(10);
+            SUT.Input = "A";
+
+            Assert.IsFalse(SUT.ParseCommand());
+        }
+
+        //========================================================================
 
 
     }

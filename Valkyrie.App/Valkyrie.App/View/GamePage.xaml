@@ -133,7 +133,9 @@
             <Grid
                 x:Name="Buttons"
                 Grid.Row="0"
-                Grid.Column="0">
+                Grid.Column="0"
+                IsVisible="{Binding DisplayVirtualController}"
+                IsEnabled="{Binding DisplayVirtualController}">
 
                 <Grid.RowDefinitions>
                     
