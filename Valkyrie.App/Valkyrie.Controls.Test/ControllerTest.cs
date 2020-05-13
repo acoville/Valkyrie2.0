@@ -2,13 +2,14 @@ using NUnit.Framework;
 using System.Threading;
 using Valkyrie.App.Model;
 using Valkyrie.GL;
-using Valkyrie.Graphics;
 
 namespace Valkyrie.Controls.Test
 {
     public class ControllerTests
     {
         internal Controller SUT;
+        internal GLCharacter character;
+        internal Actor actor;
 
         //====================================================================
 
@@ -19,6 +20,11 @@ namespace Valkyrie.Controls.Test
 
             string hadoken = "D, DR, R + B";
             SUT.Commands.Add(hadoken);
+
+            character = new GLCharacter();
+            actor = new Actor(character);
+
+            
         }
 
         //====================================================================
@@ -33,7 +39,7 @@ namespace Valkyrie.Controls.Test
 
         [Test]
         [Category("Controller")]
-        [Category("Input")]
+        [Category("Input Recognition")]
         public void InputResetTest()
         {
             SUT.Input = "A";
@@ -66,7 +72,7 @@ namespace Valkyrie.Controls.Test
 
         [Test]
         [Category("Controller")]
-        [Category("Input")]
+        [Category("Input Recognition")]
         public void SimultaneousInputTest()
         {
             SUT.Input = "A";
@@ -91,7 +97,7 @@ namespace Valkyrie.Controls.Test
 
         [Test]
         [Category("Controller")]
-        [Category("Input")]
+        [Category("Input Recognition")]
         public void SequentialInputTest()
         {
             SUT.Input = "A";
@@ -115,7 +121,7 @@ namespace Valkyrie.Controls.Test
 
         [Test]
         [Category("Controller")]
-        [Category("Input")]
+        [Category("Input Recognition")]
         public void SequentialThenSimultaneousTest()
         {
             SUT.Input = "D";
@@ -136,6 +142,7 @@ namespace Valkyrie.Controls.Test
 
         [Test]
         [Category("Controller")]
+        [Category("Input Recognition")]
         public void ParseCommandTrueTest()
         {
             SUT.Input = "D";
@@ -155,6 +162,7 @@ namespace Valkyrie.Controls.Test
 
         [Test]
         [Category("Controler")]
+        [Category("Input Recognition")]
         public void ParseCommandFalseTest()
         {
             SUT.Input = "D";
@@ -172,6 +180,14 @@ namespace Valkyrie.Controls.Test
 
         //========================================================================
 
-
+        [Test]
+        [Category("Controller")]
+        [Category("Control Status")]
+        public void JumpTest()
+        {
+            SUT.ControlStatus.Jump = true;
+            
+            Assert.AreEqual("A", SUT.Input);
+        }
     }
 }

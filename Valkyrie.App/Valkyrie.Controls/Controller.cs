@@ -11,20 +11,58 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Valkyrie.Controls
 {
-    public class Controller : IController
+    public class Controller : IController, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //-- internal timer data relating to input recognition
+
         internal DateTime t1 = DateTime.Now;
         internal DateTime t2;
         internal TimeSpan timeSinceLastInput = TimeSpan.FromSeconds(1.0);
-
-        // we will go with a reset timer of 1/4 second and see how that feels
-
         internal TimeSpan resetTime = TimeSpan.FromMilliseconds(250);
         internal TimeSpan simultaneousPressTime = TimeSpan.FromMilliseconds(50);
+
+        //=======================================================================
+
+        /*---------------------------------------
+         * 
+         * Property which should be bound to 
+         * matching GPVM.Actor 
+         * 
+         * -------------------------------------*/
+
+        internal ControlStatus status_;
+        public ControlStatus ControlStatus
+        {
+            get => status_;
+
+            set
+            {
+                status_ = value;
+                EvaluateControlStatus();
+                RaisePropertyChanged();
+            }
+        }
+
+        //=======================================================================
+
+        internal void EvaluateControlStatus()
+        {
+            Input = "A";
+            
+            /*
+            if(status_.Jump)
+            {
+            }
+             */
+        }
 
         //=======================================================================
 
@@ -38,6 +76,8 @@ namespace Valkyrie.Controls
 
         public Controller()
         {
+            status_ = new ControlStatus();
+
             Commands = new List<string>
             {
                 // directionals
@@ -118,6 +158,7 @@ namespace Valkyrie.Controls
          * -------------------------------------------------------------*/
 
         internal string input_ = "";
+
         public string Input
         {
             get => input_;
@@ -194,9 +235,15 @@ namespace Valkyrie.Controls
 
         //======================================================================
 
-        public Command SendCommand()
+        /*---------------------------------------
+         * 
+         * Raise Property Changed Event Handler
+         * 
+         * -------------------------------------*/
+
+        protected void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
-            throw new NotImplementedException();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
     }
 }

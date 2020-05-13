@@ -6,6 +6,6 @@ namespace Valkyrie.Controls
 {
     public interface IController
     {
-        Command SendCommand();
+        ControlStatus ControlStatus { get; set; }
     }
 }

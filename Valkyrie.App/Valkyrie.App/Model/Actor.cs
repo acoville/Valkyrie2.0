@@ -1,15 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 using Valkryie.GL;
 using Valkyrie.GL;
 using Valkyrie.Graphics;
+using Valkyrie.Controls;
 
 namespace Valkyrie.App.Model
 {
     public class Actor
     {
+        //=====================================================================
+
+        /*---------------------------------------
+         * 
+         * Control Status
+         * 
+         * ------------------------------------*/
+
+        internal ControlStatus status_;
+        public ControlStatus ControlStatus
+        {
+            get => status_;
+            set => status_ = value;
+        }
+
         //=====================================================================
 
         /*------------------------------------
