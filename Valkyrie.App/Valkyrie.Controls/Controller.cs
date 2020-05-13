@@ -22,8 +22,8 @@ namespace Valkyrie.Controls
         internal TimeSpan timeSinceLastInput = TimeSpan.FromSeconds(1.0);
 
         // we will go with a reset timer of 1/4 second and see how that feels
-        internal TimeSpan resetTime = TimeSpan.FromMilliseconds(250);
 
+        internal TimeSpan resetTime = TimeSpan.FromMilliseconds(250);
         internal TimeSpan simultaneousPressTime = TimeSpan.FromMilliseconds(50);
 
         //=======================================================================

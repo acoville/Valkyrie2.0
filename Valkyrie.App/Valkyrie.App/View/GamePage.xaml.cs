@@ -89,6 +89,15 @@ namespace Valkyrie.App.View
         {
             base.OnAppearing();
 
+            if (Preferences.Get("Controller", "Virtual Gamepad") == "Virtual Gamepad")
+            {
+                gpvm_.DisplayVirtualController = true;
+            }
+            else
+            {
+                gpvm_.DisplayVirtualController = false;
+            }
+
             gpvm_.ControlOpacity = Preferences.Get("controlOpacity", 0.85);
             gpvm_.DisplayEnv = Preferences.Get("displayEnv", false);
             gpvm_.DisplayFPS = Preferences.Get("display_FPS", false);
@@ -179,15 +188,6 @@ namespace Valkyrie.App.View
             {
                 gpvm_.Paused = false;
                 Pause_Btn.Text = "PAUSE";
-
-                if(Preferences.Get("Controller", "Virtual Gamepad") == "Virtual Gamepad")
-                {
-                    gpvm_.DisplayVirtualController = true;
-                }
-                else
-                {
-                    gpvm_.DisplayVirtualController = false;
-                }
 
                 return;
             }

@@ -14,6 +14,7 @@ using Valkryie.GL;
 using Valkyrie.App.Model;
 using System.Collections.Generic;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -36,25 +37,47 @@ namespace Valkyrie.App.ViewModel
             obstacles_ = new List<Obstacle>();
             props_ = new List<Prop>();
 
+            SetupPlayerOne();
+        }
+
+        //=============================================================
+
+        /*------------------------------------------
+         * 
+         * Helper function to setup control
+         * of player1
+         * 
+         * --------------------------------------*/
+
+        internal void SetupPlayerOne()
+        {
+            //-- set up player control
+
             string input = Preferences.Get("Controller", "Virtual Gamepad");
 
-            if(input == "Virtual Gamepad")
+            switch (input)
             {
-                DisplayVirtualController = true;
-            }
+                case ("Virtual Gamepad"):
+                {
+                    DisplayVirtualController = true;
+                    break;
+                }
 
-            else
-            {
-                DisplayVirtualController = false;
+                //---------------------------------------
 
-                //deviceScreen_.ScrollBox.GLRect.Bottom -= 64;
-                //deviceScreen_.ScrollBox.Skia.Bottom += 64;
-                //AlignGamePiecesToScreen();
+                case ("Keyboard + Mouse"):
+                {
+                    DisplayVirtualController = false;
+                    break;
+                }
 
+                //---------------------------------------
 
-                // move the scrollbox's lower boundary down 1 cube / 64 pixels
-                // it would mean repositioning everything on screen again.. 
-
+                case ("Gamepad"):
+                {
+                    DisplayVirtualController = false;
+                    break;
+                }
             }
         }
 
