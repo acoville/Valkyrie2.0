@@ -15,6 +15,7 @@ using Valkyrie.App.Model;
 using System.Collections.Generic;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Valkyrie.Controls;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -37,7 +38,9 @@ namespace Valkyrie.App.ViewModel
             obstacles_ = new List<Obstacle>();
             props_ = new List<Prop>();
 
-            SetupPlayerOne();
+            controllers_ = new List<IController>();
+
+            SetupPlayerOneController();
         }
 
         //=============================================================
@@ -49,9 +52,11 @@ namespace Valkyrie.App.ViewModel
          * 
          * --------------------------------------*/
 
-        internal void SetupPlayerOne()
+        internal void SetupPlayerOneController()
         {
-            //-- set up player control
+            Controller p1Controller = new Controller();
+
+            //-- determine control type
 
             string input = Preferences.Get("Controller", "Virtual Gamepad");
 
@@ -60,6 +65,10 @@ namespace Valkyrie.App.ViewModel
                 case ("Virtual Gamepad"):
                 {
                     DisplayVirtualController = true;
+                    
+                    // a helper function to map the virtual buttons to the 
+                    // p1Controller's control state?
+
                     break;
                 }
 
@@ -68,6 +77,10 @@ namespace Valkyrie.App.ViewModel
                 case ("Keyboard + Mouse"):
                 {
                     DisplayVirtualController = false;
+
+                    // a helper function to map keyboard + mouse buttons 
+                    // to the p1Controller's control state
+
                     break;
                 }
 
@@ -76,9 +89,18 @@ namespace Valkyrie.App.ViewModel
                 case ("Gamepad"):
                 {
                     DisplayVirtualController = false;
+
+                    // a helper function to map the Gamepad's buttons 
+                    // to the p1Controller's control state
+
                     break;
                 }
             }
+
+            // whatever is now controlling that controller, 
+            // add the player1 controller to gpvm.controllers_[0]
+
+            controllers_.Add(p1Controller);
         }
 
         //=============================================================

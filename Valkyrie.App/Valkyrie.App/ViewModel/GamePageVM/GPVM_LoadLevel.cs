@@ -49,16 +49,11 @@ namespace Valkyrie.App.ViewModel
             var path = "Valkyrie.App.Images.Backgrounds." + map.BackgroundImage;
             BackgroundImage = ImageSource.FromResource(path);
 
+            //-- level data
+
             LoadStartingPosition(map);
             LoadObstacles(map);
             LoadProps(map);
-
-            // set up player1
-
-
-
-            // load actors
-
             LoadCharacters(map);
 
             levelLoaded_ = true;
@@ -145,12 +140,22 @@ namespace Valkyrie.App.ViewModel
             foreach(var character in map.Characters)
             {
                 Actor actor = new Actor(character);
-                actor.Sprite = CreateSprite(actor);
-
-                // set up control system                
                 
+                actor.Sprite = CreateSprite(actor);
                 actors_.Add(actor);
                 deviceScreen_.AddActor(actor);
+
+                // set up control system                
+
+                // is this player1? If yes, then connect it to controllers_[0]
+
+                if (actor.Team == 0)
+                {
+                    // I think this means any change in controller_[0]'s status
+                    // should change the control status of this actor.
+
+                    actor.ControlStatus = controllers_[0].ControlStatus;
+                }
             }
         }
 

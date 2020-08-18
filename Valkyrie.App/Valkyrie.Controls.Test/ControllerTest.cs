@@ -29,6 +29,27 @@ namespace Valkyrie.Controls.Test
 
         //====================================================================
 
+        [Test]
+        [Category("Controller")]
+        [Category("Actor")]
+        public void LinkedControlStateTest()
+        {
+            actor.ControlStatus = SUT.ControlStatus;
+            SUT.ControlStatus.Attack = true;
+
+            var actorIsAttacking = actor.ControlStatus.Attack;
+
+            Assert.IsTrue(actorIsAttacking);
+
+            SUT.ControlStatus.Attack = false;
+            actorIsAttacking = actor.ControlStatus.Attack;
+
+            Assert.IsFalse(actorIsAttacking);
+        }
+
+
+        //====================================================================
+
         /*------------------------------------------------
          * 
          * If the user waits too long (250ms) to enter another

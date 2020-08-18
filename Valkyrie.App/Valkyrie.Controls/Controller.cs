@@ -46,6 +46,7 @@ namespace Valkyrie.Controls
             set
             {
                 status_ = value;
+
                 EvaluateControlStatus();
                 RaisePropertyChanged();
             }

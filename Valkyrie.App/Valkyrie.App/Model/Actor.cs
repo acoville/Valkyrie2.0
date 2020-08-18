@@ -46,6 +46,14 @@ namespace Valkyrie.App.Model
             //set => character_.GLPosition.MoveTo(value);
         }
 
+        //-------------------------------------------------
+
+        public int Team
+        {
+            get => character_.Team;
+            set => character_.Team = value;
+        }
+
         //====================================================================
 
         /*-----------------------------------
