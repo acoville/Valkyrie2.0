@@ -56,6 +56,10 @@ namespace Valkyrie.App.ViewModel
             LoadProps(map);
             LoadCharacters(map);
 
+            //-- connect the controller
+
+            actors_[0].ControlStatus = controllers_[0].ControlStatus;
+
             levelLoaded_ = true;
         }
 

@@ -219,11 +219,11 @@
                         <ImageButton.Behaviors>
                             <behaviors:EventToCommandBehavior
                                 EventName="Pressed"
-                                Command="{Binding RightCommand}" />
+                                Command="{Binding UpCommand}" />
 
                             <behaviors:EventToCommandBehavior
                                 EventName="Released"
-                                Command="{Binding NullCommand}" />
+                                Command="{Binding UpReleaseCommand}" />
                         </ImageButton.Behaviors>
 
                         <VisualStateManager.VisualStateGroups>
@@ -260,7 +260,7 @@
 
                             <behaviors:EventToCommandBehavior
                                 EventName="Released"
-                                Command="{Binding NullCommand}" />
+                                Command="{Binding UpRightReleaseCommand}" />
                         </ImageButton.Behaviors>
 
                         <VisualStateManager.VisualStateGroups>
@@ -297,7 +297,7 @@
 
                             <behaviors:EventToCommandBehavior
                                 EventName="Released"
-                                Command="{Binding NullCommand}" />
+                                Command="{Binding RightReleaseCommand}" />
                         </ImageButton.Behaviors>
 
                         <VisualStateManager.VisualStateGroups>
@@ -334,7 +334,7 @@
 
                             <behaviors:EventToCommandBehavior
                                 EventName="Released"
-                                Command="{Binding NullCommand}" />
+                                Command="{Binding DownRightReleaseCommand}" />
                         </ImageButton.Behaviors>
 
                         <VisualStateManager.VisualStateGroups>
@@ -371,7 +371,7 @@
 
                             <behaviors:EventToCommandBehavior
                                 EventName="Released"
-                                Command="{Binding NullCommand}" />
+                                Command="{Binding DownReleaseCommand}" />
                         </ImageButton.Behaviors>
 
                         <VisualStateManager.VisualStateGroups>
@@ -408,7 +408,7 @@
 
                             <behaviors:EventToCommandBehavior
                                 EventName="Released"
-                                Command="{Binding NullCommand}" />
+                                Command="{Binding DownLeftReleaseCommand}" />
                         </ImageButton.Behaviors>
 
                         <VisualStateManager.VisualStateGroups>
@@ -445,7 +445,7 @@
 
                             <behaviors:EventToCommandBehavior
                                 EventName="Released"
-                                Command="{Binding NullCommand}" />
+                                Command="{Binding LeftReleaseCommand}" />
                         </ImageButton.Behaviors>
 
                         <VisualStateManager.VisualStateGroups>
@@ -482,7 +482,7 @@
 
                             <behaviors:EventToCommandBehavior
                                 EventName="Released"
-                                Command="{Binding NullCommand}" />
+                                Command="{Binding UpLeftReleaseCommand}" />
                         </ImageButton.Behaviors>
 
                         <VisualStateManager.VisualStateGroups>

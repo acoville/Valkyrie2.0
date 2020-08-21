@@ -65,10 +65,7 @@ namespace Valkyrie.App.ViewModel
                 case ("Virtual Gamepad"):
                 {
                     DisplayVirtualController = true;
-                    
-                    // a helper function to map the virtual buttons to the 
-                    // p1Controller's control state?
-
+                    MapVirtualGamepad(p1Controller);
                     break;
                 }
 
@@ -77,10 +74,7 @@ namespace Valkyrie.App.ViewModel
                 case ("Keyboard + Mouse"):
                 {
                     DisplayVirtualController = false;
-
-                    // a helper function to map keyboard + mouse buttons 
-                    // to the p1Controller's control state
-
+                    MapKBM(p1Controller);
                     break;
                 }
 
@@ -89,10 +83,7 @@ namespace Valkyrie.App.ViewModel
                 case ("Gamepad"):
                 {
                     DisplayVirtualController = false;
-
-                    // a helper function to map the Gamepad's buttons 
-                    // to the p1Controller's control state
-
+                    MapGamepad(p1Controller);
                     break;
                 }
             }
@@ -102,6 +93,28 @@ namespace Valkyrie.App.ViewModel
 
             controllers_.Add(p1Controller);
         }
+
+        //=============================================================
+
+        internal void MapVirtualGamepad(Controller xcontroller)
+        {
+            
+        }
+
+        //=============================================================
+
+        internal void MapKBM(Controller xcontroller)
+        {
+
+        }
+
+        //==============================================================
+
+        internal void MapGamepad(Controller xcontroller)
+        {
+        
+        }
+
 
         //=============================================================
 

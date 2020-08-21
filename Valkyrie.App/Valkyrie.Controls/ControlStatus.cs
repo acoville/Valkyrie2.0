@@ -25,7 +25,7 @@ namespace Valkyrie.Controls
 
         //-------------------------------------------------
 
-        internal DirectionalStatus directional_;
+        internal DirectionalStatus directional_ = new DirectionalStatus();
         public DirectionalStatus DirectionalStatus
         {
             get => directional_;

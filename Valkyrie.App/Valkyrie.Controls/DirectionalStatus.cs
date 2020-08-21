@@ -6,6 +6,26 @@ namespace Valkyrie.Controls
 {
     public class DirectionalStatus
     {
+        //===================================================
+
+        /*--------------------------------
+         * 
+         * Default Constructor
+         * 
+
+        public DirectionalStatus()
+        {
+            up_ = false;
+            ur_ = false;
+            right_ = false;
+            dr_ = false;
+            down_ = false;
+            dl_ = false;
+            left_ = false;
+            ul_ = false;
+        }
+         * -----------------------------*/
+
         //---------------------------------------------------
 
         internal bool down_ = false;
@@ -76,6 +96,26 @@ namespace Valkyrie.Controls
         {
             get => ur_;
             set => ur_ = value;
+        }
+
+
+        //======================================================================
+
+        /*------------------------------------
+         * 
+         *  Null Direction command
+         * 
+         * ---------------------------------*/
+        public void NullDirection()
+        {
+            U = false;
+            UR = false;
+            R = false;
+            DR = false;
+            D = false;
+            DL = false;
+            L = false;
+            UL = false;
         }
     }
 }
