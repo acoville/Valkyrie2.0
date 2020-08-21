@@ -22,14 +22,14 @@ namespace Valkyrie.App.Test
          * Running on my Windows laptop localhost, 
          * this test should return true.
          * 
-         * ------------------------------------------*/
 
         [Test]
         [Category("HardwareDetection")]
         public void KeyboardDetectionTest()
         {
-            bool kbPresent = covm_.KeyboardPresent;
+            //bool kbPresent = covm_.KeyboardPresent;
             //Assert.IsTrue(kbPresent);
         }
+         * ------------------------------------------*/
     }
 }

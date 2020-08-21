@@ -38,6 +38,33 @@ namespace Valkyrie.GL.Test
             Assert.Pass();
         }
 
+        //=========================================================================
 
+        /*--------------------------------------------------
+         * 
+         * Tests of the X axis acceleration
+         * 
+         * simulating what GPVM.EvaluateHorizontalMotion()
+         * would typically invoke, 
+         * 
+         * Actor.Translate()
+         *      -> GLCharacter.Accelerate()
+         * 
+         * ------------------------------------------------*/
+
+        [Test]
+        [Category("Character")]
+        [Category("Motion")]
+        public void Max_X_AccelerationRateTest()
+        {
+            GLCharacter SUT = new GLCharacter();
+            SUT.GLPosition = new GLPosition(50.0f, 0.0f);
+
+            SUT.X_Acceleration_Rate = 5.0f;
+            SUT.Accelerate();
+
+            float newX = SUT.GLPosition.X;
+            Assert.AreEqual(55.0f, newX);
+        }
     }
 }
