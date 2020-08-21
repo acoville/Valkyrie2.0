@@ -47,28 +47,5 @@ namespace Valkyrie.GL
             set => team_ = value;
         }
 
-        //=========================================================
-
-        /*-------------------------------
-         * 
-         *  Control Variables
-         * 
-         * ----------------------------*/
-
-        private String currentCommand_ = "standing";
-        public String Command
-        {
-            get
-            {
-                return currentCommand_;
-            }
-            set
-            {
-                if (!Dead)
-                {
-                    currentCommand_ = value;
-                }
-            }
-        }
     }
 }

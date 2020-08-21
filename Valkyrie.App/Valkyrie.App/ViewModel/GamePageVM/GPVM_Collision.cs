@@ -21,6 +21,7 @@ namespace Valkyrie.App.ViewModel
         {
             foreach(var actor in actors_)
             {
+
                 await EvaluateVerticalMotion(actor);
                 await EvaluateHorizontalMotion(actor);
             }
@@ -31,6 +32,8 @@ namespace Valkyrie.App.ViewModel
         /*-------------------------------------
          * 
          * Evaluate Vertical Motion and Collision
+         * 
+         * 
          * 
          * -----------------------------------*/
 
@@ -44,6 +47,8 @@ namespace Valkyrie.App.ViewModel
         /*-------------------------------------
          * 
          * Evaluate Horizontal Motion and Collision
+         * 
+         * 
          * 
          * -----------------------------------*/
 
