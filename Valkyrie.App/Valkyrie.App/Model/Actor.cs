@@ -110,6 +110,16 @@ namespace Valkyrie.App.Model
             Sprite = new Sprite();
         }
 
+        //====================================================================
+
+        public void Accelerate()
+        {
+            float delta_x = Accelerate_X();
+            float delta_y = Accelerate_Y();
+
+            Translate(delta_x, delta_y);
+        }
+
         //==================================================================
 
         public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
@@ -152,10 +162,16 @@ namespace Valkyrie.App.Model
 
             set
             {
-                if (value <= max_x_acceleration_rate)
+                if (value < 0)
+                {
+                    x_acceleration_rate = 0.0f;
+                }
+
+                else if (value <= max_x_acceleration_rate)
                 {
                     x_acceleration_rate = value;
                 }
+                
                 else
                 {
                     x_acceleration_rate = max_x_acceleration_rate;
@@ -165,12 +181,18 @@ namespace Valkyrie.App.Model
 
         //====================================================================
 
-        public void Accelerate()
-        {
-            float delta_x = Accelerate_X();
-            float delta_y = Accelerate_Y();
+        /*---------------------------------------
+         * 
+         * This will be invoked in situations 
+         * where there's a colliding object 
+         * blocking you from going any further
+         * 
+         * -------------------------------------*/
 
-            Translate(delta_x, delta_y);
+        public void StopXAxisMotion()
+        {
+            X_Acceleration_Rate = 0.0f;
+            x_speed = 0.0f;
         }
 
         //===================================================================
@@ -191,11 +213,87 @@ namespace Valkyrie.App.Model
             return x_speed;
         }
 
+        //==========================================================================
+
+        /*-----------------------------------------------------
+         * 
+         *  Y Axis Characteristics
+         * 
+         * --------------------------------------------------*/
+
+        //-- character's current speed in the y axis, either left or right as 
+        //-- governed by the facing property
+
+        internal float y_speed = 0.0f;
+
+        //-- at max_y_speed, y_acceleration_rate will stop accelerating and become 0
+
+        internal float max_y_speed = 100.0f;
+
+        //-- max y acceleration rate 
+
+        internal float max_y_acceleration_rate = 5.5f;
+
+        //-- y acceleration rate, governs how much delta-Y we see in each given frame
+        //-- this is the value that is updated by GPVM during EvaluateVerticalMotion()
+
+        internal float y_acceleration_rate = 0.0f;
+
+        public float Y_Acceleration_Rate
+        {
+            get => y_acceleration_rate;
+
+            set
+            {
+                if (value < 0)
+                {
+                    y_acceleration_rate = 0.0f;
+                }
+
+                else if (value <= max_y_acceleration_rate)
+                {
+                    y_acceleration_rate = value;
+                }
+
+                else
+                {
+                    y_acceleration_rate = max_y_acceleration_rate;
+                }
+            }
+        }
+
+        //====================================================================
+
+        /*---------------------------------------
+         * 
+         * This will be invoked in situations 
+         * where there's a colliding object 
+         * blocking you from going any further
+         * 
+         * -------------------------------------*/
+
+        public void StopYAxisMotion()
+        {
+            Y_Acceleration_Rate = 0.0f;
+            y_speed = 0.0f;
+        }
+
         //===================================================================
 
         public float Accelerate_Y()
         {
-            return 0.0f;
+            if (y_speed + y_acceleration_rate <= max_y_speed)
+            {
+                y_speed += y_acceleration_rate;
+            }
+
+            else
+            {
+                y_speed = max_y_speed;
+                y_acceleration_rate = 0.0f;
+            }
+
+            return y_speed;
         }
     }
 }
