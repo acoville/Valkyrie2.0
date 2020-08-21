@@ -5,9 +5,6 @@ namespace Valkyrie.GL
 {
     public partial class GLCharacter
     {
-        //=============================================
-        // ATTRIBUTES
-
         internal GLRect gLRect_ = new GLRect();
         public GLRect GLRect
         {
