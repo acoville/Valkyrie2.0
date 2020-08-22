@@ -269,5 +269,8 @@ namespace Valkyrie.Model.Test
 
             Assert.AreEqual(expectedX, newX);
         }
+
+        
+
     }
 }

@@ -17,13 +17,12 @@ namespace Valkyrie.App.ViewModel
          * 
          * -----------------------------------*/
 
-        public async Task EvaluateMovement()
+        public void EvaluateMovement()
         {
             foreach(var actor in actors_)
             {
-
-                await EvaluateVerticalMotion(actor);
-                await EvaluateHorizontalMotion(actor);
+                EvaluateHorizontalMotion(actor);
+                //EvaluateVerticalMotion(actor);
             }
         }
 
@@ -37,7 +36,7 @@ namespace Valkyrie.App.ViewModel
          * 
          * -----------------------------------*/
 
-        internal async Task EvaluateVerticalMotion(Actor actor)
+        internal void EvaluateVerticalMotion(Actor actor)
         {
 
         }
@@ -52,7 +51,7 @@ namespace Valkyrie.App.ViewModel
          * 
          * -----------------------------------*/
 
-        internal async Task EvaluateHorizontalMotion(Actor actor)
+        internal void EvaluateHorizontalMotion(Actor actor)
         {
 
         }

@@ -92,7 +92,6 @@ namespace Valkyrie.App.Model
         public GLPosition GLPosition
         {
             get => character_.GLPosition;
-            //set => character_.GLPosition.MoveTo(value);
         }
 
         //-------------------------------------------------
@@ -123,7 +122,6 @@ namespace Valkyrie.App.Model
         public SKPosition SKPosition
         {
             get => sprite_.SKPosition;
-            //set => sprite_.Move(value);
         }
 
         //--------------------------------------------------
@@ -213,7 +211,7 @@ namespace Valkyrie.App.Model
 
         //-- at max_x_speed, x_acceleration_rate will stop accelerating and become 0
 
-        internal float max_x_speed = 100.0f;
+        internal float max_x_speed = 20.0f;
 
         //-- max x acceleration rate 
 
@@ -267,12 +265,24 @@ namespace Valkyrie.App.Model
 
         //===================================================================
 
+        /*----------------------------------------
+         * 
+         * calculates the deltaX for a .Translate()
+         * call, based on the current speed in the x 
+         * axis and the x_acceleration rate
+         * 
+         * --------------------------------------*/
+
         public float Accelerate_X()
         {
+            //-- if we are below max speed, increment speed  
+
             if (x_speed + x_acceleration_rate <= max_x_speed)
             {
                 x_speed += x_acceleration_rate;
             }
+
+            //-- if we have gotten to max speed, then stop accelerating
 
             else
             {

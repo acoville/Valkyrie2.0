@@ -52,6 +52,9 @@ namespace Valkyrie.App.View
          * Function to call SkiaSharp 
          * View's invalidate surface command
          * 
+         * I would love to cache this somehow.. 
+         * compare hashes perhaps? 
+         * 
          * -----------------------------------*/
 
         public void Redraw()
@@ -111,11 +114,8 @@ namespace Valkyrie.App.View
                 if (gpvm_.Paused == false)
                 {
                     #region collision detection
-                    
-                    Task.Run(async () =>
-                    {
-                        await gpvm_.EvaluateMovement();
-                    });
+
+                    gpvm_.EvaluateMovement();
 
                     #endregion
 
@@ -123,13 +123,6 @@ namespace Valkyrie.App.View
 
                     #region render
 
-
-                    /*
-                    Task.Run(() =>
-                    {
-                        RedrawScreen();
-                    });
-                     */
 
                     RedrawScreen();
 
