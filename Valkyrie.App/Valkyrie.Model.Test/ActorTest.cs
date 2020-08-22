@@ -15,6 +15,7 @@ using Valkryie.GL;
 using Valkyrie.App.Model;
 using Valkyrie.GL;
 using Valkyrie.Graphics;
+using Valkyrie.Controls;
 
 namespace Valkyrie.Model.Test
 {
@@ -23,6 +24,9 @@ namespace Valkyrie.Model.Test
         internal GLCharacter character;
         internal Sprite sprite;
         internal Actor SUT;
+        internal Controller test_controller;
+
+        //=========================================================================
         
         [SetUp]
         public void Setup()
@@ -30,6 +34,12 @@ namespace Valkyrie.Model.Test
             character = new GLCharacter();
             sprite = new Sprite();
             SUT = new Actor(character);
+            test_controller = new Controller();
+
+            //-- perhaps I should have a helper function that links 
+            // an actor to a controller? 
+
+            SUT.ControlStatus = test_controller.ControlStatus;
         }
 
         //=========================================================================
@@ -114,9 +124,9 @@ namespace Valkyrie.Model.Test
 
         /*--------------------------------------------------
          * 
-         * Tests of the X axis acceleration
+         * Tests of the Y axis acceleration
          * 
-         * simulating what GPVM.EvaluateHorizontalMotion()
+         * simulating what GPVM.EvaluateVerticalMotion()
          * would typically invoke the acceleration rate setters,
          * then the Accelerate() function, which in turn calls
          * Translate()
@@ -186,6 +196,78 @@ namespace Valkyrie.Model.Test
             var NewYAccelRate = SUT.Y_Acceleration_Rate;
 
             Assert.AreEqual(0.0f, NewYAccelRate);
+        }
+
+        //=================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Motion")]
+        public void FacingRightTest()
+        {
+            // actor's direction should now be right
+
+            var facing = SUT.Facing;
+
+            Assert.AreEqual(facing, Actor.facing.right);
+        }
+
+        //==================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Motion")]
+        public void FacingLeftTest()
+        {
+            SUT.Facing = Actor.facing.left;
+
+            // actor's direction should now be left
+
+            var facing = SUT.Facing;
+
+            Assert.AreEqual(Actor.facing.left, facing);
+        }
+
+        //===================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Motion")]
+        [Category("X Axis")]
+        public void FacingLeftCausesNegativeDeltaXTest()
+        {
+            var oldX = SUT.GLPosition.X;
+
+            SUT.Facing = Actor.facing.left;
+            SUT.X_Acceleration_Rate = 5.5f;
+            SUT.Accelerate();
+
+            var newX = SUT.GLPosition.X;
+
+            var expectedX = oldX - 5.5f;
+
+            Assert.AreEqual(expectedX, newX);
+        }
+
+        //===================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Motion")]
+        [Category("X Axis")]
+        public void FacingRightCausesPositiveDeltaXTest()
+        {
+            var oldX = SUT.GLPosition.X;
+
+            SUT.Facing = Actor.facing.right;
+            SUT.X_Acceleration_Rate = 5.5f;
+            SUT.Accelerate();
+
+            var newX = SUT.GLPosition.X;
+
+            var expectedX = oldX + 5.5f;
+
+            Assert.AreEqual(expectedX, newX);
         }
     }
 }

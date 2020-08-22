@@ -3,10 +3,12 @@ using Valkryie.GL;
 using Valkyrie.GL;
 using Valkyrie.Graphics;
 using Valkyrie.Controls;
+using Windows.UI.Input;
+using System.ComponentModel;
 
 namespace Valkyrie.App.Model
 {
-    public class Actor
+    public class Actor : INotifyPropertyChanged
     {
         //=====================================================================
 
@@ -20,7 +22,54 @@ namespace Valkyrie.App.Model
         public ControlStatus ControlStatus
         {
             get => status_;
-            set => status_ = value;
+
+            set
+            {
+                // what direction are we facing now? 
+                // determine if we have to change facing and 
+                // mirror the Sprite 
+
+                var current_facing = Facing;
+
+                if(value.DirectionalStatus.L && (current_facing == facing.right))
+                {
+                    facing_ = facing.left;
+                    Sprite.Mirror();
+                }
+                
+                else if(value.DirectionalStatus.R && (current_facing == facing.left))
+                {
+                    facing_ = facing.right;
+                    Sprite.Mirror();
+                }
+
+                status_ = value;
+            } 
+        }
+
+        //=====================================================================
+
+        public enum facing
+        {
+            left, right
+        };
+
+        internal facing facing_ = facing.right;
+        public facing Facing
+        {
+            get => facing_;
+            
+            set
+            {
+                var oldFacing = facing_;
+                
+                facing_ = value;
+
+                if(facing_ != oldFacing)
+                {
+                    sprite_.Mirror();
+                }
+            }
         }
 
         //=====================================================================
@@ -108,6 +157,7 @@ namespace Valkyrie.App.Model
             GLCharacter = new GLCharacter(node);
             imageSource_ = GLCharacter.SpriteSource;
             Sprite = new Sprite();
+            ControlStatus = new ControlStatus();
         }
 
         //====================================================================
@@ -122,9 +172,29 @@ namespace Valkyrie.App.Model
 
         //==================================================================
 
-        public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
+        /*------------------------------------------
+         * 
+         *  Once the deltas have been calculated
+         *  using .Accelerate(), Translate() can 
+         *  be invoked to actually move the Actor.
+         * 
+         * ----------------------------------------*/
+
+        internal void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
         {
+            if(Facing == facing.left)
+            {
+                deltaX = (-deltaX);
+            }
+
+            //-- the Game Logic position translates with normal deltaY
+            // where the Y origin is at the bottom of the screen.
+
             character_.GLPosition.Translate(deltaX, deltaY, deltaZ);
+
+            //-- the SKPosition has to invert deltaY owing to the Y origin 
+            // being at the top of the screen in Skia
+
             Sprite.Translate(deltaX, (-deltaY), deltaZ);
         }
 
@@ -238,6 +308,8 @@ namespace Valkyrie.App.Model
         //-- this is the value that is updated by GPVM during EvaluateVerticalMotion()
 
         internal float y_acceleration_rate = 0.0f;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public float Y_Acceleration_Rate
         {

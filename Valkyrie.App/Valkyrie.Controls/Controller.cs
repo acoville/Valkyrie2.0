@@ -56,7 +56,7 @@ namespace Valkyrie.Controls
 
         internal void EvaluateControlStatus()
         {
-            Input = "A";
+            //Input = "A";
             
             /*
             if(status_.Jump)

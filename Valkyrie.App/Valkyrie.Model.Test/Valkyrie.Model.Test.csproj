@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\Valkryie.GL\Valkryie.GL.csproj" />
     <ProjectReference Include="..\..\Valkyrie.Graphics\Valkyrie.Graphics.csproj" />
     <ProjectReference Include="..\Valkyrie.App\Valkyrie.App.csproj" />
+    <ProjectReference Include="..\Valkyrie.Controls\Valkyrie.Controls.csproj" />
   </ItemGroup>
 
 </Project>
