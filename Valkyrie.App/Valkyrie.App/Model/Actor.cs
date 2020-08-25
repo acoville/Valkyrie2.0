@@ -5,11 +5,15 @@ using Valkyrie.Graphics;
 using Valkyrie.Controls;
 using Windows.UI.Input;
 using System.ComponentModel;
+using System;
+using System.Runtime.CompilerServices;
 
 namespace Valkyrie.App.Model
 {
     public class Actor : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         //=====================================================================
 
         /*---------------------------------------
@@ -163,7 +167,9 @@ namespace Valkyrie.App.Model
         public void Accelerate()
         {
             float delta_x = Accelerate_X();
-            float delta_y = Accelerate_Y();
+            //float delta_y = Accelerate_Y();
+
+            float delta_y = 0.0f;
 
             Translate(delta_x, delta_y);
         }
@@ -180,11 +186,6 @@ namespace Valkyrie.App.Model
 
         internal void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
         {
-            if(Facing == facing.left)
-            {
-                deltaX = (-deltaX);
-            }
-
             //-- the Game Logic position translates with normal deltaY
             // where the Y origin is at the bottom of the screen.
 
@@ -204,6 +205,9 @@ namespace Valkyrie.App.Model
          * 
          * --------------------------------------------------*/
 
+        //---------------------------------------------------------------------
+        // SPEED
+
         //-- character's current speed in the x axis, either left or right as 
         //-- governed by the facing property
 
@@ -213,14 +217,25 @@ namespace Valkyrie.App.Model
 
         internal float max_x_speed = 20.0f;
 
+        //---------------------------------------------------------------------
+        // ACCELERATION
+
+        //-- default acceleration rate, which might be changed by powerups, etc 
+        //-- so it should have a public property
+
+        internal float default_x_acceleration_rate = 1.5f;
+        public float DefaultXAccelRate
+        {
+            get => default_x_acceleration_rate;
+            set => default_x_acceleration_rate = value;
+        }
+
         //-- max x acceleration rate 
 
         internal float max_x_acceleration_rate = 5.5f;
 
         //-- x acceleration rate, governs how much delta-X we see in each given frame
         //-- this is the value that is updated by GPVM during EvaluateHorizontalMotion()
-        //-- the acceleration is dimensionless, positive or negative does not indicate
-        //-- direction.
 
         internal float x_acceleration_rate = 0.0f;
 
@@ -230,19 +245,29 @@ namespace Valkyrie.App.Model
 
             set
             {
-                if (value < 0)
+                /*
+                 *  bounds check the acceleration rate against max x acceleration
+                 */
+
+                var absValue = Math.Abs(value);
+
+                if(absValue > max_x_acceleration_rate)
                 {
-                    x_acceleration_rate = 0.0f;
+                    if(value < 0)
+                    {
+                        x_acceleration_rate = (-max_x_acceleration_rate);
+                    }
+                    else
+                    {
+                        x_acceleration_rate = max_x_acceleration_rate;
+                    }
                 }
 
-                else if (value <= max_x_acceleration_rate)
-                {
-                    x_acceleration_rate = value;
-                }
-                
+                // otherwise, just accept the value
+
                 else
                 {
-                    x_acceleration_rate = max_x_acceleration_rate;
+                    x_acceleration_rate = value;
                 }
             }
         }
@@ -295,87 +320,9 @@ namespace Valkyrie.App.Model
 
         //==========================================================================
 
-        /*-----------------------------------------------------
-         * 
-         *  Y Axis Characteristics
-         * 
-         * --------------------------------------------------*/
-
-        //-- character's current speed in the y axis, either left or right as 
-        //-- governed by the facing property
-
-        internal float y_speed = 0.0f;
-
-        //-- at max_y_speed, y_acceleration_rate will stop accelerating and become 0
-
-        internal float max_y_speed = 100.0f;
-
-        //-- max y acceleration rate 
-
-        internal float max_y_acceleration_rate = 5.5f;
-
-        //-- y acceleration rate, governs how much delta-Y we see in each given frame
-        //-- this is the value that is updated by GPVM during EvaluateVerticalMotion()
-
-        internal float y_acceleration_rate = 0.0f;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public float Y_Acceleration_Rate
+        protected void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
-            get => y_acceleration_rate;
-
-            set
-            {
-                if (value < 0)
-                {
-                    y_acceleration_rate = 0.0f;
-                }
-
-                else if (value <= max_y_acceleration_rate)
-                {
-                    y_acceleration_rate = value;
-                }
-
-                else
-                {
-                    y_acceleration_rate = max_y_acceleration_rate;
-                }
-            }
-        }
-
-        //====================================================================
-
-        /*---------------------------------------
-         * 
-         * This will be invoked in situations 
-         * where there's a colliding object 
-         * blocking you from going any further
-         * 
-         * -------------------------------------*/
-
-        public void StopYAxisMotion()
-        {
-            Y_Acceleration_Rate = 0.0f;
-            y_speed = 0.0f;
-        }
-
-        //===================================================================
-
-        public float Accelerate_Y()
-        {
-            if (y_speed + y_acceleration_rate <= max_y_speed)
-            {
-                y_speed += y_acceleration_rate;
-            }
-
-            else
-            {
-                y_speed = max_y_speed;
-                y_acceleration_rate = 0.0f;
-            }
-
-            return y_speed;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
     }
 }

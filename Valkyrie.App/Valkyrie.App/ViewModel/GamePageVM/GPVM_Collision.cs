@@ -23,6 +23,8 @@ namespace Valkyrie.App.ViewModel
             {
                 EvaluateHorizontalMotion(actor);
                 //EvaluateVerticalMotion(actor);
+
+                actor.Accelerate();
             }
         }
 
@@ -53,7 +55,35 @@ namespace Valkyrie.App.ViewModel
 
         internal void EvaluateHorizontalMotion(Actor actor)
         {
+            // is left being pressed? 
+            
+            bool left = actor.ControlStatus.DirectionalStatus.L;
 
+            if(left)
+            {
+                // can we move left? 
+
+                // if yes, then increase the acceleration rate by default
+
+                actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
+
+                // modify the acceleration by any buffs or debuffs here
+            }
+
+            //--------------------------------------------------------------------
+
+            bool right = actor.ControlStatus.DirectionalStatus.R;
+
+            if(right)
+            {
+                // can we move right? 
+
+                // if yes, then increase the acceleration rate by default
+
+                actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
+
+                // modify the acceleration by any buffs or debuffs here.
+            }
         }
     }
 }
