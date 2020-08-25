@@ -13,7 +13,12 @@ namespace Valkyrie.Controls
         public bool Jump
         {
             get => jump_;
-            set => jump_ = value;
+
+            set
+            {
+                jump_ = value;
+                RaisePropertyChanged();
+            }
         }
 
         //---------------------------------------------------
@@ -22,7 +27,11 @@ namespace Valkyrie.Controls
         public bool Attack
         {
             get => attack_;
-            set => attack_ = value;
+            set
+            {
+                attack_ = value;
+                RaisePropertyChanged();
+            }
         }
 
         //-------------------------------------------------
@@ -32,8 +41,6 @@ namespace Valkyrie.Controls
         public DirectionalStatus DirectionalStatus
         {
             get => directional_;
-
-            //set => directional_ = value;
 
             set
             {

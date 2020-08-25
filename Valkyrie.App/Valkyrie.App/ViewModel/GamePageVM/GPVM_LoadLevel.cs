@@ -58,7 +58,7 @@ namespace Valkyrie.App.ViewModel
 
             //-- connect the controller
 
-            actors_[0].ControlStatus = controllers_[0].ControlStatus;
+            //actors_[0].ControlStatus = controllers_[0].ControlStatus;
 
             levelLoaded_ = true;
         }
@@ -158,9 +158,13 @@ namespace Valkyrie.App.ViewModel
                     // I think this means any change in controller_[0]'s status
                     // should change the control status of this actor.
 
-                    actor.ControlStatus = controllers_[0].ControlStatus;
+                    //actor.ControlStatus = controllers_[0].ControlStatus;
+
+                    SetupPlayerOneController();
                 }
             }
+
+
         }
 
         //=============================================================================

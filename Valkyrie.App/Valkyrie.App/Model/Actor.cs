@@ -48,6 +48,7 @@ namespace Valkyrie.App.Model
                 }
 
                 status_ = value;
+                RaisePropertyChanged();
             } 
         }
 
@@ -215,7 +216,7 @@ namespace Valkyrie.App.Model
 
         //-- at max_x_speed, x_acceleration_rate will stop accelerating and become 0
 
-        internal float max_x_speed = 20.0f;
+        internal float max_x_speed = 50.0f;
 
         //---------------------------------------------------------------------
         // ACCELERATION
@@ -223,7 +224,7 @@ namespace Valkyrie.App.Model
         //-- default acceleration rate, which might be changed by powerups, etc 
         //-- so it should have a public property
 
-        internal float default_x_acceleration_rate = 1.5f;
+        internal float default_x_acceleration_rate = 10.5f;
         public float DefaultXAccelRate
         {
             get => default_x_acceleration_rate;

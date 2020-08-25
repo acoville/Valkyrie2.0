@@ -30,13 +30,7 @@
         SpriteSource="TrashMobs.Zombie"/>
     
     </Actors>
-  
-  <!--
-  
-  
-  
-  -->    
-  
+   
     <!-- Static Obstacles -->
 
     <Obstacles>

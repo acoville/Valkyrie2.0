@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Valkyrie.Controls;
+using System.Collections.ObjectModel;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -34,13 +35,14 @@ namespace Valkyrie.App.ViewModel
         public GamePageViewModel()
         {
             deviceScreen_ = new GameScreen();
+            
             actors_ = new List<Actor>();
             obstacles_ = new List<Obstacle>();
             props_ = new List<Prop>();
 
             controllers_ = new List<IController>();
 
-            SetupPlayerOneController();
+            //SetupPlayerOneController();
         }
 
         //=============================================================
@@ -91,14 +93,8 @@ namespace Valkyrie.App.ViewModel
             // whatever is now controlling that controller, 
             // add the player1 controller to gpvm.controllers_[0]
 
+            actors_[0].ControlStatus = p1Controller.ControlStatus;
             controllers_.Add(p1Controller);
-        }
-
-        //=============================================================
-
-        internal void MapVirtualGamepad(Controller xcontroller)
-        {
-            
         }
 
         //=============================================================
