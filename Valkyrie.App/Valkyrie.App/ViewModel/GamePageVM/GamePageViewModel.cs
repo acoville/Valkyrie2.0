@@ -42,7 +42,10 @@ namespace Valkyrie.App.ViewModel
 
             controllers_ = new List<IController>();
 
-            //SetupPlayerOneController();
+            Controller virtualGamepad = new Controller();
+            controllers_.Add(virtualGamepad);
+
+            SetupPlayerOneController();
         }
 
         //=============================================================
@@ -93,7 +96,6 @@ namespace Valkyrie.App.ViewModel
             // whatever is now controlling that controller, 
             // add the player1 controller to gpvm.controllers_[0]
 
-            actors_[0].ControlStatus = p1Controller.ControlStatus;
             controllers_.Add(p1Controller);
         }
 
@@ -110,7 +112,6 @@ namespace Valkyrie.App.ViewModel
         {
         
         }
-
 
         //=============================================================
 
