@@ -58,11 +58,11 @@ namespace Valkyrie.App.ViewModel
             // is left being pressed? 
             
             bool left = actor.ControlStatus.DirectionalStatus.L;
+            bool right = actor.ControlStatus.DirectionalStatus.R;
 
             if(left)
             {
                 // can we move left? 
-
                 // if yes, then increase the acceleration rate by default
 
                 actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
@@ -70,20 +70,28 @@ namespace Valkyrie.App.ViewModel
                 // modify the acceleration by any buffs or debuffs here
             }
 
-            //--------------------------------------------------------------------
-
-            bool right = actor.ControlStatus.DirectionalStatus.R;
-
-            if(right)
+            else if(right)
             {
                 // can we move right? 
-
                 // if yes, then increase the acceleration rate by default
 
                 actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
 
                 // modify the acceleration by any buffs or debuffs here.
             }
+
+            else
+            {
+                // neither left or right is selected. 
+                // need to decelerate until speed = 0
+                // maybe I need a decelerate function? 
+
+                if(Math.Abs(actor.X_Acceleration_Rate) > 0)
+                {
+                    actor.Decelerate();
+                }
+            }
+
         }
     }
 }

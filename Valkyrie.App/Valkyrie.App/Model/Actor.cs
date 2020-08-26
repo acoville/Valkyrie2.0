@@ -22,10 +22,10 @@ namespace Valkyrie.App.Model
          * 
          * ------------------------------------*/
 
-        internal ControlStatus status_;
+        internal ControlStatus controlStatus_;
         public ControlStatus ControlStatus
         {
-            get => status_;
+            get => controlStatus_;
 
             set
             {
@@ -47,7 +47,7 @@ namespace Valkyrie.App.Model
                     Sprite.Mirror();
                 }
 
-                status_ = value;
+                controlStatus_ = value;
                 RaisePropertyChanged();
             } 
         }
@@ -173,6 +173,45 @@ namespace Valkyrie.App.Model
             float delta_y = 0.0f;
 
             Translate(delta_x, delta_y);
+        }
+
+        //====================================================================
+
+        public void Decelerate()
+        {
+            // speed is negative (moving left)
+
+            if(x_speed < 0)
+            {
+                //-- need to accelerate until x_speed = 0
+
+                if(Math.Abs(x_speed) < default_x_acceleration_rate)
+                {
+                    x_speed = 0.0f;
+                    X_Acceleration_Rate = 0.0f;
+                }
+
+                else
+                {
+                    X_Acceleration_Rate += default_x_acceleration_rate;
+                }
+            }
+
+            // speed is positive (moving right)
+
+            else
+            {
+                if(x_speed < default_x_acceleration_rate)
+                {
+                    x_speed = 0.0f;
+                    X_Acceleration_Rate = 0.0f;
+                }
+
+                else
+                {
+                    X_Acceleration_Rate -= default_x_acceleration_rate;
+                }
+            }
         }
 
         //==================================================================

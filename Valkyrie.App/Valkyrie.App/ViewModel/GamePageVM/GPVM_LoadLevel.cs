@@ -59,6 +59,7 @@ namespace Valkyrie.App.ViewModel
             //-- connect the controller
 
             actors_[0].ControlStatus = controllers_[0].ControlStatus;
+
             levelLoaded_ = true;
         }
 
