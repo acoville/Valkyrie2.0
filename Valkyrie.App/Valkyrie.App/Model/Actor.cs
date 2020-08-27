@@ -10,10 +10,8 @@ using System.Runtime.CompilerServices;
 
 namespace Valkyrie.App.Model
 {
-    public class Actor : INotifyPropertyChanged
+    public class Actor
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         //=====================================================================
 
         /*---------------------------------------
@@ -22,34 +20,61 @@ namespace Valkyrie.App.Model
          * 
          * ------------------------------------*/
 
-        internal ControlStatus controlStatus_;
+        internal ControlStatus controlStatus_ = new ControlStatus();
         public ControlStatus ControlStatus
         {
             get => controlStatus_;
 
             set
             {
-                // what direction are we facing now? 
-                // determine if we have to change facing and 
-                // mirror the Sprite 
 
-                var current_facing = Facing;
-
-                if(value.DirectionalStatus.L && (current_facing == facing.right))
+                if(controlStatus_ != value)
                 {
-                    facing_ = facing.left;
-                    Sprite.Mirror();
-                }
+                    controlStatus_ = value;
+
+                    // what direction are we facing now? 
+                    // determine if we have to change facing and 
+                    // mirror the Sprite 
+
+                    if(value.DirectionalStatus.L)
+                    {
+                        Facing = facing.left;
+                    }
                 
-                else if(value.DirectionalStatus.R && (current_facing == facing.left))
-                {
-                    facing_ = facing.right;
-                    Sprite.Mirror();
-                }
+                    //-- this did not end up being true.
 
-                controlStatus_ = value;
-                RaisePropertyChanged();
+                    else if(value.DirectionalStatus.R)
+                    {
+                        Facing = facing.right;
+                    }
+                }
             } 
+        }
+
+        //=====================================================================
+
+        public void TurnLeft()
+        {
+            if(ControlStatus.DirectionalStatus.R)
+            {
+                ControlStatus.DirectionalStatus.R = false;
+            }
+
+            ControlStatus.DirectionalStatus.L = true;
+            Facing = facing.left;
+        }
+
+        //=====================================================================
+
+        public void TurnRight()
+        {
+            if(ControlStatus.DirectionalStatus.L)
+            {
+                ControlStatus.DirectionalStatus.L = false;
+            }
+
+            ControlStatus.DirectionalStatus.R = true;
+            Facing = facing.right;
         }
 
         //=====================================================================
@@ -66,8 +91,8 @@ namespace Valkyrie.App.Model
             
             set
             {
-                var oldFacing = facing_;
-                
+                var oldFacing = facing_; 
+
                 facing_ = value;
 
                 if(facing_ != oldFacing)
@@ -245,7 +270,7 @@ namespace Valkyrie.App.Model
          * 
          * --------------------------------------------------*/
 
-        //---------------------------------------------------------------------
+        //--------------------------------
         // SPEED
 
         //-- character's current speed in the x axis, either left or right as 
@@ -257,7 +282,8 @@ namespace Valkyrie.App.Model
 
         internal float max_x_speed = 50.0f;
 
-        //---------------------------------------------------------------------
+
+        //---------------------------------
         // ACCELERATION
 
         //-- default acceleration rate, which might be changed by powerups, etc 
@@ -356,13 +382,6 @@ namespace Valkyrie.App.Model
             }
 
             return x_speed;
-        }
-
-        //==========================================================================
-
-        protected void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
     }
 }

@@ -32,7 +32,9 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)leftCommand ?? (leftCommand = new Command(() =>
                 {
-                    controllers_[0].ControlStatus.DirectionalStatus.L = true;
+                    //controllers_[0].ControlStatus.DirectionalStatus.L = true;
+
+                    actors_[0].TurnLeft();
                 }));
             }
         }
@@ -60,7 +62,9 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)rightCommand ?? (rightCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.R = true;
+                     //controllers_[0].ControlStatus.DirectionalStatus.R = true;
+
+                     actors_[0].TurnRight();
                  }));
             }
         }

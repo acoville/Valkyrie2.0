@@ -47,5 +47,65 @@ namespace Valkyrie.Controls.Test
 
             Assert.IsFalse(DownPressed);
         }
+
+        //=======================================================================
+        
+        /*---------------------------------
+         * 
+         * Equality, Inequality tests
+         * because someting is not working
+         * right downstream
+         * 
+         * -------------------------------*/
+
+        [Test]
+        [Category("ControlStatus")]
+        public void Object_AreEqual_True_Test()
+        {
+            ControlStatus status1 = new ControlStatus();
+            ControlStatus status2 = new ControlStatus();
+
+            Assert.AreEqual(status1, status2);
+        }
+
+        //----------------------------------------------------
+
+        [Test]
+        [Category("ControlStatus")]
+        public void Object_AreEqual_False_Test()
+        {
+            ControlStatus status1 = new ControlStatus();
+            ControlStatus status2 = new ControlStatus();
+
+            status2.Attack = true;
+
+            Assert.AreNotEqual(status1, status2);
+        }
+
+        //----------------------------------------------------
+
+        [Test]
+        [Category("ControlStatus")]
+        public void Equality_Operator_True_Test()
+        {
+            ControlStatus status1 = new ControlStatus();
+            ControlStatus status2 = new ControlStatus();
+
+            Assert.IsTrue(status1 == status2);
+        }
+
+        //-----------------------------------------------------
+
+        [Test]
+        [Category("ControlStatus")]
+        public void Equality_Operator_False_Test()
+        {
+            ControlStatus status1 = new ControlStatus();
+            ControlStatus status2 = new ControlStatus();
+
+            status2.Attack = true;
+
+            Assert.IsFalse(status1 == status2);
+        }
     }
 }

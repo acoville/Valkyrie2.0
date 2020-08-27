@@ -23,17 +23,22 @@ namespace Valkyrie.Controls.Test
 
             character = new GLCharacter();
             actor = new Actor(character);
-
-            
         }
 
         //====================================================================
+
+            /*
+             */
 
         [Test]
         [Category("Controller")]
         [Category("Actor")]
         public void LinkedControlStateTest()
         {
+            character = new GLCharacter();
+            actor = new Actor(character);
+            SUT = new Controller();
+
             actor.ControlStatus = SUT.ControlStatus;
             SUT.ControlStatus.Attack = true;
 

@@ -72,5 +72,41 @@ namespace Valkyrie.Model.Test
 
             Assert.IsTrue(jump);
         }
+
+        //=======================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Control")]
+        public void Turning_Left_Faces_Left_Test()
+        {
+            Bob.Facing = Actor.facing.right;
+
+            //Bob.ControlStatus.DirectionalStatus.L = true;
+
+            Bob.TurnLeft();
+
+            var newFacing = Bob.Facing;
+
+            Assert.AreEqual(Actor.facing.left, newFacing);
+        }
+
+        //=======================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("control")] 
+        public void Turning_Right_Faces_Right_Test()
+        {
+            Bob.Facing = Actor.facing.left;
+
+            //Bob.ControlStatus.DirectionalStatus.R = true;
+
+            Bob.TurnRight();
+
+            var newFacing = Bob.Facing;
+
+            Assert.AreEqual(Actor.facing.right, newFacing);
+        }
     }
 }

@@ -86,12 +86,13 @@ namespace Valkyrie.App.ViewModel
                 // need to decelerate until speed = 0
                 // maybe I need a decelerate function? 
 
+                // only if x_acceleration rate is still non-0
+
                 if(Math.Abs(actor.X_Acceleration_Rate) > 0)
                 {
                     actor.Decelerate();
                 }
             }
-
         }
     }
 }
