@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Valkyrie.App.Model;
 using Valkyrie.Controls;
 using Valkyrie.GL;
@@ -109,6 +106,28 @@ namespace Valkyrie.Model.Test
             var deltaX = newX - oldX;
 
             Assert.AreEqual(deltaX, -5.5f);
+        }
+
+        //=======================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Motion")]
+        [Category("X Axis")]
+        public void Deceleration_Facing_Right_Test()
+        {
+
+        }
+
+        //========================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Motion")]
+        [Category("X Axis")]
+        public void Deceleration_Facing_Left_Test()
+        {
+
         }
     }
 }

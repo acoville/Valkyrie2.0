@@ -71,12 +71,21 @@ namespace Valkyrie.App.ViewModel
 
         //==============================================================================
 
+        /*-----------------------------------------------
+         * 
+         * This appears not to be working correctly
+         * sometimes, Bob just keeps sliding right.
+         * But he's not accelerating, he's just 
+         * coasting at whatever speed he was going..
+         * 
+         * ---------------------------------------------*/
+
         internal Command rightReleaseCommand;
         public ICommand RightReleaseCommand
         {
             get
             {
-                return (ICommand)rightReleaseCommand ?? (rightReleaseCommand = new Command(() =>
+                return (ICommand)rightReleaseCommand ?? (rightReleaseCommand = new Command(()=>
                  {
                      controllers_[0].ControlStatus.DirectionalStatus.R = false;
                  }));
