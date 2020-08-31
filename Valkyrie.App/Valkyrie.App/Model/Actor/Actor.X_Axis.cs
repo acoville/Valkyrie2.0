@@ -1,17 +1,15 @@
-﻿using System;
+﻿/*-------------------------------
+* 
+*  X Axis Characteristics
+* 
+* -------------------------------*/
+
+using System;
 
 namespace Valkyrie.App.Model
 {
     public partial class Actor
     {
-        //==========================================================================
-
-        /*-----------------------------------------------------
-         * 
-         *  X Axis Characteristics
-         * 
-         * --------------------------------------------------*/
-
         internal float x_speed = 0.0f;
         internal float max_x_speed = 15.0f;
 
@@ -96,31 +94,40 @@ namespace Valkyrie.App.Model
 
         public float Accelerate_X()
         {
-            //-- if we are below max speed, increment speed  
+            /*
+             *      weather we are moving left or right, 
+             *      x_speed is still going to be += x_acceleration_rate.
+             *      What decides which way the Actor moves is weather 
+             *      the acceleration rate is positive or negative. 
+             *      All I need to be bounds checking here is x_speed
+             *      and x_acceleration_rate.
+             */
 
-            // ahhh that's my problem, this only checks + deltax
-            // bounds check negative x acceleration
+            x_speed += x_acceleration_rate;
 
-            if (x_speed < 0 && x_acceleration_rate < 0)
+            // bounds check speed
+
+            if(Math.Abs(x_speed) > max_x_speed)
             {
-                if (Math.Abs(x_speed - x_acceleration_rate) > max_x_speed)
+                // negative if going left, positive if going right 
+
+                x_speed = (x_speed < 0) ? (-max_x_speed) : max_x_speed;
+            }
+
+            // bounds check acceleration
+
+            if(Math.Abs(x_acceleration_rate) > max_x_acceleration_rate)
+            {
+                // negative if going left, positive if going right 
+
+                if(x_acceleration_rate < 0)
                 {
-                    x_speed = (-max_x_speed);
-                    x_acceleration_rate = 0.0f;
+                    x_acceleration_rate = (-max_x_acceleration_rate);
                 }
-            }
-
-            else if (x_speed + x_acceleration_rate <= max_x_speed)
-            {
-                x_speed += x_acceleration_rate;
-            }
-
-            //-- if we have gotten to max speed, then stop accelerating
-
-            else
-            {
-                //x_speed = max_x_speed;
-                x_acceleration_rate = 0.0f;
+                else
+                {
+                    x_acceleration_rate = max_x_acceleration_rate;
+                }
             }
 
             return x_speed;
@@ -130,7 +137,7 @@ namespace Valkyrie.App.Model
 
         public void Decelerate_X_Axis()
         {
-            if (x_speed != 0 && x_acceleration_rate != 0)
+            if (x_speed != 0 || x_acceleration_rate != 0)
             {
                 // speed is negative (moving left)
 
