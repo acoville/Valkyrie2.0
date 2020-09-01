@@ -85,7 +85,7 @@ namespace Valkyrie.Model.Test
 
             var deltaX = newX - oldX;
 
-            Assert.AreEqual(deltaX, 5.5f);
+            Assert.AreEqual(7.5f, deltaX);
         }
 
         //================================================================
@@ -105,7 +105,7 @@ namespace Valkyrie.Model.Test
 
             var deltaX = newX - oldX;
 
-            Assert.AreEqual(deltaX, -5.5f);
+            Assert.AreEqual(-7.5f, deltaX);
         }
 
         //=======================================================================
