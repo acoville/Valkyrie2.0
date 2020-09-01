@@ -5,13 +5,14 @@
 * -------------------------------*/
 
 using System;
+using System.Xml.XPath;
 
 namespace Valkyrie.App.Model
 {
     public partial class Actor
     {
         internal float x_speed = 0.0f;
-        internal float max_x_speed = 15.0f;
+        internal float max_x_speed = 25.0f;
 
         /*-----------------------------------------
          
@@ -30,7 +31,7 @@ namespace Valkyrie.App.Model
             set => default_x_acceleration_rate = value;
         }
  
-        internal float max_x_acceleration_rate = 5.5f;
+        internal float max_x_acceleration_rate = 7.5f;
         internal float x_acceleration_rate = 0.0f;
 
         public float X_Acceleration_Rate
@@ -78,7 +79,7 @@ namespace Valkyrie.App.Model
 
         public void StopXAxisMotion()
         {
-            X_Acceleration_Rate = 0.0f;
+            x_acceleration_rate = 0.0f;
             x_speed = 0.0f;
         }
 
@@ -135,40 +136,46 @@ namespace Valkyrie.App.Model
 
         //====================================================================
 
+        /*----------------------------------------------
+         * 
+         * It is as if I have some kind of deadband. 
+         * The sprite keeps rocking back and forth 
+         * (without changing facing) before settling. 
+         * 
+         * goal is to get speed and acceleration 
+         * gradually to 0 
+         * 
+         * -------------------------------------------*/
+
         public void Decelerate_X_Axis()
         {
-            if (x_speed != 0 || x_acceleration_rate != 0)
+            // going left
+
+            if(x_speed < 0)
             {
-                // speed is negative (moving left)
+                // bounds check to make sure we don't over-decelerate and
+                // start going right 
 
-                if (x_speed < 0)
+                x_acceleration_rate += default_x_acceleration_rate;
+
+                if(x_acceleration_rate > 0)
                 {
-                    //-- need to accelerate until x_speed = 0
-
-                    if (Math.Abs(x_speed) < default_x_acceleration_rate)
-                    {
-                        StopXAxisMotion();
-                    }
-
-                    else
-                    {
-                        X_Acceleration_Rate += default_x_acceleration_rate;
-                    }
+                    StopXAxisMotion();
                 }
+            }
 
-                // speed is positive (moving right)
+            // going right
 
-                else
+            else
+            {
+                x_acceleration_rate -= default_x_acceleration_rate;
+
+                // bounds check to make sure we don't start going 
+                // left again
+
+                if(x_acceleration_rate < 0)
                 {
-                    if (x_speed < default_x_acceleration_rate)
-                    {
-                        StopXAxisMotion();
-                    }
-
-                    else
-                    {
-                        X_Acceleration_Rate -= default_x_acceleration_rate;
-                    }
+                    StopXAxisMotion();
                 }
             }
         }
