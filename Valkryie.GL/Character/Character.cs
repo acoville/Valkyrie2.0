@@ -69,5 +69,35 @@ namespace Valkyrie.GL
             SpriteSource = "Valkyrie.App.Images.Characters." 
                 + node.Attributes["SpriteSource"].Value.ToString();
         }
+
+        //=========================================================================
+
+        /*----------------------------------
+         * 
+         * Updates the GL Position 
+         * and the GL Rectangle
+         * 
+         * --------------------------------*/
+
+        public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
+        {
+            GLPosition.Translate(deltaX, deltaY, deltaZ);
+            GLRect.Translate(deltaX, deltaY, deltaZ);
+        }
+
+        //=========================================================================
+
+        /*-------------------------------------
+         * 
+         * MoveTo updates the GLPosition
+         * and the GL Rectangle
+         * 
+         * ----------------------------------*/
+
+        public void MoveTo(GLPosition position)
+        {
+            GLPosition.MoveTo(position);
+            GLRect.MoveTo(position);
+        }
     }
 }

@@ -4,7 +4,7 @@ using Valkyrie.Graphics;
 
 namespace Valkyrie.App.Model
 {
-    public class Obstacle
+    public class Obstacle : ICollidable
     {
         public GLPosition GLPosition
         {
@@ -89,5 +89,36 @@ namespace Valkyrie.App.Model
 
             SKPosition = newpoint;
         }
+
+        //====================================================================
+
+        public bool Intersects(ICollidable other)
+        {
+            var rect1 = this.GLObs.Rectangle;
+            var rect2 = other.Rectangle;
+
+            return rect1.Intersects(rect2);
+        }
+
+        //====================================================================
+
+        public bool Contains(ICollidable other)
+        {
+            var rect1 = this.GLObs.Rectangle;
+            var rect2 = other.Rectangle;
+
+            return rect1.Contains(rect2);
+        }
+
+        //===================================================================
+
+        public GLRect Rectangle
+        {
+            get
+            {
+                return GLObs.Rectangle;
+            }
+        }
+        
     }
 }

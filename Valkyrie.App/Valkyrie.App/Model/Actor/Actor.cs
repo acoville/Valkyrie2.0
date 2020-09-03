@@ -6,7 +6,7 @@ using Valkyrie.Controls;
 
 namespace Valkyrie.App.Model
 {
-    public partial class Actor
+    public partial class Actor : ICollidable
     {
         //=====================================================================
 
@@ -189,6 +189,7 @@ namespace Valkyrie.App.Model
         public void Accelerate()
         {
             float delta_x = Accelerate_X();
+
             //float delta_y = Accelerate_Y();
 
             float delta_y = 0.0f;
@@ -211,12 +212,42 @@ namespace Valkyrie.App.Model
             //-- the Game Logic position translates with normal deltaY
             // where the Y origin is at the bottom of the screen.
 
-            character_.GLPosition.Translate(deltaX, deltaY, deltaZ);
+            character_.Translate(deltaX, deltaY, deltaZ);
 
             //-- the SKPosition has to invert deltaY owing to the Y origin 
             // being at the top of the screen in Skia
 
             Sprite.Translate(deltaX, (-deltaY), deltaZ);
+        }
+
+        //======================================================================
+        
+        public GLRect Rectangle
+        {
+            get
+            {
+                return GLCharacter.GLRect;
+            }
+        }
+
+        //======================================================================
+
+        public bool Intersects(ICollidable other)
+        {
+            var rect1 = this.GLCharacter.GLRect;
+            var rect2 = other.Rectangle;
+
+            return rect1.Intersects(rect2);
+        }
+
+        //======================================================================
+
+        public bool Contains(ICollidable other)
+        {
+            var rect1 = this.GLCharacter.GLRect;
+            var rect2 = other.Rectangle;
+
+            return rect1.Contains(rect2);
         }
     }
 }

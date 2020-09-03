@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
+using Valkryie.GL;
 using Valkyrie.App.Model;
+using System.Linq;
+using System.Security.Cryptography;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -13,7 +16,7 @@ namespace Valkyrie.App.ViewModel
 
         /*-------------------------------------
          * 
-         * Evaluate Motion and Collision
+         * Evaluate Motion
          * 
          * -----------------------------------*/
 
@@ -32,7 +35,7 @@ namespace Valkyrie.App.ViewModel
 
         /*-------------------------------------
          * 
-         * Evaluate Vertical Motion and Collision
+         * Evaluate Vertical Motion
          * 
          * 
          * 
@@ -47,9 +50,7 @@ namespace Valkyrie.App.ViewModel
 
         /*--------------------------------------------
          * 
-         * Evaluate Horizontal Motion and Collision
-         * 
-         * 
+         * Evaluate Horizontal Motion
          * 
          * -----------------------------------------*/
 
@@ -68,6 +69,10 @@ namespace Valkyrie.App.ViewModel
                 actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
 
                 // modify the acceleration by any buffs or debuffs here
+
+                // collision detection here
+
+
             }
 
             else if(right)
@@ -78,6 +83,8 @@ namespace Valkyrie.App.ViewModel
                 actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
 
                 // modify the acceleration by any buffs or debuffs here.
+
+                // collision detection here
             }
 
             else
