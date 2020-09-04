@@ -82,12 +82,12 @@ namespace Valkyrie.Graphics
 
         //=======================================================================
 
-        /*------------------------------------
+        /*--------------------------------------
          * 
          * The Tile Group is how the obstacle
          * will be represented on-screen.
          * 
-         * ---------------------------------*/
+         * -----------------------------------*/
 
         public TileGroup(GLObstacle obstacle)
         {
@@ -104,6 +104,7 @@ namespace Valkyrie.Graphics
                 // set the rectangle's top and bottom here
 
                 float top = obstacle.Rectangle.Origin.Y - (i * 64.0f);
+
                 float bottom = obstacle.Rectangle.Origin.Y + (i * 64.0f);
 
                 // set Z here
@@ -127,7 +128,65 @@ namespace Valkyrie.Graphics
                     // create the SKRect, add the tile 
 
                     SKRect rect = new SKRect(left, top, right, bottom);
+
                     Tile col = new Tile(obstacle.ImageSource, rect, Z);
+                    newRow.Add(col);
+                }
+
+                Tiles.Add(newRow);
+            }
+        }
+
+        //==================================================================
+
+        /*------------------------------------------
+         * 
+         * Constructor accepting an image source
+         * and a GL Obstacle
+         * 
+         * ---------------------------------------*/
+
+        public TileGroup(GLObstacle obstacle, string imageSource)
+        {
+            Tiles = new List<List<Tile>>();
+
+            // set the rectangle's depth (Z) here
+
+            float depth = obstacle.Rectangle.Origin.Z;
+
+            for (int i = 0; i < obstacle.Rectangle.TileHeight; i++)
+            {
+                List<Tile> newRow = new List<Tile>();
+
+                // set the rectangle's top and bottom here
+
+                float top = obstacle.Rectangle.Origin.Y - (i * 64.0f);
+
+                float bottom = obstacle.Rectangle.Origin.Y + (i * 64.0f);
+
+                // set Z here
+
+                float Z = obstacle.Rectangle.Origin.Z;
+
+                //------------------------------------------------------
+
+                int obs_left = (int)obstacle.Rectangle.Left;
+                int obs_right = (int)obstacle.Rectangle.Right;
+                int limit = (obs_right - obs_left) / 64;
+
+                for (int j = 0; j < limit; j++)
+                {
+                    // set the rectangle's left and right here 
+
+                    float left = obstacle.Rectangle.Left + (j * 64.0f);
+
+                    float right = left + 64;
+
+                    // create the SKRect, add the tile 
+
+                    SKRect rect = new SKRect(left, top, right, bottom);
+
+                    Tile col = new Tile(imageSource, rect, Z);
                     newRow.Add(col);
                 }
 

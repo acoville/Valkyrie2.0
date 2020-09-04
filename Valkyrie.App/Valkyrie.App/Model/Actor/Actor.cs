@@ -207,7 +207,7 @@ namespace Valkyrie.App.Model
          * 
          * ----------------------------------------*/
 
-        internal void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
+        public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
         {
             //-- the Game Logic position translates with normal deltaY
             // where the Y origin is at the bottom of the screen.
@@ -218,6 +218,26 @@ namespace Valkyrie.App.Model
             // being at the top of the screen in Skia
 
             Sprite.Translate(deltaX, (-deltaY), deltaZ);
+        }
+
+        //======================================================================
+
+        /*------------------------------------
+         * 
+         * MoveTo function 
+         * 
+         * accepts a Game Logic position as
+         * argument
+         * 
+         * ----------------------------------*/
+
+        public void MoveTo(GLPosition target)
+        {
+            float deltaX = target.X - GLPosition.X;
+            float deltaY = target.Y - GLPosition.Y;
+            float deltaZ = target.Z - GLPosition.Z;
+
+            Translate(deltaX, deltaY, deltaZ);
         }
 
         //======================================================================

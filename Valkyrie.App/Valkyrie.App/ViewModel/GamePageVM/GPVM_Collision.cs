@@ -57,11 +57,11 @@ namespace Valkyrie.App.ViewModel
         internal void EvaluateHorizontalMotion(Actor actor)
         {
             // is left being pressed? 
-            
+
             bool left = actor.ControlStatus.DirectionalStatus.L;
             bool right = actor.ControlStatus.DirectionalStatus.R;
 
-            if(left)
+            if (left)
             {
                 // can we move left? 
                 // if yes, then increase the acceleration rate by default
@@ -70,12 +70,21 @@ namespace Valkyrie.App.ViewModel
 
                 // modify the acceleration by any buffs or debuffs here
 
-                // collision detection here
+                foreach (var obstacle in obstacles_)
+                {
+                    if (actor.Intersects(obstacle))
+                    {
+                        // move to the right boundary and then stop moving
 
-
+                        actor.StopXAxisMotion();
+                        float newX = obstacle.Rectangle.Right;
+                        GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
+                        actor.MoveTo(newPosition);
+                    }
+                }
             }
-
-            else if(right)
+            
+            else if (right)
             {
                 // can we move right? 
                 // if yes, then increase the acceleration rate by default
@@ -100,7 +109,7 @@ namespace Valkyrie.App.ViewModel
                 var speed = Math.Abs(actor.x_speed);
                 var acceleration = Math.Abs(actor.X_Acceleration_Rate);
 
-                if(speed > 0 || acceleration > 0)
+                if (speed > 0 || acceleration > 0)
                 {
                     actor.Decelerate_X_Axis();
                 }

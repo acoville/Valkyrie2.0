@@ -47,6 +47,17 @@
         Static="true" />
 
       <Obstacle
+        Type="Rectangle"
+        Label="pillar"
+        Height="3"
+        Width="1"
+        X="1"
+        Y="4"
+        Z="0"
+        Image="Bricks.Red"
+        Static="true" />
+        
+      <Obstacle
         Type="Stair"
         Orientation="Left"
         X="17"

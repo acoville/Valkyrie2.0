@@ -156,27 +156,14 @@ namespace Valkryie.GL
          * 
          * ------------------------------*/
 
-        public void MoveGLRectTo(GLPosition target)
+        public void MoveTo(GLPosition target)
         {
             Rectangle.MoveTo(target);
         }
 
         //===============================================================
 
-        /*--------------------------------
-         * 
-         * MoveTo
-         * 
-         * ------------------------------*/
-
-        public void TranslateGLRect(float deltaX, float deltaY)
-        {
-            Rectangle.Translate(deltaX, deltaY);
-        }
-
-        //-----------------------------------------
-
-        public void TranslateGLRetct(float deltaX, float deltaY, float deltaZ)
+        public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
         {
             Rectangle.Translate(deltaX, deltaY, deltaZ);
         }

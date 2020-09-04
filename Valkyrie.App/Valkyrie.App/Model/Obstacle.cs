@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using System.Xml;
 using Valkryie.GL;
 using Valkyrie.Graphics;
 
@@ -6,14 +7,19 @@ namespace Valkyrie.App.Model
 {
     public class Obstacle : ICollidable
     {
+        internal string imageSource_;
+        public string ImageSource
+        {
+            get => imageSource_;
+            set => imageSource_ = value;
+        }
+
+        //==================================================
+
         public GLPosition GLPosition
         {
             get => GLObs.Rectangle.Origin;
-
-            set
-            {
-                GLObs.MoveGLRectTo(value);
-            }
+            set => GLObs.MoveTo(value);
         }
 
         //=================================================
@@ -21,11 +27,7 @@ namespace Valkyrie.App.Model
         public SKPosition SKPosition
         {
             get => tilegroup_.SKPosition;
-            
-            set
-            {
-                tilegroup_.Move(value);
-            }
+            set => tilegroup_.Move(value);
         }
 
         //=================================================
@@ -50,13 +52,24 @@ namespace Valkyrie.App.Model
 
         /*-----------------------------------
          * 
-         * Constructor
+         * Constructors
          * 
          * ---------------------------------*/
 
         public Obstacle(GLObstacle globs)
         {
             obstacle_ = globs;
+            TilesGroup = new TileGroup(obstacle_);
+        }
+
+        //--------------------------------------------
+
+        public Obstacle(XmlNode node)
+        {
+            string source = node.Attributes["Image"].Value.ToString();
+            string ImageSource = "Valkyrie.App.Images.Tiles." + source;
+
+            obstacle_ = new GLObstacle(node);
             TilesGroup = new TileGroup(obstacle_);
         }
 
@@ -71,6 +84,20 @@ namespace Valkyrie.App.Model
         public void MoveSprite(SKPosition target)
         {
             tilegroup_.Move(target);
+        }
+
+        //==================================================
+
+        /*--------------------------------
+         * 
+         * Translate (game logic coordinate)
+         * 
+         * ------------------------------*/
+
+        public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
+        {
+            GLObs.Translate(deltaX, deltaY, deltaZ);
+            tilegroup_.Translate(deltaX, (-deltaY), deltaZ);
         }
 
         //==================================================
@@ -114,10 +141,7 @@ namespace Valkyrie.App.Model
 
         public GLRect Rectangle
         {
-            get
-            {
-                return GLObs.Rectangle;
-            }
+            get => GLObs.Rectangle;
         }
         
     }
