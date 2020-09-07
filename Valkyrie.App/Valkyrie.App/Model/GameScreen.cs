@@ -62,11 +62,15 @@ namespace Valkyrie.Graphics
 
         public void AddObstacle(Obstacle val)
         {
+            // find out where this should be displayed using the Scrollbox
+
             GLPosition glOrigin = val.GLPosition;
             SKPosition target = scrollBox_.ToSkia(glOrigin);
 
             val.MoveSprite(target);
             
+            // add it to the list GameScreen.drawables_ 
+
             for(int i = 0; i < val.TilesGroup.Tiles.Count; i++)
             {
                 var row = val.TilesGroup.Tiles[i];
@@ -77,6 +81,8 @@ namespace Valkyrie.Graphics
                     drawables_.Add(tile);
                 }
             }
+
+            // sorting ensures that it is rendered at the correct Z depth
 
             drawables_.Sort();
         }
@@ -117,7 +123,7 @@ namespace Valkyrie.Graphics
 
         /*-----------------------------------------
          * 
-         * Function to Add an Obstacle
+         * Function to Add a Prop
          * 
          * ---------------------------------------*/
 
@@ -305,7 +311,7 @@ namespace Valkyrie.Graphics
 
             canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
 
-            if(Preferences.Get("Labels", true))
+            if(Preferences.Get("Labels", false))
             {
                 string skiaCoords = drawable.SKPosition.ToString();
                 SKPoint target = drawable.SKPosition.SKPoint;

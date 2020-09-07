@@ -162,8 +162,8 @@ namespace Valkyrie.App.View
 
         protected override void OnDisappearing()
         {
-            base.OnDisappearing();
             gpvm_.Paused = true;
+            base.OnDisappearing();
         }
 
         //===================================================================

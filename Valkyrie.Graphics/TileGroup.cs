@@ -95,7 +95,7 @@ namespace Valkyrie.Graphics
 
             // set the rectangle's depth (Z) here
 
-            float depth = obstacle.Rectangle.Origin.Z;
+            //float depth = obstacle.Rectangle.Origin.Z;
 
             for(int i = 0; i < obstacle.Rectangle.TileHeight; i++)
             {
@@ -104,7 +104,6 @@ namespace Valkyrie.Graphics
                 // set the rectangle's top and bottom here
 
                 float top = obstacle.Rectangle.Origin.Y - (i * 64.0f);
-
                 float bottom = obstacle.Rectangle.Origin.Y + (i * 64.0f);
 
                 // set Z here
@@ -226,7 +225,7 @@ namespace Valkyrie.Graphics
                     float deltaX = j * 64.0f;
                     float deltaY = i * 64.0f;
 
-                    tiles_[i][j].Translate(deltaX, deltaY);
+                    tiles_[i][j].Translate(deltaX, (-deltaY));
                     tiles_[i][j].SKPosition.Z = deltaZ;
 
 

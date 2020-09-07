@@ -151,7 +151,6 @@ namespace Valkyrie.App.ViewModel
             {
                 currentLevel_ = value;
                 LoadLevel(currentLevel_);
-                RaisePropertyChanged();
             }
         }
 

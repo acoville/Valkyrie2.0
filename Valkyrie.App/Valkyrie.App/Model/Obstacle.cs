@@ -67,7 +67,7 @@ namespace Valkyrie.App.Model
         public Obstacle(XmlNode node)
         {
             string source = node.Attributes["Image"].Value.ToString();
-            string ImageSource = "Valkyrie.App.Images.Tiles." + source;
+            ImageSource = "Valkyrie.App.Images.Tiles." + source;
 
             obstacle_ = new GLObstacle(node);
             TilesGroup = new TileGroup(obstacle_);

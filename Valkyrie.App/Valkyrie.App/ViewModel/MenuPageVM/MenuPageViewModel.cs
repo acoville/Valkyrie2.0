@@ -60,10 +60,7 @@ namespace Valkyrie.App.ViewModel
         public int ButtonHeight
         {
             get => buttonHeight;
-            set
-            {
-                buttonHeight = value;
-            }
+            set => buttonHeight = value;
         }
 
         //========================================={===================================
@@ -160,9 +157,5 @@ namespace Valkyrie.App.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
-
-        //==============================================================================
-
-
     }
 }
