@@ -58,6 +58,7 @@ namespace Valkyrie.App.Model
 
             ControlStatus.DirectionalStatus.L = true;
             Facing = facing.left;
+            stationary_x_ = false;
         }
 
         //=====================================================================
@@ -71,6 +72,7 @@ namespace Valkyrie.App.Model
 
             ControlStatus.DirectionalStatus.R = true;
             Facing = facing.right;
+            stationary_x_ = false;
         }
 
         //=====================================================================
@@ -97,6 +99,25 @@ namespace Valkyrie.App.Model
                 }
             }
         }
+
+        //=====================================================================
+
+        /*------------------------------------
+         * 
+         *  Cache related state 
+         * 
+         * ----------------------------------*/
+
+        public bool Stationary
+        {
+            get
+            {
+                return stationary_x_ && stationary_y_;
+            }
+        }
+
+        internal bool stationary_x_ = true;
+        internal bool stationary_y_ = true;
 
         //=====================================================================
 

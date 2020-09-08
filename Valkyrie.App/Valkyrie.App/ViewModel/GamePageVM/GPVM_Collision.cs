@@ -56,62 +56,65 @@ namespace Valkyrie.App.ViewModel
 
         internal void EvaluateHorizontalMotion(Actor actor)
         {
-            // is left being pressed? 
-
-            bool left = actor.ControlStatus.DirectionalStatus.L;
-            bool right = actor.ControlStatus.DirectionalStatus.R;
-
-            if (left)
+            if (!actor.Stationary)
             {
-                // can we move left? 
-                // if yes, then increase the acceleration rate by default
+                // is left being pressed? 
 
-                actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
+                bool left = actor.ControlStatus.DirectionalStatus.L;
+                bool right = actor.ControlStatus.DirectionalStatus.R;
 
-                // modify the acceleration by any buffs or debuffs here
-
-                foreach (var obstacle in obstacles_)
+                if (left)
                 {
-                    if (actor.Intersects(obstacle))
-                    {
-                        // move to the right boundary and then stop moving
+                    // can we move left? 
+                    // if yes, then increase the acceleration rate by default
 
-                        actor.StopXAxisMotion();
-                        float newX = obstacle.Rectangle.Right;
-                        GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
-                        actor.MoveTo(newPosition);
+                    actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
+
+                    // modify the acceleration by any buffs or debuffs here
+
+                    foreach (var obstacle in obstacles_)
+                    {
+                        if (actor.Intersects(obstacle))
+                        {
+                            // move to the right boundary and then stop moving
+
+                            actor.StopXAxisMotion();
+                            float newX = obstacle.Rectangle.Right;
+                            GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
+                            actor.MoveTo(newPosition);
+                        }
                     }
                 }
-            }
-            
-            else if (right)
-            {
-                // can we move right? 
-                // if yes, then increase the acceleration rate by default
 
-                actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
-
-                // modify the acceleration by any buffs or debuffs here.
-
-                // collision detection here
-            }
-
-            else
-            {
-                // neither left or right is selected. 
-                // need to decelerate until speed = 0
-                // maybe I need a decelerate function? 
-
-
-                /*
-                 */
-
-                var speed = Math.Abs(actor.x_speed);
-                var acceleration = Math.Abs(actor.X_Acceleration_Rate);
-
-                if (speed > 0 || acceleration > 0)
+                else if (right)
                 {
-                    actor.Decelerate_X_Axis();
+                    // can we move right? 
+                    // if yes, then increase the acceleration rate by default
+
+                    actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
+
+                    // modify the acceleration by any buffs or debuffs here.
+
+                    // collision detection here
+                }
+
+                else
+                {
+                    // neither left or right is selected. 
+                    // need to decelerate until speed = 0
+                    // maybe I need a decelerate function? 
+
+
+                    /*
+                     */
+
+                    var speed = Math.Abs(actor.x_speed);
+                    var acceleration = Math.Abs(actor.X_Acceleration_Rate);
+
+                    if (speed > 0 || acceleration > 0)
+                    {
+                        actor.Decelerate_X_Axis();
+                    }
                 }
             }
         }

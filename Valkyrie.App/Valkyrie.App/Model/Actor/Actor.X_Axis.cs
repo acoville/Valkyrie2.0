@@ -64,6 +64,11 @@ namespace Valkyrie.App.Model
                 {
                     x_acceleration_rate = value;
                 }
+
+                if(x_acceleration_rate == 0 && x_speed == 0)
+                {
+                    stationary_x_ = true;
+                }
             }
         }
 
