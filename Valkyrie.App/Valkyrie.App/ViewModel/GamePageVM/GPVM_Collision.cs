@@ -22,6 +22,8 @@ namespace Valkyrie.App.ViewModel
 
         public void EvaluateMovement()
         {
+
+
             foreach(var actor in actors_)
             {
                 EvaluateHorizontalMotion(actor);
@@ -71,6 +73,12 @@ namespace Valkyrie.App.ViewModel
                     actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
 
                     // modify the acceleration by any buffs or debuffs here
+
+                    // see where we are going to be after accelerating? 
+
+                    
+                    // this is just checking where the actor is right now, 
+                    // before accelerating.
 
                     foreach (var obstacle in obstacles_)
                     {

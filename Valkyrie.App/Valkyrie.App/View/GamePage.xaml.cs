@@ -115,14 +115,20 @@ namespace Valkyrie.App.View
                 {
                     #region collision detection
 
-                    gpvm_.EvaluateMovement();
+                    /*
+                     */
+                    
+                    Task.Run(() =>
+                    {
+                        gpvm_.EvaluateMovement();
+                    });
+
 
                     #endregion
 
                     //-- Redraw Screen, move to a dedicated render thread
 
                     #region render
-
 
                     RedrawScreen();
 

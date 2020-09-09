@@ -49,7 +49,7 @@
       <Obstacle
         Type="Rectangle"
         Label="pillar"
-        Height="2"
+        Height="4"
         Width="1"
         X="3"
         Y="4"

@@ -173,9 +173,14 @@ namespace Valkyrie.App.ViewModel
 
          * The Skia image is redrawn at a rate of
        
+            I did see some improvement in the Android VM 
+            when I decreased this gamespeed from 30 to 15.
+
+            UWP renders at 56 fps on localhost
+
         --------------------------------------------*/
 
-        internal double gameSpeed_ = 30;
+        internal double gameSpeed_ = 15;
         public double GameSpeed
         {
             get
