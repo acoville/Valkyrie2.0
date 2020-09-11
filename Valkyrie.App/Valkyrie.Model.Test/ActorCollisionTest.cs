@@ -75,5 +75,18 @@ namespace Valkyrie.Model.Test
             Assert.IsFalse(actor1.Intersects(actor2));
         }
 
+        //====================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Collision")]
+        public void Using_ObstructedLeft_Property_Stops_X_Axis()
+        {
+            actor1.X_Acceleration_Rate = -50;
+            actor1.Accelerate();
+
+
+        }
+
     }
 }

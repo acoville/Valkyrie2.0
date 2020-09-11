@@ -299,11 +299,32 @@ namespace Valkyrie.App.Model
             {
                 obstructed_left_ = value;
 
-                if(obstructed_left_ && x_speed < 0)
+                if(obstructed_left_ && x_speed < 0 
+                    || obstructed_left_ && x_acceleration_rate < 0)
                 {
                     StopXAxisMotion();
                 }
             }
         }
+
+        //===========================================================
+
+        internal bool obstructed_right_ = false;
+        public bool ObstructedRight
+        {
+            get => obstructed_right_;
+
+            set
+            {
+                obstructed_right_ = value;
+
+                if (obstructed_right_ && x_speed > 0
+                    || obstructed_right_ && x_acceleration_rate > 0)
+                {
+                    StopXAxisMotion();
+                }
+            }
+        }
+        
     }
 }
