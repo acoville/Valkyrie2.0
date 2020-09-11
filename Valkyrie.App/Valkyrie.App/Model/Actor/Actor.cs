@@ -287,5 +287,23 @@ namespace Valkyrie.App.Model
             return rect1.Contains(rect2);
         }
 
+
+        //=============================================================
+
+        internal bool obstructed_left_ = false;
+        public bool ObstructedLeft
+        {
+            get => obstructed_left_;
+
+            set
+            {
+                obstructed_left_ = value;
+
+                if(obstructed_left_ && x_speed < 0)
+                {
+                    StopXAxisMotion();
+                }
+            }
+        }
     }
 }

@@ -47,7 +47,9 @@ namespace Valkyrie.Model.Test
         public void CollisionTrueTest()
         {
             GLPosition p1 = new GLPosition(100.0f, 0.0f);
+
             actor1.GLCharacter.MoveTo(p1);
+            
             actor2.GLCharacter.MoveTo(p1);
 
             actor2.GLCharacter.Translate(10.0f, 0.0f, 0.0f);
@@ -63,7 +65,9 @@ namespace Valkyrie.Model.Test
         public void CollisionFalseTest()
         {
             GLPosition p1 = new GLPosition(100.0f, 0.0f);
+            
             actor1.GLCharacter.MoveTo(p1);
+            
             actor2.GLCharacter.MoveTo(p1);
 
             actor2.GLCharacter.Translate(120.0f, 0.0f, 0.0f);

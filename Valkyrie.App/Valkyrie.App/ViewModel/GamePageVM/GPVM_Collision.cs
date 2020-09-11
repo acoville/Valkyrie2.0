@@ -60,58 +60,17 @@ namespace Valkyrie.App.ViewModel
         {
             if (!actor.Stationary)
             {
-                // is left being pressed? 
-
                 bool left = actor.ControlStatus.DirectionalStatus.L;
                 bool right = actor.ControlStatus.DirectionalStatus.R;
 
                 if (left)
                 {
-                    // can we move left? 
-                    // if yes, then increase the acceleration rate by default
-
-                    actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
-
-                    // see where we are going to be after accelerating? 
-
-                    float newXSpeed = actor.Accelerate_X();
-
-                    
-                    //-- get a list of nearby obstacles
-
-                    var contextQuery = from obstacle in obstacles_
-                                       where obstacle.Rectangle.Origin.X < actor.GLPosition.X
-                                       orderby (obstacle.GLPosition.)
-                                       select obstacle;
-
-                    List<Obstacle> context = contextQuery.ToList();
-
-                    //-- check for collision
-
-                    foreach (var obstacle in context)
-                    {
-                        if (actor.Intersects(obstacle))
-                        {
-                            // move to the right boundary and then stop moving
-
-                            actor.StopXAxisMotion();
-                            float newX = obstacle.Rectangle.Right;
-                            GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
-                            actor.MoveTo(newPosition);
-                        }
-                    }
-                }
+                    EvaluateLeft(actor);
+                } 
 
                 else if (right)
                 {
-                    // can we move right? 
-                    // if yes, then increase the acceleration rate by default
-
-                    actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
-                    float newXSpeed = actor.Accelerate_X();
-
-                    
-                    // collision detection here
+                    EvaluateRight(actor);
                 }
 
                 else
@@ -134,6 +93,53 @@ namespace Valkyrie.App.ViewModel
                     }
                 }
             }
+        }
+
+        //====================================================================
+
+        internal void EvaluateLeft(Actor actor)
+        {
+            // can we move left? 
+            // if yes, then increase the acceleration rate by default
+
+            actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
+            float newXSpeed = actor.Accelerate_X();
+
+            //-- get a list of nearby obstacles in direction of travel
+
+            var contextQuery = from obstacle in obstacles_
+                               where obstacle.Rectangle.Origin.X < actor.GLPosition.X
+                               orderby obstacle.GLPosition.Horizontal_Distance_To(actor.GLPosition) ascending
+                               select obstacle;
+
+            Obstacle nearest = contextQuery.First();
+
+            // only need to evaluat the closest obstacle in direction of travel
+
+            if (actor.Intersects(nearest))
+            {
+                // move to the right boundary and then stop moving
+
+                float newX = nearest.Rectangle.Right;
+                GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
+                actor.MoveTo(newPosition);
+
+                actor.ObstructedLeft = true;
+            }
+        }
+
+        //=====================================================================
+
+        internal void EvaluateRight(Actor actor)
+        {
+            // can we move right? 
+            // if yes, then increase the acceleration rate by default
+
+            actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
+            float newXSpeed = actor.Accelerate_X();
+
+
+            // collision detection here
         }
     }
 }
