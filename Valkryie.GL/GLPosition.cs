@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 
 namespace Valkryie.GL
 {
@@ -162,6 +163,73 @@ namespace Valkryie.GL
         {
             string result = "GL: " + X + ", " + Y + ", " + Z;
             return result;
+        }
+
+        //==============================================================
+
+        /*-----------------------------------
+         * 
+         * Helper Function to return
+         * the distance between 2 
+         * GL Positions
+         * 
+         * --------------------------------*/
+
+        public float DistanceTo(GLPosition target)
+        {
+            var deltaX = Horizontal_Distance_To(target);
+            var deltaY = Vertical_Distance_To(target);
+            float distance;
+
+            // quick check to see if we can avoid pytharogrean
+            // which is going to be computationally expensive
+
+            if(deltaX == 0)
+            {
+                distance = deltaY == 0 ? 0 : deltaY;
+                goto END;
+            }
+
+            else if(deltaY == 0)
+            {
+                distance = deltaX;
+                goto END;
+            }
+
+            // otherwise we need to use Pythagorean for a 2D solution
+            // this is not accounting for the Z coordinate plane
+            
+            else
+            {
+            }
+
+            END:
+
+            var A_squared = Math.Pow(deltaX, 2);
+            var B_squared = Math.Pow(deltaY, 2);
+
+            distance = (float)Math.Sqrt(A_squared + B_squared);
+            return distance;
+        }
+
+        //==============================================================
+
+        public float Horizontal_Distance_To(GLPosition target)
+        {
+            var x1 = this.X;
+            var x2 = target.X;
+
+            return Math.Abs(x2 - x1);
+        }
+
+        //=============================================================
+
+        public float Vertical_Distance_To(GLPosition target)
+        {
+            var y1 = this.Y;
+            var y2 = target.Y;
+
+            return Math.Abs(y2 - y1);
         }
     }
 }

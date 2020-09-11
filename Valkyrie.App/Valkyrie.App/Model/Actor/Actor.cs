@@ -210,7 +210,6 @@ namespace Valkyrie.App.Model
         public void Accelerate()
         {
             float delta_x = Accelerate_X();
-
             //float delta_y = Accelerate_Y();
 
             float delta_y = 0.0f;
@@ -265,10 +264,7 @@ namespace Valkyrie.App.Model
         
         public GLRect Rectangle
         {
-            get
-            {
-                return GLCharacter.GLRect;
-            }
+            get => GLCharacter.GLRect;
         }
 
         //======================================================================
@@ -290,5 +286,6 @@ namespace Valkyrie.App.Model
 
             return rect1.Contains(rect2);
         }
+
     }
 }

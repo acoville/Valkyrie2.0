@@ -72,15 +72,23 @@ namespace Valkyrie.App.ViewModel
 
                     actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
 
-                    // modify the acceleration by any buffs or debuffs here
-
                     // see where we are going to be after accelerating? 
 
-                    
-                    // this is just checking where the actor is right now, 
-                    // before accelerating.
+                    float newXSpeed = actor.Accelerate_X();
 
-                    foreach (var obstacle in obstacles_)
+                    
+                    //-- get a list of nearby obstacles
+
+                    var contextQuery = from obstacle in obstacles_
+                                       where obstacle.Rectangle.Origin.X < actor.GLPosition.X
+                                       orderby (obstacle.GLPosition.)
+                                       select obstacle;
+
+                    List<Obstacle> context = contextQuery.ToList();
+
+                    //-- check for collision
+
+                    foreach (var obstacle in context)
                     {
                         if (actor.Intersects(obstacle))
                         {
@@ -100,9 +108,9 @@ namespace Valkyrie.App.ViewModel
                     // if yes, then increase the acceleration rate by default
 
                     actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
+                    float newXSpeed = actor.Accelerate_X();
 
-                    // modify the acceleration by any buffs or debuffs here.
-
+                    
                     // collision detection here
                 }
 
@@ -122,6 +130,7 @@ namespace Valkyrie.App.ViewModel
                     if (speed > 0 || acceleration > 0)
                     {
                         actor.Decelerate_X_Axis();
+                        actor.Accelerate_X();
                     }
                 }
             }
