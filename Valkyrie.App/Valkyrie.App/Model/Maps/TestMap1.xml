@@ -70,9 +70,9 @@
       <Obstacle
         Type="Rectangle"
         Height="1"
-        Width="4"
-        X="22"
-        Y="12"
+        Width="5"
+        X="4"
+        Y="13"
         Z="0"
         Image="Bricks.Red"
         Static="true" />

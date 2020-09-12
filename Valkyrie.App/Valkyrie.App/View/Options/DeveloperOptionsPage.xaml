@@ -15,6 +15,7 @@
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -68,8 +69,18 @@
 
             <!-- actor caption boxes -->
 
-            
-            
+            <Switch
+                x:Name="Captions_Switch"
+                Grid.Row="3"
+                Grid.Column="1"
+                IsToggled="False"
+                Toggled="Captions_Switch_Toggled" />
+
+            <Label
+                Grid.Row="3"
+                Grid.Column="2"
+                Text="Show Coordinates" />
+
             <!-- grid -->
 
         </Grid>

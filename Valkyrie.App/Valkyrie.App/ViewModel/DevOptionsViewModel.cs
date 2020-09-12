@@ -100,6 +100,21 @@ namespace Valkyrie.App.ViewModel
 
         //=================================================================
 
+        public bool DisplayCaptions
+        {
+            get
+            {
+                return Preferences.Get("displayCaptions", false);
+            }
+            set
+            {
+                Preferences.Set("displayCaptions", value);
+                RaisePropertyChanged(nameof(DisplayCaptions));
+            }
+        }
+
+        //=================================================================
+
         /*----------------------------
          * 
          * Event Handler for 

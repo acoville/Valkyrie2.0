@@ -1,54 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*==================================================================
+ * 
+ * Valkyrie 2.0 Game Engine
+ * 
+ * GamePage ViewModel
+ * 
+ * functions relating to the evaluation of horizontal motion
+ * 
+ * ===============================================================*/
+
 using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq;
 using Valkryie.GL;
 using Valkyrie.App.Model;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace Valkyrie.App.ViewModel
 {
     public partial class GamePageViewModel : INotifyPropertyChanged
     {
-        //===================================================================
-
-        /*-------------------------------------
-         * 
-         * Evaluate Motion
-         * 
-         * -----------------------------------*/
-
-        public void EvaluateMovement()
-        {
-
-
-            foreach(var actor in actors_)
-            {
-                EvaluateHorizontalMotion(actor);
-                
-                //EvaluateVerticalMotion(actor);
-                
-                actor.Accelerate();
-            }
-        }
-
-        //===================================================================
-
-        /*-------------------------------------
-         * 
-         * Evaluate Vertical Motion
-         * 
-         * 
-         * 
-         * -----------------------------------*/
-
-        internal void EvaluateVerticalMotion(Actor actor)
-        {
-
-        }
-
         //===================================================================
 
         /*--------------------------------------------
@@ -68,17 +36,17 @@ namespace Valkyrie.App.ViewModel
 
                 if (left_commanded)
                 {
-                    if(!actor.ObstructedLeft)
+                    if (!actor.ObstructedLeft)
                     {
                         EvaluateLeft(actor);
                     }
-                } 
+                }
 
                 //--------------------------------------------
 
                 else if (right_commanded)
                 {
-                    if(!actor.ObstructedRight)
+                    if (!actor.ObstructedRight)
                     {
                         EvaluateRight(actor);
                     }
@@ -93,6 +61,10 @@ namespace Valkyrie.App.ViewModel
                     // maybe I need a decelerate function? 
 
                     /*
+                     * THIS IS CAUSING A WEIRD GLITCH WHERE AN ACTOR
+                     * UP AGAINST AN OBSTACLE BRIEFLY ACCELERATES INTO IT / 
+                     * PAST IT WHEN THE DIRECTIONAL BUTTON IS RELEASED.
+                     * 
                     var speed = Math.Abs(actor.x_speed);
                     var acceleration = Math.Abs(actor.X_Acceleration_Rate);
 
@@ -111,13 +83,13 @@ namespace Valkyrie.App.ViewModel
 
         /*-------------------------------------
          * 
-         * 
+         * HorizontalMotion.EvaluateLeft
          * 
          * -----------------------------------*/
 
         internal void EvaluateLeft(Actor actor)
         {
-            if(!actor.ObstructedLeft)
+            if (!actor.ObstructedLeft)
             {
                 // can we move left? 
                 // if yes, then increase the acceleration rate by default
@@ -151,6 +123,12 @@ namespace Valkyrie.App.ViewModel
         }
 
         //=====================================================================
+
+        /*--------------------------------
+         * 
+         * HorizontalMotion.EvaluateRight
+         * 
+         * ------------------------------*/
 
         internal void EvaluateRight(Actor actor)
         {
@@ -191,5 +169,7 @@ namespace Valkyrie.App.ViewModel
                 }
             }
         }
+
     }
+
 }

@@ -210,9 +210,7 @@ namespace Valkyrie.App.Model
         public void Accelerate()
         {
             float delta_x = Accelerate_X();
-            //float delta_y = Accelerate_Y();
-
-            float delta_y = 0.0f;
+            float delta_y = Accelerate_Y();
 
             Translate(delta_x, delta_y);
         }
@@ -325,6 +323,16 @@ namespace Valkyrie.App.Model
                 }
             }
         }
-        
+
+        //=================================================================
+
+        internal bool standing_ = true;
+        public bool Standing
+        {
+            get => standing_;
+            set => standing_ = value;
+        }
+
+
     }
 }

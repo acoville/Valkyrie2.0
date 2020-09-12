@@ -311,7 +311,7 @@ namespace Valkyrie.Graphics
 
             canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
 
-            if(Preferences.Get("Labels", false))
+            if(Preferences.Get("displayCaptions", false))
             {
                 string skiaCoords = drawable.SKPosition.ToString();
                 SKPoint target = drawable.SKPosition.SKPoint;

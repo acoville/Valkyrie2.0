@@ -44,6 +44,7 @@ namespace Valkyrie.Model.Test
         [Test]
         [Category("Actor")]
         [Category("Collision")]
+        [Category("X Axis")]
         public void CollisionTrueTest()
         {
             GLPosition p1 = new GLPosition(100.0f, 0.0f);
@@ -62,6 +63,7 @@ namespace Valkyrie.Model.Test
         [Test]
         [Category("Actor")]
         [Category("Collision")]
+        [Category("X Axis")]
         public void CollisionFalseTest()
         {
             GLPosition p1 = new GLPosition(100.0f, 0.0f);
@@ -74,19 +76,5 @@ namespace Valkyrie.Model.Test
 
             Assert.IsFalse(actor1.Intersects(actor2));
         }
-
-        //====================================================================
-
-        [Test]
-        [Category("Actor")]
-        [Category("Collision")]
-        public void Using_ObstructedLeft_Property_Stops_X_Axis()
-        {
-            actor1.X_Acceleration_Rate = -50;
-            actor1.Accelerate();
-
-
-        }
-
     }
 }

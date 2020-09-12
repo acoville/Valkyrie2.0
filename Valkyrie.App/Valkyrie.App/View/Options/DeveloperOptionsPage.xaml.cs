@@ -52,5 +52,12 @@ namespace Valkyrie.App.View.Options
         {
             dovm_.DisplayScrollbox = e.Value;
         }
+
+        //-----------------------------------------------------------------
+
+        private void Captions_Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            dovm_.DisplayCaptions = e.Value;
+        }
     }
 }
