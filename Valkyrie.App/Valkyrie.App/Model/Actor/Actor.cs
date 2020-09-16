@@ -285,6 +285,33 @@ namespace Valkyrie.App.Model
             return rect1.Contains(rect2);
         }
 
+        //======================================================================
+
+        public float Vertical_Distance_Below(ICollidable other)
+        {
+            return GLCharacter.GLRect.Vertical_Distance_Below(other.Rectangle);
+        }
+
+        //======================================================================
+
+        public float Vertical_Distance_Above(ICollidable other)
+        {
+            return GLCharacter.GLRect.Vertical_Distance_Above(other.Rectangle);
+        }
+
+        //=====================================================================
+
+        public bool Is_Above(ICollidable other)
+        {
+            return GLCharacter.GLRect.Is_Above(other.Rectangle);
+        }
+
+        //=====================================================================
+
+        public bool Is_Below(ICollidable other)
+        {
+            return GLCharacter.GLRect.Is_Below(other.Rectangle);
+        }
 
         //=============================================================
 

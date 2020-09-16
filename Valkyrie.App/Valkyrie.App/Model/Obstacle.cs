@@ -129,12 +129,40 @@ namespace Valkyrie.App.Model
 
         //====================================================================
 
+        public float Vertical_Distance_Above(ICollidable other)
+        {
+            return Rectangle.Vertical_Distance_Above(other.Rectangle);
+        }
+
+        //====================================================================
+
+        public float Vertical_Distance_Below(ICollidable other)
+        {
+            return Rectangle.Vertical_Distance_Below(other.Rectangle);
+        }
+
+        //====================================================================
+
         public bool Contains(ICollidable other)
         {
             var rect1 = this.GLObs.Rectangle;
             var rect2 = other.Rectangle;
 
             return rect1.Contains(rect2);
+        }
+
+        //=====================================================================
+
+        public bool Is_Above(ICollidable other)
+        {
+            return GLObs.Rectangle.Is_Above(other.Rectangle);
+        }
+
+        //=====================================================================
+
+        public bool Is_Below(ICollidable other)
+        {
+            return GLObs.Rectangle.Is_Below(other.Rectangle);
         }
 
         //===================================================================

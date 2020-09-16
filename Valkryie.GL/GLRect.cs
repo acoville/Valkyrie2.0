@@ -197,7 +197,12 @@ namespace Valkryie.GL
 
         internal void Translate(float deltaX, float deltaY)
         {
-            throw new NotImplementedException();
+            Top += deltaY;
+            Bottom += deltaY;
+            Left += deltaX;
+            Right += deltaX;
+
+            Center.Translate(deltaX, deltaY);
         }
 
         //=========================================================
@@ -327,6 +332,11 @@ namespace Valkryie.GL
             left_ = origin_.X;
             right_ = left_ + pxWidth_;
             top_ = bottom_ + pxHeight_;
+
+            var center_x = origin_.X + (pxWidth_ / 2.0f);
+            var center_y = origin_.Y + (pxHeight_ / 2.0f);
+
+            center_ = new GLPosition(center_x, center_y);
         }
 
         //==============================================================
@@ -423,6 +433,34 @@ namespace Valkryie.GL
             //-- they must be equal
 
             return false;
+        }
+
+        //=============================================================
+
+        public float Vertical_Distance_Below(GLRect other)
+        {
+            return this.Bottom - other.Top;
+        }
+
+        //=============================================================
+
+        public float Vertical_Distance_Above(GLRect other)
+        {
+            return other.Bottom - this.Top;
+        }
+
+        //============================================================
+
+        public bool Is_Above(GLRect other)
+        {
+            return Bottom > other.Top ? true : false;
+        }
+
+        //============================================================
+
+        public bool Is_Below(GLRect other)
+        {
+            return Top < other.Bottom ? true : false;
         }
     }
 }

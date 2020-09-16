@@ -24,7 +24,7 @@ namespace Valkryie.GL
         public GLRect Rectangle
         {
             get => rectangle_;
-            set => rectangle_ = value;
+            //set => rectangle_ = value;
         }
 
         //=======================================================
@@ -46,7 +46,7 @@ namespace Valkryie.GL
         
         public GLObstacle()
         {
-            Rectangle = new GLRect();
+            rectangle_ = new GLRect();
         }
 
         //===================================================================
@@ -81,7 +81,7 @@ namespace Valkryie.GL
             float width = float.Parse(node.Attributes["Width"].Value.ToString());
             width *= 64;
 
-            Rectangle = new GLRect(origin, height, width);
+            rectangle_ = new GLRect(origin, height, width);
 
             // get the image
 

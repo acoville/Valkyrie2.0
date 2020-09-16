@@ -116,13 +116,13 @@ namespace Valkyrie.App.View
                     #region collision detection
 
                     /*
-                     */
                     
                     Task.Run(() =>
                     {
-                        gpvm_.EvaluateMovement();
                     });
+                     */
 
+                        gpvm_.EvaluateMovement();
 
                     #endregion
 

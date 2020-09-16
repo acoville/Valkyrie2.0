@@ -14,5 +14,13 @@ namespace Valkyrie.App.Model
         {
             get;
         }
+
+        //------------------------------------------------
+
+        float Vertical_Distance_Below(ICollidable other);
+        float Vertical_Distance_Above(ICollidable other);
+
+        bool Is_Above(ICollidable other);
+        bool Is_Below(ICollidable other);
     }
 }

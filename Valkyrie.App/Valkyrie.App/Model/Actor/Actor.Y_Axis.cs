@@ -51,8 +51,6 @@ namespace Valkyrie.App.Model
                         y_speed_ = max_y_speed_;
                     }
                 }
-                /*
-                 */
             }
         }
 
@@ -92,18 +90,37 @@ namespace Valkyrie.App.Model
         public void Jump()
         {
             current_jumps_++;
-            Y_Acceleration_Rate += max_x_speed;
+            Y_Acceleration_Rate += max_y_speed_;
             standing_ = false;
         }
 
         //==============================================================
-        
-        /*
-         */
+
+        /*-------------------------------------
+         *  
+         *  mutates Y_Speed property
+         * 
+         * ----------------------------------*/
+
         public float Accelerate_Y()
         {
             Y_Speed += y_acceleration_rate_;
             return Y_Speed;
+        }
+
+        //=============================================================
+
+        /*----------------------------------
+         * 
+         * Only predicts what next frame's
+         * Y_Speed will be, does not mutate
+         * Y_Speed
+         * 
+         * -------------------------------*/
+
+        public float NextDeltaY()
+        {
+            return Y_Speed + Y_Acceleration_Rate;
         }
 
         //==============================================================
@@ -112,7 +129,15 @@ namespace Valkyrie.App.Model
         {
             y_speed_ = 0.0f;
             y_acceleration_rate_ = 0.0f;
-        }
+        }  
 
+        //=============================================================== 
+
+        public void Land()
+        {
+            Stop_Y_Axis_Motion();
+            Standing = true;
+            current_jumps_ = 0;
+        }
     }
 }

@@ -8,8 +8,10 @@
  * 
  * ===============================================================*/
 
+using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Security;
 using Valkryie.GL;
 using Valkyrie.App.Model;
 
@@ -45,78 +47,106 @@ namespace Valkyrie.App.ViewModel
             //------ otherwise, actor is not standing so 
             //         must be going up or down 
 
-            else
+            else // actor is not standing
             {
-                EvaluateDown(actor);
+                if(actor.Y_Speed > 0)
+                {
+                    EvaluateUp(actor);
+                }
+                else
+                {
+                    EvaluateDown(actor);
+                }
             }
         }
 
-        //===================================================================
+        //=========================================================================
 
         /*--------------------------------
          * 
-         * What goes up must come down
+         * if Y_Speed > 0 then the actor 
+         * is still moving up 
          * 
          * -----------------------------*/
 
-        public void EvaluateDown(Actor actor)
+        public void EvaluateUp(Actor actor)
         {
             actor.Y_Acceleration_Rate -= 1.0f;
-            float newYSpeed = actor.Accelerate_Y();
 
-            //--------- we are still on the ascent and need to check for 
-            //          collision on objects above
+            var contextQuery = from obstacle in obstacles_
+                               where obstacle.Is_Above(actor)
+                               orderby actor.Vertical_Distance_Above(obstacle) ascending
+                               select obstacle;
 
-            if(actor.y_speed_ > 0)
+            if(contextQuery.Any())
             {
-                GLPosition topLeftCorner = actor.GLPosition;
-                topLeftCorner.Y += actor.Rectangle.PixelHeight;
-
-                var contextQuery = from obstacle in obstacles_
-                                   where obstacle.Rectangle.Bottom > actor.Rectangle.Top
-                                   orderby obstacle.GLPosition.Vertical_Distance_To(topLeftCorner) ascending
-                                   select obstacle;
-
                 Obstacle nearest = contextQuery.First();
 
                 if (actor.Intersects(nearest))
                 {
                     float newY = nearest.GLPosition.Y;
-                    
+
                     GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
                     actor.MoveTo(newPosition);
                     actor.Stop_Y_Axis_Motion();
                 }
             }
+        }
 
-            //------------ otherwise, he must be falling and need to check for
-            //              collision on objects below
-            
-            else if(actor.Y_Speed < 0)
+        //=========================================================================
+
+        /*--------------------------------
+         * 
+         * if Y_Speed is negative then 
+         * the actor must be falling
+         * 
+         * -----------------------------*/
+
+        public void EvaluateDown(Actor actor)
+        {
+            var contextQuery = from obstacle in obstacles_
+                                where obstacle.Is_Below(actor)
+                                orderby actor.Vertical_Distance_Below(obstacle) ascending
+                                select obstacle;
+
+            if(contextQuery.Any())
             {
-                var contextQuery = from obstacle in obstacles_
-                                   where obstacle.Rectangle.Top < actor.Rectangle.Bottom
-                                   orderby obstacle.GLPosition.Vertical_Distance_To(actor.GLPosition) ascending
-                                   select obstacle;
-
                 Obstacle nearest = contextQuery.First();
+
+                //---- condition #1: we are already intersecting
 
                 if (actor.Intersects(nearest))
                 {
                     //-- stop moving 
 
-                    actor.Stop_Y_Axis_Motion();
                     float newY = nearest.GLPosition.Y + nearest.Rectangle.PixelHeight;
                     GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
                     actor.MoveTo(newPosition);
-
-                    //-- reset appropriate statuses
-
-                    actor.Standing = true;
-                    actor.current_jumps_ = 0;
+                    actor.Land();
                 }
+
+                //---- condition #2: we will be intersecting in the next frame
+
+                /*
+                else
+                {
+                    var vertical_clearance = actor.Vertical_Distance_Below(nearest);
+                    var newYSpeed = actor.NextDeltaY();
+
+                    var margin = vertical_clearance - newYSpeed;
+
+                    if(margin <= 32)
+                    {
+                        //-- stop moving 
+
+                        float newY = nearest.GLPosition.Y + nearest.Rectangle.PixelHeight;
+                        GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
+                        actor.MoveTo(newPosition);
+                        actor.Land();
+                    }
+                }
+                 */
             }
         }
     }
-
 }
