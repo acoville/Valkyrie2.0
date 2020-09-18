@@ -167,6 +167,42 @@ namespace Valkyrie.App.Model
 
         //===================================================================
 
+        public bool Is_Left_Of(ICollidable other)
+        {
+            var otherRect = other.Rectangle;
+            return Rectangle.Right < otherRect.Left ? true : false;
+        }
+
+        //===================================================================
+
+        public bool Is_Right_Of(ICollidable other)
+        {
+            var otherRect = other.Rectangle;
+            return Rectangle.Left > otherRect.Right ? true : false;
+        }
+
+        //===================================================================
+
+        public float Clearance_Right(ICollidable other)
+        {
+            var left = Rectangle.Right;
+            var right = other.Rectangle.Left;
+
+            return right - left;
+        }
+
+        //===================================================================
+
+        public float Clearance_Left(ICollidable other)
+        {
+            var left = other.Rectangle.Right;
+            var right = Rectangle.Left;
+
+            return right - left;
+        }
+
+        //===================================================================
+
         public GLRect Rectangle
         {
             get => GLObs.Rectangle;

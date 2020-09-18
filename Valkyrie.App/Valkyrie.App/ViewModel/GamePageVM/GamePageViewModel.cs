@@ -25,6 +25,8 @@ namespace Valkyrie.App.ViewModel
         public delegate void InputChangedHandler(GLCharacter c, string e);
         public event PropertyChangedEventHandler PropertyChanged;
 
+        internal Collision_Resolver collider;
+
         //===========================================================
 
         /*------------------------------------
@@ -46,6 +48,8 @@ namespace Valkyrie.App.ViewModel
             controllers_.Add(virtualGamepad);
 
             SetupPlayerOneController();
+
+            collider = new Collision_Resolver();
         }
 
         //=============================================================
@@ -191,6 +195,23 @@ namespace Valkyrie.App.ViewModel
             {
                 gameSpeed_ = 1000 / value;
                 RaisePropertyChanged();
+            }
+        }
+
+        //===================================================================
+
+        /*-------------------------------------
+         * 
+         * Evaluate Motion
+         * 
+         * -----------------------------------*/
+
+        public void EvaluateMovement()
+        {
+            foreach (var actor in actors_)
+            {
+                collider.EvaluateMotion(actor);
+                actor.Accelerate();
             }
         }
     }

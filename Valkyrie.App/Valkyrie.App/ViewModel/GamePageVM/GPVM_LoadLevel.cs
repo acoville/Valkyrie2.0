@@ -86,11 +86,23 @@ namespace Valkyrie.App.ViewModel
             {
                 // add to the List of Obstacles in the GPVM from the GLObs in Level
 
-                obstacles_.Add(new Obstacle(glob));
+                //-----------------------------------------
+
+                //obstacles_.Add(new Obstacle(glob));
+
+                collider.Add_Obtstacle(new Obstacle(glob));
+
+                //-----------------------------------------
 
                 // get the index of the obstacle we just added
 
-                int i = obstacles_.Count - 1;
+                //-----------------------------------------
+
+                //int i = obstacles_.Count - 1;
+
+                int i = collider.Count - 1;
+
+                //-----------------------------------------
 
                 // get the SKBitmap for the TileGroup
 
@@ -118,15 +130,17 @@ namespace Valkyrie.App.ViewModel
 
                 // create the tile group
 
-                obstacles_[i].TilesGroup = new TileGroup(glob);
-                obstacles_[i].TilesGroup.MainTile = tileImage;
-                obstacles_[i].TilesGroup.EndTile = endImage;
-                obstacles_[i].TilesGroup.InitTiles();
+                var obs = collider[i] as Obstacle;
+
+                obs.TilesGroup = new TileGroup(glob);
+                obs.TilesGroup.MainTile = tileImage;
+                obs.TilesGroup.EndTile = endImage;
+                obs.TilesGroup.InitTiles();
 
                 // move it to where it needs to be? 
                 // no, the DeviceScreen should do that.
 
-                DeviceScreen.AddObstacle(obstacles_[i]);
+                DeviceScreen.AddObstacle(obs);
             }
         }
 
