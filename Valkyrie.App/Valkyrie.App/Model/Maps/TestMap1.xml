@@ -56,11 +56,11 @@
         Z="0"
         Image="Bricks.Red"
         Static="true" />
-        
+      
       <Obstacle
         Type="Stair"
         Orientation="Left"
-        X="17"
+        X="12"
         Y="4"
         Z="0"
         Height="5"

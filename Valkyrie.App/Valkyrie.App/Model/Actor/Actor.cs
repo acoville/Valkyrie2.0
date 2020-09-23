@@ -3,10 +3,12 @@ using Valkryie.GL;
 using Valkyrie.GL;
 using Valkyrie.Graphics;
 using Valkyrie.Controls;
+using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Valkyrie.App.Model
 {
-    public partial class Actor : ICollidable
+    public partial class Actor : Entity
     {
         //=====================================================================
 
@@ -23,7 +25,6 @@ namespace Valkyrie.App.Model
 
             set
             {
-
                 if(controlStatus_ != value)
                 {
                     controlStatus_ = value;
@@ -193,6 +194,8 @@ namespace Valkyrie.App.Model
             GLCharacter = character;
             imageSource_ = GLCharacter.SpriteSource;
             Sprite = new Sprite();
+
+            Rectangle = GLCharacter.GLRect;
         }
 
         //==================================================================
@@ -203,6 +206,8 @@ namespace Valkyrie.App.Model
             imageSource_ = GLCharacter.SpriteSource;
             Sprite = new Sprite();
             ControlStatus = new ControlStatus();
+
+            Rectangle = GLCharacter.GLRect;
         }
 
         //====================================================================
@@ -259,58 +264,17 @@ namespace Valkyrie.App.Model
         }
 
         //======================================================================
-        
-        public GLRect Rectangle
-        {
-            get => GLCharacter.GLRect;
-        }
-
-        //======================================================================
-
-        public bool Intersects(ICollidable other)
-        {
-            var rect1 = this.GLCharacter.GLRect;
-            var rect2 = other.Rectangle;
-
-            return rect1.Intersects(rect2);
-        }
-
-        //======================================================================
-
-        public bool Contains(ICollidable other)
-        {
-            var rect1 = this.GLCharacter.GLRect;
-            var rect2 = other.Rectangle;
-
-            return rect1.Contains(rect2);
-        }
-
-        //======================================================================
 
         public float Vertical_Distance_Below(ICollidable other)
         {
-            return GLCharacter.GLRect.Vertical_Distance_Below(other.Rectangle);
+            return Rectangle.Vertical_Distance_Below(other.Rectangle);
         }
 
         //======================================================================
 
         public float Vertical_Distance_Above(ICollidable other)
         {
-            return GLCharacter.GLRect.Vertical_Distance_Above(other.Rectangle);
-        }
-
-        //=====================================================================
-
-        public bool Is_Above(ICollidable other)
-        {
-            return GLCharacter.GLRect.Is_Above(other.Rectangle);
-        }
-
-        //=====================================================================
-
-        public bool Is_Below(ICollidable other)
-        {
-            return GLCharacter.GLRect.Is_Below(other.Rectangle);
+            return Rectangle.Vertical_Distance_Above(other.Rectangle);
         }
 
         //=============================================================
@@ -358,42 +322,6 @@ namespace Valkyrie.App.Model
         {
             get => standing_;
             set => standing_ = value;
-        }
-
-        //===================================================================
-
-        public bool Is_Left_Of(ICollidable other)
-        {
-            var otherRect = other.Rectangle;
-            return Rectangle.Right < otherRect.Left ? true : false;
-        }
-
-        //====================================================================
-
-        public bool Is_Right_Of(ICollidable other)
-        {
-            var otherRect = other.Rectangle;
-            return Rectangle.Left > otherRect.Right ? true : false;
-        }
-
-        //===================================================================
-
-        public float Clearance_Right(ICollidable other)
-        {
-            var left = Rectangle.Right;
-            var right = other.Rectangle.Left;
-
-            return right - left;
-        }
-
-        //===================================================================
-
-        public float Clearance_Left(ICollidable other)
-        {
-            var left = other.Rectangle.Right;
-            var right = Rectangle.Left;
-
-            return right - left;
         }
     }
 }

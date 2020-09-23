@@ -27,9 +27,5 @@ namespace Valkyrie.App.Model
 
         bool Is_Left_Of(ICollidable other);
         bool Is_Right_Of(ICollidable other);
-
-        float Clearance_Right(ICollidable other);
-        float Clearance_Left(ICollidable other);
-
     }
 }

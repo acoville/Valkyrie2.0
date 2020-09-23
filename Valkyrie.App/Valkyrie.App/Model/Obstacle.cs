@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using System;
 using System.Xml;
 using Valkryie.GL;
 using Valkyrie.Graphics;
@@ -179,26 +180,6 @@ namespace Valkyrie.App.Model
         {
             var otherRect = other.Rectangle;
             return Rectangle.Left > otherRect.Right ? true : false;
-        }
-
-        //===================================================================
-
-        public float Clearance_Right(ICollidable other)
-        {
-            var left = Rectangle.Right;
-            var right = other.Rectangle.Left;
-
-            return right - left;
-        }
-
-        //===================================================================
-
-        public float Clearance_Left(ICollidable other)
-        {
-            var left = other.Rectangle.Right;
-            var right = Rectangle.Left;
-
-            return right - left;
         }
 
         //===================================================================

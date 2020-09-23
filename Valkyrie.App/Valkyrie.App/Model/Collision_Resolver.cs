@@ -147,29 +147,31 @@ namespace Valkyrie.App.Model
                 // if yes, then increase the acceleration rate by default
 
                 actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
-                float newXSpeed = actor.Accelerate_X();
+                float newXSpeed = actor.Next_X_Speed();
 
                 //-- get a list of nearby obstacles in direction of travel
 
                 var contextQuery = from obstacle in obstacles_
                                    where obstacle.Is_Left_Of(actor)
-                                   orderby obstacle.Clearance_Left(actor) ascending
+                                   orderby obstacle.Rectangle.Right ascending
                                    select obstacle;
 
-                Obstacle nearest = (Obstacle)contextQuery.First();
-
-                // only need to evaluat the closest obstacle in direction of travel
-
-                if (actor.Intersects(nearest))
+                if(contextQuery.Any())
                 {
-                    // move to the right boundary and then stop moving
+                    Obstacle nearest = (Obstacle)contextQuery.First();
 
-                    float newX = nearest.Rectangle.Right;
-                    GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
-                    actor.MoveTo(newPosition);
+                    // only need to evaluat the closest obstacle in direction of travel
 
-                    actor.StopXAxisMotion();
-                    actor.ObstructedLeft = true;
+                    if (actor.Intersects(nearest))
+                    {
+                        // move to the right boundary and then stop moving
+
+                        float newX = nearest.Rectangle.Right;
+                        GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
+                        actor.MoveTo(newPosition);
+                        actor.StopXAxisMotion();
+                        actor.ObstructedLeft = true;
+                    }
                 }
             }
         }
@@ -199,25 +201,27 @@ namespace Valkyrie.App.Model
 
                 var contextQuery = from obstacle in obstacles_
                                    where obstacle.Is_Right_Of(actor)
-                                   orderby obstacle.Clearance_Right(actor) ascending
+                                   orderby obstacle.Rectangle.Left ascending
                                    select obstacle;
 
-                Obstacle nearest = (Obstacle)contextQuery.First();
-
-                // only need to evaluat the closest obstacle in direction of travel
-
-                if (actor.Intersects(nearest))
+                if(contextQuery.Any())
                 {
-                    // move to the left boundary and then stop moving
+                    Obstacle nearest = (Obstacle)contextQuery.First();
 
-                    float newX = nearest.Rectangle.Left + actor.Rectangle.PixelWidth;
+                    // only need to evaluat the closest obstacle in direction of travel
 
-                    GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
+                    if (actor.Intersects(nearest))
+                    {
+                        // move to the left boundary and then stop moving
 
-                    actor.MoveTo(newPosition);
+                        float newX = nearest.Rectangle.Left;
 
-                    actor.StopXAxisMotion();
-                    actor.ObstructedRight = true;
+                        GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
+
+                        actor.MoveTo(newPosition);
+                        actor.StopXAxisMotion();
+                        actor.ObstructedRight = true;
+                    }
                 }
             }
         }
