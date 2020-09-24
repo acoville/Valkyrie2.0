@@ -30,7 +30,7 @@ namespace Valkyrie.App.Test
             gl_player2 = new GLCharacter();
             player2 = new Actor(gl_player2);
 
-            SUT.
+            //SUT.
 
         }
     }

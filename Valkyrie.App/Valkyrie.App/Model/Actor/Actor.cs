@@ -263,20 +263,6 @@ namespace Valkyrie.App.Model
             Translate(deltaX, deltaY, deltaZ);
         }
 
-        //======================================================================
-
-        public float Vertical_Distance_Below(ICollidable other)
-        {
-            return Rectangle.Vertical_Distance_Below(other.Rectangle);
-        }
-
-        //======================================================================
-
-        public float Vertical_Distance_Above(ICollidable other)
-        {
-            return Rectangle.Vertical_Distance_Above(other.Rectangle);
-        }
-
         //=============================================================
 
         internal bool obstructed_left_ = false;

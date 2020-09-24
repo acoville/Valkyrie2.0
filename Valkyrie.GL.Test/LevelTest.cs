@@ -23,12 +23,13 @@ namespace Valkyrie.GL.Test
         }
 
         //==============================================================
-
+        /*
         [Test]
         [Category("Level")]
         public void SanityCheck()
         {
             Level SUT = new Level();
         }
+         */
     }
 }

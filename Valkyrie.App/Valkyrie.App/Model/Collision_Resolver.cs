@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Valkryie.GL;
 
 namespace Valkyrie.App.Model
@@ -44,10 +45,7 @@ namespace Valkyrie.App.Model
 
         public int Count
         {
-            get
-            {
-                return obstacles_.Count;
-            }
+            get => obstacles_.Count;
         }
 
         //============================================================

@@ -14,16 +14,44 @@ namespace Valkryie.GL
          * 
          * ------------------------------------*/
 
-        internal GLPosition origin_;
+        internal GLPosition origin_ = new GLPosition();
         public GLPosition Origin
         {
             get => origin_;
-            set => origin_ = value;
+
+            set
+            {
+                origin_ = value;
+                Recalculate_Boundaries();
+            }
         }
 
         //======================================================
 
-        internal GLPosition center_;
+        internal void Recalculate_Boundaries()
+        {
+            bottom_ = origin_.Y;
+            top_ = bottom_ + pxHeight_;
+            left_ = origin_.X;
+            right_ = left_ + pxWidth_;
+
+            Recalculate_Center();
+        }
+
+        //=======================================================
+
+        internal void Recalculate_Center()
+        {
+            float cx = origin_.X + (pxWidth_ / 2);
+            float cy = origin_.Y + (pxHeight_ / 2);
+
+            center_.X = cx;
+            center_.Y = cy;
+        }
+
+        //======================================================
+
+        internal GLPosition center_ = new GLPosition();
         public GLPosition Center
         {
             get => center_;
@@ -35,7 +63,6 @@ namespace Valkryie.GL
         public float Top
         {
             get => top_;
-            set => top_ = value;
         }
 
         //======================================================
@@ -44,7 +71,6 @@ namespace Valkryie.GL
         public float Bottom
         {
             get => bottom_;
-            set => bottom_ = value;
         }
 
         //=====================================================
@@ -53,7 +79,6 @@ namespace Valkryie.GL
         public float Left
         {
             get => left_;
-            set => left_ = value;
         }
 
         //====================================================
@@ -62,7 +87,6 @@ namespace Valkryie.GL
         public float Right
         {
             get => right_;
-            set => right_ = value;
         }
 
         //======================================================
@@ -133,34 +157,30 @@ namespace Valkryie.GL
             right_ = right;
             bottom_ = bottom;
 
-            Origin = new GLPosition(left_, bottom_);
+            origin_ = new GLPosition(left_, bottom_);
 
-            float center_x = Origin.X + (right / 2.0f);
-            float center_y = Origin.Y + (top / 2.0f);
+            pxHeight_ = top_ - bottom_;
+            pxWidth_ = right_ - left_;
 
-            center_ = new GLPosition(center_x, center_y);
+            tileHeight_ = (int) (pxHeight_ / 64.0f);
+            tileWidth_ = (int) (pxWidth_ / 64.0f);
+
+            Recalculate_Center();
         }
 
         //----------------------------------------------------
 
         public GLRect(GLPosition origin, float height, float width)
         {
-            Origin = origin;
+            origin_ = origin;
+            
             PixelHeight = height;
             PixelWidth = width;
 
             TileHeight = (int)PixelHeight / 64;
             TileWidth = (int)PixelWidth / 64;
 
-            Top = Origin.Y + PixelHeight;
-            Bottom = Origin.Y;
-            Left = Origin.X;
-            Right = Origin.X + PixelWidth;
-
-            float center_x = Origin.X + (width / 2.0f);
-            float center_y = Origin.Y + (height / 2.0f);
-
-            center_ = new GLPosition(center_x, center_y);
+            Recalculate_Boundaries();
         }
 
         //======================================================
@@ -174,7 +194,7 @@ namespace Valkryie.GL
 
         public GLRect(GLPosition origin, int height, int width)
         {
-            Origin = origin;
+            origin_ = origin;
 
             TileHeight = height;
             TileWidth = width;
@@ -182,27 +202,7 @@ namespace Valkryie.GL
             PixelHeight = (float)height * 64;
             PixelWidth = (float)width * 64;
 
-            Top = Origin.Y + PixelHeight;
-            Bottom = Origin.Y;
-            Left = Origin.X;
-            Right = Origin.X + PixelWidth;
-
-            float center_x = Origin.X + (PixelWidth / 2.0f);
-            float center_y = Origin.Y + (PixelHeight / 2.0f);
-
-            center_ = new GLPosition(center_x, center_y);
-        }
-
-        //============================================================
-
-        internal void Translate(float deltaX, float deltaY)
-        {
-            Top += deltaY;
-            Bottom += deltaY;
-            Left += deltaX;
-            Right += deltaX;
-
-            Center.Translate(deltaX, deltaY);
+            Recalculate_Boundaries();
         }
 
         //=========================================================
@@ -313,7 +313,7 @@ namespace Valkryie.GL
                 XOverlap = true;
             }
 
-            return (XOverlap || YOverlap) ? true : false;
+            return (XOverlap || YOverlap);
         }
 
         //================================================================
@@ -327,16 +327,7 @@ namespace Valkryie.GL
         public void MoveTo(GLPosition target)
         {
             origin_.MoveTo(target);
-
-            bottom_ = origin_.Y;
-            left_ = origin_.X;
-            right_ = left_ + pxWidth_;
-            top_ = bottom_ + pxHeight_;
-
-            var center_x = origin_.X + (pxWidth_ / 2.0f);
-            var center_y = origin_.Y + (pxHeight_ / 2.0f);
-
-            center_ = new GLPosition(center_x, center_y);
+            Recalculate_Boundaries();
         }
 
         //==============================================================
@@ -350,11 +341,7 @@ namespace Valkryie.GL
         public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
         {
             origin_.Translate(deltaX, deltaY, deltaZ);
-
-            bottom_ = origin_.Y;
-            left_ = origin_.X;
-            right_ = left_ + pxWidth_;
-            top_ = bottom_ + pxHeight_;
+            Recalculate_Boundaries();
         }
 
         //==============================================================
@@ -369,23 +356,15 @@ namespace Valkryie.GL
         {
             bool result = false;
 
-            if(lhs.Left == rhs.Left)
+            if(lhs.Origin == rhs.Origin)
             {
-                if(lhs.Right == rhs.Right)
+                if(lhs.pxHeight_ == rhs.pxHeight_)
                 {
-                    if(lhs.Top == rhs.Top)
+                    if(lhs.pxWidth_ == rhs.pxWidth_)
                     {
-                        if(lhs.Bottom == rhs.Bottom)
-                        {
-                            result = true;
-                        }
+                        result = true;
                     }
                 }
-            }
-
-            else
-            {
-                result = false;
             }
 
             return result;
@@ -396,7 +375,6 @@ namespace Valkryie.GL
         public override bool Equals(object obj)
         {
             var other = obj as GLRect;
-
             return this == other;
         }
 
@@ -405,8 +383,6 @@ namespace Valkryie.GL
         public override int GetHashCode()
         {
             int hash = origin_.GetHashCode();
-
-            //int hash = 0;
 
             hash += TileHeight;
             hash += TileWidth;

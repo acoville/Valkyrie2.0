@@ -76,14 +76,16 @@ namespace Valkyrie.App.Model
 
         public float Vertical_Distance_Above(ICollidable other)
         {
-            throw new NotImplementedException();
+            var otherRect = other.Rectangle;
+            return Rectangle.Vertical_Distance_Above(otherRect);
         }
 
         //------------------------------------------------
 
         public float Vertical_Distance_Below(ICollidable other)
         {
-            throw new NotImplementedException();
+            var otherRect = other.Rectangle;
+            return Rectangle.Vertical_Distance_Below(otherRect);
         }
     }
 }

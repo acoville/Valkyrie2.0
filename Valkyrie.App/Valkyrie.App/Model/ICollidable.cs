@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Valkryie.GL;
+﻿using Valkryie.GL;
 
 namespace Valkyrie.App.Model
 {
@@ -26,6 +23,6 @@ namespace Valkyrie.App.Model
         //-------------------------------------------------
 
         bool Is_Left_Of(ICollidable other);
-        bool Is_Right_Of(ICollidable other);
+        bool Is_Right_Of(ICollidable other); 
     }
 }

@@ -6,7 +6,7 @@ using Valkyrie.Graphics;
 
 namespace Valkyrie.App.Model
 {
-    public class Obstacle : ICollidable
+    public class Obstacle : Entity
     {
         internal string imageSource_;
         public string ImageSource
@@ -61,6 +61,8 @@ namespace Valkyrie.App.Model
         {
             obstacle_ = globs;
             TilesGroup = new TileGroup(obstacle_);
+
+            Rectangle = obstacle_.Rectangle;
         }
 
         //--------------------------------------------
@@ -72,6 +74,8 @@ namespace Valkyrie.App.Model
 
             obstacle_ = new GLObstacle(node);
             TilesGroup = new TileGroup(obstacle_);
+
+            Rectangle = obstacle_.Rectangle;
         }
 
         //==================================================
@@ -116,78 +120,6 @@ namespace Valkyrie.App.Model
             newpoint.Y += deltaY;
 
             SKPosition = newpoint;
-        }
-
-        //====================================================================
-
-        public bool Intersects(ICollidable other)
-        {
-            var rect1 = this.GLObs.Rectangle;
-            var rect2 = other.Rectangle;
-
-            return rect1.Intersects(rect2);
-        }
-
-        //====================================================================
-
-        public float Vertical_Distance_Above(ICollidable other)
-        {
-            return Rectangle.Vertical_Distance_Above(other.Rectangle);
-        }
-
-        //====================================================================
-
-        public float Vertical_Distance_Below(ICollidable other)
-        {
-            return Rectangle.Vertical_Distance_Below(other.Rectangle);
-        }
-
-        //====================================================================
-
-        public bool Contains(ICollidable other)
-        {
-            var rect1 = this.GLObs.Rectangle;
-            var rect2 = other.Rectangle;
-
-            return rect1.Contains(rect2);
-        }
-
-        //=====================================================================
-
-        public bool Is_Above(ICollidable other)
-        {
-            return GLObs.Rectangle.Is_Above(other.Rectangle);
-        }
-
-        //=====================================================================
-
-        public bool Is_Below(ICollidable other)
-        {
-            return GLObs.Rectangle.Is_Below(other.Rectangle);
-        }
-
-        //===================================================================
-
-        public bool Is_Left_Of(ICollidable other)
-        {
-            var otherRect = other.Rectangle;
-            return Rectangle.Right < otherRect.Left ? true : false;
-        }
-
-        //===================================================================
-
-        public bool Is_Right_Of(ICollidable other)
-        {
-            var otherRect = other.Rectangle;
-            return Rectangle.Left > otherRect.Right ? true : false;
-        }
-
-        //===================================================================
-
-        public GLRect Rectangle
-        {
-            get => GLObs.Rectangle;
-        }
-        
+        }        
     }
 }

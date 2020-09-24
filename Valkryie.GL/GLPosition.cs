@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Xml;
 
 namespace Valkryie.GL
@@ -43,17 +44,9 @@ namespace Valkryie.GL
         public GLPosition()
         {}
 
-        //---------------------------------------------
-
-        public GLPosition(float Xparam, float Yparam)
-        {
-            X = Xparam;
-            Y = Yparam;
-        }
-
         //--------------------------------------------
 
-        public GLPosition(float Xparam, float Yparam, float Zparam)
+        public GLPosition(float Xparam, float Yparam, float Zparam = 1.0f)
         {
             X = Xparam;
             Y = Yparam;
@@ -134,7 +127,7 @@ namespace Valkryie.GL
 
         //================================================================
 
-        static public bool operator != (GLPosition lhs, GLPosition rhs)
+        static public bool operator !=(GLPosition lhs, GLPosition rhs)
         {
             return (lhs.X != rhs.X 
                         || lhs.Y != rhs.Y
@@ -153,7 +146,6 @@ namespace Valkryie.GL
         public override bool Equals(object obj)
         {
             var other = obj as GLPosition;
-
             return (other == this);
         }
 
