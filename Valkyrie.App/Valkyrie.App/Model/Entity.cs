@@ -7,9 +7,6 @@ namespace Valkyrie.App.Model
 {
     public class Entity : ICollidable
     {
-
-        //public GLRect Rectangle => throw new NotImplementedException();
-
         public GLRect Rectangle
         {
             get;

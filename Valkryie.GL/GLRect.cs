@@ -177,8 +177,8 @@ namespace Valkryie.GL
             PixelHeight = height;
             PixelWidth = width;
 
-            TileHeight = (int)PixelHeight / 64;
-            TileWidth = (int)PixelWidth / 64;
+            tileHeight_ = (int)PixelHeight / 64;
+            tileWidth_ = (int)PixelWidth / 64;
 
             Recalculate_Boundaries();
         }

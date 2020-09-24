@@ -46,6 +46,30 @@ namespace Valkyrie.GL.Test
 
         [Test]
         [Category("GL Rectangle")]
+        public void Origin_H_W_Constructor_pxHeight_Test()
+        {
+            GLPosition p1 = new GLPosition(25.0f, 25.0f);
+            GLRect rect1 = new GLRect(p1, 100.0f, 100.0f);
+
+            Assert.AreEqual(100.0f, rect1.PixelHeight);
+        }
+
+        //=========================================================
+
+        [Test] 
+        [Category("GL Rectangle")]
+        public void Origin_H_W_Constructor_pxWidth_Test()
+        {
+            GLPosition p1 = new GLPosition(25.0f, 25.0f);
+            GLRect rect1 = new GLRect(p1, 100.0f, 100.0f);
+
+            Assert.AreEqual(100.0f, rect1.PixelWidth);
+        }
+
+        //=========================================================
+
+        [Test]
+        [Category("GL Rectangle")]
         public void CenterAccuracyTest()
         {
             GLPosition origin = new GLPosition(500, 500);
