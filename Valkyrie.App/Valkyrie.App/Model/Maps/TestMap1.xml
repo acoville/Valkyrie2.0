@@ -23,7 +23,7 @@
 
       <Actor
         Name="Bob"
-        X="5"
+        X="6"
         Y="3"
         Control="player"
         Team="0"

@@ -3,8 +3,6 @@ using Valkryie.GL;
 using Valkyrie.GL;
 using Valkyrie.Graphics;
 using Valkyrie.Controls;
-using System;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Valkyrie.App.Model
 {
@@ -22,30 +20,7 @@ namespace Valkyrie.App.Model
         public ControlStatus ControlStatus
         {
             get => controlStatus_;
-
-            set
-            {
-                if(controlStatus_ != value)
-                {
-                    controlStatus_ = value;
-
-                    // what direction are we facing now? 
-                    // determine if we have to change facing and 
-                    // mirror the Sprite 
-
-                    if(value.DirectionalStatus.L)
-                    {
-                        Facing = facing.left;
-                    }
-                
-                    //-- this did not end up being true.
-
-                    else if(value.DirectionalStatus.R)
-                    {
-                        Facing = facing.right;
-                    }
-                }
-            } 
+            set => controlStatus_ = value;
         }
 
         //=====================================================================

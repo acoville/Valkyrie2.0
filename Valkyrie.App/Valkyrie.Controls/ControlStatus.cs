@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 
 namespace Valkyrie.Controls
 {
-
-    //=============================================================
-
-    public class ControlStatus : INotifyPropertyChanged
+    public class ControlStatus
     {
         internal bool jump_ = false;
         public bool Jump
         {
             get => jump_;
-
-            set
-            {
-                jump_ = value;
-                RaisePropertyChanged();
-            }
+            set => jump_ = value;
         }
 
         //---------------------------------------------------
@@ -28,11 +17,7 @@ namespace Valkyrie.Controls
         public bool Attack
         {
             get => attack_;
-            set
-            {
-                attack_ = value;
-                RaisePropertyChanged();
-            }
+            set => attack_ = value;
         }
 
         //-------------------------------------------------
@@ -42,23 +27,7 @@ namespace Valkyrie.Controls
         public DirectionalStatus DirectionalStatus
         {
             get => directional_;
-
-            set
-            {
-                directional_ = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        //============================================================
-
-        // property changed event handler
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+            set => directional_ = value;
         }
 
         //=============================================================
@@ -110,9 +79,5 @@ namespace Valkyrie.Controls
 
             return (Directional || A || B);
         }
-
-        //----------------------------------------------------------
-
-        
     }
 }

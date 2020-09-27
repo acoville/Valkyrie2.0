@@ -102,7 +102,7 @@ namespace Valkyrie.App.Test
         [Test]
         [Category("LevelLoader")]
         [Category("Level")]
-        public void ObstacleAccuracyTest()
+        public void Obstacle_TileHeight_Test()
         {
             LevelLoader loader = new LevelLoader();
             Level SUT = loader.LoadFirstLevel();
@@ -113,7 +113,26 @@ namespace Valkyrie.App.Test
             int tileWidth = glob.Rectangle.TileWidth;
 
             Assert.AreEqual(tileHeight, 1);
-            Assert.AreEqual(tileWidth, 100);
+            //Assert.AreEqual(tileWidth, 100);
+        }
+
+        //===============================================================
+
+        [Test]
+        [Category("LevelLoader")]
+        [Category("Level")]
+        public void Obstacle_pxHeight_Test()
+        {
+            LevelLoader loader = new LevelLoader();
+            Level SUT = loader.LoadFirstLevel();
+
+            GLObstacle glob = SUT.Obstacles[0];
+
+            var pxHeight = glob.Rectangle.PixelHeight;
+            Assert.AreEqual(64.0f, pxHeight);
+
+            var pxWidth = glob.Rectangle.PixelWidth;
+            Assert.AreEqual(pxWidth, 6400);
         }
     }
 }

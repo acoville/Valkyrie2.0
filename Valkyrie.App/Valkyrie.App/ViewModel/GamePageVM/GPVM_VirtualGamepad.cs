@@ -2,8 +2,8 @@
 
 using System.ComponentModel;
 using System.Windows.Input;
+using Valkyrie.App.Model;
 using Valkyrie.Controls;
-using Windows.ApplicationModel.Store.Preview.InstallControl;
 using Xamarin.Forms;
 
 namespace Valkyrie.App.ViewModel
@@ -18,9 +18,9 @@ namespace Valkyrie.App.ViewModel
          * 
          * ----------------------------------------*/
 
-        internal void MapVirtualGamepad(Controller xcontroller)
+        internal void Map_Controller_To_Actor(Actor actor, Controller controller)
         {
-
+            actor.ControlStatus = controller.ControlStatus;
         }
 
         //==============================================================================
@@ -32,9 +32,8 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)leftCommand ?? (leftCommand = new Command(() =>
                 {
-                    //controllers_[0].ControlStatus.DirectionalStatus.L = true;
-
-                    actors_[0].TurnLeft();
+                    player1.TurnLeft();
+                    player1.ControlStatus.DirectionalStatus.L = true;
                 }));
             }
         }
@@ -48,7 +47,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)leftReleaseCommand ?? (leftReleaseCommand = new Command(() =>
                 {
-                    controllers_[0].ControlStatus.DirectionalStatus.L = false;
+                    player1.ControlStatus.DirectionalStatus.L = false;
                 }));
             }
         }
@@ -61,11 +60,10 @@ namespace Valkyrie.App.ViewModel
             get
             {
                 return (ICommand)rightCommand ?? (rightCommand = new Command(() =>
-                 {
-                     //controllers_[0].ControlStatus.DirectionalStatus.R = true;
-
-                     actors_[0].TurnRight();
-                 }));
+                {
+                    player1.TurnRight();
+                    player1.ControlStatus.DirectionalStatus.R = true;
+                }));
             }
         }
 
@@ -86,9 +84,9 @@ namespace Valkyrie.App.ViewModel
             get
             {
                 return (ICommand)rightReleaseCommand ?? (rightReleaseCommand = new Command(()=>
-                 {
-                     controllers_[0].ControlStatus.DirectionalStatus.R = false;
-                 }));
+                {
+                     player1.ControlStatus.DirectionalStatus.R = false;
+                }));
             }
         }
 
@@ -101,7 +99,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)upCommand ?? (upCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.U = true;
+                     player1.ControlStatus.DirectionalStatus.U = true;
                  }));
             }
         }
@@ -115,7 +113,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)upReleaseCommand ?? (upReleaseCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.U = false;
+                     player1.ControlStatus.DirectionalStatus.U = false;
                  }));
             }
         }
@@ -129,7 +127,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)downCommand ?? (downCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.D = true;
+                     player1.ControlStatus.DirectionalStatus.D = true;
                  }));
             }
         }
@@ -143,7 +141,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)downReleaseCommand ?? (downReleaseCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.D = false;
+                     player1.ControlStatus.DirectionalStatus.D = false;
                  }));
             }
         }
@@ -157,7 +155,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)upRightCommand ?? (upRightCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.UR = true;
+                     player1.ControlStatus.DirectionalStatus.UR = true;
                  }));
             }
         }
@@ -171,7 +169,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)upRightReleaseCommand ?? (upRightReleaseCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.UR = false;
+                     player1.ControlStatus.DirectionalStatus.UR = false;
                  }));
             }
         }
@@ -185,7 +183,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)downRightCommand ?? (downRightCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.DR = true;
+                     player1.ControlStatus.DirectionalStatus.DR = true;
                  }));
             }
         }
@@ -199,7 +197,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)downLeftCommand ?? (downLeftCommand = new Command(() =>
                 {
-                    controllers_[0].ControlStatus.DirectionalStatus.DL = true;
+                    player1.ControlStatus.DirectionalStatus.DL = true;
                 }));
             }
         }
@@ -211,9 +209,9 @@ namespace Valkyrie.App.ViewModel
         {
             get
             {
-                return (ICommand)downLeftCommand ?? (downLeftCommand = new Command(() =>
+                return (ICommand)downLeftReleaseCommand ?? (downLeftReleaseCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.DL = false;
+                     player1.ControlStatus.DirectionalStatus.DL = false;
                  }));
             }
         }
@@ -227,7 +225,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)upLeftCommand ?? (upLeftCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.DirectionalStatus.UL = true;
+                     player1.ControlStatus.DirectionalStatus.UL = true;
                  }));
             }
         }
@@ -241,7 +239,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)upLeftReleaseCommand ?? (upLeftReleaseCommand = new Command(() =>
                 {
-                     controllers_[0].ControlStatus.DirectionalStatus.UL = false;
+                    player1.ControlStatus.DirectionalStatus.UL = false;
                 }));
             }
         }
@@ -254,9 +252,9 @@ namespace Valkyrie.App.ViewModel
             get
             {
                 return (ICommand)aCommand ?? (aCommand = new Command(() =>
-                 {
-                     controllers_[0].ControlStatus.Jump = true;
-                 }));
+                {
+                    player1.ControlStatus.Jump = true;
+                }));
             }
         }
 
@@ -269,7 +267,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)aReleaseCommand ?? (aReleaseCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.Jump = false;
+                     player1.ControlStatus.Jump = false;
                  }));
             }
         }
@@ -283,7 +281,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)bCommand ?? (bCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.Attack = true;
+                     player1.ControlStatus.Attack = true;
                  }));
             }
         }
@@ -297,7 +295,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)bReleaseCommand ?? (bReleaseCommand = new Command(() =>
                  {
-                     controllers_[0].ControlStatus.Attack = false;
+                     player1.ControlStatus.Attack = false;
                  }));
             }
         }

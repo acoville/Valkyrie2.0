@@ -20,28 +20,6 @@ namespace Valkyrie.App.ViewModel
 { 
     public partial class GamePageViewModel : INotifyPropertyChanged
     {
-        /*-----------------------------------------
-         *  
-         *  Property to inform the GamePage
-         *  weather a level is loaded yet or not 
-         * 
-         * --------------------------------------*/
-
-        internal bool levelLoaded_ = false;
-        public bool LevelLoaded
-        {
-            get => levelLoaded_;
-        }
-
-        //=======================================================================
-
-        /*---------------------------------
-         * 
-         * LOAD LEVEL
-         * 
-         * 
-         * ------------------------------*/
-
         internal void LoadLevel(Level map)
         {
             // set background image
@@ -51,23 +29,9 @@ namespace Valkyrie.App.ViewModel
 
             //-- level data
 
-            LoadStartingPosition(map);
             LoadObstacles(map);
             LoadProps(map);
             LoadCharacters(map);
-
-            //-- connect the controller
-
-            actors_[0].ControlStatus = controllers_[0].ControlStatus;
-
-            levelLoaded_ = true;
-        }
-
-        //======================================================================
-
-        void LoadStartingPosition(Level map)
-        {
-            //DeviceScreen.ScrollBox.GLRect.Origin = new GLPosition(map.)
         }
 
         //======================================================================
@@ -84,25 +48,7 @@ namespace Valkyrie.App.ViewModel
         {
             foreach (var glob in map.Obstacles)
             {
-                // add to the List of Obstacles in the GPVM from the GLObs in Level
-
-                //-----------------------------------------
-
-                //obstacles_.Add(new Obstacle(glob));
-
                 collider.Add_Obtstacle(new Obstacle(glob));
-
-                //-----------------------------------------
-
-                // get the index of the obstacle we just added
-
-                //-----------------------------------------
-
-                //int i = obstacles_.Count - 1;
-
-                int i = collider.Count - 1;
-
-                //-----------------------------------------
 
                 // get the SKBitmap for the TileGroup
 
@@ -129,12 +75,17 @@ namespace Valkyrie.App.ViewModel
                 //--------------------------------------------------------
 
                 // create the tile group
+                // get the index of the obstacle we just added
 
+                int i = collider.Count - 1;
                 var obs = collider[i] as Obstacle;
 
-                obs.TilesGroup = new TileGroup(glob);
-                obs.TilesGroup.MainTile = tileImage;
-                obs.TilesGroup.EndTile = endImage;
+                obs.TilesGroup = new TileGroup(glob)
+                {
+                    MainTile = tileImage,
+                    EndTile = endImage
+                };
+
                 obs.TilesGroup.InitTiles();
 
                 // move it to where it needs to be? 
@@ -154,7 +105,6 @@ namespace Valkyrie.App.ViewModel
 
         internal void LoadCharacters(Level map)
         { 
-
             foreach(var character in map.Characters)
             {
                 Actor actor = new Actor(character);
@@ -163,22 +113,17 @@ namespace Valkyrie.App.ViewModel
                 actors_.Add(actor);
                 deviceScreen_.AddActor(actor);
 
+                /*
                 // set up control system                
 
                 // is this player1? If yes, then connect it to controllers_[0]
+                 */
 
                 if (actor.Team == 0)
                 {
-                    // I think this means any change in controller_[0]'s status
-                    // should change the control status of this actor.
-
-                    //actor.ControlStatus = controllers_[0].ControlStatus;
-
                     SetupPlayerOneController();
                 }
             }
-
-
         }
 
         //=============================================================================

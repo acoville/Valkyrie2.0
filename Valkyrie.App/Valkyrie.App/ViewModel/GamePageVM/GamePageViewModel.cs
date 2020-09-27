@@ -27,6 +27,10 @@ namespace Valkyrie.App.ViewModel
 
         internal Collision_Resolver collider;
 
+        internal Controller VirtualGamepad = new Controller();
+        
+        internal Actor player1;
+
         //===========================================================
 
         /*------------------------------------
@@ -42,12 +46,11 @@ namespace Valkyrie.App.ViewModel
             obstacles_ = new List<Obstacle>();
             props_ = new List<Prop>();
 
+            //-- need to initialize the Controllers list and add 
+            // the virtual gamepad to controllers_[0] 
+
             controllers_ = new List<IController>();
-
-            Controller virtualGamepad = new Controller();
-            controllers_.Add(virtualGamepad);
-
-            SetupPlayerOneController();
+            controllers_.Add(VirtualGamepad);
 
             collider = new Collision_Resolver();
         }
@@ -63,7 +66,7 @@ namespace Valkyrie.App.ViewModel
 
         internal void SetupPlayerOneController()
         {
-            Controller p1Controller = new Controller();
+            player1 = actors_[0];
 
             //-- determine control type
 
@@ -74,12 +77,12 @@ namespace Valkyrie.App.ViewModel
                 case ("Virtual Gamepad"):
                 {
                     DisplayVirtualController = true;
-                    MapVirtualGamepad(p1Controller);
+                    Map_Controller_To_Actor(player1, VirtualGamepad);
                     break;
                 }
 
                 //---------------------------------------
-
+                /*
                 case ("Keyboard + Mouse"):
                 {
                     DisplayVirtualController = false;
@@ -95,12 +98,8 @@ namespace Valkyrie.App.ViewModel
                     MapGamepad(p1Controller);
                     break;
                 }
+                 */
             }
-
-            // whatever is now controlling that controller, 
-            // add the player1 controller to gpvm.controllers_[0]
-
-            controllers_.Add(p1Controller);
         }
 
         //=============================================================
@@ -210,8 +209,17 @@ namespace Valkyrie.App.ViewModel
         {
             foreach (var actor in actors_)
             {
-                collider.EvaluateMotion(actor);
-                actor.Accelerate();
+                //collider.EvaluateMotion(actor);
+                //actor.Accelerate();
+
+                /*
+                 */
+
+                if (!actor.Stationary)
+                {
+                    collider.EvaluateMotion(actor);
+                    actor.Accelerate();
+                }
             }
         }
     }

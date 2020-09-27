@@ -12,26 +12,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Valkryie.GL;
 
 namespace Valkyrie.App.Model
 {
     public partial class Collision_Resolver
     {
-        internal List<ICollidable> obstacles_;
+        internal List<ICollidable> obstacles_ = new List<ICollidable>();
         public List<ICollidable> Obstacles
         {
             get => obstacles_;
             set => obstacles_ = value;
-        }
-
-        //==============================================================
-
-        public Collision_Resolver()
-        {
-            obstacles_ = new List<ICollidable>();
         }
 
         //==============================================================
@@ -77,55 +68,57 @@ namespace Valkyrie.App.Model
 
         internal void EvaluateHorizontalMotion(Actor actor)
         {
-            if (!actor.Stationary)
+            bool left_commanded = actor.ControlStatus.DirectionalStatus.L;
+            bool right_commanded = actor.ControlStatus.DirectionalStatus.R;
+
+            //--------------------------------------------
+
+            if (left_commanded)
             {
-                bool left_commanded = actor.ControlStatus.DirectionalStatus.L;
-                bool right_commanded = actor.ControlStatus.DirectionalStatus.R;
+                //actor.TurnLeft();
 
-                //--------------------------------------------
-
-                if (left_commanded)
+                if (!actor.ObstructedLeft)
                 {
-                    if (!actor.ObstructedLeft)
-                    {
-                        EvaluateLeft(actor);
-                    }
+                    EvaluateLeft(actor);
+                }
+            }
+
+            //--------------------------------------------
+
+            else if (right_commanded)
+            {
+                //actor.TurnRight();
+
+                if (!actor.ObstructedRight)
+                {
+                    EvaluateRight(actor);
+                }
+            }
+
+            //--------------------------------------------
+
+            else
+            {
+                // neither left or right is selected. 
+                // need to decelerate until speed = 0
+                // maybe I need a decelerate function? 
+
+                /*
+                    * THIS IS CAUSING A WEIRD GLITCH WHERE AN ACTOR
+                    * UP AGAINST AN OBSTACLE BRIEFLY ACCELERATES INTO IT / 
+                    * PAST IT WHEN THE DIRECTIONAL BUTTON IS RELEASED.
+                    * 
+                    */
+
+                var speed = Math.Abs(actor.x_speed);
+                var acceleration = Math.Abs(actor.X_Acceleration_Rate);
+
+                if (speed > 0 || acceleration > 0)
+                {
+                    actor.Decelerate_X_Axis();
                 }
 
-                //--------------------------------------------
-
-                else if (right_commanded)
-                {
-                    if (!actor.ObstructedRight)
-                    {
-                        EvaluateRight(actor);
-                    }
-                }
-
-                //--------------------------------------------
-
-                else
-                {
-                    // neither left or right is selected. 
-                    // need to decelerate until speed = 0
-                    // maybe I need a decelerate function? 
-
-                    /*
-                     * THIS IS CAUSING A WEIRD GLITCH WHERE AN ACTOR
-                     * UP AGAINST AN OBSTACLE BRIEFLY ACCELERATES INTO IT / 
-                     * PAST IT WHEN THE DIRECTIONAL BUTTON IS RELEASED.
-                     * 
-                    var speed = Math.Abs(actor.x_speed);
-                    var acceleration = Math.Abs(actor.X_Acceleration_Rate);
-
-                    if (speed > 0 || acceleration > 0)
-                    {
-                        actor.Decelerate_X_Axis();
-                    }
-                     */
-
-                    actor.StopXAxisMotion();
-                }
+                //actor.StopXAxisMotion();
             }
         }
 
