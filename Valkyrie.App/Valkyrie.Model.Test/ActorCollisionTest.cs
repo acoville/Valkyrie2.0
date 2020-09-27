@@ -75,6 +75,44 @@ namespace Valkyrie.Model.Test
             actor2.GLCharacter.Translate(120.0f, 0.0f, 0.0f);
 
             Assert.IsFalse(actor1.Intersects(actor2));
+        } 
+
+        //==================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Collision")]
+        [Category("X Axis")]
+        public void About_To_Collide_True_Test()
+        {
+            GLPosition p1 = new GLPosition(100.0f, 0.0f);
+            actor1.GLCharacter.MoveTo(p1);
+            
+            GLPosition p2 = new GLPosition(36.0f, 0.0f);
+            actor2.GLCharacter.MoveTo(p2);
+
+            actor2.X_Acceleration_Rate -= actor1.DefaultXAccelRate;
+
+            Assert.IsTrue(actor2.Is_About_To_Intersect_X(actor1));
+        }
+
+        //==================================================================
+
+        [Test]
+        [Category("Actor")]
+        [Category("Collision")]
+        [Category("X Axis")]
+        public void About_To_Collide_False_Test()
+        {
+            GLPosition p1 = new GLPosition(100.0f, 0.0f);
+            actor1.GLCharacter.MoveTo(p1);
+
+            GLPosition p2 = new GLPosition(36.0f, 0.0f);
+            actor2.GLCharacter.MoveTo(p2);
+
+            //actor2.X_Acceleration_Rate -= actor1.DefaultXAccelRate;
+
+            Assert.IsTrue(actor2.Is_About_To_Intersect_X(actor1));
         }
     }
 }

@@ -425,6 +425,20 @@ namespace Valkryie.GL
             return other.Bottom - this.Top;
         }
 
+        //=============================================================
+
+        public float Horizontal_Distance_Right(GLRect other)
+        {
+            return other.Left - this.Right;
+        }
+
+        //=============================================================
+
+        public float Horizontal_Distance_Left(GLRect other)
+        {
+            return this.Right - other.Left;
+        }
+
         //============================================================
 
         public bool Is_Above(GLRect other)

@@ -147,29 +147,14 @@ namespace Valkyrie.App.Model
             new_x_speed += x_acceleration_rate;
 
             // bounds check speed
-
+            /*
             if (Math.Abs(new_x_speed) > max_x_speed)
             {
                 // negative if going left, positive if going right 
 
                 new_x_speed = (x_speed < 0) ? (-max_x_speed) : max_x_speed;
             }
-
-            // bounds check acceleration
-
-            if (Math.Abs(x_acceleration_rate) > max_x_acceleration_rate)
-            {
-                // negative if going left, positive if going right 
-
-                if (x_acceleration_rate < 0)
-                {
-                    x_acceleration_rate = (-max_x_acceleration_rate);
-                }
-                else
-                {
-                    x_acceleration_rate = max_x_acceleration_rate;
-                }
-            }
+             */
 
             return new_x_speed;
         }

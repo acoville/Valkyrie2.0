@@ -278,6 +278,26 @@ namespace Valkyrie.App.Model
 
         //=================================================================
 
+        /*---------------------------------------
+         * 
+         * Attempts to predict where the actor
+         * will be in the next iteration and 
+         * weather that position will intersect
+         * 
+         * ------------------------------------*/
+
+        public bool Is_About_To_Intersect_X(Entity other)
+        {
+            GLRect nextRect = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
+
+            float deltaX = Next_X_Speed();
+            nextRect.Translate(deltaX, 0.0f);
+
+            return nextRect.Intersects(other.Rectangle);
+        }
+
+        //=================================================================
+
         internal bool standing_ = true;
         public bool Standing
         {

@@ -75,8 +75,6 @@ namespace Valkyrie.App.Model
 
             if (left_commanded)
             {
-                //actor.TurnLeft();
-
                 if (!actor.ObstructedLeft)
                 {
                     EvaluateLeft(actor);
@@ -87,8 +85,6 @@ namespace Valkyrie.App.Model
 
             else if (right_commanded)
             {
-                //actor.TurnRight();
-
                 if (!actor.ObstructedRight)
                 {
                     EvaluateRight(actor);
@@ -101,14 +97,6 @@ namespace Valkyrie.App.Model
             {
                 // neither left or right is selected. 
                 // need to decelerate until speed = 0
-                // maybe I need a decelerate function? 
-
-                /*
-                    * THIS IS CAUSING A WEIRD GLITCH WHERE AN ACTOR
-                    * UP AGAINST AN OBSTACLE BRIEFLY ACCELERATES INTO IT / 
-                    * PAST IT WHEN THE DIRECTIONAL BUTTON IS RELEASED.
-                    * 
-                    */
 
                 var speed = Math.Abs(actor.x_speed);
                 var acceleration = Math.Abs(actor.X_Acceleration_Rate);
@@ -117,8 +105,6 @@ namespace Valkyrie.App.Model
                 {
                     actor.Decelerate_X_Axis();
                 }
-
-                //actor.StopXAxisMotion();
             }
         }
 
@@ -138,32 +124,6 @@ namespace Valkyrie.App.Model
                 // if yes, then increase the acceleration rate by default
 
                 actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
-                float newXSpeed = actor.Next_X_Speed();
-
-                //-- get a list of nearby obstacles in direction of travel
-
-                var contextQuery = from obstacle in obstacles_
-                                   where obstacle.Is_Left_Of(actor)
-                                   orderby obstacle.Rectangle.Right ascending
-                                   select obstacle;
-
-                if(contextQuery.Any())
-                {
-                    Obstacle nearest = (Obstacle)contextQuery.First();
-
-                    // only need to evaluat the closest obstacle in direction of travel
-
-                    if (actor.Intersects(nearest))
-                    {
-                        // move to the right boundary and then stop moving
-
-                        float newX = nearest.Rectangle.Right;
-                        GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
-                        actor.MoveTo(newPosition);
-                        actor.StopXAxisMotion();
-                        actor.ObstructedLeft = true;
-                    }
-                }
             }
         }
 
@@ -182,36 +142,21 @@ namespace Valkyrie.App.Model
 
             if (!actor.ObstructedRight)
             {
-                // can we move left? 
-                // if yes, then increase the acceleration rate by default
-
                 actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
-                float newXSpeed = actor.Accelerate_X();
-
-                //-- get a list of nearby obstacles in direction of travel
 
                 var contextQuery = from obstacle in obstacles_
                                    where obstacle.Is_Right_Of(actor)
-                                   orderby obstacle.Rectangle.Left ascending
+                                   orderby actor.Horizontal_Distance_Right(obstacle) ascending
                                    select obstacle;
 
                 if(contextQuery.Any())
                 {
-                    Obstacle nearest = (Obstacle)contextQuery.First();
+                    var nearest = contextQuery.First() as Entity;
 
-                    // only need to evaluat the closest obstacle in direction of travel
-
-                    if (actor.Intersects(nearest))
+                    if(actor.Intersects(nearest) || actor.Is_About_To_Intersect_X(nearest))
                     {
-                        // move to the left boundary and then stop moving
-
-                        float newX = nearest.Rectangle.Left;
-
-                        GLPosition newPosition = new GLPosition(newX, actor.GLPosition.Y);
-
-                        actor.MoveTo(newPosition);
-                        actor.StopXAxisMotion();
                         actor.ObstructedRight = true;
+                        actor.StopXAxisMotion();
                     }
                 }
             }

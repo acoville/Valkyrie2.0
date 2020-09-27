@@ -209,12 +209,6 @@ namespace Valkyrie.App.ViewModel
         {
             foreach (var actor in actors_)
             {
-                //collider.EvaluateMotion(actor);
-                //actor.Accelerate();
-
-                /*
-                 */
-
                 if (!actor.Stationary)
                 {
                     collider.EvaluateMotion(actor);

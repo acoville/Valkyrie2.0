@@ -84,5 +84,21 @@ namespace Valkyrie.App.Model
             var otherRect = other.Rectangle;
             return Rectangle.Vertical_Distance_Below(otherRect);
         }
+
+        //------------------------------------------------
+
+        public float Horizontal_Distance_Right(ICollidable other)
+        {
+            var otherRect = other.Rectangle;
+            return Rectangle.Horizontal_Distance_Right(otherRect);
+        }
+
+        //--------------------------------------------------
+
+        public float Horizontal_Distance_Left(ICollidable other)
+        {
+            var otherRect = other.Rectangle;
+            return Rectangle.Horizontal_Distance_Left(otherRect);
+        }
     }
 }
