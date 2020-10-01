@@ -124,6 +124,26 @@ namespace Valkyrie.App.Model
                 // if yes, then increase the acceleration rate by default
 
                 actor.X_Acceleration_Rate -= actor.DefaultXAccelRate;
+
+                var contextQuery = from obstacle in obstacles_
+                                   where obstacle.Is_Left_Of(actor)
+                                   orderby actor.Horizontal_Distance_Left(obstacle) ascending
+                                   select obstacle;
+
+                if(contextQuery.Any())
+                {
+                    var nearest = contextQuery.First();
+
+                    /*
+                    if (actor.Intersects(nearest) || actor.Is_About_To_Intersect_X(nearest, 20))
+                     */
+
+                    if(actor.Intersects_Uncertainty_Region(nearest))
+                    {
+                        actor.ObstructedLeft = true;
+                        actor.StopXAxisMotion();
+                    }
+                }
             }
         }
 
@@ -153,7 +173,11 @@ namespace Valkyrie.App.Model
                 {
                     var nearest = contextQuery.First() as Entity;
 
-                    if(actor.Intersects(nearest) || actor.Is_About_To_Intersect_X(nearest))
+                    /*
+                                        if(actor.Is_About_To_Intersect_X(nearest, 20))
+                     */
+
+                    if (actor.Intersects_Uncertainty_Region(nearest))
                     {
                         actor.ObstructedRight = true;
                         actor.StopXAxisMotion();

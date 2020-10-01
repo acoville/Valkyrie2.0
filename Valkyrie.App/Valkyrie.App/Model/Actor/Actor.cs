@@ -278,6 +278,30 @@ namespace Valkyrie.App.Model
 
         //=================================================================
 
+        /*-----------------------------------------
+         * 
+         * Uncertainty Region based 
+         * collision detection method
+         * 
+         * ---------------------------------------*/
+
+        public bool Intersects_Uncertainty_Region(ICollidable other, int frames = 1)
+        {
+            //-- determine where this Actor is going to be x frames from now
+
+            GLRect nextRect = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
+            float deltaX = Next_X_Speed();
+            deltaX *= frames;
+            nextRect.Translate(deltaX, 0.0f);
+
+            //-----------------------------------------------------------
+
+            GLRect uncertainty_region = new GLRect(this.Rectangle, nextRect);
+            return uncertainty_region.Intersects(other.Rectangle);
+        }
+
+        //=================================================================
+
         /*---------------------------------------
          * 
          * Attempts to predict where the actor
@@ -286,11 +310,14 @@ namespace Valkyrie.App.Model
          * 
          * ------------------------------------*/
 
-        public bool Is_About_To_Intersect_X(Entity other)
+        public bool Is_About_To_Intersect_X(ICollidable other, int frames = 1)
         {
             GLRect nextRect = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
 
             float deltaX = Next_X_Speed();
+
+            deltaX *= frames;
+
             nextRect.Translate(deltaX, 0.0f);
 
             return nextRect.Intersects(other.Rectangle);

@@ -207,6 +207,36 @@ namespace Valkryie.GL
 
         //=========================================================
 
+        /*---------------------------------------
+         * 
+         * Create a new Rectangle containing
+         * both this and another rectangle
+         * 
+         * ------------------------------------*/
+
+        public GLRect(GLRect rect1, GLRect rect2)
+        {
+            float low_x = rect1.Left < rect2.Left? rect1.Left : rect2.Left;
+            float low_y = rect1.Bottom < rect2.Bottom ? rect1.Bottom : rect2.Bottom;
+
+            float high_x = rect1.Right > rect2.Right ? rect1.Right : rect2.Right;
+            float high_y = rect1.Top > rect2.Top ? rect1.Top : rect2.Top;
+
+            left_ = low_x;
+            right_ = high_x;
+            bottom_ = low_y;
+            top_ = high_y;
+
+            origin_ = new GLPosition(low_x, low_y);
+            pxHeight_ = high_y - low_y;
+            pxWidth_ = high_x - low_x;
+            
+            center_ = new GLPosition(low_x, low_y);
+            Recalculate_Center();
+        }
+
+        //=========================================================
+
         /*--------------------------------------
          * 
          * Contains function indicates weather
