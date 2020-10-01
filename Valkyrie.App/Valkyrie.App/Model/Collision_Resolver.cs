@@ -79,6 +79,11 @@ namespace Valkyrie.App.Model
                 {
                     EvaluateLeft(actor);
                 }
+
+                if(actor.ObstructedRight)
+                {
+                    actor.ObstructedRight = false;
+                }
             }
 
             //--------------------------------------------
@@ -88,6 +93,11 @@ namespace Valkyrie.App.Model
                 if (!actor.ObstructedRight)
                 {
                     EvaluateRight(actor);
+                }
+
+                if(actor.ObstructedLeft)
+                {
+                    actor.ObstructedLeft = false;
                 }
             }
 
@@ -134,10 +144,6 @@ namespace Valkyrie.App.Model
                 {
                     var nearest = contextQuery.First();
 
-                    /*
-                    if (actor.Intersects(nearest) || actor.Is_About_To_Intersect_X(nearest, 20))
-                     */
-
                     if(actor.Intersects_Uncertainty_Region(nearest))
                     {
                         actor.ObstructedLeft = true;
@@ -172,10 +178,6 @@ namespace Valkyrie.App.Model
                 if(contextQuery.Any())
                 {
                     var nearest = contextQuery.First() as Entity;
-
-                    /*
-                                        if(actor.Is_About_To_Intersect_X(nearest, 20))
-                     */
 
                     if (actor.Intersects_Uncertainty_Region(nearest))
                     {
