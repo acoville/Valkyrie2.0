@@ -212,18 +212,6 @@ namespace Valkyrie.App.ViewModel
                     actor.Accelerate();
                 }
             });
-
-            /*
-
-            foreach (var actor in actors_)
-            {
-                if (!actor.Stationary)
-                {
-                    collider.EvaluateMotion(actor);
-                    actor.Accelerate();
-                }
-            }
-             */
         }
     }
 }

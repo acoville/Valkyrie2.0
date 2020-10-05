@@ -57,7 +57,7 @@ namespace Valkyrie.App.Model
         //------------------------------------------------------
 
         internal float y_acceleration_rate_ = 0.0f;
-        internal float max_y_acceleration_rate_ = 15.0f;
+        internal float max_y_acceleration_rate_ = 9.5f;
         internal float default_y_acceleration_rate = 7.5f;
         public float Y_Acceleration_Rate
         {
@@ -91,7 +91,8 @@ namespace Valkyrie.App.Model
         {
             current_jumps_++;
             stationary_y_ = false;
-            Y_Acceleration_Rate += max_y_speed_;
+            //Y_Acceleration_Rate += max_y_speed_;
+            Y_Acceleration_Rate = max_y_acceleration_rate_;
             standing_ = false;
         }
 

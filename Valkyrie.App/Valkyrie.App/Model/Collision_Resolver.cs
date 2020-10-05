@@ -208,7 +208,8 @@ namespace Valkyrie.App.Model
                 {
                     EvaluateUp(actor);
                 }
-                else
+
+                else if(actor.Y_Speed < 0)
                 {
                     EvaluateDown(actor);
                 }
@@ -241,6 +242,9 @@ namespace Valkyrie.App.Model
                 
                 if (actor.Intersects_Uncertainty_Region(nearest))
                 {
+                    /*
+                     */
+
                     float newY = nearest.Rectangle.Bottom;
                     GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
 

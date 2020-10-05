@@ -286,7 +286,10 @@ namespace Valkyrie.App.Model
          * 
          * ---------------------------------------*/
 
-        public bool Intersects_Uncertainty_Region(ICollidable other, int frames = 1, float x_scalar = 0.5f, float y_scalar = 0.5f)
+        public bool Intersects_Uncertainty_Region(ICollidable other, 
+                                                    int frames = 1, 
+                                                    float x_scalar = 0.5f, 
+                                                    float y_scalar = 0.5f)
         {
             //-- determine where this Actor is going to be x frames from now
 
