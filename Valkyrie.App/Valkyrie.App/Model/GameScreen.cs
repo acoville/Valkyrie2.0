@@ -9,7 +9,9 @@
 
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Valkryie.GL;
 using Valkyrie.App.Model;
@@ -35,6 +37,8 @@ namespace Valkyrie.Graphics
         internal SKPaint BlockHighlightPaint;
 
         internal List<IDrawable> drawables_;
+
+        //internal ConcurrentBag<IDrawable> drawables_ = new ConcurrentBag<IDrawable>();
 
         //==================================================================
 

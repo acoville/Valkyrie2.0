@@ -235,7 +235,27 @@ namespace Valkryie.GL
             Recalculate_Center();
         }
 
-        //=========================================================
+        //==========================================================================
+
+        public void Scale_Width(float scalar)
+        {
+            left_ *= scalar;
+            right_ *= scalar;
+
+            Recalculate_Boundaries();
+        }
+
+        //===========================================================================
+
+        public void Scale_Height(float scalar)
+        {
+            top_ *= scalar;
+            bottom_ *= scalar;
+
+            Recalculate_Boundaries();
+        }
+
+        //==========================================================================
 
         /*--------------------------------------
          * 
@@ -303,7 +323,7 @@ namespace Valkryie.GL
 
         internal bool YIntersects(float arg)
         {
-            return (arg < this.Top && arg > this.Bottom) ? true : false;
+            return (arg <= this.Top && arg >= this.Bottom) ? true : false;
         }
 
         /*------------------------------
@@ -314,7 +334,7 @@ namespace Valkryie.GL
 
         internal bool XIntersects(float arg)
         {
-            return (arg > this.Left && arg < this.Right) ? true : false;
+            return (arg >= this.Left && arg <= this.Right) ? true : false;
         }
 
         //=========================================================

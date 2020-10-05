@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Valkyrie.App.Model;
@@ -8,11 +9,10 @@ namespace Valkyrie.App.ViewModel
 {
     public partial class GamePageViewModel : INotifyPropertyChanged
     {
-        internal List<IController> controllers_;
-
-        internal List<Actor> actors_;
-        internal List<Obstacle> obstacles_;
-        internal List<Prop> props_;
+        internal ConcurrentBag<IController> controllers_ = new ConcurrentBag<IController>();
+        internal ConcurrentBag<Actor> actors_ = new ConcurrentBag<Actor>();
+        internal ConcurrentBag<Obstacle> obstacles_ = new ConcurrentBag<Obstacle>();
+        internal ConcurrentBag<Prop> props_ = new ConcurrentBag<Prop>();
 
 
         // items

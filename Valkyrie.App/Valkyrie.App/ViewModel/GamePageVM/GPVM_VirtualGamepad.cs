@@ -253,6 +253,7 @@ namespace Valkyrie.App.ViewModel
             {
                 return (ICommand)aCommand ?? (aCommand = new Command(() =>
                 {
+                    player1.Jump();
                     player1.ControlStatus.Jump = true;
                 }));
             }

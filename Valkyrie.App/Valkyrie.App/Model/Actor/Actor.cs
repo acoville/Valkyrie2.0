@@ -3,6 +3,7 @@ using Valkryie.GL;
 using Valkyrie.GL;
 using Valkyrie.Graphics;
 using Valkyrie.Controls;
+using System;
 
 namespace Valkyrie.App.Model
 {
@@ -285,20 +286,37 @@ namespace Valkyrie.App.Model
          * 
          * ---------------------------------------*/
 
-        public bool Intersects_Uncertainty_Region(ICollidable other, int frames = 1)
+        public bool Intersects_Uncertainty_Region(ICollidable other, int frames = 1, float x_scalar = 0.5f, float y_scalar = 0.5f)
         {
             //-- determine where this Actor is going to be x frames from now
 
             GLRect nextRect = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
+            
             float deltaX = Next_X_Speed();
             deltaX *= frames;
-            nextRect.Translate(deltaX, 0.0f);
+
+            float deltaY = Next_Y_Speed();
+            deltaY *= frames;
+
+            nextRect.Translate(deltaX, deltaY);
 
             //-----------------------------------------------------------
 
             GLRect uncertainty_region = new GLRect(this.Rectangle, nextRect);
+
+            if(x_scalar != 1.0f)
+            {
+                uncertainty_region.Scale_Width(x_scalar);
+            }
+            
+            if(y_scalar != 1.0f)
+            {
+                uncertainty_region.Scale_Height(y_scalar);
+            }
+
             return uncertainty_region.Intersects(other.Rectangle);
         }
+
 
         //=================================================================
 
@@ -320,6 +338,17 @@ namespace Valkyrie.App.Model
 
             nextRect.Translate(deltaX, 0.0f);
 
+            return nextRect.Intersects(other.Rectangle);
+        }
+
+        //=================================================================
+
+        public bool Is_About_To_Intersect_Y(ICollidable other, int frames = 1)
+        {
+            GLRect nextRect = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
+            float deltaY = Next_Y_Speed();
+            deltaY *= frames;
+            nextRect.Translate(0.0f, deltaY);
             return nextRect.Intersects(other.Rectangle);
         }
 

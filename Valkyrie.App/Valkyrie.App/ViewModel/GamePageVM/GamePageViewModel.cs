@@ -17,6 +17,8 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Valkyrie.Controls;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Valkyrie.App.ViewModel
 {
@@ -42,14 +44,9 @@ namespace Valkyrie.App.ViewModel
         {
             deviceScreen_ = new GameScreen();
             
-            actors_ = new List<Actor>();
-            obstacles_ = new List<Obstacle>();
-            props_ = new List<Prop>();
-
             //-- need to initialize the Controllers list and add 
             // the virtual gamepad to controllers_[0] 
 
-            controllers_ = new List<IController>();
             controllers_.Add(VirtualGamepad);
 
             collider = new Collision_Resolver();
@@ -66,7 +63,7 @@ namespace Valkyrie.App.ViewModel
 
         internal void SetupPlayerOneController()
         {
-            player1 = actors_[0];
+            player1 = actors_.ElementAt(0);
 
             //-- determine control type
 
@@ -207,6 +204,17 @@ namespace Valkyrie.App.ViewModel
 
         public void EvaluateMovement()
         {
+            Parallel.ForEach(actors_, (actor) =>
+            {
+                if(!actor.Stationary)
+                {
+                    collider.EvaluateMotion(actor);
+                    actor.Accelerate();
+                }
+            });
+
+            /*
+
             foreach (var actor in actors_)
             {
                 if (!actor.Stationary)
@@ -215,6 +223,7 @@ namespace Valkyrie.App.ViewModel
                     actor.Accelerate();
                 }
             }
+             */
         }
     }
 }

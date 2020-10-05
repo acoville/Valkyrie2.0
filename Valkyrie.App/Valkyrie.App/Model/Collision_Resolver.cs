@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Valkryie.GL;
+using Windows.Storage.Search;
 
 namespace Valkyrie.App.Model
 {
@@ -201,23 +202,7 @@ namespace Valkyrie.App.Model
 
         internal void EvaluateVerticalMotion(Actor actor)
         {
-            if (actor.Standing)
-            {
-                bool jumpCommanded = actor.ControlStatus.Jump;
-
-                if (jumpCommanded)
-                {
-                    if (actor.AvailableJumps > 0)
-                    {
-                        actor.Jump();
-                    }
-                }
-            }
-
-            //------ otherwise, actor is not standing so 
-            //         must be going up or down 
-
-            else // actor is not standing
+            if (!actor.Standing)
             {
                 if (actor.Y_Speed > 0)
                 {
@@ -252,11 +237,13 @@ namespace Valkyrie.App.Model
             {
                 Obstacle nearest = (Obstacle)contextQuery.First();
 
-                if (actor.Intersects(nearest))
+                //if (actor.Is_About_To_Intersect_Y(nearest))                
+                
+                if (actor.Intersects_Uncertainty_Region(nearest))
                 {
-                    float newY = nearest.GLPosition.Y;
-
+                    float newY = nearest.Rectangle.Bottom;
                     GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
+
                     actor.MoveTo(newPosition);
                     actor.Stop_Y_Axis_Motion();
                 }
@@ -274,6 +261,8 @@ namespace Valkyrie.App.Model
 
         public void EvaluateDown(Actor actor)
         {
+            actor.Y_Acceleration_Rate -= 1.0f;
+
             var contextQuery = from obstacle in obstacles_
                                where obstacle.Is_Below(actor)
                                orderby actor.Vertical_Distance_Below(obstacle) ascending
@@ -285,34 +274,18 @@ namespace Valkyrie.App.Model
 
                 //---- condition #1: we are already intersecting
 
+                
+                //if (actor.Intersects_Uncertainty_Region(nearest))
+                //if (actor.Is_About_To_Intersect_Y(nearest))
+                
                 if (actor.Intersects(nearest))
                 {
                     //-- stop moving 
 
-                    float newY = nearest.GLPosition.Y + nearest.Rectangle.PixelHeight;
+                    float newY = nearest.Rectangle.Top;
                     GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
                     actor.MoveTo(newPosition);
                     actor.Land();
-                }
-
-                //---- condition #2: we will be intersecting in the next frame
-
-                else
-                {
-                    var vertical_clearance = actor.Vertical_Distance_Below(nearest);
-                    var newYSpeed = actor.NextDeltaY();
-
-                    var margin = vertical_clearance - newYSpeed;
-
-                    if (margin <= 0)
-                    {
-                        //-- stop moving 
-
-                        float newY = nearest.GLPosition.Y + nearest.Rectangle.PixelHeight;
-                        GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
-                        actor.MoveTo(newPosition);
-                        actor.Land();
-                    }
                 }
             }
         }
