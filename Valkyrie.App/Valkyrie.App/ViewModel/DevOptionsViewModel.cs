@@ -104,11 +104,11 @@ namespace Valkyrie.App.ViewModel
         {
             get
             {
-                return Preferences.Get("displayCaptions", false);
+                return Preferences.Get("displayCoords", false);
             }
             set
             {
-                Preferences.Set("displayCaptions", value);
+                Preferences.Set("displayCoords", value);
                 RaisePropertyChanged(nameof(DisplayCaptions));
             }
         }

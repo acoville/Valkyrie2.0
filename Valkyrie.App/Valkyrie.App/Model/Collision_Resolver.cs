@@ -12,8 +12,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Valkryie.GL;
-using Windows.Storage.Search;
+
+
 
 namespace Valkyrie.App.Model
 {
@@ -53,16 +55,24 @@ namespace Valkyrie.App.Model
 
         public ICollidable this[int i]
         {
-            get => obstacles_[i];
-            set => obstacles_[i] = value;
+            get => obstacles_.ElementAt(i);
+            
+            set
+            {
+                obstacles_[i] = value;
+            }
         }
 
         //==============================================================
 
         public void EvaluateMotion(Actor actor)
         {
-            EvaluateHorizontalMotion(actor);
-            EvaluateVerticalMotion(actor);
+            Parallel.Invoke(
+            
+                () => EvaluateHorizontalMotion(actor),
+                () => EvaluateVerticalMotion(actor)
+            );
+
         }
 
         //==============================================================
@@ -145,10 +155,14 @@ namespace Valkyrie.App.Model
                 {
                     var nearest = contextQuery.First();
 
-                    if(actor.Intersects_Uncertainty_Region(nearest))
+                    if(actor.Intersects(nearest))
                     {
                         actor.ObstructedLeft = true;
                         actor.StopXAxisMotion();
+
+                        // move to position 
+
+
                     }
                 }
             }
@@ -171,19 +185,17 @@ namespace Valkyrie.App.Model
             {
                 actor.X_Acceleration_Rate += actor.DefaultXAccelRate;
 
-                var contextQuery = from obstacle in obstacles_
-                                   where obstacle.Is_Right_Of(actor)
-                                   orderby actor.Horizontal_Distance_Right(obstacle) ascending
-                                   select obstacle;
-
-                if(contextQuery.Any())
+                foreach (var obstacle in obstacles_)
                 {
-                    var nearest = contextQuery.First() as Entity;
-
-                    if (actor.Intersects_Uncertainty_Region(nearest))
+                    //if(actor.Intersects(obstacle))
+                    //if(actor.X_Overlap(obstacle) && actor.Y_Overlap(obstacle))
+                    
+                    if(obstacle.Is_Right_Of(actor) && obstacle.Intersects(actor))
                     {
                         actor.ObstructedRight = true;
-                        actor.StopXAxisMotion();
+
+                        var newX = obstacle.Rectangle.Left - actor.Rectangle.PixelWidth;
+                        actor.MoveTo(new GLPosition(newX, actor.GLPosition.Y));
                     }
                 }
             }
@@ -229,29 +241,6 @@ namespace Valkyrie.App.Model
         {
             actor.Y_Acceleration_Rate -= 1.0f;
 
-            var contextQuery = from obstacle in obstacles_
-                               where obstacle.Is_Above(actor)
-                               orderby actor.Vertical_Distance_Above(obstacle) ascending
-                               select obstacle;
-
-            if (contextQuery.Any())
-            {
-                Obstacle nearest = (Obstacle)contextQuery.First();
-
-                //if (actor.Is_About_To_Intersect_Y(nearest))                
-                
-                if (actor.Intersects_Uncertainty_Region(nearest))
-                {
-                    /*
-                     */
-
-                    float newY = nearest.Rectangle.Bottom;
-                    GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
-
-                    actor.MoveTo(newPosition);
-                    actor.Stop_Y_Axis_Motion();
-                }
-            }
         }
 
         //=========================================================================
@@ -267,31 +256,6 @@ namespace Valkyrie.App.Model
         {
             actor.Y_Acceleration_Rate -= 1.0f;
 
-            var contextQuery = from obstacle in obstacles_
-                               where obstacle.Is_Below(actor)
-                               orderby actor.Vertical_Distance_Below(obstacle) ascending
-                               select obstacle;
-
-            if (contextQuery.Any())
-            {
-                Obstacle nearest = (Obstacle)contextQuery.First();
-
-                //---- condition #1: we are already intersecting
-
-                
-                //if (actor.Intersects_Uncertainty_Region(nearest))
-                //if (actor.Is_About_To_Intersect_Y(nearest))
-                
-                if (actor.Intersects(nearest))
-                {
-                    //-- stop moving 
-
-                    float newY = nearest.Rectangle.Top;
-                    GLPosition newPosition = new GLPosition(actor.GLPosition.X, newY);
-                    actor.MoveTo(newPosition);
-                    actor.Land();
-                }
-            }
         }
     }
 }

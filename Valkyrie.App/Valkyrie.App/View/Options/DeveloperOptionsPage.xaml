@@ -70,11 +70,11 @@
             <!-- actor caption boxes -->
 
             <Switch
-                x:Name="Captions_Switch"
+                x:Name="Coordinates_Switch"
                 Grid.Row="3"
                 Grid.Column="1"
                 IsToggled="False"
-                Toggled="Captions_Switch_Toggled" />
+                Toggled="Coordinates_Switch_Toggled" />
 
             <Label
                 Grid.Row="3"

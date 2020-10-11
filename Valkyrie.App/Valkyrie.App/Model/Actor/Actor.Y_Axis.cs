@@ -87,11 +87,16 @@ namespace Valkyrie.App.Model
 
         //==============================================================
 
+        /*-----------------------------------
+         * 
+         * Basic Jump 
+         * 
+         * --------------------------------*/
+
         public void Jump()
         {
             current_jumps_++;
             stationary_y_ = false;
-            //Y_Acceleration_Rate += max_y_speed_;
             Y_Acceleration_Rate = max_y_acceleration_rate_;
             standing_ = false;
         }
@@ -139,6 +144,7 @@ namespace Valkyrie.App.Model
         {
             y_speed_ = 0.0f;
             y_acceleration_rate_ = 0.0f;
+            Reset_Uncertainty_Region();
         }  
 
         //=============================================================== 

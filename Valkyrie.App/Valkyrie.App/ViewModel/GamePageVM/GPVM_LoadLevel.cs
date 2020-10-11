@@ -147,6 +147,14 @@ namespace Valkyrie.App.ViewModel
             catch(FileNotFoundException)
             {}
 
+            //-- update the Game Logic Character object's Rectangle
+            //-- now that we know how high and wide this sprite is
+
+            actor.GLCharacter.GLRect.PixelHeight = sprite.DisplayImage.Height;
+            actor.GLCharacter.GLRect.PixelWidth = sprite.DisplayImage.Width;
+            
+            actor.Reset_Uncertainty_Region();
+
             return sprite;
         }
 

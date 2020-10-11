@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Valkryie.GL;
 
@@ -41,21 +42,21 @@ namespace Valkyrie.App.Model
 
         //------------------------------------------------
 
-        public bool Is_Above(ICollidable other)
+        public virtual bool Is_Above(ICollidable other)
         {
             return Rectangle.Is_Above(other.Rectangle);
         }
 
         //------------------------------------------------
 
-        public bool Is_Below(ICollidable other)
+        public virtual bool Is_Below(ICollidable other)
         {
             return Rectangle.Is_Below(other.Rectangle);
         }
 
         //------------------------------------------------
 
-        public bool Is_Left_Of(ICollidable other)
+        public virtual bool Is_Left_Of(ICollidable other)
         {
             var otherRect = other.Rectangle;
             return Rectangle.Right < otherRect.Left ? true : false;
@@ -63,7 +64,7 @@ namespace Valkyrie.App.Model
 
         //------------------------------------------------
 
-        public bool Is_Right_Of(ICollidable other)
+        public virtual bool Is_Right_Of(ICollidable other)
         {
             var otherRect = other.Rectangle;
             return Rectangle.Left > otherRect.Right ? true : false;
@@ -100,5 +101,27 @@ namespace Valkyrie.App.Model
             var otherRect = other.Rectangle;
             return Rectangle.Horizontal_Distance_Left(otherRect);
         }
+
+        //====================================================================
+
+        public bool Y_Overlap(ICollidable other)
+        {
+            GLRect rect1 = Rectangle;
+            GLRect rect2 = other.Rectangle;
+
+            return rect1.Y_Overlap(rect2);
+        }
+
+        //===================================================================
+
+        public bool X_Overlap(ICollidable other)
+        {
+            GLRect rect1 = Rectangle;
+            GLRect rect2 = other.Rectangle;
+
+            return rect1.X_Overlap(rect2);
+        }
+
+        
     }
 }

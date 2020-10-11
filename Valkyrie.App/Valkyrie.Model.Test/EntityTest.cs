@@ -41,7 +41,7 @@ namespace Valkyrie.Model.Test
             e3.Rectangle = rect3;
 
             GLPosition p4 = new GLPosition(-20.0f, 80.0f);
-            rect4 = new GLRect(p4, 50.0f, 20.0f);
+            rect4 = new GLRect(p4, 20.0f, 50.0f);
             e4 = new Entity();
             e4.Rectangle = rect4;
 
@@ -163,6 +163,79 @@ namespace Valkyrie.Model.Test
         public void Is_Right_False_Test()
         {
             Assert.IsFalse(e1.Is_Right_Of(e2));
+        }
+
+        //============================================================
+
+        [Test]
+        [Category("Entity")]
+        public void Y_Overlap_TopEdge_Test()
+        {
+            Assert.IsTrue(e3.Y_Overlap(e2));
+        }
+
+        //============================================================
+
+        [Test]
+        [Category("Entity")]
+        public void Y_Overlap_BottomEdge_Test()
+        {
+            Assert.IsTrue(e3.Y_Overlap(e2));
+        }
+        
+        //===========================================================
+
+        [Test]
+        [Category("Entity")]
+        public void Y_Overlap_Same_Y_Origin_Test()
+        {
+            Assert.IsTrue(e1.Y_Overlap(e2));
+        }
+
+        //============================================================
+
+        [Test]
+        [Category("Entity")]
+        public void Y_Overlap_False_Test()
+        {
+            Assert.IsFalse(e1.Y_Overlap(e6));
+            Assert.IsFalse(e1.Y_Overlap(e5));
+        }
+
+        //=============================================================
+
+        [Test]
+        [Category("Entity")]
+        public void X_Overlap_Left_Edge_Test()
+        {
+            Assert.IsTrue(e3.X_Overlap(e1));
+        }
+
+        //=============================================================
+
+        [Test]
+        [Category("Entity")]
+        public void X_Overlap_Right_Edge_Test()
+        {
+            Assert.IsTrue(e5.X_Overlap(e1));
+        }
+
+        //==============================================================
+
+        [Test]
+        [Category("Entity")]
+        public void X_Overlap_Same_X_Origin_Test()
+        {
+            Assert.IsTrue(e6.X_Overlap(e1));
+        }
+
+        //=============================================================
+
+        [Test]
+        [Category("Entity")]
+        public void X_Overlap_False_Test()
+        {
+            Assert.IsFalse(e1.X_Overlap(e2));
         }
     }
 }

@@ -16,8 +16,6 @@ namespace Valkyrie.Graphics
         {
             get => displayImage_;
 
-            //set => displayImage_ = value;
-
             set
             {
                 displayImage_ = value;

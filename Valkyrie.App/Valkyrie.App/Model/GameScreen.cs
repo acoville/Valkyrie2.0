@@ -110,12 +110,21 @@ namespace Valkyrie.Graphics
             //-- correct Y
 
             int height = actor.Sprite.DisplayImage.Height;
+            height -= 64;
             target.Y -= height;
 
             //-- correct X 
 
             int width = actor.Sprite.DisplayImage.Width;
             target.X += (width / 2.0f);
+
+            //-- update the Game Logic rectangle, now that we know 
+            //-- what the display dimensions are
+
+            actor.GLCharacter.GLRect.PixelHeight = actor.Sprite.DisplayImage.Height;
+            actor.GLCharacter.GLRect.PixelWidth = actor.Sprite.DisplayImage.Width;
+
+            //-- move the Sprite into position 
 
             actor.Sprite.Move(target);
             drawables_.Add(actor.Sprite);
@@ -315,7 +324,9 @@ namespace Valkyrie.Graphics
 
             canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
 
-            if(Preferences.Get("displayCaptions", false))
+            //-- displays' the Drawable's SK coordinates
+
+            if(Preferences.Get("displayCoords", false))
             {
                 string skiaCoords = drawable.SKPosition.ToString();
                 SKPoint target = drawable.SKPosition.SKPoint;

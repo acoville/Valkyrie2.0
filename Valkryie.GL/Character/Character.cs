@@ -7,7 +7,7 @@ namespace Valkyrie.GL
     {
         internal GLRect gLRect_ = new GLRect();
         public GLRect GLRect
-        {
+        { 
             get => gLRect_;
             set => gLRect_ = value;
         }

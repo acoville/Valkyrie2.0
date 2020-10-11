@@ -88,7 +88,7 @@ namespace Valkyrie.App.View
          * 
          * -----------------------------------*/
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
@@ -115,10 +115,7 @@ namespace Valkyrie.App.View
                 {
                     #region collision detection
 
-                    Task.Run(() =>
-                    {
-                        gpvm_.EvaluateMovement();
-                    });
+                    gpvm_.EvaluateMovement();
 
                     #endregion
 

@@ -17,12 +17,19 @@ namespace Valkyrie.App.Model
         float Vertical_Distance_Below(ICollidable other);
         float Vertical_Distance_Above(ICollidable other);
 
+        //--------------------------------------------------
+
         bool Is_Above(ICollidable other);
         bool Is_Below(ICollidable other);
 
         //-------------------------------------------------
 
         bool Is_Left_Of(ICollidable other);
-        bool Is_Right_Of(ICollidable other); 
+        bool Is_Right_Of(ICollidable other);
+
+        //-------------------------------------------------
+
+        bool Y_Overlap(ICollidable other);
+        bool X_Overlap(ICollidable other);
     }
 }

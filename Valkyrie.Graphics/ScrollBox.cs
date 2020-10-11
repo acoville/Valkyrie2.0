@@ -174,7 +174,6 @@ namespace Valkyrie.Graphics
 
         public SKPosition ToSkia(GLPosition p)
         {
-
             // determine X
 
             float deltaX = GLRect.Origin.X - p.X;
@@ -183,7 +182,9 @@ namespace Valkyrie.Graphics
             // determine Y
 
             float GL_Origin_Y = skiaRect_.Bottom;
+            
             float deltaY = p.Y - GLRect.Bottom;
+            
             float skiaY = GL_Origin_Y - deltaY;
   
             // make sure not to drop the Z data

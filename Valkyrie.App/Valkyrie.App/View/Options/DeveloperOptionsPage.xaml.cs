@@ -55,7 +55,7 @@ namespace Valkyrie.App.View.Options
 
         //-----------------------------------------------------------------
 
-        private void Captions_Switch_Toggled(object sender, ToggledEventArgs e)
+        private void Coordinates_Switch_Toggled(object sender, ToggledEventArgs e)
         {
             dovm_.DisplayCaptions = e.Value;
         }

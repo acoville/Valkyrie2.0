@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Valkryie.GL
@@ -123,7 +124,12 @@ namespace Valkryie.GL
         public float PixelHeight
         {
             get => pxHeight_;
-            set => pxHeight_ = value;
+
+            set
+            {
+                pxHeight_ = value;
+                Recalculate_Boundaries();
+            }
         }
 
         //======================================================
@@ -132,7 +138,12 @@ namespace Valkryie.GL
         public float PixelWidth
         {
             get => pxWidth_;
-            set => pxWidth_ = value;
+
+            set
+            {
+                pxWidth_ = value;
+                Recalculate_Boundaries();
+            }
         }
         
         //======================================================
@@ -310,33 +321,6 @@ namespace Valkryie.GL
             return (XinRange && YinRange) ? true : false;
         }
 
-        //===========================================================
-
-        /*----------------------------------
-         * 
-         * Helper Function to determine 
-         * weather a given Y coordinate
-         * is within the Y range of this
-         * rectangle
-         * 
-         * ------------------------------*/
-
-        internal bool YIntersects(float arg)
-        {
-            return (arg <= this.Top && arg >= this.Bottom) ? true : false;
-        }
-
-        /*------------------------------
-         * 
-         * Same for X intersection
-         * 
-         * ----------------------------*/
-
-        internal bool XIntersects(float arg)
-        {
-            return (arg >= this.Left && arg <= this.Right) ? true : false;
-        }
-
         //=========================================================
 
         /*-----------------------------------
@@ -347,23 +331,53 @@ namespace Valkryie.GL
 
         public bool Intersects(GLRect other)
         {
-            bool YOverlap = false;
-            
-            if(YIntersects(other.Top) || YIntersects(other.Bottom))
-            {
-                YOverlap = true;
-            }
-            
-            //-----------------------------------------
-            
-            bool XOverlap = false;
+            return (Y_Overlap(other) && X_Overlap(other));
+        }
 
-            if(XIntersects(other.Left) || XIntersects(other.Right))
+        //====================================================================
+
+        public bool Y_Overlap(GLRect other)
+        {
+            bool result = false;
+
+            //-- top edge of rect 1 is between top and bottom of rect2
+            
+            if (Top >= other.Bottom && Top <= other.Top)
             {
-                XOverlap = true;
+                result = true;
             }
 
-            return (XOverlap || YOverlap);
+            //-- bottom edge of rect1 is between top and bottom of rect2
+
+            else if (Bottom >= other.Bottom && Bottom <= other.Top)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        //====================================================================
+
+        public bool X_Overlap(GLRect other)
+        {
+            bool result = false;
+
+            //-- top edge of rect 1 is between top and bottom of rect2
+
+            if (Left > other.Left && Left < other.Right)
+            {
+                result = true;
+            }
+
+            //-- bottom edge of rect1 is between top and bottom of rect2
+            
+            else if (Right >= other.Left && Right <= other.Right)
+            {
+                result = true;
+            }
+
+            return result;
         }
 
         //================================================================
@@ -502,5 +516,24 @@ namespace Valkryie.GL
         {
             return Top < other.Bottom ? true : false;
         }
+
+        //=============================================================
+
+        public void Align_Center_To(GLPosition target)
+        {
+            float delta_x = target.X - center_.X;
+            float delta_y = target.Y - center_.Y;
+
+            Translate(delta_x, delta_y);
+        }
+
+        //=============================================================
+
+        public void Align_Origin_To(GLPosition target)
+        {
+            MoveTo(target);
+        }
+
+
     }
 }

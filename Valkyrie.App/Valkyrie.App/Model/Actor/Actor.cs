@@ -54,6 +54,20 @@ namespace Valkyrie.App.Model
 
         //=====================================================================
 
+        /*-----------------------------------------
+
+              Uncertainty Region Property
+
+        -----------------------------------------*/
+
+        internal GLRect uncertainty_region_ = new GLRect();
+        public GLRect Uncertainty_Region
+        {
+            get => uncertainty_region_;
+        }
+
+        //=====================================================================
+
         public enum facing
         {
             left, right
@@ -172,6 +186,20 @@ namespace Valkyrie.App.Model
             Sprite = new Sprite();
 
             Rectangle = GLCharacter.GLRect;
+
+            //-- I need to initialize this to at least a 1x1 block 
+            // or else we get no collision detection. 
+
+            Reset_Uncertainty_Region();
+        }
+
+        //==================================================================
+
+        internal void Reset_Uncertainty_Region()
+        {
+            uncertainty_region_.Align_Origin_To(GLPosition);
+            uncertainty_region_.PixelHeight = Rectangle.PixelHeight;
+            uncertainty_region_.PixelWidth = Rectangle.PixelWidth;
         }
 
         //==================================================================
@@ -184,6 +212,7 @@ namespace Valkyrie.App.Model
             ControlStatus = new ControlStatus();
 
             Rectangle = GLCharacter.GLRect;
+            Reset_Uncertainty_Region();
         }
 
         //====================================================================
@@ -208,6 +237,8 @@ namespace Valkyrie.App.Model
 
         public void Translate(float deltaX, float deltaY, float deltaZ = 0.0f)
         {
+            GLRect rect1 = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
+
             //-- the Game Logic position translates with normal deltaY
             // where the Y origin is at the bottom of the screen.
 
@@ -217,6 +248,51 @@ namespace Valkyrie.App.Model
             // being at the top of the screen in Skia
 
             Sprite.Translate(deltaX, (-deltaY), deltaZ);
+
+            //-- update the uncertainty region
+
+            GLRect rect2 = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
+            uncertainty_region_ = new GLRect(rect1, rect2);
+        }
+
+        //======================================================================
+
+        /*--------------------------------------------
+         * 
+         * The following overrides of Entity base 
+         * class are meant to utilize the Actor's
+         * uncertainty region instead of its present 
+         * Game Logic rectangle to resolve collision
+         * detection logic
+         * 
+         * ----------------------------------------*/
+
+        public override bool Is_Left_Of(ICollidable other)
+        {
+            var otherRect = other.Rectangle;
+            return uncertainty_region_.Right < otherRect.Left ? true : false;
+        }
+
+        //-----------------------------------------
+
+        public override bool Is_Right_Of(ICollidable other)
+        {
+            var otherRect = other.Rectangle;
+            return uncertainty_region_.Left > otherRect.Right ? true : false;
+        }
+
+        //------------------------------------------
+
+        public override bool Is_Above(ICollidable other)
+        {
+            return uncertainty_region_.Is_Above(other.Rectangle);
+        }
+
+        //------------------------------------------
+
+        public override bool Is_Below(ICollidable other)
+        {
+            return uncertainty_region_.Is_Below(other.Rectangle);
         }
 
         //======================================================================
@@ -237,6 +313,7 @@ namespace Valkyrie.App.Model
             float deltaZ = target.Z - GLPosition.Z;
 
             Translate(deltaX, deltaY, deltaZ);
+            Reset_Uncertainty_Region();
         }
 
         //=============================================================
@@ -286,73 +363,9 @@ namespace Valkyrie.App.Model
          * 
          * ---------------------------------------*/
 
-        public bool Intersects_Uncertainty_Region(ICollidable other, 
-                                                    int frames = 1, 
-                                                    float x_scalar = 0.5f, 
-                                                    float y_scalar = 0.5f)
+        public bool Intersects_Uncertainty_Region(ICollidable other)
         {
-            //-- determine where this Actor is going to be x frames from now
-
-            GLRect nextRect = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
-            
-            float deltaX = Next_X_Speed();
-            deltaX *= frames;
-
-            float deltaY = Next_Y_Speed();
-            deltaY *= frames;
-
-            nextRect.Translate(deltaX, deltaY);
-
-            //-----------------------------------------------------------
-
-            GLRect uncertainty_region = new GLRect(this.Rectangle, nextRect);
-
-            if(x_scalar != 1.0f)
-            {
-                uncertainty_region.Scale_Width(x_scalar);
-            }
-            
-            if(y_scalar != 1.0f)
-            {
-                uncertainty_region.Scale_Height(y_scalar);
-            }
-
-            return uncertainty_region.Intersects(other.Rectangle);
-        }
-
-
-        //=================================================================
-
-        /*---------------------------------------
-         * 
-         * Attempts to predict where the actor
-         * will be in the next iteration and 
-         * weather that position will intersect
-         * 
-         * ------------------------------------*/
-
-        public bool Is_About_To_Intersect_X(ICollidable other, int frames = 1)
-        {
-            GLRect nextRect = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
-
-            float deltaX = Next_X_Speed();
-
-            deltaX *= frames;
-
-            nextRect.Translate(deltaX, 0.0f);
-
-            return nextRect.Intersects(other.Rectangle);
-        }
-
-        //=================================================================
-
-        public bool Is_About_To_Intersect_Y(ICollidable other, int frames = 1)
-        {
-            GLRect nextRect = new GLRect(Rectangle.Top, Rectangle.Left, Rectangle.Right, Rectangle.Bottom);
-            float deltaY = Next_Y_Speed();
-            deltaY *= frames;
-            nextRect.Translate(0.0f, deltaY);
-            return nextRect.Intersects(other.Rectangle);
+            return uncertainty_region_.Intersects(other.Rectangle);
         }
 
         //=================================================================

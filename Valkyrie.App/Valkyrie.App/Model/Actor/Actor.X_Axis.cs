@@ -86,6 +86,7 @@ namespace Valkyrie.App.Model
         {
             x_acceleration_rate = 0.0f;
             x_speed = 0.0f;
+            Reset_Uncertainty_Region();
         }
 
         //===================================================================

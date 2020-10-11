@@ -24,7 +24,7 @@
       <Actor
         Name="Bob"
         X="6"
-        Y="3"
+        Y="4"
         Control="player"
         Team="0"
         SpriteSource="TrashMobs.Zombie"/>
@@ -51,19 +51,30 @@
         Label="pillar"
         Height="4"
         Width="1"
-        X="4"
+        X="5"
         Y="4"
         Z="0"
         Image="Bricks.Red"
         Static="true" />
-      
+
+      <Obstacle
+        Type="Rectangle"
+        Label="pillar"
+        Height="4"
+        Width="1"
+        X="13"
+        Y="4"
+        Z="0"
+        Image="Bricks.Red"
+        Static="true" />
+
       <Obstacle
         Type="Stair"
         Orientation="Left"
-        X="12"
+        X="20"
         Y="4"
         Z="0"
-        Height="5"
+        Height="3"
         Image="Bricks.Red"
         Static="true" />  
         
@@ -83,7 +94,7 @@
         X="26"
         Y="4"
         Z="0"
-        Height="5"
+        Height="3"
         Image="Bricks.Red"
         Static="true" />  
   
