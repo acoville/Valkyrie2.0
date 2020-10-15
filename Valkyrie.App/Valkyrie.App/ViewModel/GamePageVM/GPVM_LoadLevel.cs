@@ -110,7 +110,11 @@ namespace Valkyrie.App.ViewModel
                 Actor actor = new Actor(character);
                 
                 actor.Sprite = CreateSprite(actor);
+                
+                //actor.Sprite.Translate(0.0f, 64.0f);
+
                 actors_.Add(actor);
+
                 deviceScreen_.AddActor(actor);
 
                 /*
@@ -129,7 +133,7 @@ namespace Valkyrie.App.ViewModel
         //=============================================================================
 
         internal Sprite CreateSprite(Actor actor)
-        {
+         {
             Assembly assembly = GetType().GetTypeInfo().Assembly;
             Sprite sprite = new Sprite();
 
@@ -146,6 +150,8 @@ namespace Valkyrie.App.ViewModel
             }
             catch(FileNotFoundException)
             {}
+
+            sprite.DisplayImage = sprite.StandingImage;
 
             //-- update the Game Logic Character object's Rectangle
             //-- now that we know how high and wide this sprite is

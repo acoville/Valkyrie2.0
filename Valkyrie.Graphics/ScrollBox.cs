@@ -184,7 +184,7 @@ namespace Valkyrie.Graphics
             float GL_Origin_Y = skiaRect_.Bottom;
             
             float deltaY = p.Y - GLRect.Bottom;
-            
+
             float skiaY = GL_Origin_Y - deltaY;
   
             // make sure not to drop the Z data
@@ -192,39 +192,6 @@ namespace Valkyrie.Graphics
             SKPosition target = new SKPosition(skiaX, skiaY, p.Z);
             
             return target;
-        }
-
-        //==================================================================
-
-        /*------------------------------------------
-         * 
-         * Convert a GLRect to a 
-         * SKRect based on the current
-         * ScreenInfo
-         * 
-         * Ok, now I need to determine where 
-         * the GLRect r is in relation to this
-         * ScrollBox's GLRect. This will in 
-         * turn provide a starting point to 
-         * convert it into a SKRect
-         * 
-         * what is the current ScreenInfo's 
-         * bottom (height)? That is 
-         * 
-         * --------------------------------------*/
-
-        public SKRect ToSkia(GLRect r)
-        {
-            float bottom = (float)info_.Height - r.Origin.Y;
-
-            float top = bottom - r.PixelHeight;
-            
-            float left = r.Left;
-            
-            float right = r.Right;
-
-            SKRect rect = new SKRect(left, top, right, bottom);
-            return rect;
         }
     }
 }

@@ -101,16 +101,14 @@ namespace Valkyrie.Graphics
 
         public void AddActor(Actor actor)
         {
-            SKPosition target = scrollBox_.ToSkia(actor.GLPosition);
-
             // determine starting image to use
 
             actor.Sprite.Status = Status.standing;
+            SKPosition target = scrollBox_.ToSkia(actor.GLPosition);
 
             //-- correct Y
 
             int height = actor.Sprite.DisplayImage.Height;
-            height -= 64;
             target.Y -= height;
 
             //-- correct X 
@@ -128,7 +126,6 @@ namespace Valkyrie.Graphics
 
             actor.Sprite.Move(target);
             drawables_.Add(actor.Sprite);
-
             drawables_.Sort();
         }
 

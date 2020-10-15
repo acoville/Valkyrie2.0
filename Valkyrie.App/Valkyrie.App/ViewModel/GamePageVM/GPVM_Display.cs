@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
+using System.Threading.Tasks;
 using Valkryie.GL;
+using Valkyrie.App.Model;
 using Valkyrie.Graphics;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -193,38 +195,48 @@ namespace Valkyrie.App.ViewModel
 
         public void AlignGamePiecesToScreen()
         {
-            foreach (var prop in props_)
-            {
-                SKPosition target = deviceScreen_.scrollBox_.ToSkia(prop.GLPosition);
+            Parallel.Invoke(
 
-                int height = prop.SKProp.DisplayImage.Height;
-                target.Y -= height;
+                () =>
+                {
+                    foreach (var prop in props_)
+                    {
+                        SKPosition target = deviceScreen_.scrollBox_.ToSkia(prop.GLPosition);
 
-                prop.MoveSprite(target);
-            }
+                        int height = prop.SKProp.DisplayImage.Height;
+                        target.Y -= height;
 
-            //--------------------------------------
+                        prop.MoveSprite(target);
+                    }
+                },
 
-            foreach (var obstacle in obstacles_)
-            {
-                GLPosition glOrigin = obstacle.GLPosition;
-                SKPosition target = deviceScreen_.scrollBox_.ToSkia(glOrigin);
+                () =>
+                {
+                    foreach (var obstacle in obstacles_)
+                    {
+                        GLPosition glOrigin = obstacle.GLPosition;
+                        SKPosition target = deviceScreen_.scrollBox_.ToSkia(glOrigin);
 
-                obstacle.MoveSprite(target);
-            }
+                        //int height = obstacle.TilesGroup.
 
-            //--------------------------------------
+                        obstacle.MoveSprite(target);
+                    }
+                },
 
-            foreach(var actor in actors_)
-            {
-                GLPosition glOrigin = actor.GLPosition;
-                SKPosition target = deviceScreen_.scrollBox_.ToSkia(glOrigin);
+                () =>
+                {
+                    foreach (var actor in actors_)
+                    {
+                        GLPosition glOrigin = actor.GLPosition;
+                        SKPosition target = deviceScreen_.scrollBox_.ToSkia(glOrigin);
 
-                int height = actor.Sprite.DisplayImage.Height;
-                target.Y -= height;
+                        int height = actor.Sprite.DisplayImage.Height;
+                        target.Y -= height - 64.0f;
 
-                actor.Sprite.Move(target);
-            }
+                        actor.Sprite.Move(target);
+                    }
+                }
+            );
         }
     }
 }
