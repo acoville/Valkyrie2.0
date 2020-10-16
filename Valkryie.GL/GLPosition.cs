@@ -153,7 +153,7 @@ namespace Valkryie.GL
 
         public override string ToString()
         {
-            string result = "GL: " + X + ", " + Y + ", " + Z;
+            string result = "GL: X:" + X + ", Y:" + Y + ", Z:" + Z;
             return result;
         }
 

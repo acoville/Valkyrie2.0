@@ -27,7 +27,7 @@ namespace Valkyrie.Graphics
         
         internal SKColor ClearPaint = new SKColor(255, 255, 255, 0);
         internal SKColor ScrollboxColor = new SKColor(255, 0, 0, 75);
-        internal SKColor ScrolltextColor = new SKColor(200, 200, 200, 255);
+        internal SKColor ScrolltextColor = new SKColor(215, 215, 215, 255);
         internal SKColor BlockHighlightColor = new SKColor(0, 255, 0, 75);
 
         internal SKPaint scrollBoxPaint;
@@ -177,6 +177,18 @@ namespace Valkyrie.Graphics
             if(sizeAllocations_ > 1)
             {
                 scrollBox_.Update(Info);
+
+                /*
+                 */
+
+                foreach(var drawable in drawables_)
+                {
+                    GLPosition glpos = ScrollBox.ToGL(drawable.SKPosition);
+
+                    var target = ScrollBox.ToSkia(glpos);
+                    
+                    drawable.Move(target);
+                }
             }
 
             sizeAllocations_++;
@@ -218,21 +230,12 @@ namespace Valkyrie.Graphics
         {
             // initialize variables used in troubleshooting
 
-            scrollBoxPaint = new SKPaint();
-
-            scrollBoxPaint.Color = ScrollboxColor;
-            scrollBoxPaint.Style = SKPaintStyle.StrokeAndFill;
-            scrollBoxPaint.IsAntialias = true;
-
-
-            /*
             scrollBoxPaint = new SKPaint
             {
                 Color = ScrollboxColor,
                 Style = SKPaintStyle.StrokeAndFill,
                 IsAntialias = true
             };
-             */
 
             scrollTextPaint = new SKPaint
             {
@@ -332,15 +335,28 @@ namespace Valkyrie.Graphics
             if(Preferences.Get("displayCoords", false))
             {
                 var info = drawable.DisplayImage.Info;
-
                 float width = info.Width;
                 float height = info.Height;
 
+                // for some reason when I reduced this to 64, I was still 
+                // getting tiles 
+
                 if(width > 128.0f || height > 128.0f)
                 {
+                    //-- skia coordinates
+
                     string skiaCoords = drawable.SKPosition.ToString();
                     SKPoint target = drawable.SKPosition.SKPoint;
+                    target.Y -= 64.0f;
                     canvas.DrawText(skiaCoords, target, scrollTextPaint);
+
+                    //-- game logic coordinates
+
+                    GLPosition glpos = scrollBox_.ToGL(drawable.SKPosition);
+                    string glCoords = glpos.ToString();
+                    target.Y += 28.0f;
+                    canvas.DrawText(glCoords, target, scrollTextPaint);
+
                 }
             }
         }

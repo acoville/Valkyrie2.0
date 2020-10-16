@@ -151,7 +151,7 @@
                     <RowDefinition Height="*" />
 
                     <!-- Button row -->
-                    <RowDefinition Height="100" />
+                    <RowDefinition Height="125" />
 
                     <!-- Bottom margin -->
                     <RowDefinition Height="5" />
@@ -164,7 +164,7 @@
                     <ColumnDefinition Width="7" />
 
                     <!--D-Pad-->
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="125" />
 
                     <!--Start Button-->
                     <ColumnDefinition Width="*" />

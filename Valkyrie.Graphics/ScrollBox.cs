@@ -104,7 +104,7 @@ namespace Valkyrie.Graphics
              */
         }
 
-        //=====================================================================================
+        //===========================================================================
 
         /*------------------------------------
          * 
@@ -155,7 +155,7 @@ namespace Valkyrie.Graphics
             this.skiaRect_ = new SKRect(scrollLeft, scrollTop, scrollRight, scrollBottom);
         }
 
-        //======================================================================
+        //===========================================================================
 
         internal GLRect UpdateGLRect(ScreenInfo info1, ScreenInfo info2)
         {
@@ -173,9 +173,9 @@ namespace Valkyrie.Graphics
             return newRect;
         }
 
-        //======================================================================
+        //===========================================================================
 
-        /*-------------------------------------
+        /*------------------------------------------
          * 
          * Convert a GL position to 
          * a Skia position based on 
@@ -186,7 +186,7 @@ namespace Valkyrie.Graphics
          * is this a block? h = 64 pixels
          * a sprite? h = x pixels
          * 
-         * -----------------------------------*/
+         * ---------------------------------------*/
 
         public SKPosition ToSkia(GLPosition p)
         {
@@ -198,15 +198,44 @@ namespace Valkyrie.Graphics
             // determine Y
 
             float GL_Origin_Y = skiaRect_.Bottom;
-            
             float deltaY = p.Y - GLRect.Bottom;
-
             float skiaY = GL_Origin_Y - deltaY;
   
             // make sure not to drop the Z data
 
             SKPosition target = new SKPosition(skiaX, skiaY, p.Z);
             
+            return target;
+        }
+
+        //===========================================================================
+
+        /*----------------------------------------------
+         * 
+         * I can solve a lot of problems if I just 
+         * figure out how to get the GL coordinates of
+         * any given Skia coordinate
+         *  
+         * --------------------------------------------*/
+
+        public GLPosition ToGL(SKPosition skia)
+        {
+            GLPosition target = new GLPosition();
+            GLPosition origin = GLRect.Origin;
+
+            // determine X 
+
+            target.X = skia.X;
+
+            // determine Y 
+
+            target.Y = skia.Y;
+
+
+            // make sure not to drop the Z data
+
+            target.Z = skia.Z;
+
             return target;
         }
     }

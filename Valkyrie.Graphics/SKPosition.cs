@@ -86,7 +86,7 @@ namespace Valkyrie.Graphics
 
         public override string ToString()
         {
-            string result = "SK: " + X + ", " + Y + ", " + Z;
+            string result = "SK: X:" + X + ", Y:" + Y + ", Z:" + Z;
             return result;
         }
 
