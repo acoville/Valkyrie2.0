@@ -9,9 +9,7 @@
 
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Valkryie.GL;
 using Valkyrie.App.Model;
@@ -37,8 +35,6 @@ namespace Valkyrie.Graphics
         internal SKPaint BlockHighlightPaint;
 
         internal List<IDrawable> drawables_;
-
-        //internal ConcurrentBag<IDrawable> drawables_ = new ConcurrentBag<IDrawable>();
 
         //==================================================================
 
@@ -222,12 +218,21 @@ namespace Valkyrie.Graphics
         {
             // initialize variables used in troubleshooting
 
+            scrollBoxPaint = new SKPaint();
+
+            scrollBoxPaint.Color = ScrollboxColor;
+            scrollBoxPaint.Style = SKPaintStyle.StrokeAndFill;
+            scrollBoxPaint.IsAntialias = true;
+
+
+            /*
             scrollBoxPaint = new SKPaint
             {
                 Color = ScrollboxColor,
                 Style = SKPaintStyle.StrokeAndFill,
                 IsAntialias = true
             };
+             */
 
             scrollTextPaint = new SKPaint
             {
@@ -322,12 +327,21 @@ namespace Valkyrie.Graphics
             canvas.DrawBitmap(drawable.DisplayImage, drawable.SKPosition.SKPoint);
 
             //-- displays' the Drawable's SK coordinates
+            //-- if it is not a tile
 
             if(Preferences.Get("displayCoords", false))
             {
-                string skiaCoords = drawable.SKPosition.ToString();
-                SKPoint target = drawable.SKPosition.SKPoint;
-                canvas.DrawText(skiaCoords, target, scrollTextPaint);
+                var info = drawable.DisplayImage.Info;
+
+                float width = info.Width;
+                float height = info.Height;
+
+                if(width > 128.0f || height > 128.0f)
+                {
+                    string skiaCoords = drawable.SKPosition.ToString();
+                    SKPoint target = drawable.SKPosition.SKPoint;
+                    canvas.DrawText(skiaCoords, target, scrollTextPaint);
+                }
             }
         }
     }

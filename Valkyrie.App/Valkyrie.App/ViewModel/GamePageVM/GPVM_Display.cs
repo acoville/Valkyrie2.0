@@ -195,6 +195,12 @@ namespace Valkyrie.App.ViewModel
 
         public void AlignGamePiecesToScreen()
         {
+            //-- update the scrollbox
+
+
+
+            //-- rearrange all the pieces on screen
+
             Parallel.Invoke(
 
                 () =>

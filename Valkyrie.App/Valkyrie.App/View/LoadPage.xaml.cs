@@ -12,7 +12,7 @@ namespace Valkyrie.App.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoadPage : ContentPage
     {
-        internal LoadPageViewModel lpvm_;
+        internal LoadPageViewModel lpvm_ = new LoadPageViewModel();
 
         //============================================================
 

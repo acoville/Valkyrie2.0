@@ -35,11 +35,13 @@ namespace Valkyrie.Graphics
 {
     public class ScrollBox
     {
+        internal GLPosition referencePoint;
+
         internal ScreenInfo info_;
 
         //=====================================================
 
-        internal SKRect skiaRect_;
+        internal SKRect skiaRect_ = new SKRect();
         public SKRect Skia
         {
             get => skiaRect_;
@@ -48,7 +50,7 @@ namespace Valkyrie.Graphics
 
         //=====================================================
 
-        internal GLRect glRect_;
+        internal GLRect glRect_ = new GLRect();
         public GLRect GLRect
         {
             get => glRect_;
@@ -63,18 +65,18 @@ namespace Valkyrie.Graphics
          * 
          * --------------------------*/
 
-        public ScrollBox()
-        {
-            skiaRect_ = new SKRect();
-            glRect_ = new GLRect();
-        }
-
         public ScrollBox(ScreenInfo info)
         {
             info_ = info;
-            skiaRect_ = new SKRect();
-            glRect_ = new GLRect();
             Update(info);          
+        }
+
+        //========================================================
+
+        public ScrollBox(ScreenInfo info, GLPosition start)
+        {
+            info_ = info;
+
         }
 
         //==========================================================================
@@ -87,9 +89,10 @@ namespace Valkyrie.Graphics
 
         public void Update(ScreenInfo info)
         {
-            skiaRect_ = UpdateSKRect(info);
+            UpdateSKRect(info);
+            UpdateGLRect(info_, info);
 
-            //GLPosition start = map.Start;
+            /*
 
             float top = skiaRect_.Bottom;
             float bottom = skiaRect_.Top;
@@ -98,6 +101,7 @@ namespace Valkyrie.Graphics
             float right = skiaRect_.Right;
 
             glRect_ = new GLRect(top, left, right, bottom);
+             */
         }
 
         //=====================================================================================
@@ -108,10 +112,8 @@ namespace Valkyrie.Graphics
          * 
          * ---------------------------------*/
 
-        internal SKRect UpdateSKRect(ScreenInfo info)
+        internal void UpdateSKRect(ScreenInfo info)
         {
-            float Left = 0.0f;
-            float Top = 0.0f;
             float Right = (float)info.Width;
             float Bottom = (float)info.Height;
 
@@ -126,8 +128,6 @@ namespace Valkyrie.Graphics
              * 
              * -------------------------------------*/
 
-            SKRect Screen = new SKRect(Left, Top, Right, Bottom);
-
             // width
 
             float WidthPercent = .55f;
@@ -136,7 +136,6 @@ namespace Valkyrie.Graphics
             float deltaX = Width - newWidth;
 
             float scrollLeft = deltaX / 2.0f;
-
             float scrollRight = Width - (deltaX / 2.0f);
 
             //-------------------------------------------------------
@@ -149,15 +148,32 @@ namespace Valkyrie.Graphics
             float deltaY = Height - newHeight;
 
             float scrollTop = deltaY;
-
             float scrollBottom = Bottom - (deltaY * 1.2f);
 
             //-- the new box as an SKRect object
 
-            return new SKRect(scrollLeft, scrollTop, scrollRight, scrollBottom);
+            this.skiaRect_ = new SKRect(scrollLeft, scrollTop, scrollRight, scrollBottom);
         }
 
-        //==============================================================
+        //======================================================================
+
+        internal GLRect UpdateGLRect(ScreenInfo info1, ScreenInfo info2)
+        {
+            GLRect newRect = new GLRect();
+
+            float top = skiaRect_.Bottom;
+            float bottom = skiaRect_.Top;
+
+            float left = skiaRect_.Left;
+            float right = skiaRect_.Right;
+
+            glRect_ = new GLRect(top, left, right, bottom);
+
+
+            return newRect;
+        }
+
+        //======================================================================
 
         /*-------------------------------------
          * 
@@ -176,7 +192,7 @@ namespace Valkyrie.Graphics
         {
             // determine X
 
-            float deltaX = GLRect.Origin.X - p.X;
+            float deltaX = this.GLRect.Origin.X - p.X;
             float skiaX = this.skiaRect_.Left - deltaX;
 
             // determine Y
