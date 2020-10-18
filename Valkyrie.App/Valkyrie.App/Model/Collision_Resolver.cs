@@ -162,7 +162,8 @@ namespace Valkyrie.App.Model
 
                         // move to position 
 
-
+                        var newX = nearest.Rectangle.Right;
+                        actor.MoveTo(new GLPosition(newX, actor.GLPosition.Y));
                     }
                 }
             }
