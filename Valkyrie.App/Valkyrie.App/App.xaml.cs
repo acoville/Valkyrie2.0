@@ -26,17 +26,17 @@ namespace Valkyrie.App
 
             MainMenu = new MenuPage();
 
-            //MainPage = new NavigationPage(MainMenu);
+            MainPage = new NavigationPage(MainMenu);
 
-            MainPage = new NavigationPage(new SplashPage());
+            //MainPage = new NavigationPage(new SplashPage());
         }
 
         //=====================================================
         protected async override void OnStart()
         {
-            await Task.Delay(TimeSpan.FromSeconds(4));
-            MainMenu = new MenuPage();
-            MainPage = new NavigationPage(MainMenu);
+            //await Task.Delay(TimeSpan.FromSeconds(4));
+            //MainMenu = new MenuPage();
+            //MainPage = new NavigationPage(MainMenu);
         }
 
         //=====================================================
@@ -50,6 +50,7 @@ namespace Valkyrie.App
 
         protected override void OnResume()
         {
+
         }
     }
 }

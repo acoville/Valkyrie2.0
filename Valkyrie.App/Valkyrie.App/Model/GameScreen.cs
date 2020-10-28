@@ -178,20 +178,29 @@ namespace Valkyrie.Graphics
             {
                 scrollBox_.Update(Info);
 
-                /*
-                 */
-
                 foreach(var drawable in drawables_)
                 {
-                    GLPosition glpos = ScrollBox.ToGL(drawable.SKPosition);
-
-                    var target = ScrollBox.ToSkia(glpos);
-                    
+                    GLPosition glpos = ToGL(drawable.SKPosition);
+                    var target = ToSkia(glpos);
                     drawable.Move(target);
                 }
             }
 
             sizeAllocations_++;
+        }
+
+        //============================================================
+
+        internal GLPosition ToGL(SKPosition p)
+        {
+            return ScrollBox.ToGL(p);
+        }
+
+        //============================================================
+
+        internal SKPosition ToSkia(GLPosition g)
+        {
+            return ScrollBox.ToSkia(g);
         }
 
         //============================================================
@@ -343,20 +352,24 @@ namespace Valkyrie.Graphics
 
                 if(width > 128.0f || height > 128.0f)
                 {
-                    //-- skia coordinates
+                    // narrow it further to items in the Z = 0 plane
 
-                    string skiaCoords = drawable.SKPosition.ToString();
-                    SKPoint target = drawable.SKPosition.SKPoint;
-                    target.Y -= 64.0f;
-                    canvas.DrawText(skiaCoords, target, scrollTextPaint);
+                    if(drawable.SKPosition.Z == 0)
+                    {
+                        //-- skia coordinates
 
-                    //-- game logic coordinates
+                        string skiaCoords = drawable.SKPosition.ToString();
+                        SKPoint target = drawable.SKPosition.SKPoint;
+                        target.Y -= 64.0f;
+                        canvas.DrawText(skiaCoords, target, scrollTextPaint);
 
-                    GLPosition glpos = scrollBox_.ToGL(drawable.SKPosition);
-                    string glCoords = glpos.ToString();
-                    target.Y += 28.0f;
-                    canvas.DrawText(glCoords, target, scrollTextPaint);
+                        //-- game logic coordinates
 
+                        GLPosition glpos = scrollBox_.ToGL(drawable.SKPosition);
+                        string glCoords = glpos.ToString();
+                        target.Y += 28.0f;
+                        canvas.DrawText(glCoords, target, scrollTextPaint);
+                    }
                 }
             }
         }

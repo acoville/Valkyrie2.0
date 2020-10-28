@@ -35,8 +35,8 @@ namespace Valkyrie.Graphics
 {
     public class ScrollBox
     {
-        internal GLPosition referencePoint;
-
+        internal GLPosition origin_ = new GLPosition();
+        internal SKPosition sk_origin_ = new SKPosition();
         internal ScreenInfo info_;
 
         //=====================================================
@@ -45,7 +45,13 @@ namespace Valkyrie.Graphics
         public SKRect Skia
         {
             get => skiaRect_;
-            set => skiaRect_ = value;
+            set
+            {
+                skiaRect_ = value;
+
+                sk_origin_.Y = skiaRect_.Bottom;
+                sk_origin_.X = skiaRect_.Left;
+            }
         }
 
         //=====================================================
@@ -54,7 +60,14 @@ namespace Valkyrie.Graphics
         public GLRect GLRect
         {
             get => glRect_;
-            set => glRect_ = value;
+
+            set
+            {
+                glRect_ = value;
+
+                origin_.X = glRect_.Left;
+                origin_.Y = glRect_.Bottom;
+            }
         }
 
         //=====================================================
@@ -67,16 +80,9 @@ namespace Valkyrie.Graphics
 
         public ScrollBox(ScreenInfo info)
         {
+            Update(info);       
+            
             info_ = info;
-            Update(info);          
-        }
-
-        //========================================================
-
-        public ScrollBox(ScreenInfo info, GLPosition start)
-        {
-            info_ = info;
-
         }
 
         //==========================================================================
@@ -89,19 +95,9 @@ namespace Valkyrie.Graphics
 
         public void Update(ScreenInfo info)
         {
-            UpdateSKRect(info);
             UpdateGLRect(info_, info);
-
-            /*
-
-            float top = skiaRect_.Bottom;
-            float bottom = skiaRect_.Top;
-
-            float left = skiaRect_.Left;
-            float right = skiaRect_.Right;
-
-            glRect_ = new GLRect(top, left, right, bottom);
-             */
+            
+            UpdateSKRect(info);
         }
 
         //===========================================================================
@@ -157,18 +153,40 @@ namespace Valkyrie.Graphics
 
         //===========================================================================
 
+        /*-------------------------------------------
+         * 
+         * the bottom line is that the origin points
+         * in both Skia and GL will change. Skia 
+         * in fact has already changed. 
+         * 
+         * There, now Skia updates after this. 
+         * 
+         * these are hard-coded. The frame of reference 
+         * is missing. It should be player 1. 1 Drawable
+         * it is charged with tracking? 
+         * 
+         * -----------------------------------------*/
+
         internal GLRect UpdateGLRect(ScreenInfo info1, ScreenInfo info2)
         {
             GLRect newRect = new GLRect();
 
+            //-- inverse Y with SkiaSharp
+
             float top = skiaRect_.Bottom;
             float bottom = skiaRect_.Top;
+
+            //-- normal X 
 
             float left = skiaRect_.Left;
             float right = skiaRect_.Right;
 
             glRect_ = new GLRect(top, left, right, bottom);
 
+            //-- update GL origin
+
+            origin_.X = left;
+            origin_.Y = bottom;
 
             return newRect;
         }
