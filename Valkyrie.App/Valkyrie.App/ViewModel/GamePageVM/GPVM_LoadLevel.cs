@@ -126,6 +126,7 @@ namespace Valkyrie.App.ViewModel
                 if (actor.Team == 0)
                 {
                     SetupPlayerOneController();
+                    this.deviceScreen_.CameraFocus = actor;
                 }
             }
         }

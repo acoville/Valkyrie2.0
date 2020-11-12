@@ -69,7 +69,7 @@ namespace Valkyrie.Graphics
         //----------------------------------------
 
         internal Status status_ = Status.standing;
-        private XmlNode node;
+        //rivate XmlNode node;
 
         public Status Status
         {

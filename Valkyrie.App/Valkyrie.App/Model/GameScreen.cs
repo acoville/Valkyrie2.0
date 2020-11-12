@@ -36,6 +36,54 @@ namespace Valkyrie.Graphics
 
         internal List<IDrawable> drawables_;
 
+        //===================================================================
+
+        public Actor CameraFocus
+        {
+//            get => cameraFocus_;
+            
+            set
+            {
+                CenterCamera(value);
+                //cameraFocus_ = value;     
+            }
+        }
+        
+        //==================================================================
+
+        /*-----------------------------------
+         * 
+         * Center Camera Function 
+         * 
+         * 
+         * ---------------------------------*/
+
+        public void CenterCamera(Actor actor)
+        {
+            float x = scrollBox_.Skia.MidX;
+            float y = scrollBox_.Skia.Bottom - 128;
+
+            /* 
+             * step 1: alter value's SkPosition so that
+             * its centered in the scrollbox
+             */
+
+            float deltaX = 0.0f;
+            float deltaY = 0.0f;
+
+            /*
+            cameraFocus_.SKPosition.MoveTo(x, y, deltaX, deltaY);
+
+             */
+            if(drawables_.Count != 0)
+            {
+                foreach(var drawable in drawables_)
+                {
+                    drawable.SKPosition.Translate(deltaX, deltaY);
+                }
+            }
+        }
+
         //==================================================================
 
         /*----------------------------------

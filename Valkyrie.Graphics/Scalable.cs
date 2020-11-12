@@ -23,7 +23,7 @@ namespace Valkyrie.Graphics
         * 
         * ----------------------------------------------------*/
 
-        public virtual void Scale()
+        public override void Scale()
         {
             if (DisplayImage != null && SKPosition != null)
             {

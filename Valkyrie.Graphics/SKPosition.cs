@@ -106,5 +106,46 @@ namespace Valkyrie.Graphics
             X += deltaX;
             Y += deltaY;
         }
+
+        //==========================================================
+
+        public void MoveTo(float newX, float newY, float newZ = 0.0f)
+        {
+            X = newX;
+            Y = newY;
+            Z = newZ;
+        }
+
+        //============================================================
+
+        /*----------------------------------
+         * 
+         * Overload returning out variables 
+         * for deltaX and deltaY
+         * 
+         * --------------------------------*/
+
+        public void MoveTo(float newX, float newY, float deltaX, float deltaY)
+        {
+            deltaX = newX - X;
+            X = newX;
+           
+            deltaY = newY - Y;
+            Y = newY;
+        }
+
+        //====================================================================
+
+        public override int GetHashCode()
+        {
+            int hashCode = 381260788;
+            hashCode = hashCode * -1521134295 + point_.GetHashCode();
+            hashCode = hashCode * -1521134295 + SKPoint.GetHashCode();
+            hashCode = hashCode * -1521134295 + depth_.GetHashCode();
+            hashCode = hashCode * -1521134295 + Z.GetHashCode();
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            return hashCode;
+        }
     }
 }

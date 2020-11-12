@@ -34,9 +34,9 @@ namespace Valkyrie.App
         //=====================================================
         protected async override void OnStart()
         {
-            //await Task.Delay(TimeSpan.FromSeconds(4));
-            //MainMenu = new MenuPage();
-            //MainPage = new NavigationPage(MainMenu);
+            await Task.Delay(TimeSpan.FromSeconds(4));
+            MainMenu = new MenuPage();
+            MainPage = new NavigationPage(MainMenu);
         }
 
         //=====================================================

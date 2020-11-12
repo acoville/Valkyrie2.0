@@ -215,6 +215,10 @@ namespace Valkyrie.App.Model
             Reset_Uncertainty_Region();
         }
 
+        public Actor()
+        {
+        }
+
         //====================================================================
 
         public void Accelerate()
