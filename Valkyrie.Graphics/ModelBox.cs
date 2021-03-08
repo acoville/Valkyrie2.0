@@ -33,7 +33,7 @@ using Valkryie.GL;
 
 namespace Valkyrie.Graphics
 {
-    public class ScrollBox
+    public class ModelBox
     {
         internal GLPosition origin_ = new GLPosition();
         internal SKPosition sk_origin_ = new SKPosition();
@@ -78,10 +78,9 @@ namespace Valkyrie.Graphics
          * 
          * --------------------------*/
 
-        public ScrollBox(ScreenInfo info)
+        public ModelBox(ScreenInfo info)
         {
-            Update(info);       
-            
+            Update(info);                  
             info_ = info;
         }
 
@@ -96,7 +95,6 @@ namespace Valkyrie.Graphics
         public void Update(ScreenInfo info)
         {
             UpdateGLRect(info_, info);
-            
             UpdateSKRect(info);
         }
 

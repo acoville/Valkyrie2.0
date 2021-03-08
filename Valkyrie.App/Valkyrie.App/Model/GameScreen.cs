@@ -36,52 +36,68 @@ namespace Valkyrie.Graphics
 
         internal List<IDrawable> drawables_;
 
-        //===================================================================
+        internal GLPosition GLOrigin = new GLPosition(0.0f, 0.0f, 0.0f);
+        internal SKPosition SKOrigin = new SKPosition(0.0f, 0.0f, 0.0f);
 
-        public Actor CameraFocus
+        //==================================================================
+
+        /*--------------------------------------------
+         * 
+         *  To Skia Position
+         * 
+         *  the Y returned from this needs to be 
+         *  modified by the calling function to 
+         *  adjust for image height
+         * 
+         * ----------------------------------------*/
+
+        internal SKPosition ToSkia(GLPosition g)
         {
-//            get => cameraFocus_;
-            
-            set
-            {
-                CenterCamera(value);
-                //cameraFocus_ = value;     
-            }
+            var deltaX = g.X - GLOrigin.X;
+            var deltaY = g.Y - GLOrigin.Y;
+
+            var modifiedY = (float)Height - deltaY;
+
+            return new SKPosition(deltaX, modifiedY, 0.0f);
         }
-        
+
+        //============================================================
+
+        /*-------------------------------------------------
+         * 
+         *  To Game Logic coordinate
+         *  
+         * ----------------------------------------------*/
+
+        internal GLPosition ToGL(IDrawable drawable)
+        {
+            var skia = drawable.SKPosition;
+
+            var deltaX = GLOrigin.X + skia.X;
+            
+            var Y = GLOrigin.Y + skia.Y;
+            Y += drawable.DisplayImage.Height;
+
+            var deltaY = (float)Height - Y;
+
+            var Z = drawable.SKPosition.Z;
+
+            GLPosition solution = new GLPosition(deltaX, deltaY, Z);
+
+            return solution;
+        }
+
         //==================================================================
 
         /*-----------------------------------
          * 
          * Center Camera Function 
          * 
-         * 
          * ---------------------------------*/
 
         public void CenterCamera(Actor actor)
         {
-            float x = scrollBox_.Skia.MidX;
-            float y = scrollBox_.Skia.Bottom - 128;
-
-            /* 
-             * step 1: alter value's SkPosition so that
-             * its centered in the scrollbox
-             */
-
-            float deltaX = 0.0f;
-            float deltaY = 0.0f;
-
-            /*
-            cameraFocus_.SKPosition.MoveTo(x, y, deltaX, deltaY);
-
-             */
-            if(drawables_.Count != 0)
-            {
-                foreach(var drawable in drawables_)
-                {
-                    drawable.SKPosition.Translate(deltaX, deltaY);
-                }
-            }
+            
         }
 
         //==================================================================
@@ -93,8 +109,8 @@ namespace Valkyrie.Graphics
          * 
          * --------------------------------*/
 
-        internal ScrollBox scrollBox_;
-        public ScrollBox ScrollBox
+        internal ModelBox scrollBox_;
+        public ModelBox ScrollBox
         {
             get => scrollBox_;
             set => scrollBox_ = value;
@@ -113,7 +129,9 @@ namespace Valkyrie.Graphics
             // find out where this should be displayed using the Scrollbox
 
             GLPosition glOrigin = val.GLPosition;
-            SKPosition target = scrollBox_.ToSkia(glOrigin);
+            SKPosition target = ToSkia(glOrigin);
+
+            //var height = val.TilesGroup.
 
             val.MoveSprite(target);
             
@@ -148,22 +166,12 @@ namespace Valkyrie.Graphics
             // determine starting image to use
 
             actor.Sprite.Status = Status.standing;
-            SKPosition target = scrollBox_.ToSkia(actor.GLPosition);
+            SKPosition target = ToSkia(actor.GLPosition);
 
-            //-- correct Y
-
-            int height = actor.Sprite.DisplayImage.Height;
-            target.Y -= height;
-
-            //-- correct X 
-
-            int width = actor.Sprite.DisplayImage.Width;
-            target.X += (width / 2.0f);
-
-            //-- update the Game Logic rectangle, now that we know 
-            //-- what the display dimensions are
-
+            target.Y -= actor.Sprite.DisplayImage.Height;
             actor.GLCharacter.GLRect.PixelHeight = actor.Sprite.DisplayImage.Height;
+            
+            
             actor.GLCharacter.GLRect.PixelWidth = actor.Sprite.DisplayImage.Width;
 
             //-- move the Sprite into position 
@@ -183,8 +191,9 @@ namespace Valkyrie.Graphics
 
         public void AddProp(Prop arg)
         {
-            SKPosition target = scrollBox_.ToSkia(arg.GLPosition); 
-            
+            //SKPosition target = scrollBox_.ToSkia(arg.GLPosition);
+            SKPosition target = ToSkia(arg.GLPosition);
+
             //-- correct Y 
 
             int height = arg.SKProp.DisplayImage.Height;
@@ -192,8 +201,8 @@ namespace Valkyrie.Graphics
 
             //-- correct X 
 
-            //int width = arg.SKProp.DisplayImage.Width;
-            //target.X += (width / 2.0f);
+            int width = arg.SKProp.DisplayImage.Width;
+            target.X += (width / 2.0f);
 
             //-- move into position
 
@@ -228,27 +237,13 @@ namespace Valkyrie.Graphics
 
                 foreach(var drawable in drawables_)
                 {
-                    GLPosition glpos = ToGL(drawable.SKPosition);
+                    GLPosition glpos = ToGL(drawable);
                     var target = ToSkia(glpos);
                     drawable.Move(target);
                 }
             }
 
             sizeAllocations_++;
-        }
-
-        //============================================================
-
-        internal GLPosition ToGL(SKPosition p)
-        {
-            return ScrollBox.ToGL(p);
-        }
-
-        //============================================================
-
-        internal SKPosition ToSkia(GLPosition g)
-        {
-            return ScrollBox.ToSkia(g);
         }
 
         //============================================================
@@ -267,7 +262,7 @@ namespace Valkyrie.Graphics
             Redraw = new Command<SKPaintGLSurfaceEventArgs>(OnPaintSurface);
             PaintCommand = Redraw;
 
-            scrollBox_ = new ScrollBox(Info);
+            scrollBox_ = new ModelBox(Info);
             drawables_ = new List<IDrawable>();
 
             PrepareTroubleshootingInfo();
@@ -319,7 +314,7 @@ namespace Valkyrie.Graphics
          * Event Handler to redraw the screen
          * 
          * I need to find a way to cache the 
-         * surface adn only redraw what is 
+         * surface and only redraw what is 
          * necessary, the performance on this
          * is bad
          * 
@@ -413,7 +408,7 @@ namespace Valkyrie.Graphics
 
                         //-- game logic coordinates
 
-                        GLPosition glpos = scrollBox_.ToGL(drawable.SKPosition);
+                        GLPosition glpos = ToGL(drawable);
                         string glCoords = glpos.ToString();
                         target.Y += 28.0f;
                         canvas.DrawText(glCoords, target, scrollTextPaint);

@@ -195,7 +195,22 @@ namespace Valkyrie.App.ViewModel
 
         public void AlignGamePiecesToScreen()
         {
-            //-- update the scrollbox
+            var origin = deviceScreen_.GLOrigin;
+            origin = player1.GLPosition;
+
+            //-- find the new GL origin, X 
+
+            var screen_width = deviceScreen_.Width;
+            double midX = screen_width / 2;
+            origin.X = (float)midX;
+
+            //-- find the new GL origin, Y             
+
+            //var screen_height = deviceScreen_.Height;
+            //origin.Y = player1.GLPosition.Y;
+
+
+            //-- update the scrollbox's GL origin
 
 
 

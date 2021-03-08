@@ -25,7 +25,6 @@ namespace Valkyrie.App
             InitializeComponent();
 
             MainMenu = new MenuPage();
-
             MainPage = new NavigationPage(MainMenu);
 
             //MainPage = new NavigationPage(new SplashPage());
@@ -43,14 +42,12 @@ namespace Valkyrie.App
 
         protected override void OnSleep()
         {
-
         }
 
         //=====================================================
 
         protected override void OnResume()
         {
-
         }
     }
 }

@@ -43,7 +43,18 @@ namespace Valkyrie.App.ViewModel
         public GamePageViewModel()
         {
             deviceScreen_ = new GameScreen();
-            
+
+            //-----------------------------------------------
+            //-----------------------------------------------
+            //-----------------------------------------------
+
+            //-- I need to set deviceScreen_'s .GLOrigin property before
+            // we start rendering frames
+
+            //-----------------------------------------------
+            //-----------------------------------------------
+            //-----------------------------------------------
+
             //-- need to initialize the Controllers list and add 
             // the virtual gamepad to controllers_[0] 
 
