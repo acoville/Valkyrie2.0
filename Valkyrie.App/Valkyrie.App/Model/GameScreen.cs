@@ -58,7 +58,9 @@ namespace Valkyrie.Graphics
 
             var modifiedY = (float)Height - deltaY;
 
-            return new SKPosition(deltaX, modifiedY, 0.0f);
+            var Z = g.Z;
+
+            return new SKPosition(deltaX, modifiedY, Z);
         }
 
         //============================================================

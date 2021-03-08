@@ -8,6 +8,17 @@
       Y="3"
       Z="0"/>
   
+    <!-- Actors, includes all payer characters, NPCs and monsters
+        that will be used in this level and their starting GL positions.
+        
+        Attributes:
+          control = "player / npc"
+          team = "0, 1, 2, 3, 4... N" 
+          SpriteSource = "Images.Characters..." 
+          X= ""
+          Y= ""
+          we will get into movement and combat stuff in a bit -->
+  
     <Actors>
 
       <Actor
@@ -24,6 +35,68 @@
 
     <Obstacles>
         
+      <Obstacle
+        Type="Rectangle"
+        Label="floor"
+        Height="1"
+        Width="100"
+        X="0"
+        Y="3"
+        Z="0"
+        Image="Grass"
+        Static="true" />
+
+      <Obstacle
+        Type="Rectangle"
+        Label="pillar"
+        Height="4"
+        Width="1"
+        X="5"
+        Y="4"
+        Z="0"
+        Image="Bricks.Red"
+        Static="true" />
+
+      <Obstacle
+        Type="Rectangle"
+        Label="pillar"
+        Height="4"
+        Width="1"
+        X="13"
+        Y="4"
+        Z="0"
+        Image="Bricks.Red"
+        Static="true" />
+
+      <Obstacle
+        Type="Stair"
+        Orientation="Left"
+        X="20"
+        Y="4"
+        Z="0"
+        Height="3"
+        Image="Bricks.Red"
+        Static="true" />  
+        
+      <Obstacle
+        Type="Rectangle"
+        Height="1"
+        Width="5"
+        X="4"
+        Y="13"
+        Z="0"
+        Image="Bricks.Red"
+        Static="true" />
+      
+      <Obstacle
+        Type="Stair"
+        Orientation="Right"
+        X="26"
+        Y="4"
+        Z="0"
+        Height="3"
+        Image="Bricks.Red"
+        Static="true" />  
   
     </Obstacles>
   
@@ -35,9 +108,42 @@
 
   <Props>
 
+    <Prop
+      X="-4"
+      Y="3"
+      Z="2"
+      Scalable="false"
+      Image="trees.birch.prop6.png" />
+
+    <Prop
+      X="25"
+      Z="2"
+      Y="3"
+      Scalable="false"
+      Image="trees.birch.prop.png" />
   
+    <Prop
+        X="-4"
+        Y="3"
+        Z="15"
+        Scalable="false"
+        Image="mountains.snow.prop.png" />
+
+     <Prop
+        X="15"
+        Y="3"
+        Z="14"
+        Scalable="false"
+        Image="mountains.snow.prop.png" />
+
   </Props>
 
+  <!--
+
+
+  -->
+  
+    <!-- Cutscenes -->
   
     <!-- Background Image -->
 
